@@ -1,0 +1,11 @@
+.next
+node_modules
+.vscode
+.editorconfig
+.husky
+.git
+.github
+pnpm-lock.yaml
+package-lock.json
+.vercel
+*.json

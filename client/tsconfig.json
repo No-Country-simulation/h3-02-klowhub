@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "esnext",
+    "target": "es5",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "checkJs": true,
+    "removeComments": true,
+    "alwaysStrict": true,
+    "preserveConstEnums": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": false,
+    "declaration": false,
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@root/*": [
+        "*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@features/*": [
+        "./src/features/*"
+      ],
+      "@types/*": [
+        "./src/core/types/*"
+      ],
+      "@styles/*": [
+        "./src/core/styles/*"
+      ],
+      "@core/*": [
+        "./src/core/*"
+      ],
+      "test-utils": [
+        "./__test__/test-utils.jsx"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "types.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "./out/**/*",
+    "./node_modules/**/*",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.e2e.ts"
+  ]
+}

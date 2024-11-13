@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    height: 100%;
+
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-text-size-adjust: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+
+    /* Success */
+    --color-success-100: #dcfce7;
+    --color-success-200: #4de853;
+    --color-success-300: #07c30d;
+    --color-success-400: #017605;
+
+    /* Warning */
+    --color-warning-100: #fef9c3;
+    --color-warning-200: #c1d931;
+    --color-warning-300: #c0d931;
+    --color-warning-400: #854d0e;
+
+    /* Primary A */
+    --color-primary-A-100: #dfd1f3;
+    --color-primary-A-200: #bfa3e7;
+    --color-primary-A-300: #9f74dc;
+    --color-primary-A-400: #9f74dc;
+    --color-primary-A-500: #492181;
+    --color-primary-A-600: #532692;
+    --color-primary-A-700: #421e75;
+    --color-primary-A-800: #321758;
+    --color-primary-A-900: #210f3a;
+    /* Primary B */
+    --color-primary-B-50: #f7e5ff;
+    --color-primary-B-100: #e8c9f1;
+    --color-primary-B-200: #d194e2;
+    --color-primary-B-300: #b95ed4;
+    --color-primary-B-400: #9d32bc;
+    --color-primary-B-450: #812aac;
+    --color-primary-B-500: #702486;
+    --color-primary-B-600: #5a1d6b;
+    --color-primary-B-700: #431650;
+    --color-primary-B-800: #2d0e36;
+    --color-primary-B-900: #16071b;
+
+    /* Secondary A */
+    --color-secondary-A-100: #c0d6fb;
+    --color-secondary-A-200: #a1c2fa;
+    --color-secondary-A-300: #81aef8;
+    --color-secondary-A-400: #6299f6;
+    --color-secondary-A-500: #4285f4;
+    --color-secondary-A-600: #0e61ea;
+    --color-secondary-A-700: #0a49b0;
+    --color-secondary-A-800: #073075;
+    --color-secondary-A-850: #1b1c44;
+    --color-secondary-A-900: #03183b;
+
+    /* Neutral */
+    --color-neutral-100: #1f2937;
+    --color-neutral-200: #8d8d8d;
+    --color-neutral-300: #6b7280;
+    --color-neutral-400: #C7C7C7;
+
+    /* Filters */
+    --shadow-app-1: 0px 0px 20px 0px #00000066;
+    --background-blur: 10px;
+    --background-blur-md: 18.72px;
+    --background-overlay: #20222f3b;
+
+    /* Backgrounds */
+    --gradient-bg-1: linear-gradient(45.46deg, #34395c 11.78%, #181941 41.8%, #1b1b1f 87.01%);
+    --gradient-bg-2: linear-gradient(263.17deg, #201c2d 0.4%, #201d43 50.02%, #262136 99.65%);
+  }
+
+  .autofill-inherit:-webkit-autofill {
+    background-color: inherit !important;
+    -webkit-text-fill-color: white !important;
+    color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .no-outline {
+    @apply no-underline outline-none focus:outline-none focus-visible:outline-none active:outline-none;
+  }
+}
+
+body {
+  max-width: 100dvw;
+  overflow-x: hidden;
+  touch-action: manipulation;
+  background: var(--color-neutral-100);
+}
