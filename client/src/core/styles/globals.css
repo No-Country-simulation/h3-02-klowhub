@@ -4,8 +4,6 @@
 
 @layer base {
   :root {
-    height: 100%;
-
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -64,10 +62,13 @@
     --color-neutral-100: #1f2937;
     --color-neutral-200: #8d8d8d;
     --color-neutral-300: #6b7280;
-    --color-neutral-400: #C7C7C7;
+    --color-neutral-400: #c7c7c7;
 
     /* Filters */
     --shadow-app-1: 0px 0px 20px 0px #00000066;
+    --shadow-app-2: 0px 1px 1px 0px #0000000f;
+    --shadow-app-3: 0px 1px 2px 0px #0000001a;
+
     --background-blur: 10px;
     --background-blur-md: 18.72px;
     --background-overlay: #20222f3b;
@@ -97,11 +98,16 @@
   .no-outline {
     @apply no-underline outline-none focus:outline-none focus-visible:outline-none active:outline-none;
   }
+  .header-bg-image {
+    background-image: url('/images/headerBanner.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
 }
 
 body {
   max-width: 100dvw;
   overflow-x: hidden;
   touch-action: manipulation;
-  background: var(--color-neutral-100);
+  background: var(--gradient-bg-1);
 }
