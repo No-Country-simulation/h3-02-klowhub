@@ -1,24 +1,21 @@
-import {
-  UsePipes,
+import {  
   Body,
   Controller,
-  Delete,
-  Get,
-  Param,
   Post,
-  Put,
-  Query,
-  Req,
-  UseInterceptors,
-  ValidationPipe,
-  ParseUUIDPipe,
-  ParseIntPipe,
-  HttpException,
-  HttpStatus,
-  UseGuards,
+  Get,
+  // Delete,
+  
+  // Param,
+   
+  // Query,
+
+
+ 
+ 
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersDBService } from './usersDB.Services';
+import { UsersDto } from './dto/users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -27,14 +24,15 @@ export class UsersController {
   private readonly usersDbService: UsersDBService,
 ){}
 
-  @Get('/')
-  getUsers(
-    @Query('page', ParseIntPipe) page: string,
-    @Query('limit', ParseIntPipe) limit: string,
-  ) {
-   
-   const resultado=this.usersDbService.getUsers(Number(page), Number(limit));
+  @Get()
+  getUsers() {   
+   const resultado=this.usersDbService.getUsers();
    console.log(resultado);
     return resultado;
+  }
+
+  @Post()
+  async createUsers( @Body() users: UsersDto ){
+    return this.usersDbService.createUsers(users);
   }
 }

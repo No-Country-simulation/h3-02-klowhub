@@ -1,10 +1,9 @@
-//import { Orders } from 'src/entities/order.entity';
+
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  // OneToMany,
-  // JoinColumn,
+  
 } from 'typeorm';
 
 @Entity({
@@ -35,52 +34,18 @@ export class Users {
   })
   password: string;
 
-  @Column({
-      type:"varchar",
-      nullable:false,
-  })
-  confirmPassword:string;
-
-  @Column({
-    type: 'varchar',
-  })
-  phone: string;
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
-  country: string;
-
-  @Column({
-    type: 'text',
-  })
-  address: string;
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
-  city: string;
+ 
+  @Column()
+  cursos:  string | undefined;
+ 
 
   @Column({ default: 0 })
-  reputation: number;
+  reputation: string;
   
-
-  @Column({
-    default: false,
-  })
-  isAdmin: boolean;
 
   @Column()
   createdAt: string | undefined;
 
-  @Column()
-  content:string;
-  @Column()
-  ratings: string;
+ 
 
-  // @OneToMany(() => Orders, (order) => order.user)
-  // @JoinColumn({ name: 'order_id' })
-  // orders: Orders[];
 }

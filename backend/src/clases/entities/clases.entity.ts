@@ -1,17 +1,16 @@
-import { Users } from 'src/users/entities/users.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-
+import { Cursos } from 'src/cursos/entities/cursos.entity';
 
 @Entity()
-export class Content {
+export class Clase {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-  @ManyToOne(() => Users, (user) => user.content)
-  user:Users;
+  @ManyToOne(() => Cursos, (curso) => curso.clases)
+  curso: Cursos;
 
   @Column()
-  userId: string;
+  courseId: number;
 
   @Column({ nullable: false })
   title: string;
@@ -19,18 +18,9 @@ export class Content {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ type: 'enum', enum: ['video', 'course'], default: 'video' })
-  contentType: string;
+  @Column({ nullable: false })
+  videoUrl: string;
 
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   uploadDate: Date;
-
-  @Column({ default: 0 })
-  qualityScore: number;
-  
-  @Column()
-  ratings: string;
-
 }
-
-
