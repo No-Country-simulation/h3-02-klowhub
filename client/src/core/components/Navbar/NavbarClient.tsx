@@ -51,7 +51,7 @@ export const NavbarClient = ({ children }: { children: ReactNode }) => {
           <div
             className={cn(
               'fixed right-0 top-[-25px] z-10 flex h-full min-h-screen rounded-bl-sm rounded-tl-sm bg-neutral-100 transition-all duration-300 ease-in-out min-[1400px]:hidden',
-              isMenuOpen ? 'w-[40%]' : 'w-0'
+              isMenuOpen ? 'w-full sm:w-[40%] sm:min-w-[530px]' : 'w-0'
             )}></div>
         </div>
       </div>
