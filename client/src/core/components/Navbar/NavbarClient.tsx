@@ -32,8 +32,8 @@ export const NavbarClient = ({ children }: { children: ReactNode }) => {
         backdropFilter: blurFilter,
         top: top,
       }}
-      className="container absolute mx-auto size-full max-w-[1850px] px-6 transition-all duration-300 ease-in-out">
-      <div className="container mx-auto size-full max-w-[1850px] px-6">
+      className="absolute mx-auto size-full px-6 transition-all duration-300 ease-in-out">
+      <div className="container mx-auto size-full w-full max-w-[1800px] px-6">
         <div className="flex size-full items-center justify-between">
           <Link href="/platform" className="no-outline size-fit">
             <Image src="/images/logo.png" width={52} height={54} alt="Logo" />

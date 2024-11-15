@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale, namespace: 'Platform' });
+  const t = await getTranslations<'Platform'>({ locale: locale, namespace: 'Platform' });
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
