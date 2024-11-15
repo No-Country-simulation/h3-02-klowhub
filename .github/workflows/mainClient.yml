@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: gcife-${{ github.head_ref }}
+  group: "gcife-${{ github.head_ref }}"
   cancel-in-progress: true
 
 jobs:
