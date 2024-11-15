@@ -40,41 +40,45 @@ jobs:
         working-directory: ./client
         run: pnpm build
 
-      # 3. Autenticarse con google cloud
+      # 1. Autenticarse con google cloud
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
           project_id: "${{ secrets.GCLOUD_PROJECT_ID }}"
           credentials_json: "${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}"
 
-      # 3. Autenticarse con Artifact Registry
+      # 2. Set up Google Cloud SDK
       - name: Set up Google Cloud SDK
         uses: "google-github-actions/setup-gcloud@v2"
 
-      # 3. Autenticarse con Artifact Registry
+      # 3. Exportar la región como variable de entorno
+      - name: Export region
+        run: echo "GCLOUD_REGION=${{ secrets.GCLOUD_REGION }}" >> $GITHUB_ENV
+
+      # 4. Autenticarse con Artifact Registry
       - name: Authenticate with Artifact Registry
         working-directory: ./client
         run: |
-          gcloud auth configure-docker ${secrets.GCLOUD_REGION}-docker.pkg.dev
+          gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
 
-      # 4. Construir la imagen Docker
-      - name: Build Docker image
+      # 5. Construir la imagen Docker
+       - name: Build Docker image
         working-directory: ./client
         run: |
-          docker build -t ${secrets.GCLOUD_REGION}-docker.pkg.dev/${secrets.GCLOUD_PROJECT_ID}/klowhubnext-client/klowhub-client:${github.sha} .
+          docker build -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} .
 
-      # 5. Subir la imagen a Artifact Registry
+      # 6. Subir la imagen a Artifact Registry
       - name: Push Docker image
         working-directory: ./client
         run: |
-          docker push ${secrets.GCLOUD_REGION}-docker.pkg.dev/${secrets.GCLOUD_PROJECT_ID}/klowhubnext-client/klowhub-client:${github.sha}
+          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
 
-      # 6. Desplegar a Cloud Run
+      # 7. Desplegar a Cloud Run
       - name: Deploy to Cloud Run
         working-directory: ./client
         run: |
           gcloud run deploy klowhub-client-service \
-            --image=${secrets.GCLOUD_REGION}-docker.pkg.dev/${secrets.GCLOUD_PROJECT_ID}/klowhubnext-client/klowhub-client:${github.sha} \
-            --region=${secrets.GCLOUD_REGION} \
+            --image=$GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} \
+            --region=$GCLOUD_REGION \
             --platform=managed \
             --allow-unauthenticated
