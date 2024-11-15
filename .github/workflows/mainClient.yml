@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.3
         with:
@@ -41,7 +42,6 @@ jobs:
 
       # 3. Autenticarse con Artifact Registry
       - name: Set up Google Cloud SDK
-        working-directory: ./client
         uses: google-github-actions/setup-gcloud@v1
         with:
           service_account_key: ${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}
@@ -57,20 +57,20 @@ jobs:
       - name: Build Docker image
         working-directory: ./client
         run: |
-          docker build -t ${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:$GITHUB_SHA .
+          docker build -t ${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} .
 
       # 5. Subir la imagen a Artifact Registry
       - name: Push Docker image
         working-directory: ./client
         run: |
-          docker push ${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:$GITHUB_SHA
+          docker push ${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
 
       # 6. Desplegar a Cloud Run
       - name: Deploy to Cloud Run
         working-directory: ./client
         run: |
           gcloud run deploy klowhub-client-service \
-            --image=${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:$GITHUB_SHA \
+            --image=${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} \
             --region=${secrets.GCLOUD_REGION} \
             --platform=managed \
             --allow-unauthenticated
