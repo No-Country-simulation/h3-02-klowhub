@@ -11,10 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  job_id:
-    permissions:
-      contents: "read"
-      id-token: "write"
   mainClient:
     strategy:
       matrix:
