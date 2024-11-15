@@ -49,7 +49,7 @@ jobs:
 
       # 2. Set up Google Cloud SDK
       - name: Set up Google Cloud SDK
-        uses: "google-github-actions/setup-gcloud@v2"
+        uses: google-github-actions/setup-gcloud@v2
 
       # 3. Exportar la región como variable de entorno
       - name: Export region
@@ -62,7 +62,7 @@ jobs:
           gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
 
       # 5. Construir la imagen Docker
-       - name: Build Docker image
+      - name: Build Docker image
         working-directory: ./client
         run: |
           docker build -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} .
