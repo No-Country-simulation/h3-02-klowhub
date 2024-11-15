@@ -11,6 +11,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  job_id:
+    permissions:
+      contents: "read"
+      id-token: "write"
   mainClient:
     strategy:
       matrix:
@@ -40,12 +44,16 @@ jobs:
         working-directory: ./client
         run: pnpm build
 
+      # 3. Autenticarse con google cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: "${{ secrets.GCLOUD_PROJECT_ID }}"
+          credentials_json: "${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}"
+
       # 3. Autenticarse con Artifact Registry
       - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          service_account_key: ${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}
-          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+        uses: "google-github-actions/setup-gcloud@v2"
 
       # 3. Autenticarse con Artifact Registry
       - name: Authenticate with Artifact Registry
@@ -57,20 +65,20 @@ jobs:
       - name: Build Docker image
         working-directory: ./client
         run: |
-          docker build -t ${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} .
+          docker build -t ${secrets.GCLOUD_REGION}-docker.pkg.dev/${secrets.GCLOUD_PROJECT_ID}/klowhubnext-client/klowhub-client:${github.sha} .
 
       # 5. Subir la imagen a Artifact Registry
       - name: Push Docker image
         working-directory: ./client
         run: |
-          docker push ${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
+          docker push ${secrets.GCLOUD_REGION}-docker.pkg.dev/${secrets.GCLOUD_PROJECT_ID}/klowhubnext-client/klowhub-client:${github.sha}
 
       # 6. Desplegar a Cloud Run
       - name: Deploy to Cloud Run
         working-directory: ./client
         run: |
           gcloud run deploy klowhub-client-service \
-            --image=${secrets.GCLOUD_REGION}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} \
+            --image=${secrets.GCLOUD_REGION}-docker.pkg.dev/${secrets.GCLOUD_PROJECT_ID}/klowhubnext-client/klowhub-client:${github.sha} \
             --region=${secrets.GCLOUD_REGION} \
             --platform=managed \
             --allow-unauthenticated
