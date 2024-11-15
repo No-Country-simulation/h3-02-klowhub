@@ -2,14 +2,13 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { Link } from '../../lib/i18nRouting';
 import { cn } from '../../lib/utils';
 import Button from '../Button';
 
-const supportBackdrop = CSS.supports('backdrop-filter', 'blur(1px)');
-
 export const NavbarClient = ({ children }: { children: ReactNode }) => {
+  const [supportBackdrop, setSupportBackdrop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const backgroundColor = useTransform(
@@ -19,6 +18,12 @@ export const NavbarClient = ({ children }: { children: ReactNode }) => {
   );
   const blurFilter = useTransform(scrollY, [0, 100], ['blur(20px)', 'blur(40px)']);
   const top = useTransform(scrollY, [0, 100], ['25px', '0px']);
+  useEffect(() => {
+    // Verifica si la API está disponible en el cliente
+    if (typeof window !== 'undefined' && CSS.supports) {
+      setSupportBackdrop(CSS.supports('backdrop-filter', 'blur(1px)'));
+    }
+  }, []);
 
   return (
     <motion.div
