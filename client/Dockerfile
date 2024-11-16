@@ -9,7 +9,8 @@ WORKDIR /app
 COPY . .
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-RUN echo "ignore-scripts=true" > .npmrc && npm_config_ignore_scripts=true pnpm install
+RUN npm_config_ignore_scripts=true pnpm install
+COPY postcss.config.js ./
 RUN pnpm build
 
 FROM base as production
@@ -20,7 +21,7 @@ ENV NODE_ENV=production
 ENV PORT=8080
 
 COPY package.json pnpm-lock.yaml ./
-RUN echo "ignore-scripts=true" > .npmrc && npm_config_ignore_scripts=true pnpm install --prod
+RUN npm_config_ignore_scripts=true pnpm install --prod
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
