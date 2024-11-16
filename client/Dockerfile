@@ -2,7 +2,7 @@ FROM node:20-alpine AS base
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 RUN npm install -g pnpm@9.7.0
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml postcss.config.cjs ./
 
 FROM base AS builder
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY . .
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN npm_config_ignore_scripts=true pnpm install
-COPY postcss.config.js ./
+
 RUN pnpm build
 
 FROM base as production
@@ -30,6 +30,7 @@ USER nextjs
 # Copia los archivos de la etapa de construcción
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/postcss.config.cjs ./
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/public ./public
 
