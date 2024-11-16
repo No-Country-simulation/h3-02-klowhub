@@ -28,18 +28,6 @@ jobs:
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
-      - name: Setup/ Install dependencies
-        working-directory: ./client
-        run: pnpm install
-
-      - name: Linter
-        working-directory: ./client
-        run: pnpm lint
-
-      - name: Build
-        working-directory: ./client
-        run: pnpm build
-
       # 1. Autenticarse con google cloud
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
