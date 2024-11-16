@@ -29,7 +29,7 @@ USER nextjs
 
 # Copia los archivos de la etapa de construcción
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/postcss.config.cjs ./
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/public ./public
