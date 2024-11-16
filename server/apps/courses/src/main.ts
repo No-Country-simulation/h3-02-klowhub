@@ -1,8 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3002);
+  const app = await NestFactory.createMicroservice(AppModule, {
+    transport: Transport.GRPC,
+    options: {
+      url: `${process.env.URL}:${process.env.PORT}`,
+      package: 'courses',       
+      protoPath: join(__dirname, '../_proto/courses.proto'),
+    },
+  });
+  
+  return app.listen();
 }
 bootstrap();

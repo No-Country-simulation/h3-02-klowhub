@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package courses;
+
+// Definición del servicio
+service CoursesService {
+  // Método que corresponde a la ruta GET /courses/hello
+  rpc GetHello(Empty) returns (HelloResponse);
+}
+
+// Mensaje vacío para peticiones que no necesitan datos
+message Empty {}
+
+// Respuesta del método GetHello
+message HelloResponse {
+  string message = 1; 
+}
