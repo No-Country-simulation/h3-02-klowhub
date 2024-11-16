@@ -4,8 +4,8 @@ import { join } from "path";
 export const coursessGrcpClient: GrpcOptions = {
     transport: Transport.GRPC,
     options: {
-      url: `0.0.0.0:3001`,
-      package: 'users',       
-      protoPath: join(__dirname, '../_proto/users.proto'),
+      url: `0.0.0.0:3002`,
+      package: 'courses',       
+      protoPath: join(__dirname, '../_proto/courses.proto'),
     },
   };
