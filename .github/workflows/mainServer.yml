@@ -24,6 +24,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Setup/ Install pnpm 9.7.0 manually
+        working-directory: ./client
+        run: npm install -g pnpm@9.7.0
+        
       # 1. Autenticarse con google cloud
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
@@ -56,13 +60,7 @@ jobs:
         working-directory: ./backend
         run: |
           docker build \
-            --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} \
-            --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} \
-            --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} \
-            --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
-            --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} \
-            --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
-            --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
+            --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
             -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-server:${{ github.sha }} .
 
       # 6. Subir la imagen a Artifact Registry
