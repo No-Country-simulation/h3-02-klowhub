@@ -14,6 +14,9 @@ importers:
       '@grpc/proto-loader':
         specifier: 0.7.13
         version: 0.7.13
+      '@grpc/reflection':
+        specifier: 1.0.4
+        version: 1.0.4(@grpc/grpc-js@1.12.2)
       '@nestjs/common':
         specifier: 10.2.10
         version: 10.2.10(class-transformer@0.5.1)(class-validator@0.13.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
@@ -551,6 +554,11 @@ packages:
     resolution: {integrity: sha512-AiXO/bfe9bmxBjxxtYxFAXGZvMaN5s8kO+jBHAJCON8rJoB5YS/D6X7ZNc6XQkuHNmyl4CYaMI1fJ/Gn27RGGw==}
     engines: {node: '>=6'}
     hasBin: true
+
+  '@grpc/reflection@1.0.4':
+    resolution: {integrity: sha512-znA8v4AviOD3OPOxy11pxrtP8k8DanpefeTymS8iGW1fVr1U2cHuzfhYqDPHnVNDf4qvF9E25KtSihPy2DBWfQ==}
+    peerDependencies:
+      '@grpc/grpc-js': ^1.8.21
 
   '@hapi/hoek@9.3.0':
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
@@ -4696,6 +4704,12 @@ snapshots:
       long: 5.2.3
       protobufjs: 7.4.0
       yargs: 17.7.2
+
+  '@grpc/reflection@1.0.4(@grpc/grpc-js@1.12.2)':
+    dependencies:
+      '@grpc/grpc-js': 1.12.2
+      '@grpc/proto-loader': 0.7.13
+      protobufjs: 7.4.0
 
   '@hapi/hoek@9.3.0': {}
 

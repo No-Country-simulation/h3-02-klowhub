@@ -2,16 +2,12 @@ syntax = "proto3";
 
 package users;
 
-// Definición del servicio
 service UsersService {
-  // Método que corresponde a la ruta GET /users/hello
   rpc GetHello(Empty) returns (HelloResponse);
 }
 
-// Mensaje vacío para peticiones que no necesitan datos
 message Empty {}
 
-// Respuesta del método GetHello
 message HelloResponse {
-  string message = 1; // Contiene el "Hello World!" o cualquier respuesta.
+  string message = 1;
 }
