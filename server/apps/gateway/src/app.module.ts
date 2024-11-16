@@ -6,7 +6,6 @@ import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     HealthCheckModule,
     UsersModule,
     CoursesModule
