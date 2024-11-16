@@ -13,8 +13,7 @@ dotenv.config();
       load: [configuration],
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.MONGO_URI),
-    CoursesModule,  // Importa el módulo de Cursos
+    CoursesModule,
   ],
 })
 export class AppModule {}

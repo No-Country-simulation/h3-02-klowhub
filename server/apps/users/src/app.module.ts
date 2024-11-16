@@ -14,13 +14,6 @@ dotenv.config();
       load: [configuration],
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DATABASE_URL as string, // Asegúrate de que DATABASE_URL esté en el archivo .env
-      entities: [User], // Asegúrate de que User esté definido correctamente
-      synchronize: true, // Sincroniza la base de datos (solo en desarrollo, cuidado en producción)
-    }),
-    TypeOrmModule.forFeature([User]),
     UsersModule
   ],
   controllers: [],

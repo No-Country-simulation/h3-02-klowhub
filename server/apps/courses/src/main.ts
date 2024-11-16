@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice(AppModule, {
     transport: Transport.GRPC,
     options: {
-      url: `${process.env.URL}:${process.env.PORT}`,
+      url: `localhost:3002`,
       package: 'courses',       
       protoPath: join(__dirname, '../_proto/courses.proto'),
     },

@@ -4,7 +4,7 @@ import { Transport, ClientOptions } from '@nestjs/microservices'
 export const CoursesServiceClientOptions: ClientOptions = {
   transport: Transport.GRPC,
   options: {
-    url: `${process.env.COURSES_SVC_URL}:${process.env.COURSES_SVC_PORT}`,
+    url: `localhost:3002`,
     package: 'courses',
     protoPath: join(__dirname, '../../_proto/courses.proto'),
     loader: {
