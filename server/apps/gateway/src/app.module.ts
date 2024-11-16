@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { HealthCheckModule } from './health-check/health-check.module';
 import { UsersModule } from './users/users.module';
 import { CoursesModule } from './courses/courses.module';
+import { LoggerService } from './common/logger.service';
+import { LoggerServiceAdapter } from './common/loggerAdapter.service';
 
 @Module({
   imports: [
@@ -11,6 +12,15 @@ import { CoursesModule } from './courses/courses.module';
     CoursesModule
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: LoggerService,
+      useFactory: () => {
+        const logger = new LoggerServiceAdapter();
+        logger.connect('trace');
+        return logger;
+      },
+    }
+  ],
 })
 export class AppModule {}
