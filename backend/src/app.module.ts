@@ -7,6 +7,7 @@ import { RatingModule } from './rating/rating.module';
 import { ReputacionModule } from './reputacion/reputacion.module';
 import { CursosModule } from './cursos/cursos.module';
 import { ClasesModule } from './clases/clases.module';
+import { SuscriptoModule } from './suscripto/suscripto.module';
 
 @Module({
   imports: [UsersModule,CursosModule,ClasesModule, ConfigModule.forRoot({
@@ -16,7 +17,7 @@ import { ClasesModule } from './clases/clases.module';
     inject: [ConfigService],
     useFactory: (configService: ConfigService) =>
       configService.get('typeorm'),
-  }), RatingModule, ReputacionModule, CursosModule, ClasesModule],
+  }), RatingModule, ReputacionModule, CursosModule, ClasesModule, SuscriptoModule],
   controllers: [],
   providers: [],
 })
