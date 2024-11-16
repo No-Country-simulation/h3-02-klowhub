@@ -1,4 +1,16 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { routing } from '@root/src/core/lib/i18nRouting';
+
+export async function generateStaticParams() {
+  const paths = routing.locales.map(locale => ({
+    locale,
+    slug: `${locale}/platform`,
+  }));
+
+  return paths.map(params => ({
+    params,
+  }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -15,6 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function PlatformPage() {
+export default async function PlatformPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return <main className="flex h-screen w-full flex-col items-center justify-center"></main>;
 }

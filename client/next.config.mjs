@@ -20,6 +20,15 @@ const config = {
   },
   output:"standalone",
   outputFileTracingRoot: path.join(__dirname, ".next"),
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        pathname: '/klowhub-media/*',
+      },
+    ],
+  },
 };
 
 export default withNextIntl(config);

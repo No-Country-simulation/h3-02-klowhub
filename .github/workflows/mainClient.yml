@@ -67,7 +67,7 @@ jobs:
       - name: Deploy to Cloud Run
         working-directory: ./client
         run: |
-          gcloud run deploy klowhub-client-service \
+          gcloud run deploy klowhub \
             --image=$GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} \
             --region=$GCLOUD_REGION \
             --platform=managed \
