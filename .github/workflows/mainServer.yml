@@ -45,6 +45,12 @@ jobs:
         run: |
           gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
 
+      # 4.5. Lint Dockerfile
+      - name: List files and check build context
+        run: |
+          ls -l ./backend
+          echo "Dockerfile exists? $(test -f ./backend/Dockerfile && echo 'Yes' || echo 'No')"
+
       # 5. Construir la imagen Docker
       - name: Build Docker image
         working-directory: ./backend

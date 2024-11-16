@@ -3,13 +3,12 @@ FROM node:20-alpine AS base
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 RUN npm install -g typescript @nestjs/cli
+COPY package.json package-lock.json tsconfig.json ./
 
 # Fase de Construcción
 FROM base AS builder
 WORKDIR /app
-COPY package.json package-lock.json tsconfig.json ./
-COPY ./src ./src
-COPY ./test ./test
+COPY . .
 RUN npm ci
 # Declaración de los ARGs (se pasaran desde GitHub Actions)
 ARG POSTGRES_URL
@@ -27,8 +26,6 @@ ENV POSTGRES_USER=$POSTGRES_USER
 ENV POSTGRES_HOST=$POSTGRES_HOST
 ENV POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 ENV POSTGRES_DATABASE=$POSTGRES_DATABASE
-ENV NODE_ENV=production
-ENV PORT=3000
 RUN npm run build
 
 # Fase de Producción
@@ -53,13 +50,13 @@ ENV POSTGRES_DATABASE=$POSTGRES_DATABASE
 ENV NODE_ENV=production
 ENV PORT=3000
 
+RUN addgroup -g 1001 -S nodejs && adduser -S nestjs -u 1001
+USER nestjs
+
 # Copiar archivos relevantes de la fase de construcción
 COPY --from=builder /app/package.json /app/package-lock.json ./
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src ./src
-
-RUN addgroup -g 1001 -S nodejs && adduser -S nestjs -u 1001
-USER nestjs
 
 EXPOSE 3000
 
