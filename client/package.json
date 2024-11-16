@@ -20,7 +20,7 @@
     "prepare": "node setup-husky.js",
     "test": "cross-env FORCE_COLOR=1 vitest run --passWithNoTests",
     "test:watch": "vitest --passWithNoTests --watch",
-    "postinstall": "npx patch-package && node setup-husky.js"
+    "postinstall": "if [ \"$NODE_ENV\" != \"production\" ]; then npx patch-package && node setup-husky.js; fi"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "1.1.2",
