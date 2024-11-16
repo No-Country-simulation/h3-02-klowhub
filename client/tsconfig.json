@@ -72,7 +72,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "next.config.mjs"  ],
   "exclude": [
     "./out/**/*",
     "./node_modules/**/*",

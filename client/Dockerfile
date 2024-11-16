@@ -7,11 +7,15 @@ COPY package.json pnpm-lock.yaml ./
 FROM base AS builder
 WORKDIR /app
 COPY . .
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN pnpm install
 RUN pnpm build
 
 FROM base as production
 WORKDIR /app
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NODE_ENV=production
 ENV PORT=8080
 
