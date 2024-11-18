@@ -9,6 +9,11 @@
         "development": "Development by {name}."
     },
     "Platform": {
+      "metainquiries": "Inquiries",
+      "metaauthor":"Author",
+      "metadate":"Date",
+      "metaplatform":"Platform",
+      "metastade":"Stade",
       "metaTitle": "Klowhub Platform",
       "metaDescription": "Klowhub page for platform (?)",
       "metaSiteName": "Klowhub Platform"
@@ -58,5 +63,4 @@
         "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors"
 }
 }
-    }
-}
+    

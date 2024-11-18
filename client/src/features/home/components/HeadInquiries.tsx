@@ -17,7 +17,7 @@ export default function CardInquiries() {
         <p>{t('metaplatform')}</p>
       </div>
       <div className={`${styles.estado} `}>
-        <p>{t('metastad')}</p>
+        <p>{t('metastade')}</p>
       </div>
     </div>
   );

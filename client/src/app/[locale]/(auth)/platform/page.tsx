@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@root/src/core/lib/i18nRouting';
-import SectionIquiris from '@root/src/features/home/SectionIquiris';
+import SectionIquiris from '@root/src/features/home/components/SectionIquiris';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
