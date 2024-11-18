@@ -51,5 +51,9 @@
         "passwordRequired": "Contraseña es requerida",
         "emailInvalid": "Correo electronico es invalido",
         "passwordInvalid": "Contraseña es invalida"
+    },
+    "Banner": {
+        "connectWithExperts": "Conecta con Expertos",
+        "learnFromTheBest": "Aprende de los mejores: impulsa tu conocimiento con nuestros mentores especializados"
     }
 }

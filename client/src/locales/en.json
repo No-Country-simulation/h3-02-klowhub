@@ -51,5 +51,12 @@
         "passwordRequired": "Password is required",
         "emailInvalid": "Email is invalid",
         "passwordInvalid": "Password is invalid"
+    },
+    "Banner":{
+        
+        "connectWithExperts": "Connect with Experts",
+        "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors"
+}
+}
     }
 }
