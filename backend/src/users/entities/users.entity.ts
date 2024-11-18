@@ -1,9 +1,11 @@
 
+import { Cursos } from 'src/cursos/entities/cursos.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  
+  OneToMany,
+  JoinColumn
 } from 'typeorm';
 
 @Entity({
@@ -46,6 +48,7 @@ export class Users {
   @Column()
   createdAt: string | undefined;
 
- 
+  @OneToMany(() => Cursos, (curso) => curso.userId)
+  curso: Cursos[];
 
 }

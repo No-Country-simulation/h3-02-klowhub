@@ -3,32 +3,41 @@ import {
   Controller,
   Post,
   Get,
-  // Delete,
-  
-  // Param,
-   
-  // Query,
-
-
- 
- 
+  Param,
+  ParseUUIDPipe,
+  HttpException,
+  HttpStatus
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+
 import { UsersDBService } from './usersDB.Services';
 import { UsersDto } from './dto/users.dto';
 
 @Controller('users')
 export class UsersController {
   constructor( 
-  private readonly usersService: UsersService,
   private readonly usersDbService: UsersDBService,
 ){}
 
   @Get()
-  getUsers() {   
-   const resultado=this.usersDbService.getUsers();
+  async getUsers() {   
+   const resultado= await this.usersDbService.getUsers();
    console.log(resultado);
     return resultado;
+  }
+
+  @Get(':id')
+  getUsersById(@Param('id', ParseUUIDPipe) id: string) {
+   
+    try {
+      const user = this.usersDbService.getUsersById(id);
+      return user;
+    } catch (error) {
+      throw new HttpException(
+        `error ${error} controlado y no exploto el server`,
+        HttpStatus.BAD_REQUEST,
+        { cause: error },
+      );
+    }
   }
 
   @Post()
