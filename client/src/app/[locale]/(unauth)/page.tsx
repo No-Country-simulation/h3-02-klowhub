@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale, namespace: 'Root' });
+  const t = await getTranslations<'Root'>({ locale: locale, namespace: 'Root' });
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 //Pagina Home/About principal
-export default async function App({ params }: { params: { locale: string } }) {
+export default async function App({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('Root');

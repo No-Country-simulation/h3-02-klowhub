@@ -1,0 +1,80 @@
+name: mainServer
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: "gcibe-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+jobs:
+  mainServer:
+    strategy:
+      matrix:
+        node-version: [20.x]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup/ Install pnpm 9.7.0 manually
+        working-directory: ./client
+        run: npm install -g pnpm@9.7.0
+        
+      # 1. Autenticarse con google cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: "${{ secrets.GCLOUD_PROJECT_ID }}"
+          credentials_json: "${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}"
+
+      # 2. Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 3. Exportar la región como variable de entorno
+      - name: Export region
+        run: echo "GCLOUD_REGION=${{ secrets.GCLOUD_REGION }}" >> $GITHUB_ENV
+
+      # 4. Autenticarse con Artifact Registry
+      - name: Authenticate with Artifact Registry
+        working-directory: ./backend
+        run: |
+          gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
+
+      # 4.5. Lint Dockerfile
+      - name: List files and check build context
+        run: |
+          ls -l ./backend
+          echo "Dockerfile exists? $(test -f ./backend/Dockerfile && echo 'Yes' || echo 'No')"
+
+      # 5. Construir la imagen Docker
+      - name: Build Docker image
+        working-directory: ./backend
+        run: |
+          docker build \
+            --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
+            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-server:${{ github.sha }} .
+
+      # 6. Subir la imagen a Artifact Registry
+      - name: Push Docker image
+        working-directory: ./backend
+        run: |
+          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-server:${{ github.sha }}
+
+      # 7. Desplegar a Cloud Run
+      - name: Deploy to Cloud Run
+        working-directory: ./backend
+        run: |
+          gcloud run deploy api-klowhub \
+            --image=$GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-server:${{ github.sha }} \
+            --region=$GCLOUD_REGION \
+            --platform=managed \
+            --allow-unauthenticated

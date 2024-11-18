@@ -8,6 +8,33 @@
         "subTitle": "Comienza tu proyecto con una base moderna y sólida",
         "development": "Desarrollado por {name}"
     },
+    "Platform": {
+      "metaTitle": "Plataforma Klowhub",
+      "metaDescription": "Página de Klowhub para (?)",
+      "metaSiteName": "Plataforma Klowhub"
+    },
+    "Navbar": {
+      "dashboardLink": "Panel",
+      "coursesLink": "Cursos y lecciones",
+      "appstoreLink": "Tienda de apps",
+      "projectsLink": "Proyectos",
+      "consultanciesLink": "Consultas",
+      "aboutappsheetLink": "Sobre Appsheet",
+      "explorer": "Explorador",
+      "creator": "Creador",
+      "learnIn": "Aprende en Klowhub",
+      "findApps": "Encuentra Aplicaciones",
+      "publishProjects": "Publica Proyectos",
+      "technicalQueries": "Consultas tecnicas",
+      "cartLabel": "Carrito de compras",
+      "cartAlt": "Icono de carrito de compras",
+      "bellLabel": "Notificaciones",
+      "bellAlt": "Icono de notificaciones",
+      "mailLabel": "Mensaje directo",
+      "mailAlt": "Icono de mensaje directo",
+      "homeText": "Inicio",
+      "platformText": "Plataforma"
+  },
     "Auth": {
         "forgotPassword": "¿Olvidaste tu contraseña?",
         "notHaveAccount": "No tienes una cuenta?",
@@ -24,5 +51,9 @@
         "passwordRequired": "Contraseña es requerida",
         "emailInvalid": "Correo electronico es invalido",
         "passwordInvalid": "Contraseña es invalida"
+    },
+    "Banner": {
+        "connectWithExperts": "Conecta con Expertos",
+        "learnFromTheBest": "Aprende de los mejores: impulsa tu conocimiento con nuestros mentores especializados"
     }
 }

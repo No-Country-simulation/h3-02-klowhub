@@ -6,7 +6,7 @@ import { signinField } from '../../constants/fields';
 interface SigninFormProps {
   btnText: string;
   linkText: string;
-  fieldsTranslate: TranslationType;
+  fieldsTranslate: TranslationType<string>;
 }
 
 export default function SigninForm({ btnText, linkText, fieldsTranslate }: SigninFormProps) {
