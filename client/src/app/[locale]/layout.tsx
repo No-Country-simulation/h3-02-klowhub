@@ -46,7 +46,7 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
   //Si llega un locale no identificado redirige hacia notFound

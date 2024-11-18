@@ -6,7 +6,7 @@ import { signupFields } from '../../constants/fields';
 interface SignupFormProps {
   btnText: string;
   linkText: string;
-  fieldsTranslate: TranslationType;
+  fieldsTranslate: TranslationType<string>;
 }
 
 export default function SignupForm({ btnText, linkText, fieldsTranslate }: SignupFormProps) {

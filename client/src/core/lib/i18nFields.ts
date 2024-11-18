@@ -8,5 +8,5 @@ export const useFieldsMessages = () => {
 };
 
 export const getFieldsMessages = async () => {
-  return await getTranslations('Fields');
+  return await getTranslations<'Fields'>('Fields');
 };

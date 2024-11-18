@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 
-import failOnConsole from 'vitest-fail-on-console/dist';
+import failOnConsole from 'vitest-fail-on-console';
 
 failOnConsole({
   shouldFailOnDebug: true,
