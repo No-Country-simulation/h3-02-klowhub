@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, OnModuleInit } from '@nestjs/common';
-import { ClientGrpc } from '@nestjs/microservices';
+import * as microservices from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { CoursesService } from './courses.interfaces';
 
@@ -8,7 +8,7 @@ export class CoursesController implements OnModuleInit {
   private coursesService: CoursesService;
 
   constructor(
-    @Inject('COURSE_SERVICE') private client: ClientGrpc, 
+    @Inject('COURSE_SERVICE') private client: microservices.ClientGrpc, 
   ) {}
   
   onModuleInit() {

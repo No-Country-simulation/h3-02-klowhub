@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json.schemastore.org/swcrc",
+    "sourceMaps": false,
+    "jsc": {
+      "parser": {
+        "syntax": "typescript",
+        "decorators": true,
+        "dynamicImport": true
+      },
+      "transform": {
+        "legacyDecorator": true,
+        "decoratorMetadata": true
+      },
+      "baseUrl": "./",
+      "target": "es2020",
+      "loose": true,
+      "externalHelpers": false
+    },
+    "isModule": true,
+    "module": {
+      "type": "es6",
+      "resolveFully": true
+    },
+    "minify": true
+  }

@@ -1,0 +1,12 @@
+data/docker/volumes/mysql
+data/migrations/*.ts
+node_modules
+.vscode
+.editorconfig
+.husky
+.git
+.github
+pnpm-lock.yaml
+package-lock.json
+*.json
+dist

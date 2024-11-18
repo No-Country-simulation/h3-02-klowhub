@@ -1,0 +1,7 @@
+POST http://localhost:3000/v1/identity/signin
+content-type: application/json
+
+{
+    "email": "admin@klowhub.com",
+    "password": "admin"
+}

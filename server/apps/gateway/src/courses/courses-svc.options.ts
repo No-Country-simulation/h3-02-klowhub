@@ -1,5 +1,9 @@
-import { join } from 'path'
 import { Transport, ClientOptions } from '@nestjs/microservices'
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const CoursesServiceClientOptions: ClientOptions = {
   transport: Transport.GRPC,
@@ -11,6 +15,6 @@ export const CoursesServiceClientOptions: ClientOptions = {
       enums: String,
       objects: true,
       arrays: true
-    }
+    },
   }
 }

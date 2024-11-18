@@ -1,0 +1,2 @@
+GET http://localhost:3000/courses/hello
+content-type: application/json

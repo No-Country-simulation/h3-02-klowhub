@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package identity;
+
+service IdentityService {
+  rpc Signup (SignupRequest) returns (AuthMessage);
+  rpc Signin (SigninRequest) returns (AuthResult);
+  rpc RefreshAccess (RefreshRequest) returns (AuthResult);
+  rpc Logout (LogoutRequest) returns (AuthMessage);
+  rpc ConfirmEmail (ConfirmEmailRequest) returns (AuthResult);
+  rpc VerifyToken (VerrifyTokenRequest) returns (VerrifyTokenResponse);
+}
+
+message SignupRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+  string lastname = 4;
+  string origin = 5;
+}
+
+message AuthResult {
+  string accessToken = 1;
+  string refreshToken = 2;
+  User user = 3;
+}
+
+message AuthMessage {
+  bool success = 1;
+  string message = 2;
+}
+
+message SigninRequest {
+  string email = 1;
+  string password = 2;
+  string origin = 3;
+}
+
+message RefreshRequest {
+  string refreshToken = 1;
+  string origin = 2;
+}
+
+message LogoutRequest {
+  string refreshToken = 1;
+}
+
+message ConfirmEmailRequest {
+  string confirmationToken = 1;
+  string origin = 2;
+}
+
+message VerrifyTokenRequest {
+  string accessToken = 1;
+}
+
+message VerrifyTokenResponse {
+  bool isValid = 1;
+  string id = 2;
+}
+
+
+message User {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+  string lastnaame = 4;
+}

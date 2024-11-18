@@ -7,7 +7,7 @@ import { existsSync } from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const DEFAULT_CONFIG = {
-  directories: ['apps/gateway', 'apps/courses', 'apps/users'],
+  directories: ['apps/gateway', 'apps/courses', 'apps/users', 'apps/identity'],
   command: 'install',
   manager: 'npm'
 };

@@ -2,25 +2,24 @@ import { Module } from '@nestjs/common';
 import { HealthCheckModule } from './health-check/health-check.module';
 import { UsersModule } from './users/users.module';
 import { CoursesModule } from './courses/courses.module';
-import { LoggerService } from './common/logger.service';
-import { LoggerServiceAdapter } from './common/loggerAdapter.service';
+import { ConfigModule } from '@nestjs/config';
+import { configuration } from './common/configuration';
+import { IdentityModule } from './identity/identity.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
+    }),
     HealthCheckModule,
     UsersModule,
-    CoursesModule
+    CoursesModule,
+    IdentityModule,
+    CommonModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: LoggerService,
-      useFactory: () => {
-        const logger = new LoggerServiceAdapter();
-        logger.connect('trace');
-        return logger;
-      },
-    }
-  ],
+  providers: [],
 })
 export class AppModule {}

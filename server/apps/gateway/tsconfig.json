@@ -1,9 +1,12 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs", 
+    "module": "esnext",
+    "target": "es2020",
     "moduleResolution": "node",
+    "moduleDetection": "auto",
     "esModuleInterop": true,
+    "preserveSymlinks": true,
     "strict": true,
     "inlineSources": true,
     "resolveJsonModule": true,
@@ -14,13 +17,13 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
   }
 }
