@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ValueTransformer,
+  JoinColumn,
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 
@@ -68,6 +69,8 @@ export class AccountEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.accounts, {
     createForeignKeyConstraints: true,
+    onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'userId' }) // Vincula la columna userId a la relación
   user!: UserEntity;
 }

@@ -37,7 +37,9 @@ export class UserEntity {
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
-  @OneToMany(() => AccountEntity, (account) => account.userId)
+  @OneToMany(() => AccountEntity, (account) => account.user, {
+    cascade: true,
+  })
   accounts!: AccountEntity[];
 
   @CreateDateColumn()

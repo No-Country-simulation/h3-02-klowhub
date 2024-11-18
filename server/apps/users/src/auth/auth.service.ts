@@ -9,10 +9,12 @@ import { EmailService } from './email/email.service';
 import { AccountEntity } from '../entities/accounts.entity';
 import { generateVerificationToken } from './utils/authToken';
 import * as jwt from 'jsonwebtoken';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly usersService: UsersService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(AccountEntity)
@@ -118,5 +120,67 @@ export class AuthService {
     );
 
     return { message: 'Registration successful, please verify your email' };
+  }
+  //Google
+  async validateGoogleUser(profile: any) {
+    const { email, provider, providerAccountId, displayName, image } = profile;
+
+    if (!email) {
+      throw new Error(
+        'El perfil de Google no contiene un correo electrónico válido.',
+      );
+    }
+
+    // 1. Buscar si el usuario ya existe por su email
+    let user = await this.userRepository.findOne({
+      where: { email },
+      relations: ['accounts'], // Incluye las cuentas vinculadas
+    });
+
+    if (user) {
+      // 2. Verificar si este proveedor ya está vinculado
+      const existingAccount = user.accounts.find(
+        (account) =>
+          account.provider === provider &&
+          account.providerAccountId === providerAccountId,
+      );
+
+      if (!existingAccount) {
+        // 3. Si el proveedor no está vinculado, agregarlo
+        const newAccount = this.accountRepository.create({
+          userId: user.id,
+          provider,
+          providerAccountId,
+          access_token: profile.accessToken || null,
+          refresh_token: profile.refreshToken || null,
+        });
+        await this.accountRepository.save(newAccount);
+      }
+
+      return user;
+    }
+
+    // 4. Si el usuario no existe, crear uno nuevo
+    user = this.userRepository.create({
+      email,
+      firstName: displayName?.split(' ')?.[0] || null,
+      lastName: displayName?.split(' ')?.[1] || null,
+      image: image || null,
+      isEmailVerified: true, // Asumimos que Google verifica el email
+    });
+
+    user = await this.userRepository.save(user);
+
+    // 5. Vincular la cuenta de Google al nuevo usuario
+    const account = this.accountRepository.create({
+      userId: user.id,
+      provider,
+      providerAccountId,
+      access_token: profile.accessToken || null,
+      refresh_token: profile.refreshToken || null,
+    });
+    await this.accountRepository.save(account);
+
+    return user;
   }
 }
