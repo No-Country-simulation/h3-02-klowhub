@@ -1,0 +1,109 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+  }
+  .logoState {
+    padding: 3px 6px;
+  }
+  
+  @media (min-width: 1025px) {
+    .gridContainer {
+      grid-template-columns: repeat(6, 1fr);
+      max-width: 100%
+    }
+    .firstRowContainer {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); 
+        padding: 16px;
+        border-radius: 8px;
+        gap: 8px;
+      }
+    .titleDescription {
+      grid-column: 1 / span 2;
+    }
+    
+    .firstRowContainer {
+        grid-column: span 4;
+      }
+  }
+  
+  @media (max-width: 1024px) and (min-width: 730px) {
+    .gridContainer {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 100%;
+      padding: 24px;
+    }
+  
+
+    .firstRowContainer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      background: #FFFFFF0D;
+      border-radius: 8px;
+      padding: 6px;
+      gap: 24px;
+    }
+  
+
+    .photoName,
+    .fecha,
+    .logoState,
+    .state {
+      grid-column: span 1;
+    }
+  
+    .titleDescription {
+      gap:16px;
+      grid-column: 1 / -1;
+      order: 4;
+    }
+  }
+  
+
+  @media (max-width: 730px) {
+    .gridContainer {
+      flex-direction: column;
+      padding: 24px;
+      grid-template-columns: 1fr;
+      width: 302px;
+      max-width: 302px;
+    }
+
+    .firstRowContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 6px;
+      gap: 24px;
+    }
+  
+    .photoName { 
+      order: -1;
+    }
+  
+    .fecha {
+      order: 0;
+    }
+  
+    .logoState {
+      max-width: max-content;
+      order: 1;
+      padding: 0px 12px;
+      gap: 12px
+      
+    }
+  
+    .titleDescription {
+      display: flex;
+      align-items: start;
+      justify-content: start;
+      order: 2;
+      gap:16px;
+    }
+  
+    .state {
+      order: 3;
+    }
+  }
