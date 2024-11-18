@@ -9,6 +9,11 @@
         "development": "Desarrollado por {name}"
     },
     "Platform": {
+      "metainquiries": "Consultas",
+      "metaauthor":"Autor",
+      "metadate":"Fecha",
+      "metaplatform":"Plataforma",
+      "metastade":"Estado",
       "metaTitle": "Plataforma Klowhub",
       "metaDescription": "Página de Klowhub para (?)",
       "metaSiteName": "Plataforma Klowhub"
@@ -55,5 +60,18 @@
     "Banner": {
         "connectWithExperts": "Conecta con Expertos",
         "learnFromTheBest": "Aprende de los mejores: impulsa tu conocimiento con nuestros mentores especializados"
+    },
+    "Card": {
+        "title": "Dominando el desarrollo de aplicaciones con AppSheet",
+        "description": "Conviértete en un experto en AppSheetHub y aprende a crear aplicaciones sin escribir una sola línea de código.",
+        "textButton": "AppSheet",
+        "tags": [
+            "Logistica",
+            "Optimización",
+            "Inventarios"
+        ],
+        "categoria": "Lección",
+        "titulo": "Cursos recomendados",
+        "desc": "Descubre los cursos más destacados y lleva tus habilidades al siguiente nivel. Aprende de expertos y aplica tus conocimientos en proyectos reales."
     }
 }
