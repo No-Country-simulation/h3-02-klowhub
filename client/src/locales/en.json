@@ -8,6 +8,33 @@
         "subTitle": "Start your project with modern and solid base",
         "development": "Development by {name}."
     },
+    "Platform": {
+      "metaTitle": "Klowhub Platform",
+      "metaDescription": "Klowhub page for platform (?)",
+      "metaSiteName": "Klowhub Platform"
+    },
+    "Navbar": {
+        "dashboardLink": "Dashboard",
+        "coursesLink": "Courses and lessons",
+        "appstoreLink": "Appstore",
+        "projectsLink": "projects",
+        "consultanciesLink": "Consultancies",
+        "aboutappsheetLink": "About Appsheet",
+        "explorer": "Explorer",
+        "creator": "Creator",
+        "learnIn": "Learn in Klowhub",
+        "findApps": "Find Applications",
+        "publishProjects": "Publish Projects",
+        "technicalQueries": "Technical queries",
+        "cartLabel": "Shopping cart",
+        "cartAlt": "Shopping cart icon",
+        "bellLabel": "Notifications",
+        "bellAlt": "Notifications icon",
+        "mailLabel": "Direct message",
+        "mailAlt": "Direct message icon",
+        "homeText": "Home",
+        "platformText": "Platform"
+    },
     "Auth": {
         "forgotPassword": "¿Forgot your password?",
         "notHaveAccount": "Don't have an account?",
@@ -37,5 +64,6 @@
         "categoria": "Lección",
         "titulo": "Recommended courses",
         "desc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects."
+
     }
 }

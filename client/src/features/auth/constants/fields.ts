@@ -1,7 +1,7 @@
 import type { FieldType } from '@/core/types/fields';
 import type { TranslationType } from '@root/src/core/types/translationType';
 
-export const useAuthFields = (t: TranslationType): FieldType[] => {
+export const useAuthFields = (t: TranslationType<'Fields'>): FieldType[] => {
   return [
     {
       id: 'emailField',
@@ -22,6 +22,6 @@ export const useAuthFields = (t: TranslationType): FieldType[] => {
   ];
 };
 
-export const signinField = (t: TranslationType) => useAuthFields(t);
+export const signinField = (t: TranslationType<'Fields'>) => useAuthFields(t);
 
-export const signupFields = (t: TranslationType) => useAuthFields(t);
+export const signupFields = (t: TranslationType<'Fields'>) => useAuthFields(t);

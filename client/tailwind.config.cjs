@@ -92,9 +92,10 @@ module.exports = {
         'gradient-bg-2': 'var(--gradient-bg-2)',
       },
       boxShadow: {
-        "shadow-app": {
-          1: "var(--shadow-app-1)"
-        }
+        'app-1': "var(--shadow-app-1)",
+        'app-2': "var(--shadow-app-2)",
+        'app-3': "var(--shadow-app-3)",
+        'app-4': "var(--shadow-app-2), var(--shadow-app-3)",
       }
     },
   },
