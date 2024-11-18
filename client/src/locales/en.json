@@ -8,6 +8,33 @@
         "subTitle": "Start your project with modern and solid base",
         "development": "Development by {name}."
     },
+    "Platform": {
+      "metaTitle": "Klowhub Platform",
+      "metaDescription": "Klowhub page for platform (?)",
+      "metaSiteName": "Klowhub Platform"
+    },
+    "Navbar": {
+        "dashboardLink": "Dashboard",
+        "coursesLink": "Courses and lessons",
+        "appstoreLink": "Appstore",
+        "projectsLink": "projects",
+        "consultanciesLink": "Consultancies",
+        "aboutappsheetLink": "About Appsheet",
+        "explorer": "Explorer",
+        "creator": "Creator",
+        "learnIn": "Learn in Klowhub",
+        "findApps": "Find Applications",
+        "publishProjects": "Publish Projects",
+        "technicalQueries": "Technical queries",
+        "cartLabel": "Shopping cart",
+        "cartAlt": "Shopping cart icon",
+        "bellLabel": "Notifications",
+        "bellAlt": "Notifications icon",
+        "mailLabel": "Direct message",
+        "mailAlt": "Direct message icon",
+        "homeText": "Home",
+        "platformText": "Platform"
+    },
     "Auth": {
         "forgotPassword": "¿Forgot your password?",
         "notHaveAccount": "Don't have an account?",
@@ -30,4 +57,6 @@
         "connectWithExperts": "Connect with Experts",
         "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors"
 }
+}
+    }
 }
