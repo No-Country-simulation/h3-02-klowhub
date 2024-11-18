@@ -52,11 +52,18 @@
         "emailInvalid": "Email is invalid",
         "passwordInvalid": "Password is invalid"
     },
-    "Banner":{
-        
+    "Banner": {
         "connectWithExperts": "Connect with Experts",
         "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors"
-}
-}
+    },
+    "Card": {
+        "title": "Mastering App Development with AppSheet",
+        "description": "Become an AppSheetHub expert and learn how to build apps without writing a single line of code.",
+        "textButton": "AppSheet",
+        "tags": "Logistics,Optimization,Inventories",
+        "categoria": "Lección",
+        "titulo": "Recommended courses",
+        "desc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects."
+
     }
 }
