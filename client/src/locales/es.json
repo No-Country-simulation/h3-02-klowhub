@@ -9,6 +9,11 @@
         "development": "Desarrollado por {name}"
     },
     "Platform": {
+      "metainquiries": "Consultas",
+      "metaauthor":"Autor",
+      "metadate":"Fecha",
+      "metaplatform":"Plataforma",
+      "metastade":"Estado",
       "metaTitle": "Plataforma Klowhub",
       "metaDescription": "Página de Klowhub para (?)",
       "metaSiteName": "Plataforma Klowhub"
