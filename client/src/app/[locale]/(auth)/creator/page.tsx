@@ -1,5 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@root/src/core/lib/i18nRouting';
+import BannerCta from '@root/src/features/home/components/Banner';
+import banner from '/public/images/appsheet_particles.png';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
@@ -30,5 +32,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function CreatorPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16"></main>;
+  const t = await getTranslations<'Creator'>({ locale: locale, namespace: 'Creator' });
+  return (
+    <main className="mt-5 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+      <BannerCta
+        title="Klowhub"
+        description={t('bannerSubtitle')}
+        imageSrc={banner}
+        type="creator"
+      />
+    </main>
+  );
 }

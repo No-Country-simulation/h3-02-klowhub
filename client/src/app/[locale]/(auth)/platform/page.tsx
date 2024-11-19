@@ -35,7 +35,7 @@ export default async function PlatformPage({ params }: { params: Promise<{ local
   setRequestLocale(locale);
   const t = await getTranslations<'Banner'>({ locale: locale, namespace: 'Banner' });
   return (
-    <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mt-14 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
       <CourseSection />
       <SectionIquiris />
       <BannerCta
