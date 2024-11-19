@@ -12,26 +12,29 @@ import {
   Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterSchema } from './dto/create-user.dto';
+import { RegisterSchema, RegisterDto } from './dto/create-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserEntity } from 'src/entities/user.entity';
 import { Response } from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
+import { MessagePattern } from '@nestjs/microservices'; // se agregar esto
 
 @Controller('auth')
 export class AuthController {
   usersService: any;
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
-  async register(@Body() registerDto: any) {
+  // ya no seria @Post seria @MessagePattern @Post('register')
+  @MessagePattern({ cmd: 'register' })
+  async register(data: any) {
     // Validamos los datos de la solicitud utilizando Zod
-    const validationResult = RegisterSchema.safeParse(registerDto);
+    const validationResult = RegisterSchema.safeParse(data);
     if (!validationResult.success) {
       throw new BadRequestException(validationResult.error.errors); // Lanzamos un error si la validación falla
     }
-
+    //siguiente paso
+    const registerDto: RegisterDto = validationResult.data;
     return this.authService.registerUser(registerDto); // Registramos al usuario
   }
   //

@@ -3,7 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
-import { RegisterSchema } from './dto/create-user.dto';
+import { RegisterDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { EmailService } from './email/email.service';
 import { AccountEntity } from '../entities/accounts.entity';
@@ -84,53 +84,63 @@ export class AuthService {
     }
   }
   // Registrar Usuario
-  async registerUser(registerDto: any) {
-    const validationResult = RegisterSchema.safeParse(registerDto);
-    if (!validationResult.success) {
-      throw new BadRequestException(validationResult.error.errors);
-    }
+  async registerUser(registerDto: RegisterDto) {
+    // Verificar si el usuario ya existe
     const userExists = await this.userRepository.findOne({
       where: { email: registerDto.email },
     });
     if (userExists) {
-      throw new BadRequestException('Email already registered');
+      return { message: 'El email ya está registrado.' };
     }
+    // Encriptar la contraseña
     const encryptedPassword = await bcrypt.hash(registerDto.password, 10);
-
+    // Crear nuevo usuario
     const newUser = this.userRepository.create({
       email: registerDto.email,
       password: encryptedPassword,
     });
+
+    // Generar token de verificación con fecha de expiración
     const emailVerificationExpiresAt = new Date();
     emailVerificationExpiresAt.setHours(
       emailVerificationExpiresAt.getHours() + 1,
-    ); // Expira en 1 hora
-
-    // Generar y almacenar el token de verificación
+    );
     const verificationToken = generateVerificationToken(
       newUser.id,
       newUser.email,
     );
     newUser.verificationToken = verificationToken;
-    // Guardar el usuario con la fecha de expiración y el token
+
+    // Guardar el nuevo usuario
     await this.userRepository.save(newUser);
 
-    // Crear el registro en la tabla 'accounts' para asociar este usuario con su cuenta de tipo 'credentials'
+    // Crear registro en la tabla de cuentas
     const newAccount = this.accountRepository.create({
       userId: newUser.id,
-      type: 'credentials', // Tipo de cuenta (credenciales ya que se registrar con email y password)
-      provider: 'credentials', // Proveedor de la cuenta
-      providerAccountId: newUser.id, // ID del usuario, como cuenta de credenciales
+      type: 'credentials',
+      provider: 'credentials',
+      providerAccountId: newUser.id,
     });
 
     await this.accountRepository.save(newAccount);
 
-    await this.emailService.sendVerificationEmail(
-      newUser.email,
-      verificationToken,
-    );
+    // Enviar correo de verificación
+    try {
+      await this.emailService.sendVerificationEmail(
+        newUser.email,
+        verificationToken,
+      );
+    } catch (error) {
+      console.error('Error enviando correo de verificación:', error);
+      throw new BadRequestException(
+        'No se pudo enviar el correo de verificación.',
+      );
+    }
 
-    return { message: 'Registration successful, please verify your email' };
+    // Retornar respuesta
+    return {
+      message: 'Registro exitoso. Por favor verifica tu email.',
+    };
   }
   // Login y tambien Registro con Google
   async validateGoogleUser(profile: any) {
