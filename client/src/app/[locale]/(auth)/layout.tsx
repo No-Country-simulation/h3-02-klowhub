@@ -3,7 +3,7 @@ import Navbar from '@root/src/core/components/Navbar';
 
 export default function AuthenticatedLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-12">
+    <div className="flex min-h-screen flex-col items-center justify-start pb-12 pt-28">
       <Navbar />
       {children}
     </div>
