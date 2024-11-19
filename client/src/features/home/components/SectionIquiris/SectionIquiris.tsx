@@ -1,9 +1,9 @@
 import React from 'react';
-import CardInquiries from '@/features/home/components/CardInquiries';
-import HeadInquiries from '@/features/home/components/HeadInquiries';
+import CardInquiries from '@root/src/features/home/components/CardInquiries/CardInquiries';
+import HeadInquiries from '@root/src/features/home/components/HeaderInquiries/HeadInquiries';
 function SectionIquiris() {
   return (
-    <section className="mt-96 flex flex-col gap-[24px] text-xl">
+    <section className="mt-16 flex flex-col gap-[24px] text-xl">
       <h3 className="text-white">Cunsultas</h3>
       <div className="flex min-w-full flex-row gap-[25px] p-12 min-[730px]:flex-col min-[730px]:bg-neutral-100">
         <HeadInquiries />
