@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@root/src/core/lib/i18nRouting';
-import BannerCta from '@root/src/features/home/components/Banner';
+import BannerCta from '@root/src/core/components/Banner';
 import banner from '/public/images/appsheet_particles.png';
 
 export async function generateStaticParams() {
