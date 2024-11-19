@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { cn } from '@root/src/core/lib/utils';
 import styles from './HeadInquiries.module.css';
 
 export default function CardInquiries() {
@@ -9,14 +10,16 @@ export default function CardInquiries() {
         <p>{t('metainquiries')}</p>
       </div>
       <div className={`${styles.autor} `}></div>
-      <p>{t('metaauthor')}</p>
-      <div className={`${styles.fecha} `}>
+      <div className="flex justify-center">
+        <p>{t('metaauthor')}</p>
+      </div>
+      <div className={cn(styles.fecha, 'flex justify-center')}>
         <p>{t('metadate')}</p>
       </div>
-      <div className={`${styles.plataforma} `}>
+      <div className={cn(styles.plataforma, 'flex justify-center')}>
         <p>{t('metaplatform')}</p>
       </div>
-      <div className={`${styles.estado} `}>
+      <div className={cn(styles.estado, 'flex justify-center')}>
         <p>{t('metastade')}</p>
       </div>
     </div>

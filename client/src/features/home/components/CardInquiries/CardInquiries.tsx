@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import styles from './CardInquiries.module.css'; // Asegúrate de que la ruta sea correcta
+import styles from './CardInquiries.module.css';
+import { cardSkeletonBlur } from '../../models/cardSkeleton.blur';
 
 export interface CardInquiriesProps {
   title: string;
@@ -42,7 +43,10 @@ export default function CardInquiries({
             width={50}
             height={50}
             alt={nombre}
-            className="w-50p h-50px mr-[24px] rounded-full bg-white object-cover"
+            className="mr-[24px] rounded-full bg-white object-cover"
+            placeholder="blur"
+            blurDataURL={cardSkeletonBlur}
+            aria-label={nombre}
           />
           <p className="text-left text-sm text-white">{nombre}</p>
         </div>
