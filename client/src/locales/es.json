@@ -14,9 +14,49 @@
       "metadate":"Fecha",
       "metaplatform":"Plataforma",
       "metastade":"Estado",
-      "metaTitle": "Plataforma Klowhub",
-      "metaDescription": "Página de Klowhub para (?)",
+      "metaTitle": "Klowhub - Página de plataforma",
+      "metaDescription": "Klowhub pagina principal de la plataforma",
       "metaSiteName": "Plataforma Klowhub"
+    },
+    "AboutAppsheet": {
+      "metaTitle": "Klowhub - Página sobre app sheet",
+      "metaDescription": "Klowhub pagina sobre app sheet",
+      "metaSiteName": "Klowhub - Página sobre app sheet"
+    },
+    "AppStore": {
+      "metaTitle": "Klowhub - Pagina tienda de aplicaciones",
+      "metaDescription": "Klowhub pagina tienda de aplicaciones",
+      "metaSiteName": "Klowhub - Pagina tienda de aplicaciones"
+    },
+    "Consultancies": {
+      "metaTitle": "Klowhub - Consultas",
+      "metaDescription": "Klowhub pagina de Consultas",
+      "metaSiteName": "Klowhub - Consultas"
+    },
+    "Courses": {
+      "metaTitle": "Klowhub - Cursos",
+      "metaDescription": "Klowhub pagina de Cursos",
+      "metaSiteName": "Klowhub - Cursos"
+    },
+    "Creator": {
+      "metaTitle": "Klowhub - Creador",
+      "metaDescription": "Klowhub pagina de Creadores",
+      "metaSiteName": "Klowhub - Creador"
+    },
+    "Membership": {
+      "metaTitle": "Klowhub - Membresias",
+      "metaDescription": "Klowhub pagina de Membresias",
+      "metaSiteName": "Klowhub - Membresias"
+    },
+    "Profile": {
+      "metaTitle": "Klowhub - Perfil de usuario",
+      "metaDescription": "Klowhub pagina de Perfil de usuario",
+      "metaSiteName": "Klowhub - Perfil de usuario"
+    },
+    "Projects": {
+      "metaTitle": "Klowhub - Projectos de usuario",
+      "metaDescription": "Klowhub pagina de Projectos de usuario",
+      "metaSiteName": "Klowhub - Projectos de usuario"
     },
     "Navbar": {
       "dashboardLink": "Panel",

@@ -15,8 +15,48 @@
     "metaplatform": "Platform",
     "metastade": "Stade",
     "metaTitle": "Klowhub Platform",
-    "metaDescription": "Klowhub page for platform (?)",
+    "metaDescription": "Klowhub page platform",
     "metaSiteName": "Klowhub Platform"
+  },
+  "AboutAppsheet": {
+    "metaTitle": "Klowhub - About app sheet",
+    "metaDescription": "Klowhub about app sheet page",
+    "metaSiteName": "Klowhub - About app sheet"
+  },
+  "AppStore": {
+    "metaTitle": "Klowhub - App store",
+    "metaDescription": "Klowhub App store page",
+    "metaSiteName": "Klowhub - App store"
+  },
+  "Consultancies": {
+    "metaTitle": "Klowhub - Consultancies",
+    "metaDescription": "Klowhub Consultancies page",
+    "metaSiteName": "Klowhub - Consultancies"
+  },
+  "Courses": {
+    "metaTitle": "Klowhub - Courses",
+    "metaDescription": "Klowhub Courses page",
+    "metaSiteName": "Klowhub - Courses"
+  },
+  "Creator": {
+    "metaTitle": "Klowhub - Creator",
+    "metaDescription": "Klowhub Creator page",
+    "metaSiteName": "Klowhub - Creator"
+  },
+  "Membership": {
+    "metaTitle": "Klowhub - Membership",
+    "metaDescription": "Klowhub Membership page",
+    "metaSiteName": "Klowhub - Membership"
+  },
+  "Profile": {
+    "metaTitle": "Klowhub - Profile",
+    "metaDescription": "Klowhub Profile page",
+    "metaSiteName": "Klowhub - Profile"
+  },
+  "Projects": {
+    "metaTitle": "Klowhub - Projects",
+    "metaDescription": "Klowhub Projects page",
+    "metaSiteName": "Klowhub - Projects"
   },
   "Navbar": {
     "dashboardLink": "Dashboard",
