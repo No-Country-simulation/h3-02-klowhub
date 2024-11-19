@@ -3,7 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
-import { RegisterDto } from './dto/create-user.dto';
+import { RegisterDto } from './dto/registerSchema.dto';
 import * as bcrypt from 'bcrypt';
 import { EmailService } from './email/email.service';
 import { AccountEntity } from '../entities/accounts.entity';
@@ -96,6 +96,8 @@ export class AuthService {
     const encryptedPassword = await bcrypt.hash(registerDto.password, 10);
     // Crear nuevo usuario
     const newUser = this.userRepository.create({
+      firstName: registerDto.firstName,
+      lastName: registerDto.lastName,
       email: registerDto.email,
       password: encryptedPassword,
     });

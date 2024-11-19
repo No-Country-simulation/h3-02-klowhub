@@ -7,12 +7,12 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { RegisterSchema } from './dto/register.dto';
+import { RegisterSchema } from './dto/registerSchema.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(
-    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy, // Cliente para el microservicio
+    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy,
   ) {}
 
   @Post('register')

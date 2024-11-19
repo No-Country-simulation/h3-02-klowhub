@@ -12,7 +12,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterSchema, RegisterDto } from './dto/create-user.dto';
+import { RegisterSchema, RegisterDto } from './dto/registerSchema.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserEntity } from 'src/entities/user.entity';
 import { Response } from 'express';
@@ -38,7 +38,7 @@ export class AuthController {
     return this.authService.registerUser(registerDto); // Registramos al usuario
   }
   //
-  @Post('verify-email')
+  @Post('verifyEmail')
   async verifyEmail(@Body('token') token: string): Promise<any> {
     try {
       await this.authService.verifyEmailToken(token); // Llama al servicio que valida el token
@@ -85,7 +85,7 @@ export class AuthController {
    * Solicitar un nuevo token de verificación.
    * @param email El correo electrónico del usuario.
    */
-  @Post('resend-verification-token')
+  @Post('verifyEmail')
   async resendVerificationToken(@Body('email') email: string) {
     if (!email) {
       throw new BadRequestException('El email es obligatorio.');
@@ -98,7 +98,7 @@ export class AuthController {
    * Solicitar restablecer la contraseña.
    * @param email El correo electrónico del usuario.
    */
-  @Post('request-password-reset')
+  @Post('resendPasswordEmail')
   async requestPasswordReset(@Body('email') email: string) {
     if (!email) {
       throw new BadRequestException('El email es obligatorio.');
@@ -111,7 +111,7 @@ export class AuthController {
    * Restablecer la contraseña.
    * @param data Datos del usuario, incluyendo el token y la nueva contraseña.
    */
-  @Post('reset-password')
+  @Post('resendPassword')
   async resetPassword(
     @Body() data: { email: string; token: string; newPassword: string },
   ) {

@@ -5,7 +5,9 @@ import {
   ClientProxyFactory,
   Transport,
 } from '@nestjs/microservices';
-import { RegisterDto } from './auth/dto/register.dto';
+import { RegisterDto } from './auth/dto/registerSchema.dto';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Injectable()
 export class AppService {
@@ -15,8 +17,8 @@ export class AppService {
     this.client = ClientProxyFactory.create({
       transport: Transport.TCP,
       options: {
-        host: process.env.MICROSERVICE_HOST || 'localhost', // Dirección del microservicio
-        port: parseInt(process.env.MICROSERVICE_PORT, 10) || 3001, // Puerto del microservicio
+        host: process.env.MICROSERVICE_HOST || '0.0.0.0',
+        port: parseInt(process.env.MICROSERVICE_PORT, 10) || 3001,
       },
     });
   }
