@@ -1,7 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing } from '@root/src/core/lib/i18nRouting';
 import BannerCta from '@root/src/core/components/Banner';
+import { routing } from '@root/src/core/lib/i18nRouting';
 import banner from '/public/images/appsheet_particles.png';
+import NavigatorSection from '@root/src/features/creator/components/NavigatorSection/Index';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
@@ -41,6 +42,7 @@ export default async function CreatorPage({ params }: { params: Promise<{ locale
         imageSrc={banner}
         type="creator"
       />
+      <NavigatorSection />
     </main>
   );
 }
