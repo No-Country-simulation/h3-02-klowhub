@@ -77,3 +77,40 @@ export const Temple_Verific_Email = ({
       `,
   };
 };
+
+//
+export function Temple_Reset_Password({
+  email,
+  resetLink,
+  logoUrl,
+}: {
+  email: string;
+  resetLink: string;
+  logoUrl: string;
+}) {
+  return {
+    from: process.env.SMTP_FROM, // Dirección de correo del remitente
+    to: email,
+    subject: 'Restablece tu contraseña',
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+        <div style="text-align: center;">
+          <img src="${logoUrl}" alt="Logo" style="max-width: 200px; margin-bottom: 20px;" />
+        </div>
+        <h2 style="color: #333;">Solicitud de restablecimiento de contraseña</h2>
+        <p>Hola,</p>
+        <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta. Si no fuiste tú, puedes ignorar este correo.</p>
+        <p>Para restablecer tu contraseña, haz clic en el siguiente enlace:</p>
+        <p>
+          <a href="${resetLink}" style="color: #fff; background-color: #007BFF; padding: 10px 15px; text-decoration: none; border-radius: 5px; display: inline-block;">
+            Restablecer contraseña
+          </a>
+        </p>
+        <p>Si no puedes hacer clic en el enlace, copia y pega la siguiente URL en tu navegador:</p>
+        <p>${resetLink}</p>
+        <p>Gracias,</p>
+        <p>El equipo de [Tu Empresa]</p>
+      </div>
+    `,
+  };
+}

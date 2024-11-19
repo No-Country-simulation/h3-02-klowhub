@@ -44,3 +44,12 @@ export const verifyEmailToken = async (
     throw new BadRequestException('Invalid or expired token');
   }
 };
+
+export function generateResetToken(userId: string, email: string): string {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET is not defined in environment variables');
+  }
+  return jwt.sign({ userId, email }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+}
