@@ -7,7 +7,7 @@ import { cn } from '@/core/lib/utils';
 //Te asegura un estilo inicial, y al momento de usar las variantes evitas choques de clases
 //Ver docs: https://cva.style/docs
 const btnStyle = cva(
-  'inline-flex items-center justify-center no-underline truncate disabled:opacity-60 disabled:cursor-default text-white transition-colors duration-200 ease-in-out',
+  'inline-flex items-center justify-center no-underline truncate disabled:opacity-60 disabled:cursor-default text-white transition-colors duration-200 ease-in-out rounded-lg',
   {
     variants: {
       variant: {
@@ -20,11 +20,11 @@ const btnStyle = cva(
         neutral: 'bg-white/10 border border-white/10',
       },
       size: {
-        default: 'h-9 px-4',
+        default: 'h-9 px-4 py-5',
         sm: 'h-9 px-1',
-        lg: 'h-9 py-1 px-8',
+        lg: 'h-9 py-6 px-8',
         fit: 'size-fit',
-        full: 'h-9 px-2 w-full max-w-[100cqw]',
+        full: 'h-9 px-2 py-4 w-full max-w-[100cqw]',
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },
