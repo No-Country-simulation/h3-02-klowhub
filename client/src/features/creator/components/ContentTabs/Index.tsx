@@ -1,6 +1,7 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@core/components/Tabs/Index';
+import { Tabs, TabsContent } from '@core/components/Tabs/Index';
 import HeaderContent from '../ContentHeader/Index';
 import ContentItem from '../ContentItem/Index';
+import ContentTabList from '../ContentTabList/Index';
 
 interface ContentTabsProps {
   general: string;
@@ -31,13 +32,13 @@ const ContentTabs = ({
 }: ContentTabsProps) => {
   return (
     <Tabs defaultValue="general" className="w-full">
-      <TabsList className="w-full min-w-[438px] overflow-hidden min-[820px]:max-w-[40%]">
-        <TabsTrigger value="general">{general}</TabsTrigger>
-        <TabsTrigger value="apps">{apps}</TabsTrigger>
-        <TabsTrigger value="courses">{courses}</TabsTrigger>
-        <TabsTrigger value="projects">{projects}</TabsTrigger>
-        <TabsTrigger value="mentors">{mentors}</TabsTrigger>
-      </TabsList>
+      <ContentTabList
+        general={general}
+        apps={apps}
+        courses={courses}
+        projects={projects}
+        mentors={mentors}
+      />
       <HeaderContent
         name={headerName}
         amount={headerAmount}
