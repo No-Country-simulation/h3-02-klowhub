@@ -26,7 +26,17 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
       <AuthLayout
         title="KlowHub"
         description="Explora, aprende, enseña y conecta. Crea tu cuenta en KlowHub y accede a un mundo de posibilidades.">
-        <SignupForm btnText={t('signup')} fieldsTranslate={fields} linkText={t('haveAccount')} />
+        <SignupForm
+          text1={t('signText1')}
+          text2={t('signText2')}
+          text3={t('signText3')}
+          text4={t('signText4')}
+          textButoons={t('signTextButoons')}
+          btnText={t('signup')}
+          fieldsTranslate={fields}
+          linkText={t('signin')}
+          textpreLink="ya tienes cuenta ? "
+        />
       </AuthLayout>
     </div>
   );

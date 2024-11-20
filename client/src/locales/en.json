@@ -112,7 +112,8 @@
   },
   "Fields": {
     "emailLabel": "Email",
-    "passwordLabel": "Password"
+    "passwordLabel": "Password",
+    "nameLabel": "Name"
   },
   "Validations": {
     "emailRequired": "Email is required",
