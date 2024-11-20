@@ -30,7 +30,7 @@ const Navigator = ({
         backgroundPosition: bgPosition,
       }}
       className={cn(
-        'flex h-24 w-full flex-row items-center justify-center overflow-hidden rounded-lg bg-cover bg-center bg-no-repeat p-4 text-center text-xl font-bold leading-10 text-white shadow-app-1',
+        'flex h-24 w-full flex-row items-center justify-center overflow-hidden rounded-lg bg-cover bg-center bg-no-repeat p-4 text-center text-lg font-bold leading-10 text-white shadow-app-1 min-[580px]:text-xl',
         className
       )}>
       {children}

@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import BannerCta from '@root/src/core/components/Banner';
 import { routing } from '@root/src/core/lib/i18nRouting';
 import banner from '/public/images/appsheet_particles.png';
+import ContentSection from '@root/src/features/creator/components/ContentSection/Index';
 import NavigatorSection from '@root/src/features/creator/components/NavigatorSection/Index';
 
 export async function generateStaticParams() {
@@ -35,7 +36,7 @@ export default async function CreatorPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
   const t = await getTranslations<'Creator'>({ locale: locale, namespace: 'Creator' });
   return (
-    <main className="mt-5 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mt-5 size-full space-y-10 px-10 sm:px-[51px] min-[1800px]:px-16">
       <BannerCta
         title="Klowhub"
         description={t('bannerSubtitle')}
@@ -43,6 +44,7 @@ export default async function CreatorPage({ params }: { params: Promise<{ locale
         type="creator"
       />
       <NavigatorSection />
+      <ContentSection />
     </main>
   );
 }
