@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { GatewayController } from './gateway.controller';
+import { AuthController } from './auth/auth.controllers';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -11,7 +11,7 @@ dotenv.config();
         name: 'USERS_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: process.env.USERS_SERVICE_HOST || 'localhost',
+          host: process.env.USERS_SERVICE_HOST || '0.0.0.0',
           port: parseInt(process.env.USERS_SERVICE_PORT, 10) || 3001,
         },
       },
@@ -25,7 +25,7 @@ dotenv.config();
       },
     ]),
   ],
-  controllers: [GatewayController],
+  controllers: [AuthController],
   providers: [],
 })
 export class GatewayModule {}

@@ -1,3 +1,4 @@
+// src/dto/register.dto.ts
 import { z } from 'zod';
 
 export const RegisterSchema = z.object({
@@ -7,6 +8,13 @@ export const RegisterSchema = z.object({
     .max(50, { message: 'First name cannot exceed 50 characters.' })
     .regex(/^[a-zA-Z\s]+$/, {
       message: 'First name can only contain letters and spaces.',
+    }),
+  lastName: z
+    .string()
+    .min(2, { message: 'Last name must be at least 2 characters long.' })
+    .max(50, { message: 'Last name cannot exceed 50 characters.' })
+    .regex(/^[a-zA-Z\s]+$/, {
+      message: 'Last name can only contain letters and spaces.',
     }),
   email: z
     .string()

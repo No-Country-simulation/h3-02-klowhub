@@ -6,18 +6,22 @@ import {
   Inject,
   BadRequestException,
   Patch,
+  Response,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { RegisterSchema } from './dto/registerSchema.dto';
 import { UpdateSchema } from './dto/updateSchema.dto';
-import { LoginSchema } from './dto/loginSchema.dto';
+import { LoginDto } from './dto/loginSchema.dto';
+import { CookieService } from 'src/common/services/cookie.service';
+import { Response as ExpressResponse } from 'express';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy,
-  ) { }
+    private readonly cookieService: CookieService,
+  ) {}
 
   @Post('register')
   async register(@Body() registerDto: any): Promise<any> {
@@ -41,9 +45,7 @@ export class AuthController {
   }
   @Post('google')
   async google(@Body() token: string): Promise<any> {
-    return lastValueFrom(
-      this.authClient.send({ cmd: 'google' }, { token }),
-    );
+    return lastValueFrom(this.authClient.send({ cmd: 'google' }, { token }));
   }
   @Patch('update')
   async update(@Body() updateDto: any, @Request() req: any): Promise<any> {
@@ -59,15 +61,29 @@ export class AuthController {
       this.authClient.send({ cmd: 'google' }, { token, updateDto }),
     );
   }
-  
+  //
   @Post('login')
-  async login(@Body() loginDto: any): Promise<any> {
-    const validationResult = LoginSchema.safeParse(loginDto);
-    if (!validationResult.success) {
-      throw new BadRequestException(validationResult.error.errors);
+  async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
+    try {
+      // Enviar la solicitud al microservicio
+      const { token } = await lastValueFrom(
+        this.authClient.send({ cmd: 'login' }, loginDto),
+      );
+
+      // Usar el servicio CookieService para gestionar la cookie
+      this.cookieService.set(res, 'auth_token', token, {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict',
+      });
+
+      // Regresar una respuesta al cliente
+      return res.status(200).json({
+        message: '¡Inicio de sesión exitoso!',
+      });
+    } catch (error) {
+      throw error;
     }
-    return lastValueFrom(
-      this.authClient.send({ cmd: 'login' }, loginDto),
-    );
   }
 }
