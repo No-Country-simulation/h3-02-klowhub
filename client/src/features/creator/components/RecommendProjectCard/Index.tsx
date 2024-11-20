@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import FavButton from '@core/components/FavButton/FavButton';
+import { cn } from '@core/lib/utils';
 import Badge from '@root/src/core/components/Badge/Index';
 import Button from '@root/src/core/components/Button';
 import appSheet from '/public/images/appsheet_logo.png';
@@ -6,7 +8,6 @@ import moreVertical from '/public/svg/moreVertical.svg';
 import _powerApp from '/public/svg/powerapp.svg';
 import star from '/public/svg/star.svg';
 import link from '/public/svg/link.svg';
-import { cn } from '@root/src/core/lib/utils';
 
 interface RecommendProjectCardProps {
   profile: string;
@@ -46,13 +47,11 @@ export default function RecommendProjectCard({
       <div className="space-y-4 p-3">
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-400">{published}</span>
-          <div className="flex gap-2">
+          <div className="relative flex gap-2">
             <Button variant="ghost" size="fit" className="size-8 hover:bg-white/10">
               <Image src={link} width={16} height={16} alt="AppSheet" className="size-4" />
             </Button>
-            <Button variant="ghost" size="fit" className="size-8 hover:bg-white/10">
-              <Image src={link} width={16} height={16} alt="AppSheet" className="size-4" />
-            </Button>
+            <FavButton />
             <Button variant="ghost" size="fit" className="size-8 hover:bg-white/10">
               <Image src={moreVertical} width={16} height={16} alt="AppSheet" className="size-4" />
             </Button>

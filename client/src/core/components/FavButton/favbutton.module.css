@@ -1,0 +1,91 @@
+.favContainer {
+  --heart-color: rgb(253, 51, 51);
+  --heart-outline: rgba(255, 255, 255, 0.74);
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 3px;
+  transition: 0.3s;
+}
+
+.favContainer .checkbox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.favContainer .svgContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.favContainer .svgOutline {
+  fill: var(--heart-outline);
+  position: absolute;
+}
+
+.favContainer .svgFilled {
+  fill: var(--heart-color);
+  position: absolute;
+}
+
+.favContainer .svgFilled {
+  animation: svgFilledAnimation 1s;
+  display: none;
+}
+
+.favContainer .svgCelebrate {
+  position: absolute;
+  animation: svgCelebrateAnimation 0.5s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: var(--heart-color);
+  fill: var(--heart-color);
+  stroke-width: 2px;
+}
+
+.favContainer .checkbox:checked ~ .svgContainer .svgFilled {
+  display: block;
+}
+
+.favContainer .checkbox:checked ~ .svgContainer .svgCelebrate {
+  display: block;
+}
+
+@keyframes svgFilledAnimation {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes svgCelebrateAnimation {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+    display: none;
+  }
+}
