@@ -5,7 +5,7 @@ import ContentTabs from '../ContentTabs/Index';
 const ContentSection = async () => {
   const t = await getTranslations<'Creator'>('Creator');
   return (
-    <div className="mt-6 w-full rounded-lg bg-neutral-100 p-6 text-white shadow-app-1">
+    <div className="w-full rounded-lg bg-neutral-100 p-6 text-white shadow-app-1">
       <h2 className="pb-4 text-2xl font-bold leading-6">{t('contentTitle')}</h2>
       <p className="pb-4 text-sm md:text-base">{t('contentDescription')}</p>
       <div className="flex gap-x-5">

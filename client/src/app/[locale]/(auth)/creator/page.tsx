@@ -36,7 +36,7 @@ export default async function CreatorPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
   const t = await getTranslations<'Creator'>({ locale: locale, namespace: 'Creator' });
   return (
-    <main className="mt-5 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mt-5 size-full space-y-10 px-10 sm:px-[51px] min-[1800px]:px-16">
       <BannerCta
         title="Klowhub"
         description={t('bannerSubtitle')}
