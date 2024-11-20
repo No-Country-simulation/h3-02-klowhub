@@ -4,6 +4,7 @@ import { routing } from '@root/src/core/lib/i18nRouting';
 import banner from '/public/images/appsheet_particles.png';
 import ContentSection from '@root/src/features/creator/components/ContentSection/Index';
 import NavigatorSection from '@root/src/features/creator/components/NavigatorSection/Index';
+import RecommendProjectSection from '@root/src/features/creator/components/RecommendProjectSection/Index';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
@@ -36,7 +37,7 @@ export default async function CreatorPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
   const t = await getTranslations<'Creator'>({ locale: locale, namespace: 'Creator' });
   return (
-    <main className="mt-5 size-full space-y-10 px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mt-5 size-full space-y-11 px-10 sm:px-[51px] min-[1800px]:px-16">
       <BannerCta
         title="Klowhub"
         description={t('bannerSubtitle')}
@@ -45,6 +46,7 @@ export default async function CreatorPage({ params }: { params: Promise<{ locale
       />
       <NavigatorSection />
       <ContentSection />
+      <RecommendProjectSection />
     </main>
   );
 }

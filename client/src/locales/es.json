@@ -64,7 +64,10 @@
       "navigatorCourse": "Mis cursos",
       "navigatorProjects": "Mis proyectos",
       "navigatorApps": "Mis aplicaciones",
-      "navigatorMentors": "Consultoria"
+      "navigatorMentors": "Consultoria",
+      "recommendedTitle": "Oportunidades que se alinean con tu perfil",
+      "recommendedDescription": "Explorá las postulaciones recomendadas especialmente para vos. Estas oportunidades están diseñadas para que encuentres el próximo paso en tu carrera de forma fácil y rápida. ¡No dejes pasar la chance de postularte a tu próximo desafío profesional!",
+    "viewProjects": "Ver proyectos"
     },
     "Membership": {
       "metaTitle": "Klowhub - Membresias",
