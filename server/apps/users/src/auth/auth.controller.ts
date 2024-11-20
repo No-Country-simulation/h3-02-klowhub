@@ -7,18 +7,16 @@ import {
   Get,
   Req,
   Patch,
-  HttpCode,
-  HttpStatus,
-  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterSchema, RegisterDto } from './dto/registerSchema.dto';
+import { TokenSchema, TokenDto } from './dto/tokenSchema.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserEntity } from 'src/entities/user.entity';
-import { Response } from 'express';
+import { LoginSchema, loginDto } from './dto/loginSchema.dto';
 import * as dotenv from 'dotenv';
+import { MessagePattern, RpcException } from '@nestjs/microservices';
 dotenv.config();
-import { MessagePattern } from '@nestjs/microservices'; // se agregar esto
 
 @Controller('auth')
 export class AuthController {
@@ -38,15 +36,15 @@ export class AuthController {
     return this.authService.registerUser(registerDto); // Registramos al usuario
   }
   //
-  @Post('verifyEmail')
-  async verifyEmail(@Body('token') token: string): Promise<any> {
-    try {
-      await this.authService.verifyEmailToken(token); // Llama al servicio que valida el token
-      return { message: 'Email verified successfully' }; // Retorna mensaje de éxito
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      throw new BadRequestException('Invalid or expired token'); // Si algo falla, lanza una excepción
+  //@Post('verifyEmail')
+  @MessagePattern({ cmd: 'verifyEmail' })
+  async verifyEmail(data: any) {
+    const validationToken = TokenSchema.safeParse(data);
+    if (!validationToken.success) {
+      throw new BadRequestException(validationToken.data);
     }
+    const tokenDto: TokenDto = validationToken.data;
+    return this.authService.verifyEmailToken(tokenDto);
   }
 
   @Get('google')
@@ -71,20 +69,38 @@ export class AuthController {
     return { message: 'Usuario actualizado', updatedUser };
   }
   //
-  @Post('login')
-  @HttpCode(HttpStatus.OK) // Retornar 200 OK
-  async login(
-    @Body('email') email: string,
-    @Body('password') password: string,
-    @Res({ passthrough: true }) res: Response, // Permite manejar cookies con NestJS
-  ): Promise<{ message: string }> {
-    return this.authService.login(email, password, res);
+  //@Post('login')
+  @MessagePattern({ cmd: 'login' })
+  async loginn(data: any) {
+    try {
+      // Validar datos con Zod
+      const validateLogin = LoginSchema.safeParse(data);
+      if (!validateLogin.success) {
+        throw new RpcException({
+          statusCode: 400,
+          message: validateLogin.error.errors,
+        });
+      }
+
+      // Extraer datos validados
+      const _loginDto: loginDto = validateLogin.data;
+
+      // Procesar el inicio de sesión
+      const result = await this.authService.login(_loginDto);
+
+      return {
+        token: result.token,
+        message: result.message,
+      };
+    } catch (error) {
+      // Lanzar excepciones específicas para microservicios
+      throw new RpcException({
+        statusCode: 400,
+        message: error.message || 'Ocurrió un error al iniciar sesión',
+      });
+    }
   }
   //
-  /**
-   * Solicitar un nuevo token de verificación.
-   * @param email El correo electrónico del usuario.
-   */
   @Post('verifyEmail')
   async resendVerificationToken(@Body('email') email: string) {
     if (!email) {

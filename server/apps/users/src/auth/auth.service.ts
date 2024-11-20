@@ -14,11 +14,14 @@ import {
 import * as jwt from 'jsonwebtoken';
 import { UsersService } from '../users/users.service';
 import * as dotenv from 'dotenv';
-import { Response } from 'express';
+import { TokenDto } from './dto/tokenSchema.dto';
+import { loginDto } from './dto/loginSchema.dto';
+
 dotenv.config();
 
 @Injectable()
 export class AuthService {
+  [x: string]: any;
   constructor(
     private readonly usersService: UsersService,
     @InjectRepository(UserEntity)
@@ -29,60 +32,67 @@ export class AuthService {
   ) {}
 
   // Verificacion de Email
-  async verifyEmailToken(token: string): Promise<any> {
-    let user;
+  async verifyEmailToken(tokenDto: TokenDto) {
     try {
-      console.log(token);
-      if (!token) {
+      // Verificar si el token está presente
+      if (!tokenDto.token) {
         throw new BadRequestException('Token is required');
       }
-      // Decodificar el token
-      const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
-      // Buscar al usuario usando el ID y el token de verificación
-      user = await this.userRepository.findOne({
-        where: { id: decoded.userId, verificationToken: token },
+
+      // Decodificar el token JWT
+      const decoded: any = jwt.verify(tokenDto.token, process.env.JWT_SECRET);
+
+      // Buscar al usuario asociado al token
+      const user = await this.userRepository.findOne({
+        where: { id: decoded.userId, verificationToken: tokenDto.token },
       });
+
       if (!user) {
         throw new Error('User not found');
       }
+
       // Verificar si el token ha expirado
       const currentTime = new Date();
       if (
         user.emailVerificationExpiresAt &&
-        user.emailVerificationExpiresAt < currentTime
+        user.emailVerificationExpiresAt <= currentTime
       ) {
         throw new BadRequestException('Token has expired');
       }
-      // Si el token es válido, actualizar el estado de verificación
+
+      // Actualizar el estado del usuario
       user.isEmailVerified = true;
       user.verificationToken = null;
       user.emailVerificationExpiresAt = null;
-      // Guardar la información actualizada en la base de datos
       await this.userRepository.save(user);
-      // Crear el token de login (puedes generar uno nuevo para el usuario)
+
+      // Generar un nuevo token de inicio de sesión
       const loginToken = jwt.sign(
         { userId: user.id, email: user.email },
         process.env.JWT_SECRET,
         { expiresIn: '1h' },
       );
+
       return { message: 'Email verified successfully', token: loginToken };
     } catch (error) {
+      // Manejo de errores relacionados con JWT o usuario no encontrado
       if (
         error instanceof jwt.JsonWebTokenError ||
         error.message === 'User not found'
       ) {
-        if (user) {
-          // Limpiar el token de verificación si el token es inválido
-          user.verificationToken = null;
-          user.emailVerificationExpiresAt = null;
-          await this.userRepository.save(user);
-        }
+        // Invalidar el token del usuario si existe
+        // if (user) {
+        //   user.verificationToken = null;
+        //   user.emailVerificationExpiresAt = null;
+        //   await this.userRepository.save(user);
+        // }
         throw new BadRequestException('Invalid token');
       }
-      // Captura de cualquier otro error
+      // Lanzar otros errores
       throw new BadRequestException(error.message || 'Something went wrong');
     }
   }
+
   // Registrar Usuario
   async registerUser(registerDto: RegisterDto) {
     // Verificar si el usuario ya existe
@@ -204,52 +214,71 @@ export class AuthService {
   }
 
   //login con credenciales email y password
-  async login(
-    email: string,
-    password: string,
-    res: Response,
-  ): Promise<{ message: string }> {
-    const user = await this.userRepository.findOne({ where: { email } });
+  async login(_loginDto: loginDto) {
+    try {
+      // Buscar al usuario por correo electrónico
+      const user = await this.userRepository.findOne({
+        where: { email: _loginDto.email },
+      });
 
-    if (!user) {
-      throw new BadRequestException('El correo electrónico no está registrado');
-    }
-    if (!user.isEmailVerified) {
+      // Verificar si el usuario existe
+      if (!user) {
+        throw new BadRequestException('Datos incorrectos');
+      }
+
+      // Verificar si el correo electrónico está verificado
+      if (!user.isEmailVerified) {
+        throw new BadRequestException(
+          'El correo electrónico no ha sido verificado',
+        );
+      }
+
+      // Verificar si el usuario tiene una contraseña configurada
+      if (!user.password) {
+        throw new BadRequestException('Error: Contraseña no encontrada');
+      }
+
+      // Verificar si la contraseña es válida
+      const isPasswordValid = await bcrypt.compare(
+        _loginDto.password,
+        user.password,
+      );
+      if (!isPasswordValid) {
+        throw new BadRequestException('Contraseña incorrecta');
+      }
+
+      // Crear el payload del token
+      const tokenPayload = {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+      };
+
+      // Generar el token
+      const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+      });
+      const tokenCookie = this.CookieService.set('auth_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 1000,
+      });
+      // Configurar la cookie en la respuesta
+      return {
+        token: tokenCookie,
+        message: '!Inicio de sesion exitoso',
+      };
+    } catch (error) {
+      // Manejar errores y responder con un mensaje adecuado
       throw new BadRequestException(
-        'El correo electrónico no ha sido verificado. Por favor verifica tu email.',
+        error.message || 'Ocurrió un error al iniciar sesión',
       );
     }
-
-    if (!user.password) {
-      throw new BadRequestException(
-        'El usuario no tiene una contraseña configurada.',
-      );
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new BadRequestException('Contraseña incorrecta');
-    }
-
-    const tokenPayload = {
-      userId: user.id,
-      email: user.email,
-      role: user.role,
-    };
-    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
-      expiresIn: '1h', // El token expira en 1 hora
-    });
-    // Configurar la cookie
-    res.cookie('auth_token', token, {
-      httpOnly: true, // Solo accesible desde el servidor
-      secure: process.env.NODE_ENV === 'production', // Solo en HTTPS en producción
-      sameSite: 'strict', // Evita el envío en solicitudes de terceros
-      maxAge: 60 * 60 * 1000, // 1 hora
-    });
-    return { message: 'Inicio de sesión exitoso' };
   }
 
-  //enviar otro email de verifiacion de token
+  // //enviar otro email de verifiacion de token
+
   async resendVerificationToken(email: string): Promise<{ message: string }> {
     const user = await this.userRepository.findOne({ where: { email } });
 
@@ -300,7 +329,6 @@ export class AuthService {
 
     return { message: 'Password reset token sent successfully' };
   }
-
   //reset password
   async resetPassword(
     email: string,
