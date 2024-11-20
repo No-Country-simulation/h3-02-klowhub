@@ -22,4 +22,4 @@ export const LoginSchema = z.object({
     }),
 });
 
-export type loginDto = z.infer<typeof LoginSchema>;
+export type LoginDto = z.infer<typeof LoginSchema>;

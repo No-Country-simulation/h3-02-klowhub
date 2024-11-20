@@ -13,7 +13,7 @@ import { RegisterSchema, RegisterDto } from './dto/registerSchema.dto';
 import { TokenSchema, TokenDto } from './dto/tokenSchema.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserEntity } from 'src/entities/user.entity';
-import { LoginSchema, loginDto } from './dto/loginSchema.dto';
+import { LoginSchema, LoginDto } from './dto/loginSchema.dto';
 import * as dotenv from 'dotenv';
 import { MessagePattern, RpcException } from '@nestjs/microservices';
 dotenv.config();
@@ -72,6 +72,7 @@ export class AuthController {
   //@Post('login')
   @MessagePattern({ cmd: 'login' })
   async loginn(data: any) {
+    console.log('Datos recibidos del gateway:', data);
     try {
       // Validar datos con Zod
       const validateLogin = LoginSchema.safeParse(data);
@@ -83,15 +84,12 @@ export class AuthController {
       }
 
       // Extraer datos validados
-      const _loginDto: loginDto = validateLogin.data;
+      const loginDto: LoginDto = validateLogin.data;
 
       // Procesar el inicio de sesión
-      const result = await this.authService.login(_loginDto);
+      const result = await this.authService.login(loginDto);
 
-      return {
-        token: result.token,
-        message: result.message,
-      };
+      return result;
     } catch (error) {
       // Lanzar excepciones específicas para microservicios
       throw new RpcException({

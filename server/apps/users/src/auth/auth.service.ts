@@ -15,7 +15,7 @@ import * as jwt from 'jsonwebtoken';
 import { UsersService } from '../users/users.service';
 import * as dotenv from 'dotenv';
 import { TokenDto } from './dto/tokenSchema.dto';
-import { loginDto } from './dto/loginSchema.dto';
+import { LoginDto } from './dto/loginSchema.dto';
 
 dotenv.config();
 
@@ -213,11 +213,11 @@ export class AuthService {
   }
 
   //login con credenciales email y password
-  async login(_loginDto: loginDto) {
+  async login(loginDto: LoginDto) {
     try {
       // Buscar al usuario por correo electrónico
       const user = await this.userRepository.findOne({
-        where: { email: _loginDto.email },
+        where: { email: loginDto.email },
       });
 
       // Verificar si el usuario existe
@@ -239,7 +239,7 @@ export class AuthService {
 
       // Verificar si la contraseña es válida
       const isPasswordValid = await bcrypt.compare(
-        _loginDto.password,
+        loginDto.password,
         user.password,
       );
       if (!isPasswordValid) {
@@ -257,19 +257,10 @@ export class AuthService {
       const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
-      const tokenCookie = this.CookieService.set('auth_token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 1000,
-      });
-      // Configurar la cookie en la respuesta
-      return {
-        token: tokenCookie,
-        message: '!Inicio de sesion exitoso',
-      };
+
+      // Solo se retorna el token aquí, no la cookie
+      return { token };
     } catch (error) {
-      // Manejar errores y responder con un mensaje adecuado
       throw new BadRequestException(
         error.message || 'Ocurrió un error al iniciar sesión',
       );

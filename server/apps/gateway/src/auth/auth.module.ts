@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controllers';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import * as dotenv from 'dotenv';
+import { CookieService } from '../common/services/cookie.service';
 dotenv.config();
 
 @Module({
@@ -18,5 +19,6 @@ dotenv.config();
     ]),
   ],
   controllers: [AuthController],
+  providers: [CookieService],
 })
 export class AuthModule {}
