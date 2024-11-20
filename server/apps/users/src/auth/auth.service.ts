@@ -107,7 +107,6 @@ export class AuthService {
     // Crear nuevo usuario
     const newUser = this.userRepository.create({
       firstName: registerDto.firstName,
-      lastName: registerDto.lastName,
       email: registerDto.email,
       password: encryptedPassword,
     });

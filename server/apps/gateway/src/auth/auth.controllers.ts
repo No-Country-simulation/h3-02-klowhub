@@ -17,7 +17,7 @@ import { LoginSchema } from './dto/loginSchema.dto';
 export class AuthController {
   constructor(
     @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy,
-  ) { }
+  ) {}
 
   @Post('register')
   async register(@Body() registerDto: any): Promise<any> {
@@ -41,9 +41,7 @@ export class AuthController {
   }
   @Post('google')
   async google(@Body() token: string): Promise<any> {
-    return lastValueFrom(
-      this.authClient.send({ cmd: 'google' }, { token }),
-    );
+    return lastValueFrom(this.authClient.send({ cmd: 'google' }, { token }));
   }
   @Patch('update')
   async update(@Body() updateDto: any, @Request() req: any): Promise<any> {
