@@ -68,7 +68,7 @@ export class AuthService {
 
       // Generar un nuevo token de inicio de sesión
       const loginToken = jwt.sign(
-        { userId: user.id, email: user.email },
+        { userId: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: '1h' },
       );

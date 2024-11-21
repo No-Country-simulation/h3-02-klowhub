@@ -38,10 +38,33 @@ export class AuthController {
   }
 
   @Post('verifyEmail')
-  async verifyEmail(@Body('token') token: string): Promise<any> {
-    return lastValueFrom(
-      this.authClient.send({ cmd: 'verifyEmail' }, { token }),
-    );
+  async verifyEmail(
+    @Body('token') token: string,
+    @Response() res: ExpressResponse,
+  ) {
+    try {
+      // Enviar la solicitud al microservicio para verificar el token de correo
+      const { token: newToken } = await lastValueFrom(
+        this.authClient.send({ cmd: 'verifyEmail' }, { token }),
+      );
+
+      // Usar el servicio CookieService para gestionar la cookie con el nuevo token
+      this.cookieService.set(res, 'auth_token', newToken, {
+        maxAge: 60 * 60 * 1000, // 1 hora
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict',
+      });
+
+      // Regresar una respuesta al cliente
+      return res.status(200).json({
+        message: '¡Correo electrónico verificado y sesión iniciada!',
+      });
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || 'Error al verificar el correo',
+      );
+    }
   }
   @Post('google')
   async google(@Body() token: string): Promise<any> {
