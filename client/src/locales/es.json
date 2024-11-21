@@ -157,5 +157,11 @@
     "categoria": "Lección",
     "titulo": "Cursos recomendados",
     "desc": "Descubre los cursos más destacados y lleva tus habilidades al siguiente nivel. Aprende de expertos y aplica tus conocimientos en proyectos reales."
+  },
+  "AppCard":{
+
+      "titulo": "Aplicaciones recomendadas",
+      "desc": "Explorá soluciones listas para usar. Encontrá la app perfecta para tu proyecto y empezá a trabajar de inmediato."
+  
   }
 }

@@ -157,5 +157,9 @@
     "categoria": "Lección",
     "titulo": "Recommended courses",
     "desc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects."
+  },
+  "AppCard": {
+    "titulo": "Recommended applications",
+    "desc": "Explore ready-to-use solutions. Find the perfect app for your project and get started right away."
   }
 }
