@@ -9,18 +9,25 @@ import NavLink from '../NavLink';
 
 export default function Navbar() {
   const t = useTranslations('Navbar');
+  const navItems = [
+    { href: '/platform', text: t('dashboardLink') },
+    { href: '/courses', text: t('coursesLink') },
+    { href: '/appstore', text: t('appstoreLink') },
+    { href: '/projects', text: t('projectsLink') },
+    { href: '/consultancies', text: t('consultanciesLink') },
+    { href: '/about-appsheet', text: t('aboutappsheetLink') },
+  ];
   return (
     <div className="header-bg-image fixed inset-x-0 top-0 z-50 mb-auto h-20 w-full">
-      <NavbarClient>
+      <NavbarClient navItems={navItems}>
         <nav className="hidden grow items-center justify-center space-x-10 min-[1400px]:flex">
           {/* <PlatformToggle homeText={t('homeText')} platformText={t('platformText')} /> */}
           <div className="flex items-center justify-center gap-4">
-            <NavLink href="/platform">{t('dashboardLink')}</NavLink>
-            <NavLink href="/courses">{t('coursesLink')}</NavLink>
-            <NavLink href="/appstore">{t('appstoreLink')}</NavLink>
-            <NavLink href="/projects">{t('projectsLink')}</NavLink>
-            <NavLink href="/consultancies">{t('consultanciesLink')}</NavLink>
-            <NavLink href="/about-appsheet">{t('aboutappsheetLink')}</NavLink>
+            {navItems.map(item => (
+              <NavLink key={item.href} href={item.href}>
+                {item.text}
+              </NavLink>
+            ))}
           </div>
         </nav>
         <div className="ml-auto hidden h-full items-center justify-center space-x-4 min-[1400px]:flex">
