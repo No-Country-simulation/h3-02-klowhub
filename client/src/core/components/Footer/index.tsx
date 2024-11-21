@@ -69,7 +69,7 @@ export default function Footera() {
         </div>
         <hr className="w-full border-t-2 border-white/20" />
         <div className="col">
-          <p>&copy; {t('footerCopyRight')}</p>
+          <p>{t('footerCopyRight')}</p>
         </div>
       </div>
     </div>
