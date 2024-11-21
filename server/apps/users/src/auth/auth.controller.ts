@@ -142,17 +142,13 @@ export class AuthController {
   }
 
   // profile user
-  @MessagePattern({ cmd: 'profile' })
-  async getProfile(data: { token: string }) {
-    const { token } = data;
-    console.log('test recibiendo el token', data);
+  @MessagePattern({ cmd: 'getProfile' })
+  async getProfile(data: { userId: string }) {
+    const { userId } = data;
 
     try {
-      // Verificar el token JWT
-      const payload = this.authService.verifyJwt(token);
-
-      // Si el token es válido, recuperar el usuario
-      const user = await this.authService.findUserById(payload.userId);
+      // Buscar al usuario por su userId
+      const user = await this.authService.findUserById(userId);
       if (!user) {
         throw new RpcException({
           message: 'Usuario no encontrado',
@@ -160,7 +156,7 @@ export class AuthController {
         });
       }
 
-      // Devolver los datos del perfil
+      // Devolver los datos completos del perfil
       return {
         id: user.id,
         firstName: user.firstName,
@@ -169,11 +165,10 @@ export class AuthController {
         role: user.role,
         createdAt: user.createdAt,
       };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       throw new RpcException({
-        statusCode: 401,
-        message: 'Token inválido o expirado',
+        statusCode: 500,
+        message: error.message || 'Error al obtener el perfil',
       });
     }
   }
