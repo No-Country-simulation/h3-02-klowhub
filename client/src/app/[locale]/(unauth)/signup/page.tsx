@@ -32,7 +32,7 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
           text2={t('signText2')}
           text3={t('signText3')}
           text4={t('signText4')}
-          textButoons={t('signTextButoons')}
+          textButoons={t('signTextButtons')}
           btnText={t('signup')}
           fieldsTranslate={fields}
           linkText={t('signin')}
