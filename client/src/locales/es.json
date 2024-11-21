@@ -9,9 +9,80 @@
         "development": "Desarrollado por {name}"
     },
     "Platform": {
-      "metaTitle": "Plataforma Klowhub",
-      "metaDescription": "Página de Klowhub para (?)",
+      "metainquiries": "Consultas",
+      "metaauthor":"Autor",
+      "metadate":"Fecha",
+      "metaplatform":"Plataforma",
+      "metastade":"Estado",
+      "metaTitle": "Klowhub - Página de plataforma",
+      "metaDescription": "Klowhub pagina principal de la plataforma",
       "metaSiteName": "Plataforma Klowhub"
+    },
+    "AboutAppsheet": {
+      "metaTitle": "Klowhub - Página sobre app sheet",
+      "metaDescription": "Klowhub pagina sobre app sheet",
+      "metaSiteName": "Klowhub - Página sobre app sheet"
+    },
+    "AppStore": {
+      "metaTitle": "Klowhub - Pagina tienda de aplicaciones",
+      "metaDescription": "Klowhub pagina tienda de aplicaciones",
+      "metaSiteName": "Klowhub - Pagina tienda de aplicaciones"
+    },
+    "Consultancies": {
+      "metaTitle": "Klowhub - Consultas",
+      "metaDescription": "Klowhub pagina de Consultas",
+      "metaSiteName": "Klowhub - Consultas"
+    },
+    "Courses": {
+      "metaTitle": "Klowhub - Cursos",
+      "metaDescription": "Klowhub pagina de Cursos",
+      "metaSiteName": "Klowhub - Cursos"
+    },
+    "Creator": {
+      "metaTitle": "Klowhub - Creador",
+      "metaDescription": "Klowhub pagina de Creadores",
+      "metaSiteName": "Klowhub - Creador",
+      "bannerSubtitle": "Descubre, Aprende y Crea",
+      "contentTitle": "Mis proyectos",
+      "contentDescription": "Revisa los detalles, realiza entregas y mantén la comunicación con el creador para asegurar el éxito de tu trabajo.",
+      "tabGeneral": "General",
+      "tabApps": "Applicaciones",
+      "tabCourses": "Cursos",
+      "tabProjects": "Projectos",
+      "tabMentors": "Mentores",
+      "headerName": "Nombre del cliente",
+      "headerAmount": "Monto",
+      "headerType": "Tipo",
+      "headerState": "Estado",
+      "headerPlatform": "Plataforma",
+      "totalEarnings": "Ganancias totales del mes",
+      "publishedCourses": "Cursos publicados",
+      "transferredApps": "Aplicaciones transferidas",
+      "mentoringHours": "Horas de mentoria",
+      "viewDetails": "Ver detalles",
+      "viewEarnings": "Ver ganancias",
+      "navigatorCourse": "Mis cursos",
+      "navigatorProjects": "Mis proyectos",
+      "navigatorApps": "Mis aplicaciones",
+      "navigatorMentors": "Consultoria",
+      "recommendedTitle": "Oportunidades que se alinean con tu perfil",
+      "recommendedDescription": "Explorá las postulaciones recomendadas especialmente para vos. Estas oportunidades están diseñadas para que encuentres el próximo paso en tu carrera de forma fácil y rápida. ¡No dejes pasar la chance de postularte a tu próximo desafío profesional!",
+    "viewProjects": "Ver proyectos"
+    },
+    "Membership": {
+      "metaTitle": "Klowhub - Membresias",
+      "metaDescription": "Klowhub pagina de Membresias",
+      "metaSiteName": "Klowhub - Membresias"
+    },
+    "Profile": {
+      "metaTitle": "Klowhub - Perfil de usuario",
+      "metaDescription": "Klowhub pagina de Perfil de usuario",
+      "metaSiteName": "Klowhub - Perfil de usuario"
+    },
+    "Projects": {
+      "metaTitle": "Klowhub - Projectos de usuario",
+      "metaDescription": "Klowhub pagina de Projectos de usuario",
+      "metaSiteName": "Klowhub - Projectos de usuario"
     },
     "Navbar": {
       "dashboardLink": "Panel",

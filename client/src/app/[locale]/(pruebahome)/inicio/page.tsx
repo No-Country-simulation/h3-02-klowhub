@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import BannerCta from '@root/src/features/home/components/Banner';
+import BannerCta from '@root/src/core/components/Banner';
 
 const InicioBanner = () => {
   const t = useTranslations('Banner');
