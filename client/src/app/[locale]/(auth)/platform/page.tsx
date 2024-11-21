@@ -3,6 +3,7 @@ import BannerCta from '@root/src/core/components/Banner';
 import { routing } from '@root/src/core/lib/i18nRouting';
 import AppSection from '@root/src/features/home/components/AppCard/AppSection';
 import CourseSection from '@root/src/features/home/components/CourseSection';
+import MentorSection from '@root/src/features/home/components/MentorCard/page';
 import SectionIquiris from '@root/src/features/home/components/SectionIquiris/SectionIquiris';
 
 export async function generateStaticParams() {
@@ -45,6 +46,7 @@ export default async function PlatformPage({ params }: { params: Promise<{ local
         description={t('learnFromTheBest')}
         imageSrc="/images/klowhub_banner.png"
       />
+      <MentorSection />
     </main>
   );
 }
