@@ -140,4 +140,41 @@ export class AuthController {
     await this.authService.resetPassword(email, token, newPassword);
     return { message: 'Contraseña restablecida exitosamente.' };
   }
+
+  // profile user
+  @MessagePattern({ cmd: 'profile' })
+  async getProfile(data: { token: string }) {
+    const { token } = data;
+    console.log('test recibiendo el token', data);
+
+    try {
+      // Verificar el token JWT
+      const payload = this.authService.verifyJwt(token);
+
+      // Si el token es válido, recuperar el usuario
+      const user = await this.authService.findUserById(payload.userId);
+      if (!user) {
+        throw new RpcException({
+          message: 'Usuario no encontrado',
+          statusCode: 404,
+        });
+      }
+
+      // Devolver los datos del perfil
+      return {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+      };
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Token inválido o expirado',
+      });
+    }
+  }
 }

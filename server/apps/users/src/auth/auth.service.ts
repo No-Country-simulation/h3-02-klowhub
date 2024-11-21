@@ -349,4 +349,18 @@ export class AuthService {
 
     return { message: 'Password reset successfully' };
   }
+  // Verificar el token JWT
+  verifyJwt(token: string): any {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token con la clave secreta
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      throw new Error('Token inválido o expirado');
+    }
+  }
+
+  // buscar usuario por ID
+  async findUserById(userId: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({ where: { id: userId } });
+  }
 }

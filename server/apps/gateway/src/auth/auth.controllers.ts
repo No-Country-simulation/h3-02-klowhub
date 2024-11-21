@@ -7,6 +7,7 @@ import {
   BadRequestException,
   Patch,
   Response,
+  Get,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -107,6 +108,27 @@ export class AuthController {
       });
     } catch (error) {
       throw error;
+    }
+  }
+  // profile user
+  @Get('profile')
+  async getProfile(@Request() req: any, @Response() res: ExpressResponse) {
+    const token = req.cookies['auth_token']; // Recuperamos el token de las cookies
+    if (!token) {
+      throw new BadRequestException('Token no encontrado en las cookies');
+    }
+
+    try {
+      // Enviar el token al microservicio para obtener el perfil
+      const profile = await lastValueFrom(
+        this.authClient.send({ cmd: 'profile' }, { token }), // Enviar el token al microservicio
+      );
+
+      return res.status(200).json(profile); // Regresar el perfil del usuario
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || 'Error al obtener el perfil',
+      );
     }
   }
 }
