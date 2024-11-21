@@ -1,7 +1,17 @@
 import type { InputHTMLAttributes } from 'react';
 
 export type OnTypeChangeType = (param: 'text' | 'password') => void;
-export type InputFieldsTypes = 'text' | 'password' | 'email' | 'date' | 'tell' | 'date' | 'url';
+export type InputFieldsTypes =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'date'
+  | 'tell'
+  | 'date'
+  | 'url'
+  | 'name'
+  | 'tel'
+  | 'number';
 
 export interface FieldType {
   id: string;

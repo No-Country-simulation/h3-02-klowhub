@@ -38,6 +38,23 @@
       "metaDescription": "Klowhub pagina de Cursos",
       "metaSiteName": "Klowhub - Cursos"
     },
+    "Footer": {
+        "categoryTitle": "Categoría",
+        "categoryCourses": "Cursos",
+        "categoryApps": "Aplicaciones",
+        "categorySellCourse": "Vende un Curso",
+        "categorySellApp": "Vende una App",
+        "aboutTitle": "Acerca de",
+        "aboutInstructors": "Instructores",
+        "aboutTermsOfService": "Términos del Servicio",
+        "aboutPrivacyPolicy": "Política de Privacidad", 
+        "supportTitle": "Soporte",
+        "supportFAQ": "FAQ",
+        "supportContact": "Contacto",
+        "supportForum": "Foro",
+        "followTitle": "Sigue a Klowhub",
+        "footerCopyRight": "© KlowHub."
+    },
     "Creator": {
       "metaTitle": "Klowhub - Creador",
       "metaDescription": "Klowhub pagina de Creadores",
@@ -111,11 +128,17 @@
         "notHaveAccount": "No tienes una cuenta?",
         "haveAccount": "Ya tienes una cuenta?",
         "signin": "Iniciar Sesion",
-        "signup": "Registrarse"
+        "signup": "Registrarse",
+        "signText1": "Al registrarte, aceptas nuestras",
+        "signText2": "Codiciones de uso",
+        "signText3": "y nuestra",
+        "signText4": "Politica de publicidad",
+        "signTextButoons": "O a continuación"
     },
     "Fields": {
         "emailLabel": "Correo electronico",
-        "passwordLabel": "Contraseña"
+        "passwordLabel": "Contraseña",
+        "nameLabel": "Nombre"
     },
     "Validations": {
         "emailRequired": "Correo electronico es requerido",
