@@ -76,6 +76,7 @@
     /* Backgrounds */
     --gradient-bg-1: linear-gradient(45.46deg, #34395c 11.78%, #181941 41.8%, #1b1b1f 87.01%);
     --gradient-bg-2: linear-gradient(263.17deg, #201c2d 0.4%, #201d43 50.02%, #262136 99.65%);
+    --gradient-bg-3: linear-gradient(270deg, #492181 0%, #514b8f 50%, #556096 75%, #58759d 100%);
   }
 
   .autofill-inherit:-webkit-autofill {

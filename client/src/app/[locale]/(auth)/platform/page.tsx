@@ -1,6 +1,9 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import BannerCta from '@root/src/core/components/Banner';
 import { routing } from '@root/src/core/lib/i18nRouting';
-import SectionIquiris from '@root/src/features/home/components/SectionIquiris';
+import AppSection from '@root/src/features/home/components/AppCard/AppSection';
+import CourseSection from '@root/src/features/home/components/CourseSection';
+import SectionIquiris from '@root/src/features/home/components/SectionIquiris/SectionIquiris';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
@@ -31,9 +34,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function PlatformPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations<'Banner'>({ locale: locale, namespace: 'Banner' });
   return (
-    <main className="flex h-screen w-full flex-col items-center justify-center">
+    <main className="mt-14 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+      <CourseSection />
+      <AppSection />
       <SectionIquiris />
+      <BannerCta
+        title={t('connectWithExperts')}
+        description={t('learnFromTheBest')}
+        imageSrc="/images/klowhub_banner.png"
+      />
     </main>
   );
 }
