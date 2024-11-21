@@ -1,0 +1,26 @@
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(453px, 1fr));
+  gap: 24px; /* Espaciado entre las tarjetas */
+  justify-content: center;
+  padding: 1rem;
+} 
+
+.card {
+  width: 100%;
+  max-width: 453px; /* Ancho máximo por tarjeta */
+  height: auto; /* Altura fija por defecto */
+  min-height: 560px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column; /* Apila los elementos verticalmente */
+  overflow: hidden; /* Oculta el contenido desbordado */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+} 
+
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
