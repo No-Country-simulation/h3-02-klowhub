@@ -38,6 +38,23 @@
     "metaDescription": "Klowhub Courses page",
     "metaSiteName": "Klowhub - Courses"
   },
+  "Footer": {
+      "categoryTitle": "Category",
+      "categoryCourses": "Courses",
+      "categoryApps": "Applications",
+      "categorySellCourse": "Sell a Course",
+      "categorySellApp": "Sell an App",
+      "aboutTitle": "About",
+      "aboutInstructors": "Instructors",
+      "aboutTermsOfService": "Terms of Service",
+      "aboutPrivacyPolicy": "Privacy Policy",
+      "supportTitle": "Support",
+      "supportFAQ": "FAQ",
+      "supportContact": "Contact",
+      "supportForum": "Forum",
+      "followTitle": "Follow Klowhub",
+      "footerCopyRight": "© KlowHub."
+  },
   "Creator": {
     "metaTitle": "Klowhub - Creator",
     "metaDescription": "Klowhub Creator page",
@@ -111,7 +128,12 @@
     "notHaveAccount": "Don't have an account?",
     "haveAccount": "Already have an account?",
     "signin": "Sign in",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "signText1": "By signing up, you agree to our",
+    "signText2": "Terms of Use",
+    "signText3": "and our",
+    "signText4": "Advertising Policy",
+    "signTextButtons": "Or proceed below"
   },
   "Fields": {
     "emailLabel": "Email",

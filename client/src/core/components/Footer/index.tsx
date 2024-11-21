@@ -1,7 +1,8 @@
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import React from 'react';
-
 export default function Footera() {
+  const t = useTranslations('Footer');
   return (
     <div className="flex flex-col justify-center gap-6 px-[10.5rem] py-10 text-sm font-normal text-white">
       <div className="flex flex-col items-center justify-center gap-12 min-[1025px]:items-start min-[1025px]:justify-start">
@@ -9,44 +10,44 @@ export default function Footera() {
           <ul className="flex flex-col gap-6">
             <h3>Categoria</h3>
             <li>
-              <a href="#">Cursos</a>
+              <a href="#">{t('categoryCourses')}</a>
             </li>
             <li>
-              <a href="#">Aplicaciones</a>
+              <a href="#">{t('categoryApps')}</a>
             </li>
             <li>
-              <a href="#">Vende un Curso</a>
+              <a href="#">{t('categorySellCourse')}</a>
             </li>
             <li>
-              <a href="#">Vende una App</a>
-            </li>
-          </ul>
-          <ul className="flex flex-col gap-6">
-            <h3>Acerca de</h3>
-            <li>
-              <a href="#">Instructores</a>
-            </li>
-            <li>
-              <a href="#">Términos del Servicio</a>
-            </li>
-            <li>
-              <a href="#">Política de Privacidad</a>
+              <a href="#"> {t('categorySellApp')}</a>
             </li>
           </ul>
           <ul className="flex flex-col gap-6">
-            <h3>Soporte</h3>
+            <h3>{t('aboutTitle')}</h3>
             <li>
-              <a href="#">FAQ</a>
+              <a href="#">{t('aboutInstructors')}</a>
             </li>
             <li>
-              <a href="#">Contacto</a>
+              <a href="#">{t('aboutTermsOfService')}</a>
             </li>
             <li>
-              <a href="#">Foro</a>
+              <a href="#">{t('aboutPrivacyPolicy')}</a>
+            </li>
+          </ul>
+          <ul className="flex flex-col gap-6">
+            <h3> {t('supportTitle')}</h3>
+            <li>
+              <a href="#">{t('supportFAQ')}</a>
+            </li>
+            <li>
+              <a href="#">{t('supportContact')}</a>
+            </li>
+            <li>
+              <a href="#">{t('supportForum')}</a>
             </li>
           </ul>
           <div className="mt-6 flex flex-col">
-            <h3>Sigue a Klowhub</h3>
+            <h3>{t('followTitle')}</h3>
             <ul className="my-6 flex flex-row gap-6">
               <li>
                 <a href="#">
@@ -68,7 +69,7 @@ export default function Footera() {
         </div>
         <hr className="w-full border-t-2 border-white/20" />
         <div className="col">
-          <p>&copy; © KlowHub.</p>
+          <p>&copy; {t('footerCopyRight')}</p>
         </div>
       </div>
     </div>

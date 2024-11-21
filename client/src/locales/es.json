@@ -38,6 +38,23 @@
       "metaDescription": "Klowhub pagina de Cursos",
       "metaSiteName": "Klowhub - Cursos"
     },
+    "Footer": {
+        "categoryTitle": "Categoría",
+        "categoryCourses": "Cursos",
+        "categoryApps": "Aplicaciones",
+        "categorySellCourse": "Vende un Curso",
+        "categorySellApp": "Vende una App",
+        "aboutTitle": "Acerca de",
+        "aboutInstructors": "Instructores",
+        "aboutTermsOfService": "Términos del Servicio",
+        "aboutPrivacyPolicy": "Política de Privacidad", 
+        "supportTitle": "Soporte",
+        "supportFAQ": "FAQ",
+        "supportContact": "Contacto",
+        "supportForum": "Foro",
+        "followTitle": "Sigue a Klowhub",
+        "footerCopyRight": "© KlowHub."
+    },
     "Creator": {
       "metaTitle": "Klowhub - Creador",
       "metaDescription": "Klowhub pagina de Creadores",
