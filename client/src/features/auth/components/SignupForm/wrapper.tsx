@@ -24,22 +24,24 @@ export default function SignupFormWrapper({
   textButoons,
 }: SigninFormWrapperProps) {
   return (
-    <FormComponent
-      id="signupForm"
-      fields={fields}
-      onSubmit={signup}
-      className="mb-7 w-full items-center justify-center max-sm:max-w-[85%]">
-      {isLoading => (
-        <AuthComplement
-          text1={text1}
-          text2={text2}
-          text3={text3}
-          text4={text4}
-          textButoons={textButoons}
-          btnText={btnText}
-          fields={fields}
-          isLoading={isLoading}></AuthComplement>
-      )}
-    </FormComponent>
+    <div className="flex flex-col items-center justify-center text-white">
+      <FormComponent
+        id="signupForm"
+        fields={fields}
+        onSubmit={signup}
+        className="mb-7 w-full items-center justify-center max-sm:max-w-[85%]">
+        {isLoading => (
+          <AuthComplement
+            text1={text1}
+            text2={text2}
+            text3={text3}
+            text4={text4}
+            textButoons={textButoons}
+            btnText={btnText}
+            fields={fields}
+            isLoading={isLoading}></AuthComplement>
+        )}
+      </FormComponent>
+    </div>
   );
 }

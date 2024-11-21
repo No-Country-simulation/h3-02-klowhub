@@ -25,7 +25,7 @@ export default function SigninFormWrapper({
   textButoons,
 }: SigninFormWrapperProps) {
   return (
-    <div className="text-white">
+    <div className="flex flex-col items-center justify-center text-white">
       <FormComponent
         id="signinForm"
         fields={fields}

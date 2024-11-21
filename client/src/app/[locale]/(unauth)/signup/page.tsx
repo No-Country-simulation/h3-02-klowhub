@@ -1,9 +1,9 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import Footera from '@core/components/Footer/index';
 import { getFieldsMessages } from '@core/lib/i18nFields';
 import { routing } from '@core/lib/i18nRouting';
 import SignupForm from '@features/auth/components/SignupForm';
 import AuthLayout from '@features/auth/layouts/AuthLayout';
-
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
     locale,
@@ -24,6 +24,7 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
   return (
     <div className="flex flex-col">
       <AuthLayout
+        imageUrl="/images/signupBanner.png"
         title="KlowHub"
         description="Explora, aprende, enseña y conecta. Crea tu cuenta en KlowHub y accede a un mundo de posibilidades.">
         <SignupForm
@@ -38,6 +39,7 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
           textpreLink="ya tienes cuenta ? "
         />
       </AuthLayout>
+      <Footera></Footera>
     </div>
   );
 }
