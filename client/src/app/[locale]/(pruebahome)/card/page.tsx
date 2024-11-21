@@ -1,10 +1,9 @@
 import { useTranslations } from 'next-intl';
-import React from 'react';
 import CourseCard from '@root/src/features/home/components/CourseCard';
 import { VerMas } from '@root/src/features/home/components/VerMas/VerMas';
 
-const Page: React.FC = () => {
-  const t = useTranslations('Card');
+const Page = () => {
+  const t = useTranslations<'Card'>('Card');
 
   return (
     <div className="bg-[#1F2937] pt-8">

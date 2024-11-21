@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import BannerCta from '@root/src/core/components/Banner';
 
 const InicioBanner = () => {
-  const t = useTranslations('Banner');
+  const t = useTranslations<'Banner'>('Banner');
   return (
     <BannerCta
       title={t('connectWithExperts')}
