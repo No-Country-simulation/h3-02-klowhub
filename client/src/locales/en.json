@@ -38,6 +38,23 @@
     "metaDescription": "Klowhub Courses page",
     "metaSiteName": "Klowhub - Courses"
   },
+  "Footer": {
+    "categoryTitle": "Category",
+    "categoryCourses": "Courses",
+    "categoryApps": "Applications",
+    "categorySellCourse": "Sell a Course",
+    "categorySellApp": "Sell an App",
+    "aboutTitle": "About",
+    "aboutInstructors": "Instructors",
+    "aboutTermsOfService": "Terms of Service",
+    "aboutPrivacyPolicy": "Privacy Policy",
+    "supportTitle": "Support",
+    "supportFAQ": "FAQ",
+    "supportContact": "Contact",
+    "supportForum": "Forum",
+    "followTitle": "Follow Klowhub",
+    "footerCopyRight": "© KlowHub."
+  },
   "Creator": {
     "metaTitle": "Klowhub - Creator",
     "metaDescription": "Klowhub Creator page",
@@ -116,11 +133,17 @@
     "notHaveAccount": "Don't have an account?",
     "haveAccount": "Already have an account?",
     "signin": "Sign in",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "signText1": "By signing up, you agree to our",
+    "signText2": "Terms of Use",
+    "signText3": "and our",
+    "signText4": "Advertising Policy",
+    "signTextButtons": "Or proceed below"
   },
   "Fields": {
     "emailLabel": "Email",
-    "passwordLabel": "Password"
+    "passwordLabel": "Password",
+    "nameLabel": "Name"
   },
   "Validations": {
     "emailRequired": "Email is required",
@@ -136,9 +159,12 @@
     "title": "Mastering App Development with AppSheet",
     "description": "Become an AppSheetHub expert and learn how to build apps without writing a single line of code.",
     "textButton": "AppSheet",
-    "tags": "Logistics,Optimization,Inventories",
     "categoria": "Lección",
     "titulo": "Recommended courses",
     "desc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects."
+  },
+  "AppCard": {
+    "titulo": "Recommended applications",
+    "desc": "Explore ready-to-use solutions. Find the perfect app for your project and get started right away."
   }
 }

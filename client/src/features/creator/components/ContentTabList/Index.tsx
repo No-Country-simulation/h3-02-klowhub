@@ -16,7 +16,7 @@ const ContentTabList = ({ apps, courses, general, mentors, projects }: ContentTa
   const [activeTab, setActiveTab] = useState('general');
 
   return (
-    <TabsList className="w-full min-[580px]:min-w-[438px] min-[580px]:overflow-hidden min-[820px]:max-w-[40%]">
+    <TabsList className="w-full min-[580px]:min-w-[438px] min-[770px]:min-w-[480px] min-[820px]:max-w-[40%]">
       <div className="hidden w-full overflow-hidden min-[580px]:flex">
         <TabsTrigger value="general" onSelect={() => setActiveTab(general)}>
           {general}
