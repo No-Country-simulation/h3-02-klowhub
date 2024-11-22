@@ -83,6 +83,9 @@ importers:
       video.js:
         specifier: 8.19.1
         version: 8.19.1
+      videojs-contrib-eme:
+        specifier: 5.5.1
+        version: 5.5.1(video.js@8.19.1)
       videojs-contrib-quality-levels:
         specifier: 4.1.0
         version: 4.1.0(video.js@8.19.1)
@@ -4425,6 +4428,11 @@ packages:
 
   video.js@8.19.1:
     resolution: {integrity: sha512-MVuayhXpzTBv5Jk3nYEU2akawPhuBBlizEbpQGx2i+6FiBmqxGjkrkLdDLOzG54ut7xapjp26IfWQLGSpeLmcQ==}
+
+  videojs-contrib-eme@5.5.1:
+    resolution: {integrity: sha512-bDmypFzeKcyykpz+CNv4dK/XpqZ64LcgcFRV93n36h6vd3vtM1c3ECyXyxh8gdJrU7g6cEnPDgJCtj+q7y3mAw==}
+    peerDependencies:
+      video.js: ^8.11.8
 
   videojs-contrib-quality-levels@2.2.1:
     resolution: {integrity: sha512-cnF6OGGgoC/2nUrbdz54nzPm3BpEZQzMTpyekiX6AXs8imATX2sHbrUz97xXVSHITldk/+d7ZAUrdQYJJTyuug==}
@@ -9155,6 +9163,11 @@ snapshots:
       videojs-contrib-quality-levels: 4.1.0(video.js@8.19.1)
       videojs-font: 4.2.0
       videojs-vtt.js: 0.15.5
+
+  videojs-contrib-eme@5.5.1(video.js@8.19.1):
+    dependencies:
+      global: 4.4.0
+      video.js: 8.19.1
 
   videojs-contrib-quality-levels@2.2.1(video.js@7.21.6):
     dependencies:

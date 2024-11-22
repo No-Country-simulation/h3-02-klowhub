@@ -6,6 +6,8 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 // Import Video.js HLS plugin
 import 'videojs-http-source-selector';
+import 'videojs-contrib-eme';
+import 'videojs-contrib-quality-levels';
 
 interface VideoPlayerProps {
   src: string;
@@ -79,7 +81,10 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
 
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
-      <video ref={videoRef} className="video-js vjs-default-skin vjs-big-play-centered size-full" />
+      <video
+        ref={videoRef}
+        className="video-js vjs-default-skin vjs-big-play-centered vjs-quality-button size-full"
+      />
     </div>
   );
 };
