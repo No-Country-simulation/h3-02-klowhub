@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthController } from './auth/auth.controllers';
+import { UploadController } from './upload/upload.controllers';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -23,9 +24,18 @@ dotenv.config();
           port: parseInt(process.env.COURSES_SERVICE_PORT, 10) || 3002,
         },
       },
+      {
+        name: 'UPLOAD_SERVICE',  
+        transport: Transport.GRPC,  
+        options: {
+          package: 'googlecloudstorage',  
+          protoPath: 'src/proto/upload.proto',  
+          url: process.env.GRPC_SERVER_URL || 'localhost:50051',  
+        },
+      },
     ]),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController,UploadController],
   providers: [],
 })
 export class GatewayModule {}
