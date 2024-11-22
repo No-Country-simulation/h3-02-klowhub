@@ -101,6 +101,11 @@
     "metaDescription": "Klowhub Projects page",
     "metaSiteName": "Klowhub - Projects"
   },
+  "CoursesWatch": {
+    "metaTitle": "Klowhub - Watch Courses",
+    "metaDescription": "Klowhub Watch Courses page",
+    "metaSiteName": "Klowhub - Watch Courses"
+  },
   "Navbar": {
     "dashboardLink": "Dashboard",
     "coursesLink": "Courses and lessons",

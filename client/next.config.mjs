@@ -24,11 +24,30 @@ const config = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'storage.googleapis.com',
-        pathname: '/klowhub-media/*',
+        hostname: 'storage.cloud.google.com',
+        pathname: '/klowhub-mediafiles/*',
       },
     ],
   },
+  transpilePackages: ['@silvermine/videojs-quality-selector'],
+  webpack: (config, { isServer }) => {
+    config.module.rules.push({
+      test: /\.(mjs|cjs)$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+    });
+
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+
+    return config;
+  }
 };
 
 export default withNextIntl(config);
