@@ -90,6 +90,7 @@ module.exports = {
       backgroundImage: {
         'gradient-bg-1': 'var(--gradient-bg-1)',
         'gradient-bg-2': 'var(--gradient-bg-2)',
+        'gradient-bg-3': 'var(--gradient-bg-3)',
       },
       boxShadow: {
         'app-1': "var(--shadow-app-1)",
