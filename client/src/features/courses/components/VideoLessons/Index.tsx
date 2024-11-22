@@ -32,7 +32,8 @@ const VideoLessons = () => {
             <Image
               src={lesson.thumbnail}
               alt={lesson.title}
-              fill
+              width={180}
+              height={108}
               className="group-hover:border-primary aspect-video w-full rounded-lg border object-cover transition-colors"
             />
             <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">

@@ -101,6 +101,11 @@
     "metaDescription": "Klowhub pagina de Projectos de usuario",
     "metaSiteName": "Klowhub - Projectos de usuario"
   },
+  "CoursesWatch": {
+    "metaTitle": "Klowhub - Ver cursos",
+    "metaDescription": "Klowhub Pagina para ver cursos",
+    "metaSiteName": "Klowhub - Ver cursos"
+  },
   "Navbar": {
     "dashboardLink": "Panel",
     "coursesLink": "Cursos y lecciones",

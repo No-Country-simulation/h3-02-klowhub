@@ -27,6 +27,11 @@ const config = {
         hostname: 'storage.cloud.google.com',
         pathname: '/klowhub-mediafiles/*',
       },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        pathname: '/klowhub-mediafiles/*',
+      },
     ],
   },
   transpilePackages: ['@silvermine/videojs-quality-selector'],
