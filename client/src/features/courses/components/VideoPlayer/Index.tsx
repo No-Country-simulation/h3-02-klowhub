@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use client';
+
 import { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 // Import Video.js HLS plugin
-import 'videojs-contrib-quality-levels';
 import 'videojs-http-source-selector';
 
 interface VideoPlayerProps {
@@ -11,44 +13,73 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ src }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const playerRef = useRef<ReturnType<typeof videojs> | null>(null);
+  const playerRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!playerRef.current) {
+    if (typeof window === 'undefined') return;
+
+    const initPlayer = () => {
+      if (playerRef.current) {
+        playerRef.current.dispose();
+        playerRef.current = null;
+      }
+
       const videoElement = videoRef.current;
       if (!videoElement) return;
 
-      playerRef.current = videojs(videoElement, {
+      const player = videojs(videoElement, {
         controls: true,
         fluid: true,
         responsive: true,
+        playbackRates: [0.5, 1, 1.5, 2],
         html5: {
-          hls: {
+          vhs: {
+            fastQualityChange: true,
+            useDevicePixelRatio: true,
             enableLowInitialPlaylist: true,
             smoothQualityChange: true,
-            overrideNative: true,
+            overrideNative: !videojs.browser.IS_SAFARI,
+            maxPlaylistRetries: 3,
+            bandwidth: 5000000,
           },
         },
+        nativeAudioTracks: false,
+        nativeVideoTracks: false,
       });
 
       // Add HLS source
-      playerRef.current.src({
+      player.src({
         src: src,
-        type: 'application/x-mpegURL',
+        type: 'application/vnd.apple.mpegurl',
       });
-    }
 
+      // Manejar errores
+      player.on('error', function () {
+        console.error('Video Error:', player.error());
+      });
+
+      player.on('loadedmetadata', () => {
+        console.log('Video metadata loaded');
+      });
+      player.ready(() => {
+        console.log('Player is ready');
+      });
+
+      playerRef.current = player;
+    };
+
+    initPlayer();
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose();
         playerRef.current = null;
       }
     };
-  }, []);
+  }, [src]);
 
   return (
-    <div className="relative overflow-hidden rounded-lg bg-black">
-      <video ref={videoRef} className="video-js vjs-default-skin vjs-big-play-centered" />
+    <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+      <video ref={videoRef} className="video-js vjs-default-skin vjs-big-play-centered size-full" />
     </div>
   );
 };
