@@ -5,9 +5,9 @@ metadata:
   namespace: gcc-upload
 spec:
   selector:
-    app: klowhub-upload-api  # Se asocia con los pods que tienen esta etiqueta
+    app: klowhub-upload-api
   ports:
     - protocol: TCP
-      port: 3003  # El puerto en el que el servicio de Identity será accesible
-      targetPort: 3003  # El puerto en el que el contenedor está escuchando
-  type: ClusterIP  # Tipo de servicio que solo es accesible dentro del clúster
+      port: 3003
+      targetPort: 3003
+  type: ClusterIP

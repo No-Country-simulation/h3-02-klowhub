@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
         - name: klowhub-courses-api
-          image: gcr.io/${GCP_PROJECT_ID}/klowhub-courses-api:${IMAGE_TAG}
+          image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${COURSE_SERVICE_NAME}:${IMAGE_TAG}
           ports:
-            - containerPort: 3002  # Puerto en el que la app está escuchando dentro del contenedor
+            - containerPort: 3002
           env:
             - name: NODE_ENV
               value: "production"
@@ -28,6 +28,6 @@ spec:
             - name: COURSES_SERVICE_PORT
               value: "0.0.0.0"
             - name: JWT_SECRET
-              value: "${JWT_SECRET}"  
+              value: "${JWT_SECRET}"
             - name: MONGO_URI
-              value: "${MONGO_URI}"  
+              value: "${MONGO_URI}"

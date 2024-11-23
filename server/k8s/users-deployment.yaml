@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: klowhub-users-api
-          image: gcr.io/${GCP_PROJECT_ID}/klowhub-users-api:${IMAGE_TAG}
+          image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${USERS_SERVICE_NAME}:${IMAGE_TAG}
           ports:
             - containerPort: 3001
           env:
@@ -28,7 +28,7 @@ spec:
             - name: USERS_MICROSERVICE_HOST
               value: "0.0.0.0"
             - name: JWT_SECRET
-              value: "${JWT_SECRET}"          
+              value: "${JWT_SECRET}"
             - name: SMTP_USER
               value: "${SMTP_USER}"
             - name: SMTP_PASS

@@ -5,9 +5,9 @@ metadata:
   namespace: userservice
 spec:
   selector:
-    app: klowhub-users-api  # Se asocia con los pods que tienen esta etiqueta
+    app: klowhub-users-api
   ports:
     - protocol: TCP
-      port: 3001  # El puerto en el que el servicio de Identity será accesible
-      targetPort: 3001  # El puerto en el que el contenedor está escuchando
-  type: ClusterIP  # Tipo de servicio que solo es accesible dentro del clúster
+      port: 3001
+      targetPort: 3001
+  type: ClusterIP

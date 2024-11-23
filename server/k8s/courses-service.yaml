@@ -5,9 +5,9 @@ metadata:
   namespace: courseservice
 spec:
   selector:
-    app: klowhub-courses-api  # Se asocia con los pods que tienen esta etiqueta
+    app: klowhub-courses-api
   ports:
     - protocol: TCP
-      port: 3002  # El puerto en el que el servicio de Identity será accesible
-      targetPort: 3002  # El puerto en el que el contenedor está escuchando
-  type: ClusterIP  # Tipo de servicio que solo es accesible dentro del clúster
+      port: 3002
+      targetPort: 3002
+  type: ClusterIP

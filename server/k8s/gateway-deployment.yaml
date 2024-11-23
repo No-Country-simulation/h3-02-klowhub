@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: klowhub-gateway-api
-          image: gcr.io/${GCP_PROJECT_ID}/klowhub-gateway-api:${IMAGE_TAG} 
+          image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${GATEWAY_SERVICE_NAME}:${IMAGE_TAG}
           ports:
             - containerPort: 3000
           env:
