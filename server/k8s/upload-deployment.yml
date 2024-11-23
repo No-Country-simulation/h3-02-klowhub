@@ -16,18 +16,18 @@ spec:
         app: klowhub-upload-api
     spec:
       containers:
-        - name: klowhub-upload-api
-          image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${UPLOAD_SERVICE_NAME}:${IMAGE_TAG}
-          ports:
-            - containerPort: 3003
-          env:
-            - name: NODE_ENV
-              value: "production"
-            - name: UPLOAD_SERVICE_PORT
-              value: "3003"
-            - name: UPLOAD_MICROSERVICE_HOST
-              value: "0.0.0.0"
-            - name: PROJECT_ID
-              value: "${GCLOUD_PROJECT_ID}"
-            - name: BUCKET_NAME
-              value: "${BUCKET_NAME}"
+      - name: klowhub-upload-api
+        image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${UPLOAD_SERVICE_NAME}:${IMAGE_TAG}
+        ports:
+        - containerPort: 3003
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: UPLOAD_SERVICE_PORT
+          value: "3003"
+        - name: UPLOAD_MICROSERVICE_HOST
+          value: "0.0.0.0"
+        - name: PROJECT_ID
+          value: "${GCLOUD_PROJECT_ID}"
+        - name: BUCKET_NAME
+          value: "${BUCKET_NAME}"
