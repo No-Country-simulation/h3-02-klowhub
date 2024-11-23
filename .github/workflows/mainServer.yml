@@ -157,7 +157,7 @@ jobs:
           chmod +x .env
           source .env
 
-        # 13. Sustituir variables en los manifiestos en K8s
+      # 13. Sustituir variables en los manifiestos en K8s
       - name: Prepare and validate K8s manifests
         working-directory: ./server
         run: |
@@ -178,7 +178,7 @@ jobs:
         env:
           DOLLAR: '$'
 
-        # 14. Aplicando los manifiestos a los kubernetes
+      # 14. Aplicando los manifiestos a los kubernetes
       - name: Apply Kubernetes manifests
         working-directory: ./server
         run: |
@@ -192,10 +192,10 @@ jobs:
           echo "Waiting for deployments to be ready..."
           kubectl wait --for=condition=available deployment/users-deployment -n userservice --timeout=300s
 
-        #  15. Verificando que el deployment este listo
-        - name: Verify deployment
-          working-directory: ./server
-          run: |
-            echo "Checking deployment status..."
-            kubectl get deployments -n userservice
-            kubectl get pods -n userservice
+      #  15. Verificando que el deployment este listo
+      - name: Verify deployment
+        working-directory: ./server
+        run: |
+          echo "Checking deployment status..."
+          kubectl get deployments -n userservice
+          kubectl get pods -n userservice
