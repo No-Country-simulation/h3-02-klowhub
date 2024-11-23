@@ -79,7 +79,7 @@ jobs:
       - name: Users Service - Build Docker image
         working-directory: ./server
         run: |
-          docker build \
+          docker build --progress plain \
             --build-arg SMTP_USER=${{ secrets.SMTP_USER }} \
             --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} \
             --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} \
@@ -103,7 +103,8 @@ jobs:
             --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
             --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} \
             --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} \
-            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-users-api:${{ github.sha }} ./apps/users
+            -f ./apps/users/Dockerfile \
+            -t $GCLOUD_REGION-docker.pkg.dev/$GCLOUD_PROJECT_ID/klowhub-server/klowhub-users-api:$GITHUB_SHA ./apps/users
 
       # 8. Construir la imagen Docker para Courses Service
       - name: Courses Service - Build Docker image
