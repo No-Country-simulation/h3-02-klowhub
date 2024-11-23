@@ -30,4 +30,4 @@ spec:
         - name: JWT_SECRET
           value: "${JWT_SECRET}"
         - name: MONGO_URI
-          value: "${MONGO_URI}"
+          value: ${MONGO_URI}
