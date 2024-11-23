@@ -25,6 +25,7 @@ WORKDIR /app
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nestjs -u 1001 && \
     chown -R nestjs:nodejs /app
+    
 # Declaración de los ARGs (se pasarán desde GitHub Actions)
 ARG NODE_ENV=production
 ARG COURSES_SERVICE_HOST=0.0.0.0

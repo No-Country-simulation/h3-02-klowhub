@@ -10,18 +10,6 @@ concurrency:
   group: "gcife-${{ github.head_ref }}"
   cancel-in-progress: true
 
-env:
-  NODE_ENV: production
-  MICROSERVICE_HOST: 0.0.0.0
-  USERS_SERVICE_NAME: klowhub-users-api
-  USERS_SERVICE_PORT: 3001
-  COURSE_SERVICE_NAME: klowhub-courses-api
-  COURSES_SERVICE_PORT: 3002
-  GATEWAY_SERVICE_NAME: klowhub-gateway-api
-  GATEWAY_SERVICE_PORT: 3000
-  UPLOAD_SERVICE_NAME: klowhub-upload-api
-  UPLOAD_SERVICE_PORT: 3003
-
 jobs:
   mainServer:
     strategy:
@@ -31,6 +19,17 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      NODE_ENV: production
+      MICROSERVICE_HOST: 0.0.0.0
+      USERS_SERVICE_NAME: klowhub-users-api
+      USERS_SERVICE_PORT: 3001
+      COURSE_SERVICE_NAME: klowhub-courses-api
+      COURSES_SERVICE_PORT: 3002
+      GATEWAY_SERVICE_NAME: klowhub-gateway-api
+      GATEWAY_SERVICE_PORT: 3000
+      UPLOAD_SERVICE_NAME: klowhub-upload-api
+      UPLOAD_SERVICE_PORT: 3003
     steps:
       - uses: actions/checkout@v4
 
@@ -84,7 +83,7 @@ jobs:
       # 8. Construir la imagen Docker para Courses Service
       - name: Courses Service - Build Docker image
         working-directory: ./server
-        run: docker build --progress plain --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/courses/Dockerfile -t ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }} ./apps/courses
+        run: docker build --progress plain --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/courses/Dockerfile -t ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-courses-api:${{ github.sha }} ./apps/courses
 
       # 8. Construir la imagen Docker para Gateway Service
       - name: Gateway Service - Build Docker image 
@@ -104,7 +103,7 @@ jobs:
       # 10. Subir la imagen de Courses Service a Artifact Registry
       - name: Courses Service - Push Docker image
         working-directory: ./server
-        run: docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}
+        run: docker push ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}
 
       # 10. Subir la imagen de Upload Service a Artifact Registry
       - name: Upload Service - Push Docker image
