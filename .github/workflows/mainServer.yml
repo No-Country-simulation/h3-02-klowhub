@@ -162,7 +162,7 @@ jobs:
         env:
           DOLLAR: '$'
 
-      # 14. Verificando manifiestos
+      # 14. Primera - Verificando manifiestos
       - name: Verify rendered manifests
         run: |
           for file in k8s-rendered/*.{yml,yaml}; do
@@ -172,7 +172,28 @@ jobs:
             fi
           done
 
-      # 15.Aplicar manifiestos a los kubernetes
+      #  14.25. Doble - Verificación de los manifiestos
+      - name: Check rendered manifests
+        run: |
+          ls -l k8s-rendered/
+          cat k8s-rendered/*
+
+      #  14.5. Triple - Verificación de los manifiestos
+      - name: Verify file extensions
+        run: |
+          for file in k8s-rendered/*; do
+            if [[ ! "$file" =~ \.yaml$|\.yml$ ]]; then
+              echo "Invalid file extension: $file"
+              exit 1
+            fi
+          done
+
+      # 14.75. Cuadruple - Cambiar permisos de los archivos generados
+      - name: Set file permissions
+        run: |
+          chmod -R 755 k8s-rendered/
+
+      # 15. Aplicar manifiestos a los kubernetes
       - name: Apply Kubernetes manifests
         run: |
           kubectl apply -f k8s-rendered/
