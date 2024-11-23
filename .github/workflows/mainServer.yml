@@ -80,34 +80,8 @@ jobs:
         working-directory: ./server/apps/users
         run: |
           docker build \
-            --build-arg NODE_ENV=${{ env.NODE_ENV }} \
-            --build-arg USERS_MICROSERVICE_HOST=${{ env.MICROSERVICE_HOST }} \
-            --build-arg USERS_SERVICE_PORT=${{ env.USERS_SERVICE_PORT }} \
-            --build-arg SMTP_USER=${{ secrets.SMTP_USER }} \
-            --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} \
-            --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} \
-            --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} \
-            --build-arg SMTP_SECURE=${{ secrets.SMTP_SECURE }} \
-            --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
-            --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
-            --build-arg GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} \
-            --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            --build-arg DATABASE_URL_UNPOOLED=${{ secrets.DATABASE_URL_UNPOOLED }} \
-            --build-arg PGHOST=${{ secrets.PGHOST }} \
-            --build-arg PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }} \
-            --build-arg PGUSER=${{ secrets.PGUSER }} \
-            --build-arg PGDATABASE=${{ secrets.PGDATABASE }} \
-            --build-arg PGPASSWORD=${{ secrets.PGPASSWORD }} \
-            --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} \
-            --build-arg POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }} \
-            --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
-            --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} \
-            --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
-            --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
-            --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} \
-            --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} \
-            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }} \
-            .
+            --build-arg NODE_ENV=${{ env.NODE_ENV }} --build-arg USERS_MICROSERVICE_HOST=${{ env.MICROSERVICE_HOST }} --build-arg USERS_SERVICE_PORT=${{ env.USERS_SERVICE_PORT }} --build-arg SMTP_USER=${{ secrets.SMTP_USER }} --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} --build-arg SMTP_SECURE=${{ secrets.SMTP_SECURE }} --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} --build-arg GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg DATABASE_URL_UNPOOLED=${{ secrets.DATABASE_URL_UNPOOLED }} --build-arg PGHOST=${{ secrets.PGHOST }} --build-arg PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }} --build-arg PGUSER=${{ secrets.PGUSER }} --build-arg PGDATABASE=${{ secrets.PGDATABASE }} --build-arg PGPASSWORD=${{ secrets.PGPASSWORD }} --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} --build-arg POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} \
+            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }} .
 
       # 8. Construir la imagen Docker para Courses Service
       - name: Courses Service - Build Docker image 
