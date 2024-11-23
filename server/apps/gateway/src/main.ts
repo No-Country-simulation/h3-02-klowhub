@@ -14,8 +14,6 @@ async function bootstrap() {
     credentials: true, // Permitir cookies
   });
   await app.listen(process.env.PORT || 3000);
-  console.log(
-    `Gateway is running on: http://localhost:${process.env.PORT || 3000}`,
-  );
+  console.log(`Gateway is running on: ${process.env.PORT || 3000}`);
 }
 bootstrap();
