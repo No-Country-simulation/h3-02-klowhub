@@ -1,0 +1,65 @@
+{
+  "id": "course1",
+  "title": "Curso 1",
+  "lastModuleId": "module1",
+  "lastLesson": {
+    "id": "lesson6",
+    "src": ""
+  },
+  "modules": [
+    {
+      "id": "module1",
+      "title": "Módulo 1",
+      "lessons": [
+        {
+          "id": "lesson1",
+          "title": "Lección 1",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "src": ""
+        },
+        {
+          "id": "lesson2",
+          "title": "Lección 3",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "src": ""
+        },
+        {
+          "id": "lesson3",
+          "title": "Lección 4",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "src": ""
+        }
+      ]
+    },
+    {
+      "id": "module2",
+      "title": "Módulo 2",
+      "lessons": [
+        {
+          "id": "lesson4",
+          "title": "Lección 5",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "src": ""
+        },
+        {
+          "id": "lesson5",
+          "title": "Lección 6",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "src": ""
+        },
+        {
+          "id": "lesson6",
+          "title": "Lección 7",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "src": ""
+        }
+      ]
+    }
+  ]
+}

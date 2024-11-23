@@ -37,7 +37,7 @@ export default async function CoursesPage({ params }: { params: Promise<{ locale
   const { locale } = await params;
   setRequestLocale(locale);
   return (
-    <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mt-8 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
       <WatchCourseSection />
     </main>
   );
