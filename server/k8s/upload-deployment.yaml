@@ -28,6 +28,6 @@ spec:
             - name: UPLOAD_MICROSERVICE_HOST
               value: "0.0.0.0"
             - name: PROJECT_ID
-              value: "${GCP_PROJECT_ID}"
+              value: "${GCLOUD_PROJECT_ID}"
             - name: BUCKET_NAME
               value: "${BUCKET_NAME}"

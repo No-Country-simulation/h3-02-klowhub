@@ -175,7 +175,10 @@ jobs:
               
               envsubst < "$file" > "k8s-rendered/$(basename $file)"
               
+              echo "Processed content:"
+              cat "k8s-rendered/$(basename $file)"
               echo "Validating $(basename $file)..."
+
               if ! kubectl apply --dry-run=client -f "k8s-rendered/$(basename $file)"; then
                 echo "Error validating $(basename $file)"
                 echo "Full content of problematic file:"
@@ -186,12 +189,21 @@ jobs:
           done
         env:
           DOLLAR: '$'
-          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
           GCLOUD_REGION: ${{ secrets.GCLOUD_REGION }}
           USERS_SERVICE_NAME: ${{ env.USERS_SERVICE_NAME }}
           COURSE_SERVICE_NAME: ${{ env.COURSE_SERVICE_NAME }}
           UPLOAD_SERVICE_NAME: ${{ env.UPLOAD_SERVICE_NAME }}
           GATEWAY_SERVICE_NAME: ${{ env.GATEWAY_SERVICE_NAME }}
+          NODE_ENV: "production"
+          COURSES_SERVICE_HOST: "0.0.0.0"
+          COURSES_SERVICE_PORT: "3002"
+          USERS_SERVICE_HOST: "0.0.0.0"
+          USERS_SERVICE_PORT: "3001"
+          GATEWAY_SERVICE_HOST: "0.0.0.0"
+          GATEWAY_SERVICE_PORT: "3000"
+          UPLOAD_SERVICE_HOST: "0.0.0.0"
+          UPLOAD_SERVICE_PORT: "3003"
           IMAGE_TAG: ${{ github.sha }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           SMTP_USER: ${{ secrets.SMTP_USER }}

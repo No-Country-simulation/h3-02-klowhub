@@ -24,9 +24,9 @@ spec:
             - name: NODE_ENV
               value: "production"
             - name: COURSES_SERVICE_HOST
-              value: "3002"
-            - name: COURSES_SERVICE_PORT
               value: "0.0.0.0"
+            - name: COURSES_SERVICE_PORT
+              value: "3002"
             - name: JWT_SECRET
               value: "${JWT_SECRET}"
             - name: MONGO_URI
