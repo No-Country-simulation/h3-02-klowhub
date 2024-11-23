@@ -10,6 +10,13 @@ export class CoursesService {
     @InjectModel('Course') private readonly courseModel: Model<Course>,  // Inyecta el modelo Course
   ) {}
 
+async getCourse(){
+  return this.courseModel.find();
+}
+async getCourseId(id){
+  return await this.courseModel.findById(id);
+}
+
   // Método para crear un curso
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
     const course = new this.courseModel(createCourseDto);  // Usa el DTO para crear el curso

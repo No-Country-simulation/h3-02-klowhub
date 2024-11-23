@@ -20,7 +20,7 @@ const FormCheckbox = ({ isCheked, id, onChange, label, name }: FormCheckboxProps
           name={name}
         />
       </div>
-      <label htmlFor={id} className="cursor-pointer select-none text-base font-medium">
+      <label htmlFor={id} className="cursor-pointer select-none font-medium">
         {label}
       </label>
     </div>

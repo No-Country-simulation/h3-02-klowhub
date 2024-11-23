@@ -1,4 +1,21 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import BannerCta from '@root/src/core/components/Banner';
+import { routing } from '@root/src/core/lib/i18nRouting';
+import AppSection from '@root/src/features/home/components/AppCard/AppSection';
+import CourseSection from '@root/src/features/home/components/CourseSection';
+import MentorSection from '@root/src/features/home/components/MentorCard/page';
+import SectionIquiris from '@root/src/features/home/components/SectionIquiris/SectionIquiris';
+
+export async function generateStaticParams() {
+  const paths = routing.locales.map(locale => ({
+    locale,
+    slug: `${locale}/platform`,
+  }));
+
+  return paths.map(params => ({
+    params,
+  }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -15,6 +32,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function PlatformPage() {
-  return <main className="flex h-screen w-full flex-col items-center justify-center"></main>;
+export default async function PlatformPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations<'Banner'>({ locale: locale, namespace: 'Banner' });
+  return (
+    <main className="mt-14 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+      <CourseSection />
+      <AppSection />
+      <SectionIquiris />
+      <BannerCta
+        title={t('connectWithExperts')}
+        description={t('learnFromTheBest')}
+        imageSrc="/images/klowhub_banner.png"
+      />
+      <MentorSection />
+    </main>
+  );
 }
