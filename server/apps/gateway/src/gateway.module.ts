@@ -20,22 +20,22 @@ dotenv.config();
         name: 'COURSES_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: process.env.COURSES_SERVICE_HOST || 'localhost',
+          host: process.env.COURSES_SERVICE_HOST || '0.0.0.0',
           port: parseInt(process.env.COURSES_SERVICE_PORT, 10) || 3002,
         },
       },
       {
-        name: 'UPLOAD_SERVICE',  
-        transport: Transport.GRPC,  
+        name: 'UPLOAD_SERVICE',
+        transport: Transport.GRPC,
         options: {
-          package: 'googlecloudstorage',  
-          protoPath: 'src/proto/upload.proto',  
-          url: process.env.GRPC_SERVER_URL || 'localhost:50051',  
+          package: 'googlecloudstorage',
+          protoPath: 'src/proto/upload.proto',
+          url: process.env.GRPC_SERVER_URL || 'localhost:50051',
         },
       },
     ]),
   ],
-  controllers: [AuthController,UploadController],
+  controllers: [AuthController, UploadController],
   providers: [],
 })
 export class GatewayModule {}
