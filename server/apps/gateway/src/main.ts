@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(new AuthMiddleware().use);
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Configuración de CORS
+    origin: process.env.FRONTEND_URL || 'http://frontend@example', // Configuración de CORS
     credentials: true, // Permitir cookies
   });
   await app.listen(process.env.PORT || 3000);
