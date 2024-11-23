@@ -1,8 +1,7 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, RpcException } from '@nestjs/microservices';
 import { GoogleCloudStorageService } from './storage.service';
 import { UploadFileRequest, UploadFileResponse } from './interfaces/storage.interface';
-import { RpcException } from '@nestjs/microservices';
 
 @Controller()
 export class StorageController {

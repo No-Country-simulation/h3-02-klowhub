@@ -1,0 +1,43 @@
+{
+  "name": "klowhub-api",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "install": "node ./scripts/run.mjs --manager=npm",
+    "install:gateway": "node ./scripts/run.mjs --directories=apps/gateway",
+    "install:courses": "node ./scripts/run.mjs --directories=apps/courses",
+    "install:users": "node ./scripts/run.mjs --directories=apps/users",
+    "install:identity": "node ./scripts/run.mjs --directories=apps/identity",
+    "lint": "node ./scripts/run.mjs --command=lint",
+    "lint:gateway": "node ./scripts/run.mjs --command=lint --directories=apps/gateway",
+    "lint:courses": "node ./scripts/run.mjs --command=lint --directories=apps/courses",
+    "lint:users": "node ./scripts/run.mjs --command=lint --directories=apps/users",
+    "lint:identity": "node ./scripts/run.mjs --command=lint --directories=apps/identity",
+    "build": "node ./scripts/run.mjs --command=build",
+    "build:gateway": "node ./scripts/run.mjs --command=build --directories=apps/gateway",
+    "build:courses": "node ./scripts/run.mjs --command=build --directories=apps/courses",
+    "build:users": "node ./scripts/run.mjs --command=build --directories=apps/users",
+    "build:identity": "node ./scripts/run.mjs --command=build --directories=apps/identity",
+    "format": "node ./scripts/run.mjs --command=format",
+    "format:gateway": "node ./scripts/run.mjs --command=format --directories=apps/gateway",
+    "format:courses": "node ./scripts/run.mjs --command=format --directories=apps/courses",
+    "format:users": "node ./scripts/run.mjs --command=format --directories=apps/users",
+    "format:identity": "node ./scripts/run.mjs --command=format --directories=apps/identity",
+    "start:all": "concurrently -n courses,users,uploadGCloud,gateway -c yellow,blue,cyan,magenta \"npm run start:courses\" \"npm run start:users\" \"npm run start:uploadGCloud\" \"npm run start:gateway\"",
+    "start:courses": "cd apps/courses && npm run start:dev",
+    "start:users": "cd apps/users && npm run start:dev",
+    "start:uploadGCloud": "cd apps/uploadGCould && npm run start:dev",
+    "start:gateway": "cd apps/gateway && npm run start:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:No-Country-simulation/h3-02-klowhub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/No-Country-simulation/h3-02-klowhub/issues"
+  },
+  "homepage": "https://github.com/No-Country-simulation/h3-02-klowhub",
+  "devDependencies": {
+    "concurrently": "9.1.0"
+  }
+}

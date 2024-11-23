@@ -30,7 +30,7 @@ dotenv.config();
         options: {
           package: 'googlecloudstorage',
           protoPath: 'src/proto/upload.proto',
-          url: process.env.GRPC_SERVER_URL || 'localhost:50051',
+          url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
         },
       },
     ]),

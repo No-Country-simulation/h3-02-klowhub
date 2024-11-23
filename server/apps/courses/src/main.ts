@@ -11,8 +11,8 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        host: process.env.MICROSERVICE_HOST || '0.0.0.0',
-        port: parseInt(process.env.MICROSERVICE_PORT, 10) || 3002,
+        host: process.env.COURSES_SERVICE_HOST || '0.0.0.0',
+        port: parseInt(process.env.COURSES_SERVICE_PORT, 10) || 3002,
       },
     },
   );
