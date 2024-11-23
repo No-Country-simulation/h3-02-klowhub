@@ -4,20 +4,20 @@ metadata:
   name: courses-deployment
   namespace: courseservice
   labels:
-    app: courses
+    app: klowhub-courses-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: courses
+      app: klowhub-courses-api
   template:
     metadata:
       labels:
-        app: courses
+        app: klowhub-courses-api
     spec:
       containers:
-        - name: identity
-          image: gcr.io/${GCP_PROJECT_ID}/courses:${IMAGE_TAG}
+        - name: klowhub-courses-api
+          image: gcr.io/${GCP_PROJECT_ID}/klowhub-courses-api:${IMAGE_TAG}
           ports:
             - containerPort: 3002  # Puerto en el que la app está escuchando dentro del contenedor
           env:

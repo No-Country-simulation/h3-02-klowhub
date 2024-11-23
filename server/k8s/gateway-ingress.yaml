@@ -11,6 +11,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: gateway
+            name: klowhub-gateway-api
             port:
               number: 80

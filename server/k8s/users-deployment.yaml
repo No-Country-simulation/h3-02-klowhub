@@ -4,20 +4,20 @@ metadata:
   name: users-deployment
   namespace: userservice
   labels:
-    app: users
+    app: klowhub-users-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: users
+      app: klowhub-users-api
   template:
     metadata:
       labels:
-        app: users
+        app: klowhub-users-api
     spec:
       containers:
-        - name: users
-          image: gcr.io/${GCP_PROJECT_ID}/users:${IMAGE_TAG}
+        - name: klowhub-users-api
+          image: gcr.io/${GCP_PROJECT_ID}/klowhub-users-api:${IMAGE_TAG}
           ports:
             - containerPort: 3001
           env:

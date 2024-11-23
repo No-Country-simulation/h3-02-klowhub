@@ -4,7 +4,7 @@ RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 # Instalar pnpm globalmente
 RUN npm install -g typescript @nestjs/cli
-COPY package.json package-lock.json tsconfig.json ./
+COPY gccKey.json package.json package-lock.json tsconfig.json ./
 
 # Fase de Construcción
 FROM base AS builder
@@ -52,7 +52,7 @@ RUN addgroup -g 1001 -S nodejs && adduser -S nestjs -u 1001
 USER nestjs
 
 # Copiar archivos relevantes de la fase de construcción
-COPY --from=builder /app/package.json /app/package-lock.json /app/tsconfig.json ./
+COPY --from=builder /app/gccKey.json /app/package.json /app/package-lock.json /app/tsconfig.json ./
 COPY --from=builder /app/dist ./dist
 
 EXPOSE $PORT

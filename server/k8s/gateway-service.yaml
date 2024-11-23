@@ -6,7 +6,7 @@ metadata:
 spec:
   type: LoadBalancer 
   selector:
-    app: gateway
+    app: klowhub-gateway-api
   ports:
     - protocol: TCP
       port: 80

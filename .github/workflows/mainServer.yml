@@ -1,0 +1,231 @@
+name: mainServer
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: "gcife-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+env:
+  NODE_ENV: production
+  MICROSERVICE_HOST: 0.0.0.0
+  USERS_SERVICE_NAME: klowhub-users-api
+  USERS_SERVICE_PORT: 3001
+  COURSE_SERVICE_NAME: klowhub-courses-api
+  COURSES_SERVICE_PORT: 3002
+  GATEWAY_SERVICE_NAME: klowhub-gateway-api
+  GATEWAY_SERVICE_PORT: 3000
+  UPLOAD_SERVICE_NAME: klowhub-upload-api
+  UPLOAD_SERVICE_PORT: 3003
+
+jobs:
+  mainServer:
+    strategy:
+      matrix:
+        node-version: [20.x]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 1. Autenticarse con google cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: "${{ secrets.GCLOUD_PROJECT_ID }}"
+          credentials_json: "${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}"
+
+      # 2. Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 3. Exportar la región como variable de entorno
+      - name: Export region
+        run: echo "GCLOUD_REGION=${{ secrets.GCLOUD_REGION }}" >> $GITHUB_ENV
+
+      # 4. Configurar kubectl
+      - name: Set up GKE
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
+          location: $GCLOUD_REGION
+
+      # 5. Agregar dinamicamente BACKEND_SA_KEY
+      - name: Create service account key file
+        working-directory: ./server/apps/uploadGCould
+        run: echo "${{ secrets.GCC_BACKEND_SA_KEY }}" > ./gccKey.json
+
+      # 6. Autenticarse con Artifact Registry
+      - name: Authenticate with Artifact Registry
+        working-directory: ./server
+        run: |
+          gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
+
+      # 7. Construir la imagen Docker para User Service
+      - name: Users Service - Build Docker image 
+        working-directory: ./server/apps/users
+        run: |
+          docker build \
+            --build-arg NODE_ENV=${{ env.NODE_ENV }} \
+            --build-arg USERS_MICROSERVICE_HOST=${{ env.MICROSERVICE_HOST }} \
+            --build-arg USERS_SERVICE_PORT=${{ env.USERS_SERVICE_PORT }} \
+            --build-arg SMTP_USER=${{ secrets.SMTP_USER }} \
+            --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} \
+            --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} \
+            --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} \
+            --build-arg SMTP_SECURE=${{ secrets.SMTP_SECURE }} \
+            --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
+            --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+            --build-arg GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} \
+            --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            --build-arg DATABASE_URL_UNPOOLED=${{ secrets.DATABASE_URL_UNPOOLED }} \
+            --build-arg PGHOST=${{ secrets.PGHOST }} \
+            --build-arg PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }} \
+            --build-arg PGUSER=${{ secrets.PGUSER }} \
+            --build-arg PGDATABASE=${{ secrets.PGDATABASE }} \
+            --build-arg PGPASSWORD=${{ secrets.PGPASSWORD }} \
+            --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} \
+            --build-arg POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }} \
+            --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
+            --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} \
+            --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+            --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
+            --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} \
+            --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} \
+            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }} .
+
+      # 8. Construir la imagen Docker para Courses Service
+      - name: Courses Service - Build Docker image 
+        working-directory: ./server/apps/courses
+        run: |
+          docker build \
+            --build-arg NODE_ENV=${{ env.NODE_ENV }} \
+            --build-arg COURSES_SERVICE_HOST=${{ env.MICROSERVICE_HOST }} \
+            --build-arg COURSES_SERVICE_PORT=${{ env.COURSES_SERVICE_PORT }} \
+            --build-arg MONGO_URI=${{ secrets.MONGO_URI }} \
+            --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
+            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }} .
+
+      # 8. Construir la imagen Docker para Gateway Service
+      - name: Gateway Service - Build Docker image 
+        working-directory: ./server/apps/gateway
+        run: |
+          docker build \
+            --build-arg NODE_ENV=${{ env.NODE_ENV }} \
+            --build-arg PORT=${{ env.GATEWAY_SERVICE_PORT }} \
+            --build-arg USERS_MICROSERVICE_HOST=${{ env.MICROSERVICE_HOST }} \
+            --build-arg USERS_SERVICE_PORT=${{ env.USERS_SERVICE_PORT }} \
+            --build-arg COURSES_SERVICE_HOST=${{ env.MICROSERVICE_HOST }} \
+            --build-arg COURSES_SERVICE_PORT=${{ env.COURSES_SERVICE_PORT }} \
+            --build-arg UPLOAD_MICROSERVICE_HOST=${{ env.MICROSERVICE_HOST }} \
+            --build-arg UPLOAD_SERVICE_PORT=${{ env.UPLOAD_SERVICE_PORT }} \
+            --build-arg FRONTEND_URL=${{ secrets.FRONTEND_URL }} \
+            --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
+            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} .
+
+      # 8. Construir la imagen Docker para Upload Service
+      - name: Upload Service - Build Docker image 
+        working-directory: ./server/apps/uploadGCould
+        run: |
+          docker build \
+            --build-arg NODE_ENV=${{ env.NODE_ENV }} \
+            --build-arg UPLOAD_MICROSERVICE_HOST=${{ env.MICROSERVICE_HOST }} \
+            --build-arg UPLOAD_SERVICE_PORT=${{ env.UPLOAD_SERVICE_PORT }} \
+            --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} \
+            --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} \
+            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} .
+
+      # 9. Subir la imagen de User Service a Artifact Registry
+      - name: Users Service - Push Docker image
+        working-directory: ./server/apps/users
+        run: |
+          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }}
+
+      # 10. Subir la imagen de Courses Service a Artifact Registry
+      - name: Courses Service - Push Docker image
+        working-directory: ./server/apps/courses
+        run: |
+          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}
+
+      # 10. Subir la imagen de Upload Service a Artifact Registry
+      - name: Upload Service - Push Docker image
+        working-directory: ./server/apps/uploadGCould
+        run: |
+          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }}
+
+      # 11. Subir la imagen de Gateway Service a Artifact Registry
+      - name: Gateway Service - Push Docker image
+        working-directory: ./server/apps/gateway
+        run: |
+          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}
+
+      # 12. Setear un .env para la susticucion de variables
+      - name: Create env file for substitution
+        run: |
+          cat << EOF > .env
+          GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}
+          IMAGE_TAG=${{ github.sha }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          SMTP_USER=${{ secrets.SMTP_USER }}
+          SMTP_PASS=${{ secrets.SMTP_PASS }}
+          SMTP_HOST=${{ secrets.SMTP_HOST }}
+          SMTP_PORT=${{ secrets.SMTP_PORT }}
+          SMTP_SECURE=${{ secrets.SMTP_SECURE }}
+          GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }}
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          PGHOST=${{ secrets.PGHOST }}
+          PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }}
+          PGUSER=${{ secrets.PGUSER }}
+          PGDATABASE=${{ secrets.PGDATABASE }}
+          PGPASSWORD=${{ secrets.PGPASSWORD }}
+          POSTGRES_URL=${{ secrets.POSTGRES_URL }}
+          POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }}
+          POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+          POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }}
+          POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }}
+          POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }}
+          PROJECT_ID=${{ secrets.PROJECT_ID }}
+          BUCKET_NAME=${{ secrets.BUCKET_NAME }}
+          MONGO_URI=${{ secrets.MONGO_URI }}
+          EOF
+
+      # 13. Sustituir variables en los manifiestos en K8s
+      - name: Substitute variables in K8s manifests
+        run: |
+          mkdir -p k8s-rendered
+          for file in k8s/*.{yml,yaml}; do
+            if [ -f "$file" ]; then
+              echo "Processing $file..."
+              envsubst < "$file" > "k8s-rendered/$(basename $file)"
+            fi
+          done
+        env:
+          DOLLAR: '$'
+
+      # 14. Verificando manifiestos
+      - name: Verify rendered manifests
+        run: |
+          for file in k8s-rendered/*.{yml,yaml}; do
+            if [ -f "$file" ]; then
+              echo "Validating $file..."
+              kubectl apply --dry-run=client -f "$file"
+            fi
+          done
+
+      # 15.Aplicar manifiestos a los kubernetes
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f k8s-rendered/
+          kubectl wait --for=condition=available deployment --all --timeout=300s

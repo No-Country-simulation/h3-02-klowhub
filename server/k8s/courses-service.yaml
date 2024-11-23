@@ -5,7 +5,7 @@ metadata:
   namespace: courseservice
 spec:
   selector:
-    app: courses  # Se asocia con los pods que tienen esta etiqueta
+    app: klowhub-courses-api  # Se asocia con los pods que tienen esta etiqueta
   ports:
     - protocol: TCP
       port: 3002  # El puerto en el que el servicio de Identity será accesible

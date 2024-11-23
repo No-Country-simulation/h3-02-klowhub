@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gcc-upload-deployment
+  name: klowhub-upload-api-deployment
   namespace: gcc-upload
   labels:
-    app: gcc-upload
+    app: klowhub-upload-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: gcc-upload
+      app: klowhub-upload-api
   template:
     metadata:
       labels:
-        app: gcc-upload
+        app: klowhub-upload-api
     spec:
       containers:
-        - name: gcc-upload
-          image: gcr.io/${GCP_PROJECT_ID}/gcc-upload:${IMAGE_TAG}
+        - name: klowhub-upload-api
+          image: gcr.io/${GCP_PROJECT_ID}/klowhub-upload-api:${IMAGE_TAG}
           ports:
             - containerPort: 3003  # Puerto en el que la app está escuchando dentro del contenedor
           env:
