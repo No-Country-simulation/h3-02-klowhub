@@ -163,20 +163,62 @@ jobs:
         run: |
           mkdir -p k8s-rendered
           
-          for file in k8s/*.{yml,yaml}; do
-            if [ -f "$file" ]; then
+          echo "Listing k8s files:"
+          ls -la k8s/
+          
+          for file in k8s/*.yml k8s/*.yaml; do
+            if [[ -f "$file" ]] && [[ ! "$file" =~ "\*" ]]; then
               echo "Processing $file..."
+              
+              echo "Original content:"
+              cat "$file"
+              
               envsubst < "$file" > "k8s-rendered/$(basename $file)"
               
               echo "Validating $(basename $file)..."
               if ! kubectl apply --dry-run=client -f "k8s-rendered/$(basename $file)"; then
                 echo "Error validating $(basename $file)"
+                echo "Full content of problematic file:"
+                cat "k8s-rendered/$(basename $file)"
                 exit 1
               fi
             fi
           done
         env:
           DOLLAR: '$'
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCLOUD_REGION: ${{ secrets.GCLOUD_REGION }}
+          USERS_SERVICE_NAME: ${{ env.USERS_SERVICE_NAME }}
+          COURSE_SERVICE_NAME: ${{ env.COURSE_SERVICE_NAME }}
+          UPLOAD_SERVICE_NAME: ${{ env.UPLOAD_SERVICE_NAME }}
+          GATEWAY_SERVICE_NAME: ${{ env.GATEWAY_SERVICE_NAME }}
+          IMAGE_TAG: ${{ github.sha }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CALLBACK_URL: ${{ secrets.GOOGLE_CALLBACK_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PGHOST: ${{ secrets.PGHOST }}
+          PGHOST_UNPOOLED: ${{ secrets.PGHOST_UNPOOLED }}
+          PGUSER: ${{ secrets.PGUSER }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
+          POSTGRES_URL_NO_SSL: ${{ secrets.POSTGRES_URL_NO_SSL }}
+          POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
 
       # 14. Aplicando los manifiestos a los kubernetes
       - name: Apply Kubernetes manifests
