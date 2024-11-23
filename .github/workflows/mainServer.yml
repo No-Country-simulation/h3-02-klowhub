@@ -56,7 +56,7 @@ jobs:
 
       # 4. Configurar kubectl
       - name: Set up GKE
-        uses: google-github-actions/get-gke-credentials@v1
+        uses: google-github-actions/get-gke-credentials@v2
         with:
           cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
           location: ${{ secrets.GCLOUD_REGION }}
@@ -76,11 +76,10 @@ jobs:
         run: docker login $GCLOUD_REGION-docker.pkg.dev
 
       # 7. Construir la imagen Docker para User Service
-      - name: Users Service - Build Docker image 
+      - name: Users Service - Build Docker image
         working-directory: ./server
         run: |
           docker build \
-            -f ./apps/users/Dockerfile \ 
             --build-arg SMTP_USER=${{ secrets.SMTP_USER }} \
             --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} \
             --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} \
@@ -104,10 +103,10 @@ jobs:
             --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
             --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} \
             --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} \
-            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-users-api:${{ github.sha }} .
+            -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/klowhub-users-api:${{ github.sha }} ./apps/users
 
       # 8. Construir la imagen Docker para Courses Service
-      - name: Courses Service - Build Docker image 
+      - name: Courses Service - Build Docker image
         working-directory: ./server/apps/courses
         run: docker build --build-arg NODE_ENV=${{ env.NODE_ENV }} --build-arg COURSES_SERVICE_HOST=${{ env.MICROSERVICE_HOST }} --build-arg COURSES_SERVICE_PORT=${{ env.COURSES_SERVICE_PORT }} --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }} .
 
