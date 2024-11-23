@@ -117,6 +117,7 @@ jobs:
 
       # 12. Setear un .env para la susticucion de variables
       - name: Create env file for substitution
+        working-directory: ./server
         run: |
           cat << EOF > .env
           GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}
@@ -151,6 +152,7 @@ jobs:
 
       # 13. Sustituir variables en los manifiestos en K8s
       - name: Substitute variables in K8s manifests
+        working-directory: ./server
         run: |
           mkdir -p k8s-rendered
           for file in k8s/*.{yml,yaml}; do
@@ -164,6 +166,7 @@ jobs:
 
       # 14. Primera - Verificando manifiestos
       - name: Verify rendered manifests
+        working-directory: ./server
         run: |
           for file in k8s-rendered/*.{yml,yaml}; do
             if [ -f "$file" ]; then
@@ -172,14 +175,9 @@ jobs:
             fi
           done
 
-      #  14.25. Doble - Verificación de los manifiestos
-      - name: Check rendered manifests
-        run: |
-          ls -l k8s-rendered/
-          cat k8s-rendered/*
-
       #  14.5. Triple - Verificación de los manifiestos
       - name: Verify file extensions
+        working-directory: ./server
         run: |
           for file in k8s-rendered/*; do
             if [[ ! "$file" =~ \.yaml$|\.yml$ ]]; then
@@ -188,13 +186,9 @@ jobs:
             fi
           done
 
-      # 14.75. Cuadruple - Cambiar permisos de los archivos generados
-      - name: Set file permissions
-        run: |
-          chmod -R 755 k8s-rendered/
-
       # 15. Aplicar manifiestos a los kubernetes
       - name: Apply Kubernetes manifests
+        working-directory: ./server
         run: |
           kubectl apply -f k8s-rendered/
           kubectl wait --for=condition=available deployment --all --timeout=300s
