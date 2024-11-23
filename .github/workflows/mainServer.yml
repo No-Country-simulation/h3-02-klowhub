@@ -74,6 +74,47 @@ jobs:
       - name: Validate Docker authentication
         run: docker login $GCLOUD_REGION-docker.pkg.dev
 
+      # 7. Construir la imagen Docker para User Service
+      - name: Users Service - Build Docker image
+        working-directory: ./server
+        run: docker build --progress plain --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} --build-arg SMTP_USER=${{ secrets.SMTP_USER }} --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} --build-arg SMTP_SECURE=${{ secrets.SMTP_SECURE }} --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} --build-arg GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg DATABASE_URL_UNPOOLED=${{ secrets.DATABASE_URL_UNPOOLED }} --build-arg PGHOST=${{ secrets.PGHOST }} --build-arg PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }} --build-arg PGUSER=${{ secrets.PGUSER }} --build-arg PGDATABASE=${{ secrets.PGDATABASE }} --build-arg PGPASSWORD=${{ secrets.PGPASSWORD }} --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} --build-arg POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} -f ./apps/users/Dockerfile -t ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }} ./apps/users
+
+
+      # 8. Construir la imagen Docker para Courses Service
+      - name: Courses Service - Build Docker image
+        working-directory: ./server
+        run: docker build --progress plain --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/courses/Dockerfile -t ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }} ./apps/courses
+
+      # 8. Construir la imagen Docker para Gateway Service
+      - name: Gateway Service - Build Docker image 
+        working-directory: ./server
+        run: docker build --progress plain --build-arg FRONTEND_URL=${{ secrets.FRONTEND_URL }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/gateway/Dockerfile -t ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} ./apps/gateway
+
+      # 8. Construir la imagen Docker para Upload Service
+      - name: Upload Service - Build Docker image 
+        working-directory: ./server
+        run: docker build --progress plain --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} -f ./apps/uploadGCould/Dockerfile -t ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} ./apps/uploadGCould
+
+      # 9. Subir la imagen de User Service a Artifact Registry
+      - name: Users Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }}
+
+      # 10. Subir la imagen de Courses Service a Artifact Registry
+      - name: Courses Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}
+
+      # 10. Subir la imagen de Upload Service a Artifact Registry
+      - name: Upload Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }}
+
+      # 11. Subir la imagen de Gateway Service a Artifact Registry
+      - name: Gateway Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}
+
       # 12. Setear un .env para la susticucion de variables
       - name: Create env file for substitution
         working-directory: ./server
