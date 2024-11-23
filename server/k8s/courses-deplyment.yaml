@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: courses-deployment
+  namespace: courseservice
+  labels:
+    app: courses
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: courses
+  template:
+    metadata:
+      labels:
+        app: courses
+    spec:
+      containers:
+        - name: identity
+          image: gcr.io/${GCP_PROJECT_ID}/courses:${IMAGE_TAG}
+          ports:
+            - containerPort: 3002  # Puerto en el que la app está escuchando dentro del contenedor
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: COURSES_SERVICE_HOST
+              value: "3002"
+            - name: COURSES_SERVICE_PORT
+              value: "0.0.0.0"
+            - name: JWT_SECRET
+              value: "${JWT_SECRET}"  
+            - name: MONGO_URI
+              value: "${MONGO_URI}"  

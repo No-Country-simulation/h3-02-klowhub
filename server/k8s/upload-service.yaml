@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gcc-upload-service
+  namespace: gcc-upload
+spec:
+  selector:
+    app: gcc-upload  # Se asocia con los pods que tienen esta etiqueta
+  ports:
+    - protocol: TCP
+      port: 3003  # El puerto en el que el servicio de Identity será accesible
+      targetPort: 3003  # El puerto en el que el contenedor está escuchando
+  type: ClusterIP  # Tipo de servicio que solo es accesible dentro del clúster
