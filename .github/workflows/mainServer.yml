@@ -116,86 +116,86 @@ jobs:
         run: docker push ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}
 
       # 12. Setear un .env para la susticucion de variables
-    - name: Create env file for substitution
-      working-directory: ./server
-      run: |
-        cat << 'EOF' > .env
-        export GCP_PROJECT_ID='${{ secrets.GCP_PROJECT_ID }}'
-        export GCLOUD_REGION='${{ secrets.GCLOUD_REGION }}'
-        export USERS_SERVICE_NAME='${{ env.USERS_SERVICE_NAME }}'
-        export COURSE_SERVICE_NAME='${{ env.COURSE_SERVICE_NAME }}'
-        export UPLOAD_SERVICE_NAME='${{ env.UPLOAD_SERVICE_NAME }}'
-        export GATEWAY_SERVICE_NAME='${{ env.GATEWAY_SERVICE_NAME }}'
-        export IMAGE_TAG='${{ github.sha }}'
-        export JWT_SECRET='${{ secrets.JWT_SECRET }}'
-        export SMTP_USER='${{ secrets.SMTP_USER }}'
-        export SMTP_PASS='${{ secrets.SMTP_PASS }}'
-        export SMTP_HOST='${{ secrets.SMTP_HOST }}'
-        export SMTP_PORT='${{ secrets.SMTP_PORT }}'
-        export SMTP_SECURE='${{ secrets.SMTP_SECURE }}'
-        export GOOGLE_CLIENT_ID='${{ secrets.GOOGLE_CLIENT_ID }}'
-        export GOOGLE_CLIENT_SECRET='${{ secrets.GOOGLE_CLIENT_SECRET }}'
-        export GOOGLE_CALLBACK_URL='${{ secrets.GOOGLE_CALLBACK_URL }}'
-        export DATABASE_URL='${{ secrets.DATABASE_URL }}'
-        export PGHOST='${{ secrets.PGHOST }}'
-        export PGHOST_UNPOOLED='${{ secrets.PGHOST_UNPOOLED }}'
-        export PGUSER='${{ secrets.PGUSER }}'
-        export PGDATABASE='${{ secrets.PGDATABASE }}'
-        export PGPASSWORD='${{ secrets.PGPASSWORD }}'
-        export POSTGRES_URL='${{ secrets.POSTGRES_URL }}'
-        export POSTGRES_URL_NON_POOLING='${{ secrets.POSTGRES_URL_NON_POOLING }}'
-        export POSTGRES_USER='${{ secrets.POSTGRES_USER }}'
-        export POSTGRES_HOST='${{ secrets.POSTGRES_HOST }}'
-        export POSTGRES_PASSWORD='${{ secrets.POSTGRES_PASSWORD }}'
-        export POSTGRES_DATABASE='${{ secrets.POSTGRES_DATABASE }}'
-        export POSTGRES_URL_NO_SSL='${{ secrets.POSTGRES_URL_NO_SSL }}'
-        export POSTGRES_PRISMA_URL='${{ secrets.POSTGRES_PRISMA_URL }}'
-        export BUCKET_NAME='${{ secrets.BUCKET_NAME }}'
-        export MONGO_URI='${{ secrets.MONGO_URI }}'
-        EOF
-        
-        chmod +x .env
-        source .env
-
-      # 13. Sustituir variables en los manifiestos en K8s
-    - name: Prepare and validate K8s manifests
-      working-directory: ./server
-      run: |
-        mkdir -p k8s-rendered
-        
-        for file in k8s/*.{yml,yaml}; do
-          if [ -f "$file" ]; then
-            echo "Processing $file..."
-            envsubst < "$file" > "k8s-rendered/$(basename $file)"
-            
-            echo "Validating $(basename $file)..."
-            if ! kubectl apply --dry-run=client -f "k8s-rendered/$(basename $file)"; then
-              echo "Error validating $(basename $file)"
-              exit 1
-            fi
-          fi
-        done
-      env:
-        DOLLAR: '$'
-
-      # 14. Aplicando los manifiestos a los kubernetes
-    - name: Apply Kubernetes manifests
-      working-directory: ./server
-      run: |
-        if [ -f "k8s-rendered/namespace.yaml" ]; then
-          kubectl apply -f k8s-rendered/namespace.yaml
-          sleep 5
-        fi
-        
-        kubectl apply -f k8s-rendered/
-        
-        echo "Waiting for deployments to be ready..."
-        kubectl wait --for=condition=available deployment/users-deployment -n userservice --timeout=300s
-
-      #  15. Verificando que el deployment este listo
-      - name: Verify deployment
+      - name: Create env file for substitution
         working-directory: ./server
         run: |
-          echo "Checking deployment status..."
-          kubectl get deployments -n userservice
-          kubectl get pods -n userservice
+          cat << 'EOF' > .env
+          export GCP_PROJECT_ID='${{ secrets.GCP_PROJECT_ID }}'
+          export GCLOUD_REGION='${{ secrets.GCLOUD_REGION }}'
+          export USERS_SERVICE_NAME='${{ env.USERS_SERVICE_NAME }}'
+          export COURSE_SERVICE_NAME='${{ env.COURSE_SERVICE_NAME }}'
+          export UPLOAD_SERVICE_NAME='${{ env.UPLOAD_SERVICE_NAME }}'
+          export GATEWAY_SERVICE_NAME='${{ env.GATEWAY_SERVICE_NAME }}'
+          export IMAGE_TAG='${{ github.sha }}'
+          export JWT_SECRET='${{ secrets.JWT_SECRET }}'
+          export SMTP_USER='${{ secrets.SMTP_USER }}'
+          export SMTP_PASS='${{ secrets.SMTP_PASS }}'
+          export SMTP_HOST='${{ secrets.SMTP_HOST }}'
+          export SMTP_PORT='${{ secrets.SMTP_PORT }}'
+          export SMTP_SECURE='${{ secrets.SMTP_SECURE }}'
+          export GOOGLE_CLIENT_ID='${{ secrets.GOOGLE_CLIENT_ID }}'
+          export GOOGLE_CLIENT_SECRET='${{ secrets.GOOGLE_CLIENT_SECRET }}'
+          export GOOGLE_CALLBACK_URL='${{ secrets.GOOGLE_CALLBACK_URL }}'
+          export DATABASE_URL='${{ secrets.DATABASE_URL }}'
+          export PGHOST='${{ secrets.PGHOST }}'
+          export PGHOST_UNPOOLED='${{ secrets.PGHOST_UNPOOLED }}'
+          export PGUSER='${{ secrets.PGUSER }}'
+          export PGDATABASE='${{ secrets.PGDATABASE }}'
+          export PGPASSWORD='${{ secrets.PGPASSWORD }}'
+          export POSTGRES_URL='${{ secrets.POSTGRES_URL }}'
+          export POSTGRES_URL_NON_POOLING='${{ secrets.POSTGRES_URL_NON_POOLING }}'
+          export POSTGRES_USER='${{ secrets.POSTGRES_USER }}'
+          export POSTGRES_HOST='${{ secrets.POSTGRES_HOST }}'
+          export POSTGRES_PASSWORD='${{ secrets.POSTGRES_PASSWORD }}'
+          export POSTGRES_DATABASE='${{ secrets.POSTGRES_DATABASE }}'
+          export POSTGRES_URL_NO_SSL='${{ secrets.POSTGRES_URL_NO_SSL }}'
+          export POSTGRES_PRISMA_URL='${{ secrets.POSTGRES_PRISMA_URL }}'
+          export BUCKET_NAME='${{ secrets.BUCKET_NAME }}'
+          export MONGO_URI='${{ secrets.MONGO_URI }}'
+          EOF
+          
+          chmod +x .env
+          source .env
+
+        # 13. Sustituir variables en los manifiestos en K8s
+      - name: Prepare and validate K8s manifests
+        working-directory: ./server
+        run: |
+          mkdir -p k8s-rendered
+          
+          for file in k8s/*.{yml,yaml}; do
+            if [ -f "$file" ]; then
+              echo "Processing $file..."
+              envsubst < "$file" > "k8s-rendered/$(basename $file)"
+              
+              echo "Validating $(basename $file)..."
+              if ! kubectl apply --dry-run=client -f "k8s-rendered/$(basename $file)"; then
+                echo "Error validating $(basename $file)"
+                exit 1
+              fi
+            fi
+          done
+        env:
+          DOLLAR: '$'
+
+        # 14. Aplicando los manifiestos a los kubernetes
+      - name: Apply Kubernetes manifests
+        working-directory: ./server
+        run: |
+          if [ -f "k8s-rendered/namespace.yaml" ]; then
+            kubectl apply -f k8s-rendered/namespace.yaml
+            sleep 5
+          fi
+          
+          kubectl apply -f k8s-rendered/
+          
+          echo "Waiting for deployments to be ready..."
+          kubectl wait --for=condition=available deployment/users-deployment -n userservice --timeout=300s
+
+        #  15. Verificando que el deployment este listo
+        - name: Verify deployment
+          working-directory: ./server
+          run: |
+            echo "Checking deployment status..."
+            kubectl get deployments -n userservice
+            kubectl get pods -n userservice
