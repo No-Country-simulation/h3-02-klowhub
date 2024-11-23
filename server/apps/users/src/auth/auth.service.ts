@@ -68,7 +68,7 @@ export class AuthService {
 
       // Generar un nuevo token de inicio de sesión
       const loginToken = jwt.sign(
-        { userId: user.id, email: user.email },
+        { userId: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: '1h' },
       );
@@ -348,5 +348,19 @@ export class AuthService {
     await this.userRepository.save(user);
 
     return { message: 'Password reset successfully' };
+  }
+  // Verificar el token JWT
+  verifyJwt(token: string): any {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token con la clave secreta
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      throw new Error('Token inválido o expirado');
+    }
+  }
+
+  // buscar usuario por ID
+  async findUserById(userId: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({ where: { id: userId } });
   }
 }

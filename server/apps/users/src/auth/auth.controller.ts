@@ -140,4 +140,36 @@ export class AuthController {
     await this.authService.resetPassword(email, token, newPassword);
     return { message: 'Contraseña restablecida exitosamente.' };
   }
+
+  // profile user
+  @MessagePattern({ cmd: 'getProfile' })
+  async getProfile(data: { userId: string }) {
+    const { userId } = data;
+
+    try {
+      // Buscar al usuario por su userId
+      const user = await this.authService.findUserById(userId);
+      if (!user) {
+        throw new RpcException({
+          message: 'Usuario no encontrado',
+          statusCode: 404,
+        });
+      }
+
+      // Devolver los datos completos del perfil
+      return {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+      };
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 500,
+        message: error.message || 'Error al obtener el perfil',
+      });
+    }
+  }
 }

@@ -1,17 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-//import { Logger } from '@nestjs/common';
+import * as dotenv from 'dotenv';
+dotenv.config();
+import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
 async function bootstrap() {
-  console.log(process.env.PORT);
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(
-    new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    })
-   );
-  await app.listen(process.env.PORT ?? 3002);
+
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.TCP,
+      options: {
+        host: process.env.MICROSERVICE_HOST || '0.0.0.0',
+        port: parseInt(process.env.MICROSERVICE_PORT, 10) || 3002,
+      },
+    },
+  );
+
+  await app.listen();
+  console.log('Microservice Courses is listening...');
 }
+
 bootstrap();
