@@ -16,18 +16,18 @@ spec:
         app: klowhub-courses-api
     spec:
       containers:
-        - name: klowhub-courses-api
-          image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${COURSE_SERVICE_NAME}:${IMAGE_TAG}
-          ports:
-            - containerPort: 3002
-          env:
-            - name: NODE_ENV
-              value: "production"
-            - name: COURSES_SERVICE_HOST
-              value: "0.0.0.0"
-            - name: COURSES_SERVICE_PORT
-              value: "3002"
-            - name: JWT_SECRET
-              value: "${JWT_SECRET}"
-            - name: MONGO_URI
-              value: "${MONGO_URI}"
+      - name: klowhub-courses-api
+        image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${COURSE_SERVICE_NAME}:${IMAGE_TAG}
+        ports:
+        - containerPort: 3002
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: COURSES_SERVICE_HOST
+          value: "0.0.0.0"
+        - name: COURSES_SERVICE_PORT
+          value: "3002"
+        - name: JWT_SECRET
+          value: "${JWT_SECRET}"
+        - name: MONGO_URI
+          value: "${MONGO_URI}"

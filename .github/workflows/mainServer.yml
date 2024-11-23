@@ -170,13 +170,9 @@ jobs:
             if [[ -f "$file" ]] && [[ ! "$file" =~ "\*" ]]; then
               echo "Processing $file..."
               
-              echo "Original content:"
-              cat "$file"
-              
               envsubst < "$file" > "k8s-rendered/$(basename $file)"
               
               echo "Processed content:"
-              cat "k8s-rendered/$(basename $file)"
               echo "Validating $(basename $file)..."
 
               if ! kubectl apply --dry-run=client -f "k8s-rendered/$(basename $file)"; then
