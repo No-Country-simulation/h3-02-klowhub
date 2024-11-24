@@ -280,7 +280,7 @@ jobs:
         run: |
           kubectl apply -f k8s-rendered/
           sleep 10
-          DEPLOYMENTS=("gateway" "users" "courses" "upload")
+          DEPLOYMENTS=("gateway-deployment" "users-deployment" "courses-deployment" "klowhub-upload-api-deployment")
           echo "Cleaning up revision history for all deployments..."
           for DEPLOY_NAME in "${DEPLOYMENTS[@]}"
           do
