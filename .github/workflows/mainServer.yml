@@ -30,6 +30,7 @@ jobs:
       GATEWAY_SERVICE_PORT: 3000
       UPLOAD_SERVICE_NAME: klowhub-upload-api
       UPLOAD_SERVICE_PORT: 3003
+      MAX_IMAGES_TO_KEEP: 2
     steps:
       - uses: actions/checkout@v4
 
@@ -94,6 +95,41 @@ jobs:
       - name: Upload Service - Build Docker image 
         working-directory: ./server
         run: docker build --progress plain --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} -f ./apps/uploadGCould/Dockerfile -t ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} ./apps/uploadGCould
+
+      # 10.5. Limpiar imágenes antiguas
+      - name: Cleanup Old Images
+        working-directory: ./server
+        run: |
+          for SERVICE in $USERS_SERVICE_NAME $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME $GATEWAY_SERVICE_NAME
+          do
+            echo "Cleaning up old images for $SERVICE..."
+            
+            # Obtener lista de tags ordenados por fecha
+            TAGS=$(gcloud container images list-tags \
+              ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/$SERVICE \
+              --format='get(tags)' \
+              --sort-by=~TIMESTAMP)
+            
+            TOTAL_IMAGES=$(echo "$TAGS" | wc -l)
+            
+            # Si hay más imágenes que el límite, eliminar las más antiguas
+            if [ $TOTAL_IMAGES -gt $MAX_IMAGES_TO_KEEP ]; then
+              # Cuántas imágenes eliminar
+              TO_DELETE=$((TOTAL_IMAGES - MAX_IMAGES_TO_KEEP))
+              
+              echo "Found $TOTAL_IMAGES images, keeping $MAX_IMAGES_TO_KEEP, deleting $TO_DELETE"
+              
+              # Eliminar las imágenes más antiguas
+              echo "$TAGS" | tail -n $TO_DELETE | while read TAG; do
+                if [ ! -z "$TAG" ]; then
+                  echo "Deleting image with tag: $TAG"
+                  gcloud container images delete \
+                    "${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/$SERVICE:$TAG" \
+                    --quiet
+                fi
+              done
+            fi
+          done
 
       # 11. Subir la imagen de User Service a Artifact Registry
       - name: Users Service - Push Docker image
@@ -239,14 +275,18 @@ jobs:
           MONGO_URI: ${{ secrets.MONGO_URI }}
 
       # 18. Aplicando los manifiestos a los kubernetes
-      - name: Apply Kubernetes manifests
-        working-directory: ./server
-        run: kubectl apply -f k8s-rendered/        
-
-      # 19. Verificando que el Ingress este listo
-      - name: Verify Ingress Status
+      - name: Apply Kubernetes manifests and cleanup
         working-directory: ./server
         run: |
-          echo "Checking Ingress status..."
-          kubectl get ingress -A
-          kubectl get pods -n kube-system -l k8s-app=glbc
+          kubectl apply -f k8s-rendered/
+          sleep 10
+          DEPLOYMENTS=("gateway" "users" "courses" "upload")
+          echo "Cleaning up revision history for all deployments..."
+          for DEPLOY_NAME in "${DEPLOYMENTS[@]}"
+          do
+            echo "Setting revision history limit for $DEPLOY_NAME"
+            kubectl patch deployment $DEPLOY_NAME -p '{"spec":{"revisionHistoryLimit":2}}'
+            kubectl rollout status deployment/$DEPLOY_NAME
+            echo "Current revision history for $DEPLOY_NAME:"
+            kubectl rollout history deployment/$DEPLOY_NAME
+          done
