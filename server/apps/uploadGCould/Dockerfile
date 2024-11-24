@@ -9,7 +9,7 @@ RUN npm ci --only=production
 # Fase de Construcción
 FROM deps AS builder
 WORKDIR /app
-COPY package.json package-lock.json tsconfig.json ./
+COPY gccKey.json package.json package-lock.json tsconfig.json ./
 RUN npm ci --legacy-peer-deps  
 COPY . ./
 RUN npm run build  
@@ -44,6 +44,8 @@ ENV BUCKET_NAME=$BUCKET_NAME
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY package.json ./
+COPY gccKey.json ./
+COPY /protos ./protos
 
 USER nestjs
 

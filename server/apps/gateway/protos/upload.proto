@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package googlecloudstorage;
+
+service GoogleCloudStorageService {
+  rpc UploadFile (UploadFileRequest) returns (UploadFileResponse);
+}
+
+message UploadFileRequest {
+  string filename = 1;
+  bytes file = 2;
+  string userId = 3;
+}
+
+message UploadFileResponse {
+  string url = 1;
+  string message = 2;
+}
