@@ -11,7 +11,7 @@ import { PubSubGatewayService } from './pubsub.gateway.service';
         transport: Transport.GRPC,
         options: {
           package: 'googlecloudstorage', 
-          protoPath: 'src/proto/upload.proto', 
+          protoPath: '../../protos/upload.proto', 
           url: '0.0.0.0:50051',
         },
       },

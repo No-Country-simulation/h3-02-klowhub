@@ -10,7 +10,7 @@ import { UploadController } from './upload.controllers';
         transport: Transport.GRPC,
         options: {
           package: 'googlecloudstorage', 
-          protoPath: 'src/proto/upload.proto', 
+          protoPath: '../../protos/upload.proto', 
           url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
         },
       },
