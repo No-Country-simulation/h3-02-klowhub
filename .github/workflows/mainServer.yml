@@ -280,13 +280,20 @@ jobs:
         run: |
           kubectl apply -f k8s-rendered/
           sleep 10
-          DEPLOYMENTS=("gateway-deployment" "users-deployment" "courses-deployment" "klowhub-upload-api-deployment")
+          DEPLOYMENTS=(
+            "gateway/gateway-deployment"
+            "userservice/users-deployment"
+            "courseservice/courses-deployment"
+            "gcc-upload/klowhub-upload-api-deployment"
+          )
           echo "Cleaning up revision history for all deployments..."
-          for DEPLOY_NAME in "${DEPLOYMENTS[@]}"
+          for DEPLOY_INFO in "${DEPLOYMENTS[@]}"
           do
+            NAMESPACE="${DEPLOY_INFO%%/*}"
+            DEPLOY_NAME="${DEPLOY_INFO#*/}"
             echo "Setting revision history limit for $DEPLOY_NAME"
-            kubectl patch deployment $DEPLOY_NAME -p '{"spec":{"revisionHistoryLimit":2}}'
-            kubectl rollout status deployment/$DEPLOY_NAME
+            kubectl patch deployment $DEPLOY_NAME -n $NAMESPACE -p '{"spec": {"revisionHistoryLimit": 2}}'
+            kubectl rollout status deployment/$DEPLOY_NAME -n $NAMESPACE
             echo "Current revision history for $DEPLOY_NAME:"
-            kubectl rollout history deployment/$DEPLOY_NAME
+            kubectl rollout history deployment/$DEPLOY_NAME -n $NAMESPACE
           done
