@@ -6,7 +6,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "gce"
     kubernetes.io/ingress.allow-http: "true"
-    networking.gke.io/v1beta1.FrontendConfig: "gateway-frontend-config"
 spec:
   rules:
   - http:
@@ -18,16 +17,3 @@ spec:
             name: gateway-service
             port:
               number: 80
----
-apiVersion: networking.gke.io/v1beta1
-kind: FrontendConfig
-metadata:
-  name: gateway-frontend-config
-  namespace: gateway
-spec:
-  cors:
-    allowOrigin: ["*"]
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-    allowHeaders: ["DNT", "X-CustomHeader", "Keep-Alive", "User-Agent", "X-Requested-With", "If-Modified-Since", "Cache-Control", "Content-Type", "Authorization", "Set-Cookie", "Cookie"]
-    allowCredentials: true
----
