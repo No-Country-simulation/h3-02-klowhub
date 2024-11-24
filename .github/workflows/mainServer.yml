@@ -30,7 +30,7 @@ jobs:
       GATEWAY_SERVICE_PORT: 3000
       UPLOAD_SERVICE_NAME: klowhub-upload-api
       UPLOAD_SERVICE_PORT: 3003
-      MAX_IMAGES_TO_KEEP: 2
+      MAX_IMAGES_TO_KEEP: 1
     steps:
       - uses: actions/checkout@v4
 
@@ -293,7 +293,4 @@ jobs:
             DEPLOY_NAME="${DEPLOY_INFO#*/}"
             echo "Setting revision history limit for $DEPLOY_NAME"
             kubectl patch deployment $DEPLOY_NAME -n $NAMESPACE -p '{"spec": {"revisionHistoryLimit": 2}}'
-            kubectl rollout status deployment/$DEPLOY_NAME -n $NAMESPACE
-            echo "Current revision history for $DEPLOY_NAME:"
-            kubectl rollout history deployment/$DEPLOY_NAME -n $NAMESPACE
           done
