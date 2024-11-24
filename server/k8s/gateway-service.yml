@@ -4,7 +4,7 @@ metadata:
   name: gateway-service
   namespace: gateway 
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: klowhub-gateway-api
   ports:
