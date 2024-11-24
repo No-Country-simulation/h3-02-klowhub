@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Module } from './lesson.module.schema'; // Importamos el subesquema de módulos
-import { MergeInfo, MergeInfoSchema } from './merge-info.schema'; // Importamos el subesquema de mergeInfo
+import { Module, ModuleSchema } from './module.schema';
+import { MergeInfo, MergeInfoSchema } from './merge-info.schema';
 
 @Schema()
 export class Course extends Document {
@@ -17,21 +17,21 @@ export class Course extends Document {
     default: 'premium',
     required: true,
   })
-  contentType: string; // Tipo de contenido: gratuito o premium
+  contentType: string; // Tipo de contenido
 
   @Prop({
     type: String,
     enum: ['appsheet', 'powerapps'],
     required: true,
   })
-  courseType: string; // Tipo de curso: appsheet o powerapps
+  courseType: string; // Tipo de curso
 
   @Prop({
     type: String,
     enum: ['course', 'lesson'],
     required: true,
   })
-  kind: string; // Indica si es un curso o lección
+  kind: string; // Curso o lección
 
   @Prop()
   basicDescription?: string; // Descripción básica del curso
@@ -40,16 +40,16 @@ export class Course extends Document {
   prerequisites?: string[]; // Requisitos previos del curso
 
   @Prop()
-  detailedContent?: string; // Descripción detallada del contenido
+  detailedContent?: string; // Descripción detallada
 
   @Prop()
   imageUrl?: string; // URL de la imagen del curso
 
-  @Prop({ type: [Module], default: [] })
-  modules?: Module[]; // Lista de módulos del curso
+  @Prop({ type: [ModuleSchema], default: [] })
+  modules?: Module[]; // Lista de módulos
 
   @Prop({ type: MergeInfoSchema })
-  mergeInfo?: MergeInfo; // Información sobre fusiones con otras apps o cursos
+  mergeInfo?: MergeInfo; // Información de fusiones
 
   @Prop({ default: 'in-progress' })
   status: string; // Estado del curso
@@ -58,7 +58,7 @@ export class Course extends Document {
   createdAt: Date; // Fecha de creación
 
   @Prop({ default: Date.now })
-  updatedAt: Date; // Fecha de última actualización
+  updatedAt: Date; // Fecha de actualización
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

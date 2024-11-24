@@ -1,12 +1,13 @@
+// merge-info.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
 export class MergeInfo extends Document {
-  @Prop({ type: Number, required: false })
+  @Prop()
   discountPercentage?: number; // Porcentaje de descuento
 
-  @Prop({ type: [String], required: false })
+  @Prop({ type: [String], default: [] })
   relatedCourses?: string[]; // IDs de cursos relacionados
 }
 
