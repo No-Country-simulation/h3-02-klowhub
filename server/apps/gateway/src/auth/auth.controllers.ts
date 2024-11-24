@@ -119,7 +119,7 @@ export class AuthController {
   @UseGuards(RolesGuard) // Verifica el rol del usuario
   async getProfile(@Request() req: any, @Response() res: ExpressResponse) {
     const userId = req.user.id; // Recuperamos el userId desde el token (verificado por el middleware)
-
+    console.log('este es la id del usuario', userId);
     if (!userId) {
       throw new BadRequestException('No se encontró el ID del usuario');
     }
