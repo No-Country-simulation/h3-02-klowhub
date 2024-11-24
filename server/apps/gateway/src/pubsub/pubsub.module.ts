@@ -12,7 +12,7 @@ import { PubSubGatewayService } from './pubsub.gateway.service';
         options: {
           package: 'googlecloudstorage', 
           protoPath: '../../protos/upload.proto', 
-          url: '0.0.0.0:50051',
+          url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
         },
       },
     ]),
