@@ -15,6 +15,7 @@ import { lastValueFrom } from 'rxjs';
 import { RegisterSchema } from './dto/registerSchema.dto';
 import { UpdateSchema } from './dto/updateSchema.dto';
 import { LoginDto } from './dto/loginSchema.dto';
+import { ResetTokenDto, ResetTokenSchema } from './dto/resetToken.dto';
 import { CookieService } from 'src/common/services/cookie.service';
 import { Response as ExpressResponse } from 'express';
 import { Roles } from 'src/decorators/roles.decorator';
@@ -70,6 +71,19 @@ export class AuthController {
       );
     }
   }
+
+  // reenviar el token para activar el email
+  @Post('resetToken')
+  async resertToken(@Body() resetTokenDto: ResetTokenDto): Promise<any> {
+    const validationEmail = ResetTokenSchema.safeParse(resetTokenDto);
+    if (!validationEmail.success) {
+      throw new BadRequestException(validationEmail.error.errors);
+    }
+    return lastValueFrom(
+      this.authClient.send({ cmd: 'resetToken' }, resetTokenDto),
+    );
+  }
+  //
   @Post('google')
   async google(@Body() token: string): Promise<any> {
     return lastValueFrom(this.authClient.send({ cmd: 'google' }, { token }));
