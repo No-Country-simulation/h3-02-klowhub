@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: klowhub-upload-api-service
+  namespace: gcc-upload
+  annotations:
+    cloud.google.com/app-protocols: '{"http2-port":"HTTP2"}'
+spec:
+  selector:
+    app: klowhub-upload-api
+  ports:
+    - protocol: TCP
+      port: 3003
+      targetPort: 3003
+      name: http2-port
+  type: ClusterIP
