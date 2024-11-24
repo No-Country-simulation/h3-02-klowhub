@@ -9,7 +9,7 @@ dotenv.config();
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGO_URI),
-    CoursesModule
+    CoursesModule,
   ],
 })
 export class AppModule {}

@@ -14,6 +14,7 @@ import { TokenSchema, TokenDto } from './dto/tokenSchema.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserEntity } from 'src/entities/user.entity';
 import { LoginSchema, LoginDto } from './dto/loginSchema.dto';
+import { ResetTokenSchema, ResetTokenDto } from './dto/resetToken.dto';
 import * as dotenv from 'dotenv';
 import { MessagePattern, RpcException } from '@nestjs/microservices';
 dotenv.config();
@@ -72,7 +73,6 @@ export class AuthController {
   //@Post('login')
   @MessagePattern({ cmd: 'login' })
   async loginn(data: any) {
-    console.log('Datos recibidos del gateway:', data);
     try {
       // Validar datos con Zod
       const validateLogin = LoginSchema.safeParse(data);
@@ -98,14 +98,16 @@ export class AuthController {
       });
     }
   }
-  //
-  @Post('verifyEmail')
-  async resendVerificationToken(@Body('email') email: string) {
-    if (!email) {
-      throw new BadRequestException('El email es obligatorio.');
+  // vuelve a enviar el token de autotificacion
+  //@Post('resetToken')
+  @MessagePattern({ cmd: 'resetToken' })
+  async resendVerificationToken(data: any) {
+    const validationEmail = ResetTokenSchema.safeParse(data);
+    if (!validationEmail.success) {
+      throw new BadRequestException(validationEmail.error.errors);
     }
-    await this.authService.resendVerificationToken(email);
-    return { message: 'Nuevo token de verificación enviado a tu correo.' };
+    const resetTokenDto: ResetTokenDto = validationEmail.data;
+    return await this.authService.resendVerificationToken(resetTokenDto.email);
   }
 
   /**

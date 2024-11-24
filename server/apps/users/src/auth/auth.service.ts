@@ -36,7 +36,7 @@ export class AuthService {
     try {
       // Verificar si el token está presente
       if (!tokenDto.token) {
-        throw new BadRequestException('Token is required');
+        return { message: 'Token is required' };
       }
 
       // Decodificar el token JWT
@@ -48,7 +48,7 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new Error('User not found');
+        return { message: 'User not found' };
       }
 
       // Verificar si el token ha expirado
@@ -57,7 +57,7 @@ export class AuthService {
         user.emailVerificationExpiresAt &&
         user.emailVerificationExpiresAt <= currentTime
       ) {
-        throw new BadRequestException('Token has expired');
+        return { message: 'Token has expired' };
       }
 
       // Actualizar el estado del usuario
@@ -89,7 +89,7 @@ export class AuthService {
         throw new BadRequestException('Invalid token');
       }
       // Lanzar otros errores
-      throw new BadRequestException(error.message || 'Something went wrong');
+      return { message: 'Something went wrong' };
     }
   }
 
@@ -143,9 +143,7 @@ export class AuthService {
       );
     } catch (error) {
       console.error('Error enviando correo de verificación:', error);
-      throw new BadRequestException(
-        'No se pudo enviar el correo de verificación.',
-      );
+      return { message: 'No se  pudo enviar el correo de verificacion' };
     }
 
     // Retornar respuesta
@@ -158,9 +156,10 @@ export class AuthService {
     const { email, provider, providerAccountId, displayName, image } = profile;
 
     if (!email) {
-      throw new Error(
-        'El perfil de Google no contiene un correo electrónico válido.',
-      );
+      return {
+        message:
+          'El perfil de Google no continene un correo electronico valido',
+      };
     }
 
     // 1. Buscar si el usuario ya existe por su email
@@ -222,14 +221,12 @@ export class AuthService {
 
       // Verificar si el usuario existe
       if (!user) {
-        throw new BadRequestException('Datos incorrectos');
+        return { message: 'Datos incorrectos' };
       }
 
       // Verificar si el correo electrónico está verificado
       if (!user.isEmailVerified) {
-        throw new BadRequestException(
-          'El correo electrónico no ha sido verificado',
-        );
+        return { message: 'El correo electronico no ha sido verificado' };
       }
 
       // Verificar si el usuario tiene una contraseña configurada
@@ -260,10 +257,9 @@ export class AuthService {
 
       // Solo se retorna el token aquí, no la cookie
       return { token };
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      throw new BadRequestException(
-        error.message || 'Ocurrió un error al iniciar sesión',
-      );
+      return { message: 'Ocurrio un error al iniciar session' };
     }
   }
 
@@ -273,11 +269,11 @@ export class AuthService {
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {
-      throw new BadRequestException('User not found');
+      return { message: 'User not found' };
     }
 
     if (user.isEmailVerified) {
-      throw new BadRequestException('Email is already verified');
+      return { message: 'El email ya está verificado' };
     }
 
     const emailVerificationExpiresAt = new Date();
@@ -303,7 +299,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {
-      throw new BadRequestException('User not found');
+      return { message: 'User not found' };
     }
 
     const resetPasswordExpiresAt = new Date();
@@ -316,8 +312,7 @@ export class AuthService {
     await this.userRepository.save(user);
 
     await this.emailService.sendPasswordResetEmail(user.email, resetToken);
-
-    return { message: 'Password reset token sent successfully' };
+    return { message: 'Password  reset token sent successfylly' };
   }
   //reset password
   async resetPassword(
@@ -328,7 +323,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {
-      throw new BadRequestException('User not found');
+      return { message: 'User not found' };
     }
 
     if (
@@ -337,7 +332,7 @@ export class AuthService {
       !user.resetPasswordExpiresAt ||
       user.resetPasswordExpiresAt < new Date()
     ) {
-      throw new BadRequestException('Invalid or expired token');
+      return { message: 'Invalid or expired token' };
     }
 
     const encryptedPassword = await bcrypt.hash(newPassword, 10);
@@ -355,7 +350,7 @@ export class AuthService {
       return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token con la clave secreta
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      throw new Error('Token inválido o expirado');
+      return { message: 'Token invalido o expirado' };
     }
   }
 
