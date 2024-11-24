@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { join } from 'path';
 import { GoogleCloudStorageModule  } from './app.module';
+import { join } from "path";
+
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(GoogleCloudStorageModule , {
@@ -9,7 +10,7 @@ async function bootstrap() {
     options: {
       package: 'googlecloudstorage',
       protoPath: join(__dirname, '../protos/upload.proto'), 
-      url: 'localhost:50051',
+      url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
       maxReceiveMessageLength: 10 * 1024 * 1024,  // Límite de 10 MB
       maxSendMessageLength: 10 * 1024 * 1024,    // Límite de 10 MB
     },

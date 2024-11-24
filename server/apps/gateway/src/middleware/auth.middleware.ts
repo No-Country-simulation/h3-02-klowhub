@@ -34,7 +34,6 @@ export class AuthMiddleware implements NestMiddleware {
       req['user'] = { id: payload.userId, role: payload.role }; // Adjuntar el usuario a la solicitud
 
       next(); // Continuar con la siguiente función
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       throw new UnauthorizedException('Token inválido o expirado');
     }

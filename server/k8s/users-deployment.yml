@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+  namespace: userservice
+  labels:
+    app: klowhub-users-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: klowhub-users-api
+  template:
+    metadata:
+      labels:
+        app: klowhub-users-api
+    spec:
+      containers:
+      - name: klowhub-users-api
+        image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${USERS_SERVICE_NAME}:${IMAGE_TAG}
+        ports:
+        - containerPort: 3001
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: USERS_SERVICE_PORT
+          value: "3001"
+        - name: USERS_MICROSERVICE_HOST
+          value: "0.0.0.0"
+        - name: JWT_SECRET
+          value: "${JWT_SECRET}"
+        - name: SMTP_USER
+          value: "${SMTP_USER}"
+        - name: SMTP_PASS
+          value: "${SMTP_PASS}"
+        - name: SMTP_HOST
+          value: "${SMTP_HOST}"
+        - name: SMTP_PORT
+          value: "${SMTP_PORT}"
+        - name: SMTP_SECURE
+          value: "${SMTP_SECURE}"
+        - name: GOOGLE_CLIENT_ID
+          value: "${GOOGLE_CLIENT_ID}"
+        - name: GOOGLE_CLIENT_SECRET
+          value: "${GOOGLE_CLIENT_SECRET}"
+        - name: GOOGLE_CALLBACK_URL
+          value: "${GOOGLE_CALLBACK_URL}"
+        - name: DATABASE_URL
+          value: "${DATABASE_URL}"
+        - name: PGHOST
+          value: "${PGHOST}"
+        - name: PGHOST_UNPOOLED
+          value: "${PGHOST_UNPOOLED}"
+        - name: PGUSER
+          value: "${PGUSER}"
+        - name: PGDATABASE
+          value: "${PGDATABASE}"
+        - name: PGPASSWORD
+          value: "${PGPASSWORD}"
+        - name: POSTGRES_URL
+          value: "${POSTGRES_URL}"
+        - name: POSTGRES_URL_NON_POOLING
+          value: "${POSTGRES_URL_NON_POOLING}"
+        - name: POSTGRES_USER
+          value: "${POSTGRES_USER}"
+        - name: POSTGRES_HOST
+          value: "${POSTGRES_HOST}"
+        - name: POSTGRES_PASSWORD
+          value: "${POSTGRES_PASSWORD}"
+        - name: POSTGRES_DATABASE
+          value: "${POSTGRES_DATABASE}"
+        - name: POSTGRES_URL_NO_SSL
+          value: "${POSTGRES_URL_NO_SSL}"
+        - name: POSTGRES_PRISMA_URL
+          value: ${POSTGRES_PRISMA_URL}

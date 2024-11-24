@@ -1,6 +1,5 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, Inject } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
-import { Inject } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { FileInterceptor } from '@nestjs/platform-express';
 

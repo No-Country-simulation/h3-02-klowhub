@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-deployment
+  namespace: gateway
+  labels:
+    app: klowhub-gateway-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: klowhub-gateway-api
+  template:
+    metadata:
+      labels:
+        app: klowhub-gateway-api
+    spec:
+      containers:
+      - name: klowhub-gateway-api
+        image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${GATEWAY_SERVICE_NAME}:${IMAGE_TAG}
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "3000"
+        - name: FRONTEND_URL
+          value: "https://klowhub-824410275969.southamerica-east1.run.app"
+        - name: JWT_SECRET
+          value: "${JWT_SECRET}"
+        - name: USERS_MICROSERVICE_HOST
+          value: "0.0.0.0"
+        - name: USERS_SERVICE_PORT
+          value: "3001"
+        - name: COURSES_SERVICE_HOST
+          value: "0.0.0.0"
+        - name: COURSES_SERVICE_PORT
+          value: "3002"
+        - name: UPLOAD_MICROSERVICE_HOST
+          value: "0.0.0.0"
+        - name: UPLOAD_SERVICE_PORT
+          value: "3003"
