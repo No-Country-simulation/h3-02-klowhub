@@ -4,19 +4,23 @@ metadata:
   name: gateway-ingress
   namespace: gateway
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    # Si necesitas SSL/TLS
-    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "gateway-static-ip"
+    kubernetes.io/ingress.allow-http: "true"
+    networking.gke.io/cors-allow-origin: "*"
+    networking.gke.io/security-policy: "cookie-security-policy" 
+    networking.gke.io/cors-allow-methods: "GET,POST,PUT,DELETE,OPTIONS"
+    networking.gke.io/cors-allow-credentials: "true"
+    networking.gke.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,Set-Cookie,Cookie"
+    networking.gke.io/sticky-session-cookie: "true"
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "gateway-static-ip"
+    networking.gke.io/load-balancer-type: "External"
 spec:
   rules:
   - http:
       paths:
-      - path: /(.*)
+      - path: /*
         pathType: ImplementationSpecific
         backend:
           service:
