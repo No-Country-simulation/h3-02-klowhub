@@ -23,10 +23,6 @@ RUN addgroup -g 1001 -S nodejs && \
     adduser -S nestjs -u 1001 && \
     chown -R nestjs:nodejs /app
 
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nestjs -u 1001 && \
-    chown -R nestjs:nodejs /app
-
 # Declaración de los ARGs (se pasarán desde GitHub Actions)
 ARG NODE_ENV=production
 ARG USERS_MICROSERVICE_HOST=0.0.0.0
