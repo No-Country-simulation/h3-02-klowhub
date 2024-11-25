@@ -167,13 +167,9 @@ jobs:
               --image=${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/$SERVICE:${{ github.sha }} \
               --allow-unauthenticated \
               --ingress=internal \
-              --cpu=1 \
-              --memory=512Mi \
               $COMMON_FLAGS
           done
           gcloud run deploy ${{ env.GATEWAY_SERVICE_NAME }} \
             --image=${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} \
             --allow-unauthenticated \
-            --cpu=2 \
-            --memory=1Gi \
             $COMMON_FLAGS
