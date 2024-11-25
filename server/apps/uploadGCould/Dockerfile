@@ -49,6 +49,6 @@ COPY /protos ./protos
 
 USER nestjs
 
-EXPOSE 3000
+EXPOSE 3003
 
 CMD ["npm", "run", "start:prod"]
