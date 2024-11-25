@@ -10,10 +10,10 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(new AuthMiddleware().use);
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', 
+    origin: process.env.FRONTEND_URL, 
     credentials: true, // Permitir cookies
   });
   await app.listen(process.env.PORT || 3000);
-  console.log(`Gateway is running on: ${process.env.PORT || 3000}`);
+  console.log('Gateway is running on port', process.env.PORT );
 }
 bootstrap();
