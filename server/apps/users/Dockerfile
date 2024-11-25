@@ -28,8 +28,8 @@ RUN addgroup -g 1001 -S nodejs && \
 
 # Declaración de los ARGs (se pasarán desde GitHub Actions)
 ARG NODE_ENV=production
-ARG USERS_MICROSERVICE_HOST=0.0.0.0
 ARG USERS_SERVICE_PORT=3001
+ARG USERS_MICROSERVICE_HOST
 ARG JWT_SECRET
 ARG SMTP_USER
 ARG SMTP_PASS

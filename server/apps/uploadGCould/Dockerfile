@@ -28,8 +28,8 @@ RUN addgroup -g 1001 -S nodejs && \
 
 # Declaración de los ARGs (se pasarán desde GitHub Actions)
 ARG NODE_ENV=production
-ARG UPLOAD_MICROSERVICE_HOST=0.0.0.0
 ARG UPLOAD_SERVICE_PORT=3003
+ARG UPLOAD_MICROSERVICE_HOST
 ARG PROJECT_ID
 ARG BUCKET_NAME
 

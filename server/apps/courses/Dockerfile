@@ -28,8 +28,8 @@ RUN addgroup -g 1001 -S nodejs && \
     
 # Declaración de los ARGs (se pasarán desde GitHub Actions)
 ARG NODE_ENV=production
-ARG COURSES_SERVICE_HOST=0.0.0.0
 ARG COURSES_SERVICE_PORT=3002
+ARG COURSES_SERVICE_HOST
 ARG JWT_SECRET
 ARG MONGO_URI
 
