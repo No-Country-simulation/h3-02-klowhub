@@ -155,16 +155,17 @@ jobs:
           COMMON_FLAGS="
             --platform=managed \
             --region=${{ secrets.GCLOUD_REGION }} \
-            --vpc-connector klowhub-api-vpc-cn \
+            --vpc-connector=klowhub-api-vpc-cn \
             --labels=environment=prod \
             --min-instances=1 \
             --max-instances=2"
           for SERVICE in $USERS_SERVICE_NAME $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME
           do
+            PORT=${SERVICE_PORTS[$SERVICE]}
+            echo "Deploying $SERVICE on port $PORT"
             gcloud run deploy $SERVICE \
               --image=${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/$SERVICE:${{ github.sha }} \
-              --no-allow-unauthenticated \
-              --port=${SERVICE_PORTS[$SERVICE]} \
+              --allow-unauthenticated \
               --ingress=internal \
               --cpu=1 \
               --memory=512Mi \
@@ -173,7 +174,6 @@ jobs:
           gcloud run deploy ${{ env.GATEWAY_SERVICE_NAME }} \
             --image=${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} \
             --allow-unauthenticated \
-            --port=3000 \
             --cpu=2 \
             --memory=1Gi \
             $COMMON_FLAGS
