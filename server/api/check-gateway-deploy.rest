@@ -1,3 +1,0 @@
-### Check Gateway Deploy
-GET http://34.111.85.215/gateway/hello
-Content-Type: application/json
