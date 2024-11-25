@@ -1,0 +1,3 @@
+### Check Gateway Local
+GET http://localhost:3000/gateway/hello
+Content-Type: application/json
