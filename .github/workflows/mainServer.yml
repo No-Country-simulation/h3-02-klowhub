@@ -153,17 +153,16 @@ jobs:
           SERVICE_PORTS[$COURSE_SERVICE_NAME]=3002
           SERVICE_PORTS[$UPLOAD_SERVICE_NAME]=3003
           COMMON_FLAGS="
-            --platform managed \
-            --region ${{ secrets.GCLOUD_REGION }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
             --vpc-connector klowhub-api-vpc-cn \
-            --service-account=${{ secrets.SERVICE_ACCOUNT }} \
             --labels=environment=prod \
             --min-instances=1 \
             --max-instances=2"
           for SERVICE in $USERS_SERVICE_NAME $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME
           do
-            gcloud run services deploy $SERVICE \
-              --image ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/$SERVICE:${{ github.sha }} \
+            gcloud run deploy $SERVICE \
+              --image=${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/$SERVICE:${{ github.sha }} \
               --no-allow-unauthenticated \
               --port=${SERVICE_PORTS[$SERVICE]} \
               --ingress=internal \
@@ -171,8 +170,8 @@ jobs:
               --memory=512Mi \
               $COMMON_FLAGS
           done
-          gcloud run services deploy ${{ env.GATEWAY_SERVICE_NAME }} \
-            --image ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} \
+          gcloud run deploy ${{ env.GATEWAY_SERVICE_NAME }} \
+            --image=${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} \
             --allow-unauthenticated \
             --port=3000 \
             --cpu=2 \
