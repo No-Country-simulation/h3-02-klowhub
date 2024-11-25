@@ -21,6 +21,13 @@ spec:
         image: ${GCLOUD_REGION}-docker.pkg.dev/${GCLOUD_PROJECT_ID}/klowhub-server/${GATEWAY_SERVICE_NAME}:${IMAGE_TAG}
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         env:
         - name: NODE_ENV
           value: "production"
