@@ -146,18 +146,17 @@ jobs:
       # 15. Limpiar los nombres de revisiones
       - name: Clean up old Cloud Run revisions
         run: |
-          SERVICES=("$COURSE_SERVICE_NAME" "$UPLOAD_SERVICE_NAME" "$USERS_SERVICE_NAME" "$GATEWAY_SERVICE_NAME")
-          for SERVICE in "${SERVICES[@]}"
+          for SERVICE in $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME $USERS_SERVICE_NAME $GATEWAY_SERVICE_NAME
           do
-            echo "Cleaning up revisions for service: $SERVICE" 
+            echo "Cleaning up revisions for service: $SERVICE"
             REVISIONS=$(gcloud run revisions list \
-              --service=$SERVICE \
-              --region=${{ secrets.GCLOUD_REGION }} \
-              --sort-by=~creation_timestamp \
-              --format="value(name)")
+            --service=$SERVICE \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --sort-by=~creation_timestamp \
+            --format="value(name)")
             REVISION_COUNT=$(echo "$REVISIONS" | wc -l)
             if [ $REVISION_COUNT -gt 1 ]; then
-              REVISIONS_TO_DELETE=$(echo "$REVISIONS" | head -n -1)
+              REVISIONS_TO_DELETE=$(echo "$REVISIONS" | tail -n +2)
               for REVISION in $REVISIONS_TO_DELETE
               do
                 echo "Deleting revision: $REVISION"
