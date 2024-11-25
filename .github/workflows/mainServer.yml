@@ -54,13 +54,6 @@ jobs:
       - name: Export region
         run: echo "GCLOUD_REGION=${{ secrets.GCLOUD_REGION }}" >> $GITHUB_ENV
 
-      # 4. Configurar kubectl
-      - name: Set up GKE
-        uses: google-github-actions/get-gke-credentials@v2
-        with:
-          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
-          location: ${{ secrets.GCLOUD_REGION }}
-
       # 5. Agregar dinamicamente BACKEND_SA_KEY
       - name: Create service account key file
         working-directory: ./server/apps/uploadGCould
