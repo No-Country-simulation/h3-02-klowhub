@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthController } from './auth/auth.controllers';
 import { UploadController } from './upload/upload.controllers';
+import { join } from "path";
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -29,7 +30,7 @@ dotenv.config();
         transport: Transport.GRPC,
         options: {
           package: 'googlecloudstorage',
-          protoPath: '../protos/upload.proto',
+          protoPath: join(__dirname,'../protos/upload.proto'),
           url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
         },
       },

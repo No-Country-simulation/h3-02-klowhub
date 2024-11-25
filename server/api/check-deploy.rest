@@ -1,1 +1,0 @@
-GET http://34.111.85.215/gateway

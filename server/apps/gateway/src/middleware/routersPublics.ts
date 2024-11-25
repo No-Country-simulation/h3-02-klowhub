@@ -3,4 +3,5 @@ export const publicRoutes: string[] = [
   '/auth/login',
   '/auth/verifyEmail',
   '/auth/resetToken',
+  '/gateway/hello'
 ];
