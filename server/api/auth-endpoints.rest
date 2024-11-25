@@ -1,0 +1,17 @@
+### Deploy Login
+POST https://klowhub-gateway-api-824410275969.southamerica-east1.run.app/auth/login
+Content-Type: application/json
+
+{
+    "email": "usuario@gmail.com",
+    "password": "12345678910"
+}
+
+### Local Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "usuario@gmail.com",
+    "password": "12345678910"
+}

@@ -1,5 +1,5 @@
 ### Check Gateway Deploy
-GET http://34.111.85.215/gateway/hello
+GET https://klowhub-gateway-api-824410275969.southamerica-east1.run.app/gateway/hello
 Content-Type: application/json
 
 ### Check Gateway Local

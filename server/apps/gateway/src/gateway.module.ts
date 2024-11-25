@@ -13,16 +13,16 @@ dotenv.config();
         name: 'USERS_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: process.env.USERS_SERVICE_HOST || '0.0.0.0',
-          port: parseInt(process.env.USERS_SERVICE_PORT, 10) || 3001,
+          host: process.env.USERS_SERVICE_HOST,
+          port: parseInt(process.env.USERS_SERVICE_PORT, 10),
         },
       },
       {
         name: 'COURSES_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: process.env.COURSES_SERVICE_HOST || '0.0.0.0',
-          port: parseInt(process.env.COURSES_SERVICE_PORT, 10) || 3002,
+          host: process.env.COURSES_SERVICE_HOST,
+          port: parseInt(process.env.COURSES_SERVICE_PORT, 10),
         },
       },
       {
