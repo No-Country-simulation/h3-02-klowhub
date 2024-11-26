@@ -12,8 +12,8 @@ dotenv.config();
         name: 'AUTH_MICROSERVICE',
         transport: Transport.TCP, // Especifica el transporte TCP para la comunicación con el microservicio.
         options: {
-          host: process.env.USERS_MICROSERVICE_HOST, // La dirección del microservicio, usando la variable de entorno correcta.
-          port: 3001, // El puerto del microservicio, parseado como número.
+          host: process.env.USERS_MICROSERVICE_HOST,
+          port: Number(process.env.USERS_SERVICE_PORT),
         },
       },
     ]),

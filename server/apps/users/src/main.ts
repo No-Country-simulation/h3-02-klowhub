@@ -11,7 +11,7 @@ async function bootstrap() {
       transport: Transport.TCP,
       options: {
         host: process.env.USERS_MICROSERVICE_HOST || '0.0.0.0', // Puedes usar una variable de entorno
-        port: 3001, // También puedes definir el puerto en .env
+        port: Number(process.env.USERS_SERVICE_PORT), // También puedes definir el puerto en .env
       },
     },
   );
