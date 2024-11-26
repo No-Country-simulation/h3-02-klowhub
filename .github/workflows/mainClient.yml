@@ -63,6 +63,30 @@ jobs:
         run: |
           docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
 
+      # 6.5. Limpiar imágenes antiguas
+      - name: Cleanup Old Images
+        working-directory: ./client
+        run: |
+          TAGS=$(gcloud container images list-tags \
+            ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client \
+            --format='get(tags)' \
+            --sort-by=~TIMESTAMP)
+
+          TOTAL_IMAGES=$(echo "$TAGS" | wc -l)
+          if [ $TOTAL_IMAGES -gt 2 ]; then
+            TO_DELETE=$((TOTAL_IMAGES - 2))
+              
+            echo "Found $TOTAL_IMAGES images, keeping 2, deleting $TO_DELETE"  
+            echo "$TAGS" | tail -n $TO_DELETE | while read TAG; do
+              if [ ! -z "$TAG" ]; then
+                echo "Deleting image with tag: $TAG"
+                gcloud container images delete \
+                  "${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:$TAG" \
+                  --quiet
+              fi
+            done
+          fi
+
       # 7. Desplegar a Cloud Run
       - name: Deploy to Cloud Run
         working-directory: ./client

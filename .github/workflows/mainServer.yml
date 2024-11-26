@@ -1,0 +1,218 @@
+name: mainServer
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: "gcife-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+jobs:
+  mainServer:
+    strategy:
+      matrix:
+        node-version: [20.x]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      NODE_ENV: production
+      MICROSERVICE_HOST: 0.0.0.0
+      USERS_SERVICE_NAME: klowhub-users-api
+      COURSE_SERVICE_NAME: klowhub-courses-api
+      GATEWAY_SERVICE_NAME: klowhub-gateway-api
+      UPLOAD_SERVICE_NAME: klowhub-upload-api
+      GCR_SERVICE_NAME: klowhub-api
+      ARTIFACT_REGISTRY_BASE: "${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server"
+      MAX_IMAGES_TO_KEEP: 1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 1. Autenticarse con google cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: "${{ secrets.GCLOUD_PROJECT_ID }}"
+          credentials_json: "${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}"
+
+      # 2. Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 3. Exportar la región como variable de entorno
+      - name: Export region
+        run: echo "GCLOUD_REGION=${{ secrets.GCLOUD_REGION }}" >> $GITHUB_ENV
+
+      # 5. Agregar dinamicamente BACKEND_SA_KEY
+      - name: Create service account key file
+        working-directory: ./server/apps/uploadGCould
+        run: echo "${{ secrets.GCC_BACKEND_SA_KEY }}" > ./gccKey.json
+
+      # 6. Autenticarse con Artifact Registry
+      - name: Authenticate with Artifact Registry
+        working-directory: ./server
+        run: gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
+
+      # 6.5. Valido el accedo a Artifact Registry
+      - name: Validate Docker authentication
+        run: docker login $GCLOUD_REGION-docker.pkg.dev
+
+      # 7. Construir la imagen Docker para User Service
+      - name: Users Service - Build Docker image
+        working-directory: ./server
+        run: docker build --progress plain --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} --build-arg SMTP_USER=${{ secrets.SMTP_USER }} --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} --build-arg SMTP_SECURE=${{ secrets.SMTP_SECURE }} --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} --build-arg GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg DATABASE_URL_UNPOOLED=${{ secrets.DATABASE_URL_UNPOOLED }} --build-arg PGHOST=${{ secrets.PGHOST }} --build-arg PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }} --build-arg PGUSER=${{ secrets.PGUSER }} --build-arg PGDATABASE=${{ secrets.PGDATABASE }} --build-arg PGPASSWORD=${{ secrets.PGPASSWORD }} --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} --build-arg POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} -f ./apps/users/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }} ./apps/users
+
+      # 8. Construir la imagen Docker para Courses Service
+      - name: Courses Service - Build Docker image
+        working-directory: ./server
+        run: docker build --progress plain --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/courses/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }} ./apps/courses
+
+      # 10. Construir la imagen Docker para Upload Service
+      - name: Upload Service - Build Docker image 
+        working-directory: ./server
+        run: docker build --progress plain --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} -f ./apps/uploadGCould/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} ./apps/uploadGCould
+
+      # 9. Construir la imagen Docker para Gateway Service
+      - name: Gateway Service - Build Docker image 
+        working-directory: ./server
+        run: docker build --progress plain --build-arg USERS_MICROSERVICE_HOST=${{ secrets.USER_SERVICE_HOST }} --build-arg COURSES_SERVICE_HOST=${{ secrets.COURSE_SERVICE_HOST }} --build-arg UPLOAD_MICROSERVICE_HOST=${{ secrets.UPLOAD_SERVICE_HOST }} --build-arg FRONTEND_URL=${{ secrets.FRONTEND_URL }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/gateway/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} ./apps/gateway
+
+      # 10.5. Limpiar imágenes antiguas
+      - name: Cleanup Old Images
+        working-directory: ./server
+        run: |
+          for SERVICE in $USERS_SERVICE_NAME $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME $GATEWAY_SERVICE_NAME
+          do
+            echo "Cleaning up old images for $SERVICE..."
+            
+            # Obtener lista de tags ordenados por fecha
+            TAGS=$(gcloud container images list-tags \
+              ${{ env.ARTIFACT_REGISTRY_BASE }}/$SERVICE \
+              --format='get(tags)' \
+              --sort-by=~TIMESTAMP)
+            
+            TOTAL_IMAGES=$(echo "$TAGS" | wc -l)
+            
+            # Si hay más imágenes que el límite, eliminar las más antiguas
+            if [ $TOTAL_IMAGES -gt $MAX_IMAGES_TO_KEEP ]; then
+              # Cuántas imágenes eliminar
+              TO_DELETE=$((TOTAL_IMAGES - MAX_IMAGES_TO_KEEP))
+              
+              echo "Found $TOTAL_IMAGES images, keeping $MAX_IMAGES_TO_KEEP, deleting $TO_DELETE"
+              
+              # Eliminar las imágenes más antiguas
+              echo "$TAGS" | tail -n $TO_DELETE | while read TAG; do
+                if [ ! -z "$TAG" ]; then
+                  echo "Deleting image with tag: $TAG"
+                  gcloud container images delete \
+                    "${{ env.ARTIFACT_REGISTRY_BASE }}/$SERVICE:$TAG" \
+                    --quiet
+                fi
+              done
+            fi
+          done
+
+      # 11. Subir la imagen de User Service a Artifact Registry
+      - name: Users Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }}
+
+      # 12. Subir la imagen de Courses Service a Artifact Registry
+      - name: Courses Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}
+
+      # 13. Subir la imagen de Upload Service a Artifact Registry
+      - name: Upload Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }}
+
+      # 14. Subir la imagen de Gateway Service a Artifact Registry
+      - name: Gateway Service - Push Docker image
+        working-directory: ./server
+        run: docker push ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}
+
+      # 15. Limpiar los nombres de revisiones
+      - name: Clean up old Cloud Run revisions
+        run: |
+          for SERVICE in $GCR_SERVICE_NAME $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME $USERS_SERVICE_NAME $GATEWAY_SERVICE_NAME
+          do
+            echo "Cleaning up revisions for service: $SERVICE"
+            REVISIONS=$(gcloud run revisions list \
+            --service=$SERVICE \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --sort-by=~creation_timestamp \
+            --format="value(name)")
+            REVISION_COUNT=$(echo "$REVISIONS" | wc -l)
+            if [ $REVISION_COUNT -gt 1 ]; then
+              REVISIONS_TO_DELETE=$(echo "$REVISIONS" | tail -n +2)
+              for REVISION in $REVISIONS_TO_DELETE
+              do
+                echo "Deleting revision: $REVISION"
+                gcloud run revisions delete $REVISION \
+                  --region=${{ secrets.GCLOUD_REGION }} \
+                  --quiet
+              done
+            else
+              echo "No old revisions to delete for $SERVICE"
+            fi
+          done
+
+      # 16. Despliegue en Cloud Run
+      - name: Deploy Gateway Service
+        working-directory: ./server
+        run: |
+          gcloud run deploy ${{ env.GATEWAY_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --vpc-egress=all-traffic \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3000'
+
+      - name: Deploy Users Service
+        working-directory: ./server
+        run: |
+          gcloud run deploy ${{ env.USERS_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3001'
+
+      - name: Deploy Course Service
+        working-directory: ./server
+        run: |
+          gcloud run deploy ${{ env.COURSE_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3002'
+
+      - name: Deploy Upload Service
+        working-directory: ./server
+        run: |
+          gcloud run deploy ${{ env.UPLOAD_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3003'

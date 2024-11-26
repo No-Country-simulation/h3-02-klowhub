@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package googlecloudstorage; // Este será el paquete común para ambos servicios
+
+// Servicio PubSub
+service PubSubService {
+  rpc Test (TestRequest) returns (TestResponse);
+}
+
+message TestRequest {}
+
+message TestResponse {
+  string message = 1;
+}
+
+// Servicio GoogleCloudStorage
+service GoogleCloudStorageService {
+  rpc UploadFile (UploadFileRequest) returns (UploadFileResponse);
+}
+
+message UploadFileRequest {
+  string filename = 1;
+  bytes file = 2;
+  string userId = 3;
+}
+
+message UploadFileResponse {
+  string url = 1;
+  string message = 2;
+}

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+  namespace: gateway 
+spec:
+  type: ClusterIP
+  selector:
+    app: klowhub-gateway-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

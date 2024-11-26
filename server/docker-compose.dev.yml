@@ -1,0 +1,64 @@
+services:
+  gateway:
+    build:
+      context: ./apps/gateway
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: ${DATABASE_URL}
+      MONGO_URI: ${MONGO_URI}
+    volumes:
+      - ./apps/gateway:/usr/src/app
+      - /usr/src/app/node_modules
+
+  users:
+    build:
+      context: ./apps/users
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: ${DATABASE_URL}
+      MONGO_URI: ${MONGO_URI}
+    volumes:
+      - ./apps/users:/usr/src/app
+      - /usr/src/app/node_modules
+
+  courses:
+    build:
+      context: ./apps/courses
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: ${DATABASE_URL}
+      MONGO_URI: ${MONGO_URI}
+    volumes:
+      - ./apps/courses:/usr/src/app
+      - /usr/src/app/node_modules
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  postgres-data:
+  mongo-data:

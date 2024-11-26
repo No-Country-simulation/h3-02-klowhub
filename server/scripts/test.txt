@@ -1,0 +1,5 @@
+gcloud run deploy klowhub-api --platform=managed --region=${{ secrets.GCLOUD_REGION }} --vpc-connector=klowhub-api-vpc-cn  --allow-unauthenticated \
+     --container ${{ env.GATEWAY_SERVICE_NAME }} --image='${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}' --port='3000' \
+     --container ${{ env.USERS_SERVICE_NAME}} --image='${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.USERS_SERVICE_NAME}}:${{ github.sha }}' \
+     --container ${{ env.COURSE_SERVICE_NAME}} --image='${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.COURSE_SERVICE_NAME}}:${{ github.sha }}' \
+     --container ${{ env.UPLOAD_SERVICE_NAME}} --image='${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.UPLOAD_SERVICE_NAME}}:${{ github.sha }}'
