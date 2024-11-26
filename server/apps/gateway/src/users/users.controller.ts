@@ -9,6 +9,7 @@ import {
     Response,
     Get,
     UseGuards,
+    Put,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -26,7 +27,7 @@ export class UsersController {
     ) { }
     // profile user
     @Get('profile')
-    @Roles('admin', 'moderator', 'user') // Roles permitidos
+    @Roles('admin', 'user', 'creator', 'moderator') // Roles permitidos
     @UseGuards(RolesGuard) // Verifica el rol del usuario
     async getProfile(@Request() req: any, @Response() res: ExpressResponse) {
         const userId = req.user.id; // Recuperamos el userId desde el token (verificado por el middleware)
@@ -52,17 +53,15 @@ export class UsersController {
 
     // cambiar rol del usuario
   // Endpoint para cambiar de modo
-  @Patch('change-mode')
-  @Roles('user', 'creator') // Roles permitidos para cambiar de modo
+  @Put('changeMode')
+  @Roles('admin', 'user', 'creator', 'moderator') // Roles permitidos para cambiar de modo
   @UseGuards(RolesGuard)
   async changeMode(@Request() req: any, @Body() modeData: any) {
     const userId = req.user.id; // Extraemos el ID del token
-    console.log('User ID del token:', userId);
 
     if (!userId) {
       throw new BadRequestException('No se encontró el ID del usuario');
     }
-
     // Validar los datos con Zod
     const validationResult = ModeSchema.safeParse(modeData);
     if (!validationResult.success) {

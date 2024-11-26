@@ -63,7 +63,7 @@ export class UsersService {
 
   }
   // 
-  async changeUserRole(userId: string, mode: 'user' | 'creator') {
+  async changeUserRole(userId: string, mode) {
     // Buscar al usuario por ID
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
