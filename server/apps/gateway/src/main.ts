@@ -13,7 +13,7 @@ async function bootstrap() {
     origin: process.env.FRONTEND_URL, 
     credentials: true, // Permitir cookies
   });
-  console.log(`Gateway is running on: ${process.env.PORT}`);
-  await app.listen(process.env.PORT);
+  console.log(`Gateway is running on: 3000`);
+  await app.listen(3000);
 }
 bootstrap();

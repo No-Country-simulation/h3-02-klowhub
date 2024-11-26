@@ -13,7 +13,7 @@ import { join } from "path";
         options: {
           package: 'googlecloudstorage', 
           protoPath: join(__dirname,'../../protos/upload.proto'),
-          url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
+          url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:3003`,
         },
       },
     ]),

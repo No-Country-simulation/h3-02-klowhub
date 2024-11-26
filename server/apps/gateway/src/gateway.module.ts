@@ -14,7 +14,7 @@ dotenv.config();
         transport: Transport.TCP,
         options: {
           host: process.env.USERS_MICROSERVICE_HOST,
-          port: parseInt(process.env.USERS_SERVICE_PORT, 10),
+          port: 3001,
         },
       },
       {
@@ -22,7 +22,7 @@ dotenv.config();
         transport: Transport.TCP,
         options: {
           host: process.env.COURSES_SERVICE_HOST,
-          port: parseInt(process.env.COURSES_SERVICE_PORT, 10),
+          port:3002,
         },
       },
       {
@@ -31,7 +31,7 @@ dotenv.config();
         options: {
           package: 'googlecloudstorage',
           protoPath: join(__dirname,'../protos/upload.proto'),
-          url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
+          url: `${process.env.UPLOAD_MICROSERVICE_HOST || "0.0.0.0"}:3003`,
         },
       },
     ]),
