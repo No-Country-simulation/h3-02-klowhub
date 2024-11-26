@@ -143,7 +143,33 @@ jobs:
         working-directory: ./server
         run: docker push ${{ secrets.GCLOUD_REGION }}-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhub-server/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}
 
-      # 15. Despliegue en Cloud Run
+      # 15. Limpiar los nombres de revisiones
+      - name: Clean up old Cloud Run revisions
+        run: |
+          for SERVICE in $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME $USERS_SERVICE_NAME $GATEWAY_SERVICE_NAME
+          do
+            echo "Cleaning up revisions for service: $SERVICE"
+            REVISIONS=$(gcloud run revisions list \
+            --service=$SERVICE \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --sort-by=~creation_timestamp \
+            --format="value(name)")
+            REVISION_COUNT=$(echo "$REVISIONS" | wc -l)
+            if [ $REVISION_COUNT -gt 1 ]; then
+              REVISIONS_TO_DELETE=$(echo "$REVISIONS" | tail -n +2)
+              for REVISION in $REVISIONS_TO_DELETE
+              do
+                echo "Deleting revision: $REVISION"
+                gcloud run revisions delete $REVISION \
+                  --region=${{ secrets.GCLOUD_REGION }} \
+                  --quiet
+              done
+            else
+              echo "No old revisions to delete for $SERVICE"
+            fi
+          done
+
+      # 16. Despliegue en Cloud Run
       - name: Deploy to Cloud Run
         working-directory: ./server
         run: |
@@ -151,7 +177,7 @@ jobs:
           SERVICE_PORTS[$USERS_SERVICE_NAME]=3001
           SERVICE_PORTS[$COURSE_SERVICE_NAME]=3002
           SERVICE_PORTS[$UPLOAD_SERVICE_NAME]=3003
-          for SERVICE in $USERS_SERVICE_NAME $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME
+          for SERVICE in $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME $USERS_SERVICE_NAME
           do
             PORT=${SERVICE_PORTS[$SERVICE]}
             echo "Deploying $SERVICE on port $PORT"

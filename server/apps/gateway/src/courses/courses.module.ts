@@ -13,7 +13,7 @@ dotenv.config();
         transport: Transport.TCP,
         options: {
           host: process.env.COURSES_SERVICE_HOST,
-          port: parseInt(process.env.COURSES_SERVICE_PORT, 10),
+          port: 3002,
         },
       },
     ]),
