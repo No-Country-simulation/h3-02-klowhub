@@ -168,11 +168,50 @@ jobs:
           done
 
       # 16. Despliegue en Cloud Run
-      - name: Deploy to Cloud Run
+      - name: Deploy Gateway Service
         working-directory: ./server
         run: |
-          gcloud run deploy ${{ env.GCR_SERVICE_NAME }} --platform=managed --region=${{ secrets.GCLOUD_REGION }} --vpc-connector=klowhub-api-vpc-cn  --allow-unauthenticated --max-instances=2 \
-              --container ${{ env.GATEWAY_SERVICE_NAME }} --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}' --port='3000' \
-              --container ${{ env.USERS_SERVICE_NAME}} --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME}}:${{ github.sha }}' \
-              --container ${{ env.COURSE_SERVICE_NAME}} --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME}}:${{ github.sha }}' \
-              --container ${{ env.UPLOAD_SERVICE_NAME}} --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME}}:${{ github.sha }}'
+          gcloud run deploy ${{ env.GATEWAY_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3000'
+
+      - name: Deploy Users Service
+        working-directory: ./server
+        run: |
+          gcloud run deploy ${{ env.USERS_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3001'
+
+      - name: Deploy Course Service
+        working-directory: ./server
+        run: |
+          gcloud run deploy ${{ env.COURSE_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3002'
+
+      - name: Deploy Upload Service
+        working-directory: ./server
+        run: |
+          gcloud run deploy ${{ env.UPLOAD_SERVICE_NAME }} \
+            --platform=managed \
+            --region=${{ secrets.GCLOUD_REGION }} \
+            --vpc-connector=klowhub-api-vpc-cn \
+            --allow-unauthenticated \
+            --max-instances=2 \
+            --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }}' \
+            --port='3003'
