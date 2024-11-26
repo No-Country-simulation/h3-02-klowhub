@@ -13,8 +13,8 @@ dotenv.config();
         name: 'USERS_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: process.env.USERS_SERVICE_HOST,
-          port: parseInt(process.env.USERS_SERVICE_PORT, 10),
+          host: process.env.USERS_MICROSERVICE_HOST,
+          port: 3001,
         },
       },
       {
@@ -22,7 +22,7 @@ dotenv.config();
         transport: Transport.TCP,
         options: {
           host: process.env.COURSES_SERVICE_HOST,
-          port: parseInt(process.env.COURSES_SERVICE_PORT, 10),
+          port:3002,
         },
       },
       {

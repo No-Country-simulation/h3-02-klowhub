@@ -9,13 +9,10 @@ RUN npm ci --only=production
 # Fase de Construcción
 FROM deps AS builder
 WORKDIR /app
-COPY package.json package-lock.json tsconfig.json ./
 RUN npm ci --legacy-peer-deps  
 COPY . ./
-RUN npm run build  
-RUN npm prune --production 
-
-
+RUN npm run build && npm prune --production
+    
 # Fase de producción
 FROM node:20-alpine AS production
 RUN apk add --no-cache libc6-compat
@@ -84,7 +81,7 @@ ENV POSTGRES_URL_NO_SSL=$POSTGRES_URL_NO_SSL
 ENV POSTGRES_PRISMA_URL=$POSTGRES_PRISMA_URL
 
 # Copiar archivos relevantes de la fase de construcción
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY package.json ./
 

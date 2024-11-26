@@ -13,7 +13,7 @@ dotenv.config();
         transport: Transport.TCP, // Especifica el transporte TCP para la comunicación con el microservicio.
         options: {
           host: process.env.USERS_MICROSERVICE_HOST, // La dirección del microservicio, usando la variable de entorno correcta.
-          port: parseInt(process.env.USERS_SERVICE_PORT, 10), // El puerto del microservicio, parseado como número.
+          port: 3001, // El puerto del microservicio, parseado como número.
         },
       },
     ]),
