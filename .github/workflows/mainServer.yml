@@ -69,17 +69,17 @@ jobs:
       # 7. Construir la imagen Docker para User Service
       - name: Users Service - Build Docker image
         working-directory: ./server
-        run: docker build --progress plain --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} --build-arg SMTP_USER=${{ secrets.SMTP_USER }} --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} --build-arg SMTP_SECURE=${{ secrets.SMTP_SECURE }} --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} --build-arg GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg DATABASE_URL_UNPOOLED=${{ secrets.DATABASE_URL_UNPOOLED }} --build-arg PGHOST=${{ secrets.PGHOST }} --build-arg PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }} --build-arg PGUSER=${{ secrets.PGUSER }} --build-arg PGDATABASE=${{ secrets.PGDATABASE }} --build-arg PGPASSWORD=${{ secrets.PGPASSWORD }} --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} --build-arg POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} -f ./apps/users/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }} ./apps/users
+        run: docker build --progress plain --build-arg USERS_MICROSERVICE_HOST=${{ secrets.USER_SERVICE_HOST }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} --build-arg SMTP_USER=${{ secrets.SMTP_USER }} --build-arg SMTP_PASS=${{ secrets.SMTP_PASS }} --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} --build-arg SMTP_SECURE=${{ secrets.SMTP_SECURE }} --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} --build-arg GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg DATABASE_URL_UNPOOLED=${{ secrets.DATABASE_URL_UNPOOLED }} --build-arg PGHOST=${{ secrets.PGHOST }} --build-arg PGHOST_UNPOOLED=${{ secrets.PGHOST_UNPOOLED }} --build-arg PGUSER=${{ secrets.PGUSER }} --build-arg PGDATABASE=${{ secrets.PGDATABASE }} --build-arg PGPASSWORD=${{ secrets.PGPASSWORD }} --build-arg POSTGRES_URL=${{ secrets.POSTGRES_URL }} --build-arg POSTGRES_URL_NON_POOLING=${{ secrets.POSTGRES_URL_NON_POOLING }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --build-arg POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} --build-arg POSTGRES_URL_NO_SSL=${{ secrets.POSTGRES_URL_NO_SSL }} --build-arg POSTGRES_PRISMA_URL=${{ secrets.POSTGRES_PRISMA_URL }} -f ./apps/users/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }} ./apps/users
 
       # 8. Construir la imagen Docker para Courses Service
       - name: Courses Service - Build Docker image
         working-directory: ./server
-        run: docker build --progress plain --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/courses/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }} ./apps/courses
+        run: docker build --progress plain --build-arg COURSES_SERVICE_HOST=${{ secrets.COURSE_SERVICE_HOST }} --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/courses/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }} ./apps/courses
 
       # 10. Construir la imagen Docker para Upload Service
       - name: Upload Service - Build Docker image 
         working-directory: ./server
-        run: docker build --progress plain --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} -f ./apps/uploadGCould/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} ./apps/uploadGCould
+        run: docker build --progress plain --build-arg UPLOAD_MICROSERVICE_HOST=${{ secrets.UPLOAD_SERVICE_HOST }} --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} -f ./apps/uploadGCould/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} ./apps/uploadGCould
 
       # 9. Construir la imagen Docker para Gateway Service
       - name: Gateway Service - Build Docker image 
@@ -175,6 +175,7 @@ jobs:
             --platform=managed \
             --region=${{ secrets.GCLOUD_REGION }} \
             --vpc-connector=klowhub-api-vpc-cn \
+            --vpc-egress=all-traffic \
             --allow-unauthenticated \
             --max-instances=2 \
             --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}' \

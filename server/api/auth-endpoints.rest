@@ -1,5 +1,5 @@
 ### Deploy Login
-POST https://klowhub-api-824410275969.southamerica-east1.run.app/auth/login
+POST https://klowhub-users-api-824410275969.southamerica-east1.run.app/auth/login
 Content-Type: application/json
 
 {

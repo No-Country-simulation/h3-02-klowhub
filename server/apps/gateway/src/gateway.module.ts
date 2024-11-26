@@ -15,6 +15,7 @@ dotenv.config();
         options: {
           host: process.env.USERS_MICROSERVICE_HOST,
           port: Number(process.env.USERS_SERVICE_PORT),
+          
         },
       },
       {
