@@ -127,29 +127,5 @@ export class AuthController {
       throw error;
     }
   }
-  // profile user
-  @Get('profile')
-  @Roles('admin', 'moderator', 'user') // Roles permitidos
-  @UseGuards(RolesGuard) // Verifica el rol del usuario
-  async getProfile(@Request() req: any, @Response() res: ExpressResponse) {
-    const userId = req.user.id; // Recuperamos el userId desde el token (verificado por el middleware)
-    console.log('este es la id del usuario', userId);
-    if (!userId) {
-      throw new BadRequestException('No se encontró el ID del usuario');
-    }
-
-    try {
-      // Enviar el userId al microservicio para obtener la información completa del perfil
-      const profile = await lastValueFrom(
-        this.authClient.send({ cmd: 'getProfile' }, { userId }), // Enviar userId al microservicio
-      );
-
-      // Regresar la información completa del perfil al cliente
-      return res.status(200).json(profile);
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || 'Error al obtener el perfil',
-      );
-    }
-  }
+  
 }

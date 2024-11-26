@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthController } from './auth/auth.controllers';
 import { UploadController } from './upload/upload.controllers';
+import { UsersController } from './users/users.controller'
 import { join } from "path";
 import * as dotenv from 'dotenv';
+import { UsersModule } from './users/users.module';
 dotenv.config();
 
 @Module({
@@ -36,7 +38,7 @@ dotenv.config();
       },
     ]),
   ],
-  controllers: [AuthController, UploadController],
+  controllers: [AuthController, UploadController, UsersController],
   providers: [],
 })
 export class GatewayModule {}

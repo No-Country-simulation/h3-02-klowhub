@@ -72,6 +72,7 @@ export class AuthService {
         process.env.JWT_SECRET,
         { expiresIn: '1h' },
       );
+      console.log(loginToken)
 
       return { message: 'Email verified successfully', token: loginToken };
     } catch (error) {
@@ -257,7 +258,7 @@ export class AuthService {
 
       // Solo se retorna el token aquí, no la cookie
       return { token };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        
     } catch (error) {
       return { message: 'Ocurrio un error al iniciar session' };
     }
@@ -348,7 +349,7 @@ export class AuthService {
   verifyJwt(token: string): any {
     try {
       return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token con la clave secreta
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       
     } catch (error) {
       return { message: 'Token invalido o expirado' };
     }

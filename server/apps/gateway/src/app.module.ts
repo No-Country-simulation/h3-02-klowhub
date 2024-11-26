@@ -4,8 +4,10 @@ import { UploadModule } from './upload/upload.module';
 import { CoursesModule } from './courses/courses.module';
 import { PubSubModule } from './pubsub/pubsub.module';
 import { GatewayController } from './gateway.controller';
+import { UsersModule } from './users/users.module';
+
 @Module({
-  imports: [AuthModule, UploadModule, CoursesModule,PubSubModule],
+  imports: [AuthModule, UploadModule, CoursesModule,PubSubModule, UsersModule],
   controllers: [GatewayController],
 })
 export class AppModule {}

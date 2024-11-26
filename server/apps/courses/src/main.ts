@@ -11,14 +11,14 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        host: process.env.COURSES_SERVICE_HOST || '0.0.0.0',
-        port: 3002,
+        host: process.env.COURSES_SERVICE_HOST,
+        port: parseInt(process.env.COURSES_MICROSERVICE_PORT, 10),
       },
     },
   );
 
   await app.listen();
-  console.log('Microservice Courses is listening...', process.env.COURSES_SERVICE_PORT);
+  console.log('Microservice Courses is listening...', process.env.COURSES_MICROSERVICE_PORT);
 }
 
 bootstrap();
