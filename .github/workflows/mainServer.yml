@@ -171,7 +171,7 @@ jobs:
       - name: Deploy to Cloud Run
         working-directory: ./server
         run: |
-          gcloud run deploy ${{ env.GCR_SERVICE_NAME }} --platform=managed --region=${{ secrets.GCLOUD_REGION }} --vpc-connector=klowhub-api-vpc-cn  --allow-unauthenticated \
+          gcloud run deploy ${{ env.GCR_SERVICE_NAME }} --platform=managed --region=${{ secrets.GCLOUD_REGION }} --vpc-connector=klowhub-api-vpc-cn  --allow-unauthenticated --max-instances=2 \
               --container ${{ env.GATEWAY_SERVICE_NAME }} --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}' --port='3000' \
               --container ${{ env.USERS_SERVICE_NAME}} --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME}}:${{ github.sha }}' \
               --container ${{ env.COURSE_SERVICE_NAME}} --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME}}:${{ github.sha }}' \
