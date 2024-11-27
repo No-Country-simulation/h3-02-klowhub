@@ -51,7 +51,7 @@ export enum Sector {
 
 export enum Tool {
     NONE = "none",
-    GOOGLE_SHEETS='Google_sheet',
+    GOOGLE_SHEETS='Google_sheets',
     GOOGLE_ANALYTICS='Google_analytics',
     GOOGLE_TAG_MANAGER='Google_tag_manager',
     GOOGLE_MAPS='Google_maps',

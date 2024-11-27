@@ -32,6 +32,7 @@ export class Course extends Document {
   @Prop()
   type: string;
   enum : ['basic', 'intermed']
+  level : string
 
   @Prop({
     type: String,

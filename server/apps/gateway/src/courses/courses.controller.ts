@@ -6,6 +6,8 @@ import {
   Inject,
   UseGuards,
   Body,
+  Get,
+  Query,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -26,22 +28,22 @@ export class CoursesController {
   @UseGuards(RolesGuard)
   async createCourse(@Body() courseData: CreateCourseGatewayDto, @Request() req: any) {
     const userId = req.user?.id;
-  
+
     if (!userId) {
       throw new BadRequestException('No se encontró el ID del usuario');
     }
-  
+
     // Agrega `userId` a los datos del curso
     const dataWithUserId = { ...courseData, userId };
-  
+
     // Valida los datos usando el esquema
     const validationResult = createCourseGatewaySchema.safeParse(dataWithUserId);
-  
+
     // Si la validación falla, lanza un error con los detalles
     if (!validationResult.success) {
       throw new BadRequestException(validationResult.error.errors);
     }
-  
+
     try {
       // Envía los datos validados al microservicio
       const result = await lastValueFrom(
@@ -55,6 +57,32 @@ export class CoursesController {
       throw new BadRequestException(
         error.message || 'Error al crear curso'
       );
+    }
+  }
+  //buscar curso por filtro
+  @Get('filter')
+  async filterCourses(
+    @Query('page') page: string = '1',
+    @Query('limit') limit: string = '10',
+    @Query() filters: Record<string, any>,
+  ) {
+    // Validación de parámetros de paginación
+    const pageNum = parseInt(page, 10);
+    const limitNum = parseInt(limit, 10);
+
+    if (isNaN(pageNum) || pageNum <= 0) {
+      throw new BadRequestException('El parámetro "page" debe ser un número positivo');
+    }
+
+    if (isNaN(limitNum) || limitNum <= 0) {
+      throw new BadRequestException('El parámetro "limit" debe ser un número positivo');
+    }
+
+    // Pasamos los filtros y parámetros al microservicio para obtener los cursos
+    try {
+      return await this.coursesClient.send({ cmd: 'filter_courses' }, { filters, page: pageNum, limit: limitNum });
+    } catch (error) {
+      throw new BadRequestException('Error al filtrar los cursos');
     }
   }
 }

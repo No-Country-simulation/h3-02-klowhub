@@ -10,7 +10,7 @@ export class CoursesService {
   constructor(
     @InjectModel(Course.name) private courseModel: Model<Course>,
     @InjectModel(Users.name) private usersModel: Model<Users>,
-  ) {}
+  ) { }
 
   async createCourse(data: CreateCourseDto, userId: string) {
     const courseData = {
@@ -56,5 +56,55 @@ export class CoursesService {
     } catch (error) {
       throw new Error(`Error al crear el curso: ${error.message}`);
     }
+  }
+  // filtro
+  async filterCourses(filters: Record<string, any>, page: number, limit: number) {
+    const query = this.buildQuery(filters); // Supongamos que tienes una función para construir el filtro
+    return this.courseModel.find(query)
+      .skip((page - 1) * limit) // Implementación simple de paginación
+      .limit(limit)
+      .exec();
+  }
+
+  private buildQuery(filters: Record<string, any>) {
+    let query = {};
+    
+    // Puedes construir una lógica más compleja dependiendo de los filtros
+    if (filters.status) {
+      query['status'] = filters.status;
+    }
+  
+    if (filters.contentType) {
+      query['contentType'] = filters.contentType;
+    }
+  
+    if (filters.kind) {
+      query['kind'] = filters.kind;
+    }
+    if (filters.level){
+      query['level'] = filters.level
+    }
+    if (filters.platafor){
+      query['platafor'] = filters.platafor
+    }
+    if (filters.idiom){
+      query['idiom'] = filters.idiom
+    }
+    if (filters.pilar){
+      query['pilar'] = filters.pilar
+    }
+    if (filters.funtionalidad){
+      query['funtionalidad'] = filters.funtionalidad
+    }
+    if (filters.sector){
+      query['sector']= filters.sector
+    }
+    if (filters.tool){
+      query['tool']= filters.tool
+    }
+  
+    // Aquí puedes agregar más filtros según las propiedades del curso
+    
+    return query;
   }
 }
