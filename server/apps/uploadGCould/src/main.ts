@@ -10,9 +10,9 @@ async function bootstrap() {
     options: {
       package: 'googlecloudstorage',
       protoPath: [
-        join(__dirname, '../storage/proto/storage.proto'),
-        join(__dirname, '../signatures/proto/signatures.proto'),
-        join(__dirname, '../pubsub/proto/pubsub.proto'),
+        join(__dirname, '../src/storage/proto/storage.proto'),
+        join(__dirname, '../src/signatures/proto/signatures.proto'),
+        join(__dirname, '../src/pubsub/proto/pubsub.proto'),
       ], 
       url: `${process.env.UPLOAD_MICROSERVICE_HOST || '0.0.0.0'}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
       maxReceiveMessageLength: 10 * 1024 * 1024,  
