@@ -8,6 +8,7 @@ import {
   Body,
   Get,
   Query,
+  Param,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -83,6 +84,32 @@ export class CoursesController {
       return await this.coursesClient.send({ cmd: 'filter_courses' }, { filters, page: pageNum, limit: limitNum });
     } catch (error) {
       throw new BadRequestException('Error al filtrar los cursos');
+    }
+  }
+  //buscar course por id
+  @Get(':id')
+  async getCourseById(@Param('id') id: string) {
+    if (!id) {
+      throw new BadRequestException('El id del curso es requerido');
+    }
+
+    try {
+      const course = await lastValueFrom(
+        this.coursesClient.send({ cmd: 'get_course_by_id' }, id),
+      );
+
+      if (!course) {
+        throw new BadRequestException(`Curso con id ${id} no encontrado`);
+      }
+
+      return {
+        message: 'Curso obtenido exitosamente',
+        data: course,
+      };
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || 'Error al obtener el curso',
+      );
     }
   }
 }

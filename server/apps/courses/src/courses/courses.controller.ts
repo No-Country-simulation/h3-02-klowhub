@@ -42,4 +42,19 @@ export class CoursesController {
     const { page, limit, filters } = data;
     return this.coursesService.filterCourses(filters, page, limit);
   }
+  // course by id
+  @MessagePattern({cmd:'get_course_by_id'})
+  async getCourseById(@Payload() id: string) {
+    try {
+      const course = await this.coursesService.findById(id);
+
+      if (!course) {
+        throw new Error(`Curso con id ${id} no encontrado`);
+      }
+
+      return course;
+    } catch (error) {
+      throw new Error(error.message || 'Error al obtener curso');
+    }
+  }
 }

@@ -107,4 +107,9 @@ export class CoursesService {
     
     return query;
   }
+
+  // buscar curse por id
+  async findById(id: string): Promise<Course | null> {
+    return await this.courseModel.findById(id).exec();
+  }
 }
