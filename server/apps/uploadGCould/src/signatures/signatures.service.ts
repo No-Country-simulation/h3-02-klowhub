@@ -2,15 +2,15 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Storage } from '@google-cloud/storage';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Module } from '../schema/module.schema';
+import { LessonDocument } from '../schema/lesson.schema';
 
 @Injectable()
-export class FirmasService {
-  private storageClient = new Storage({ keyFilename: './key.json' });
+export class SignaturesService {
+  private storageClient = new Storage({ keyFilename: './key.json' }); 
   private bucketName = 'klowhub-mediafiles';
 
   constructor(
-    @InjectModel('Module') private readonly moduleModel: Model<Module>,  
+    @InjectModel('Lesson') private readonly lessonModel: Model<LessonDocument>,
   ) {}
 
   private extractTsFilename(line: string): string | null {
@@ -23,21 +23,16 @@ export class FirmasService {
     return null;
   }
 
-  async generateSignedUrls(moduleId: string, lessonTitle: string): Promise<any> {
-    // 1. Buscar el módulo con las lecciones
-    const module = await this.moduleModel.findById(moduleId).exec();
-    if (!module) {
-      throw new Error(`No se encontró el módulo con el ID: ${moduleId}`);
-    }
-
-
-    const lesson = module.lessons.find((lesson) => lessonTitle === lessonTitle);
+  async generateSignedUrls(title: string): Promise<any> {
+    const lesson = await this.lessonModel.findOne({ title }); 
     if (!lesson) {
-      throw new Error(`No se encontró la lección con el titel: ${lessonTitle}`);
+      throw new HttpException(
+        `No se encontró la lección con el título: ${title}`,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
-
-    const m3u8Path = lesson.videoUrl;
+    const m3u8Path = lesson.videos;
     if (!m3u8Path) {
       throw new Error(`La lección no tiene un video asociado`);
     }

@@ -2,13 +2,12 @@ syntax = "proto3";
 
 package googlecloudstorage;
 
-service FirmasService {
+service SignaturesService {
   rpc GenerateSignedUrls (GenerateSignedUrlsRequest) returns (GenerateSignedUrlsResponse);
 }
 
 message GenerateSignedUrlsRequest {
-  string lessonTitle = 1;
-  string moduleId = 2;
+  string title = 1;
 }
 
 message GenerateSignedUrlsResponse {
