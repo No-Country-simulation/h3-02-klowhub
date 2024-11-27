@@ -1,18 +1,18 @@
 import { Controller } from '@nestjs/common';
 import { GrpcMethod, RpcException } from '@nestjs/microservices';
-import { GoogleCloudStorageService } from './storage.service';
+import { StorageService } from './storage.service';
 import { UploadFileRequest, UploadFileResponse } from './interfaces/storage.interface';
 
 @Controller()
 export class StorageController {
-  constructor(private readonly googleCloudStorageService: GoogleCloudStorageService) {}
+  constructor(private readonly storageService: StorageService) {}
 
-  @GrpcMethod('GoogleCloudStorageService', 'UploadFile')
+  @GrpcMethod('storageService', 'UploadFile')
   async uploadFile(
     data: UploadFileRequest,
   ): Promise<UploadFileResponse> {
     try {
-      return await this.googleCloudStorageService.uploadFile(data);
+      return await this.storageService.uploadFile(data);
     } catch (err) {
       throw new RpcException('Error al cargar el archivo: ' + err.message);
     }
