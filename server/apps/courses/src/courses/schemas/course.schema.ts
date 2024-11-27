@@ -36,42 +36,42 @@ export class Course extends Document {
   @Prop({
     type: String,
     enum: Platform,
-    default: Platform.APPSHEET,
+    default: Platform.NONE,
   })
   platafor: string;
 
   @Prop({
     type: String,
     enum: Idiom,
-    default: Idiom.SPANISH,
+    default: Idiom.NONE,
   })
   idiom: string;
 
   @Prop({
     type: String,
     enum: Pilar,
-    default: '',
+    default: Pilar.NONE,
   })
   pilar: string;
 
   @Prop({
     type: String,
     enum: Funtionalidad,
-    default: Funtionalidad.EMAILS,
+    default: Funtionalidad.NONE,
   })
   funtionalidad: string;
 
   @Prop({
     type: String,
     enum: Sector,
-    default: Sector.INDUSTRIA,
+    default: Sector.NONE,
   })
   sector :string;
 
   @Prop({
     type: String,
     enum: Tool,
-    default: Tool.AIRTABLE,
+    default: Tool.NONE,
   })
   tool : string;
 

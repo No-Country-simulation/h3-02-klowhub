@@ -1,33 +1,30 @@
-import { Controller } from '@nestjs/common';
-import { CoursesService } from './courses.service';
-import { MessagePattern, RpcException } from '@nestjs/microservices';
-import { CreateCourseDto, CreateCourseSchema } from './dto/create-course.dto';
+import { Controller, Post, Body } from '@nestjs/common';
+import {CreateCourseDto, createCourseSchema } from './dto/create-course.dto';
+import { CoursesService} from './courses.service'; 
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
+import { z } from 'zod';
 
 @Controller('courses')
 export class CoursesController {
-  courseModel: any;
-  constructor(private readonly coursesService: CoursesService) { }
+  constructor(private readonly coursesService: CoursesService) {}
 
-  @MessagePattern({ cmd: 'createCourse' })
-  async createCourse(courseData: CreateCourseDto) {
-    // Validar los datos con Zod
-    const validationResult = CreateCourseSchema.safeParse(courseData);
-    if (!validationResult.success) {
+  @MessagePattern({ cmd:'create_course'}) // Este patrón lo escucharás desde el gateway
+  async createCourse(data) {
+    const valiData = createCourseSchema.safeParse(data);
+    if (!valiData.success){
       throw new RpcException({
         statusCode: 400,
-        message: 'Validation error',
-        errors: validationResult.error.errors,
+        message: 'Validation errors',
+        errors: valiData.error.errors,
       });
     }
-
-    // Pasamos el userId al objeto de datos
-    const courseDataWithUserId = {
-      ...validationResult.data
+    //
+    const courseDataWithUserId ={
+      ...valiData.data
     };
-
     try {
       // Delegamos la creación del curso al servicio
-      const newCourse = await this.coursesService.createCourse(courseDataWithUserId);
+      const newCourse = await this.coursesService.createCourse(courseDataWithUserId , courseDataWithUserId.userId);
 
       // Devolver el resultado
       return newCourse;
@@ -38,21 +35,4 @@ export class CoursesController {
       });
     }
   }
-  }
-
-  // @Get('/')
-  //   async getCourse(){
-  //     return await this.coursesService.getCourse();
-  //   }
-
-  // @Get('/:id') 
-  // async getCourseId(@Param('id') id:string) {
-  //   return await this.coursesService.getCourseId(id);
-  // } 
-
-  //   @Post()
-  //   async create(@Body() createCourseDto: CreateCourseDto){
-  //    return await this.coursesService.create(createCourseDto); 
-  //   }
-
-  // Otros métodos del controlador (por ejemplo, para obtener cursos, eliminar, etc.)
+}

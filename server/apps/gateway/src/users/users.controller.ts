@@ -35,7 +35,6 @@ export class UsersController {
         if (!userId) {
             throw new BadRequestException('No se encontró el ID del usuario');
         }
-
         try {
             // Enviar el userId al microservicio para obtener la información completa del perfil
             const profile = await lastValueFrom(

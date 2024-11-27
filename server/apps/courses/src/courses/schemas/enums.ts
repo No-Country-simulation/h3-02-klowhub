@@ -1,17 +1,22 @@
 export enum Idiom {
+    NONE = "none",
     SPANISH = 'español',
     ENGLISH = 'inglés',
 }
 
 export enum Platform {
+    NONE = "none",
     APPSHEET = 'AppSheet',
     POWERAPPS = 'PowerApps',
 }
 
 export enum Pilar {
+    NONE = "none",
+    DEFAULT='default'
 }
 
 export enum Funtionalidad {
+    NONE = "none",
     CALENDARIO='Calendario',
     GENERACION='Generación',
     REPORTES_AUTOMATICOS='Reportes_automáticos',
@@ -27,6 +32,7 @@ export enum Funtionalidad {
 }
 
 export enum Sector {
+    NONE = "none",
     INDUSTRIA = 'Industria',
     GESTION_DEL_TIEMPO = 'Gestion_del_tiempo',
     GESTION_DE_INVENTARIOS = 'Gestion_de_inventarios',
@@ -44,6 +50,7 @@ export enum Sector {
   }
 
 export enum Tool {
+    NONE = "none",
     GOOGLE_SHEETS='Google_sheet',
     GOOGLE_ANALYTICS='Google_analytics',
     GOOGLE_TAG_MANAGER='Google_tag_manager',
