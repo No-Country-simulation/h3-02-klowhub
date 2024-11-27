@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { AppModule } from './app.module'; // Usa tu AppModule que importe todos los módulos
+import { AppModule } from './app.module'; 
 import { join } from 'path';
 
 
