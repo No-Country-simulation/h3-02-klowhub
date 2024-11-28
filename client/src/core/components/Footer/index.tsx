@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import React from 'react';
 import { Link } from '../../lib/i18nRouting';
 
 export default function Footer() {

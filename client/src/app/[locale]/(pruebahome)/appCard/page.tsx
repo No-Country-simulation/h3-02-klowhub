@@ -1,9 +1,9 @@
 import { useTranslations } from 'next-intl';
-import React from 'react';
+import type { FC } from 'react';
 import AppCard from '@features/home/components/AppCard';
 import { VerMas } from '@features/home/components/VerMas/VerMas';
 
-const Page: React.FC = () => {
+const Page: FC = () => {
   const t = useTranslations('AppCard');
 
   return (

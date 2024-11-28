@@ -1,6 +1,6 @@
-import React from 'react';
 import CardInquiries from '@features/home/components/CardInquiries/CardInquiries';
 import HeadInquiries from '@features/home/components/HeaderInquiries/HeadInquiries';
+
 function SectionIquiris() {
   return (
     <section className="mt-16 flex flex-col gap-[24px] text-xl">

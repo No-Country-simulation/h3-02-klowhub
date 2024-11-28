@@ -1,8 +1,7 @@
-import React from 'react';
 import CardTeacher from '@features/home/components/MentorCard';
 import { VerMas } from '@features/home/components/VerMas/VerMas';
 
-const Page: React.FC = () => {
+const Page = () => {
   return (
     <div className="bg-[#1F2937] pt-8">
       <div className="mx-auto w-full max-w-[90%]">

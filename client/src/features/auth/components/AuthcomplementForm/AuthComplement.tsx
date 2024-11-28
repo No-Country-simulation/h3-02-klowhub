@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import Button from '@core/components/Button';
 import FormCheckbox from '@core/components/FormCheckbox/Index';
 import type { FieldType } from '@core/types/fields';

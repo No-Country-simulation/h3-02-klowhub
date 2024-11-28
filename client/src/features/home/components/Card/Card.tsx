@@ -1,5 +1,4 @@
-import Image from 'next/image'; // Importa el componente Image de Next.js
-import React from 'react';
+import Image from 'next/image';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
@@ -25,7 +24,7 @@ const categoryStyles: Record<string, string> = {
   default: 'bg-gray-200 text-gray-800',
 };
 
-const Card: React.FC<CardProps> = ({
+const Card = ({
   title,
   description,
   price,
@@ -37,7 +36,7 @@ const Card: React.FC<CardProps> = ({
   emoji,
   imageAlt = 'Imagen del curso', // Valor predeterminado para `alt`
   categoria,
-}) => {
+}: CardProps) => {
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
   return (
     <div
