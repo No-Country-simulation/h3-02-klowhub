@@ -3,38 +3,6 @@ import { routing } from '@core/lib/i18nRouting';
 import WatchCourseDetailSection from '@features/courses/components/WatchCourseDetailSection';
 import WatchCourseSection from '@features/courses/components/WatchCourseSection';
 
-export async function generateStaticParams({
-  params,
-}: {
-  params: Promise<{ locale: string; id: string }>;
-}) {
-  const { id } = await params;
-  const paths = routing.locales.map(locale => ({
-    locale,
-    id,
-    slug: `${locale}/courses/watch/${id}`,
-  }));
-
-  return paths.map(params => ({
-    params,
-  }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  const t = await getTranslations<'CoursesWatch'>({ locale: locale, namespace: 'CoursesWatch' });
-  return {
-    title: t('metaTitle'),
-    description: t('metaDescription'),
-    openGraph: {
-      siteName: t('metaSiteName'),
-      title: t('metaSiteName'),
-      description: t('metaDescription'),
-      locale: locale,
-    },
-  };
-}
-
 export default async function CoursesPage({
   params,
   searchParams,
@@ -62,4 +30,29 @@ export default async function CoursesPage({
       </div>
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  const paths = routing.locales.map(locale => ({
+    locale,
+  }));
+
+  return paths.map(params => ({
+    params,
+  }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations<'CoursesWatch'>({ locale: locale, namespace: 'CoursesWatch' });
+  return {
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    openGraph: {
+      siteName: t('metaSiteName'),
+      title: t('metaSiteName'),
+      description: t('metaDescription'),
+      locale: locale,
+    },
+  };
 }

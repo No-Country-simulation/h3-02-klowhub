@@ -7,17 +7,13 @@ import { getBaseUrl } from '@core/lib/utils';
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${getBaseUrl()}/`, // URL de la página principal de la aplicación
+      url: `${getBaseUrl()}/`,
       alternates: {
-        languages: Object.fromEntries(
-          // Genera una lista de URLs alternativas para cada idioma habilitado
-          routing.locales.map(locale => [locale, '/' + locale])
-        ),
+        languages: Object.fromEntries(routing.locales.map(locale => [locale, '/' + locale])),
       },
       lastModified: new Date(), // Fecha de última modificación de la página, actualizada a la fecha actual
       changeFrequency: 'weekly',
-      priority: 1, // Prioridad máxima de la página principal para los motores de búsqueda
+      priority: 1,
     },
-    // Add more URLs here
   ];
 }

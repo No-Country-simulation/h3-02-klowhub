@@ -6,9 +6,9 @@ import { getBaseUrl } from '@core/lib/utils';
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*', // Indica que las reglas aplican a todos los rastreadores (user agents)
-      allow: '*', // Permite el acceso a todas las rutas de la aplicación
+      userAgent: '*',
+      allow: '*',
     },
-    sitemap: `${getBaseUrl()}/sitemap.xml`, // Ruta al sitemap, basado en la URL base de la aplicación
+    sitemap: `${getBaseUrl()}/sitemap.xml`,
   };
 }

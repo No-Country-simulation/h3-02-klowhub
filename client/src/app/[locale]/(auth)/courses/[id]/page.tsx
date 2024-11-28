@@ -4,7 +4,6 @@ import { routing } from '@core/lib/i18nRouting';
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
     locale,
-    slug: `${locale}/courses`,
   }));
 
   return paths.map(params => ({
