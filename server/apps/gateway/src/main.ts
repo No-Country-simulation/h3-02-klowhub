@@ -18,6 +18,6 @@ async function bootstrap() {
     credentials: true, // Permitir cookies
   });
   console.log(`Gateway is running on: 3000`);
-  await app.listen(3000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();

@@ -1,7 +1,12 @@
 ### Check Gateway Deploy
-GET https://klowhub-gateway-api-824410275969.southamerica-east1.run.app/gateway/hello
+GET https://klowhub-api-824410275969.southamerica-east1.run.app/gateway/hello
 Content-Type: application/json
 
 ### Check Gateway Local
 GET http://localhost:3000/gateway/hello
+Content-Type: application/json
+
+
+### Test pubsub - Deploy
+POST https://klowhub-api-824410275969.southamerica-east1.run.app/pubsub/test
 Content-Type: application/json

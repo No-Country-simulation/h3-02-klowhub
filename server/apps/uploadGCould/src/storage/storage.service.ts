@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { UploadFileRequest, UploadFileResponse } from './interfaces/storage.interface';
 
 @Injectable()
-export class GoogleCloudStorageService {
+export class StorageService {
   private readonly storage: Storage;
   private readonly bucketName: string;
 
