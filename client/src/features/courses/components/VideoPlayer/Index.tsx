@@ -7,20 +7,25 @@ import 'video.js/dist/video-js.css';
 // Import Video.js HLS plugin
 import 'videojs-http-source-selector';
 import 'videojs-contrib-eme';
-import 'videojs-contrib-quality-levels';
+import type { Locale } from '@core/lib/i18nRouting';
+import { cn } from '@core/lib/utils';
+import { videoJSTranslations, videPlayerStyles } from '@core/styles/video';
 
 interface VideoPlayerProps {
   src: string;
+  locale: Locale;
+  activeLessonId: string | number;
 }
 
-const VideoPlayer = ({ src }: VideoPlayerProps) => {
+const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<any>(null);
+  const audioContextRef = useRef<any | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const initPlayer = () => {
+    const initPlayer = (style: HTMLStyleElement) => {
       if (playerRef.current) {
         playerRef.current.dispose();
         playerRef.current = null;
@@ -28,12 +33,17 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
 
       const videoElement = videoRef.current;
       if (!videoElement) return;
+      videojs.addLanguage(locale, videoJSTranslations[locale as keyof typeof videoJSTranslations]);
 
+      style.textContent = videPlayerStyles;
+      document.head.appendChild(style);
       const player = videojs(videoElement, {
         controls: true,
         fluid: true,
         responsive: true,
+        language: locale,
         playbackRates: [0.5, 1, 1.5, 2],
+        preload: 'auto',
         html5: {
           vhs: {
             fastQualityChange: true,
@@ -43,10 +53,13 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
             overrideNative: !videojs.browser.IS_SAFARI,
             maxPlaylistRetries: 3,
             bandwidth: 5000000,
+            backBufferLength: 30,
+            limitRenditionByPlayerDimensions: true,
           },
         },
         nativeAudioTracks: false,
         nativeVideoTracks: false,
+        useBandwidthFromLocalStorage: true,
       });
 
       // Add HLS source
@@ -63,27 +76,34 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
       player.on('loadedmetadata', () => {
         console.log('Video metadata loaded');
       });
+
       player.ready(() => {
         console.log('Player is ready');
       });
-
       playerRef.current = player;
     };
+    const style = document.createElement('style');
 
-    initPlayer();
+    initPlayer(style);
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose();
         playerRef.current = null;
+        if (style.parentNode) {
+          style.parentNode.removeChild(style);
+        }
+        if (audioContextRef.current) {
+          audioContextRef.current?.close();
+        }
       }
     };
-  }, [src]);
+  }, [src, locale]);
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+    <div className="relative aspect-[12/6.5] w-full overflow-hidden rounded-lg bg-black">
       <video
         ref={videoRef}
-        className="video-js vjs-default-skin vjs-big-play-centered vjs-quality-button size-full"
+        className={cn('video-js vjs-default-skin vjs-big-play-centered vjs-quality-button')}
       />
     </div>
   );

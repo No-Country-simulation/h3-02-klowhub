@@ -2,8 +2,13 @@
 
 import { useState } from 'react';
 import css from './favbutton.module.css';
+import { cn } from '../../lib/utils';
 
-const FavButton = () => {
+interface FavButtonProps {
+  className?: string;
+}
+
+const FavButton = ({ className = '' }: FavButtonProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleFavorite = async () => {
@@ -11,7 +16,7 @@ const FavButton = () => {
   };
 
   return (
-    <label htmlFor="favButton" className={css.favContainer} onClick={handleFavorite}>
+    <label htmlFor="favButton" className={cn(css.favContainer, className)} onClick={handleFavorite}>
       <input
         type="checkbox"
         className={css.checkbox}

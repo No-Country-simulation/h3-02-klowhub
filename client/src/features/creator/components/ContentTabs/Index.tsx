@@ -1,4 +1,4 @@
-import { Tabs, TabsContent } from '@core/components/Tabs/Index';
+import { Tabs, TabsContent } from '@root/src/core/components/Tabs';
 import HeaderContent from '../ContentHeader/Index';
 import ContentItem from '../ContentItem/Index';
 import ContentTabList from '../ContentTabList/Index';

@@ -1,16 +1,53 @@
-import VideoLessons from '../VideoLessons/Index';
-import VideoPlayer from '../VideoPlayer/Index';
-import WatchVideoTabs from '../WatchVideoTabs/Index';
+import { getLocale } from 'next-intl/server';
+import { videoCourseSchema } from '../../schemas/video-schemas';
+import { updateLessonViewStatus } from '../../service/searchLessonNotVied';
+import VideoLessons from '../VideoLessons';
+import WatchCourseNavigator from '../WatchCourseNavigator';
+import WatchVideoWrapper from '../WatchVideoWrapper';
 
-const WatchCourseSection = () => {
+const WatchCourseSection = async ({
+  lessonActive,
+  courseId,
+  moduleActive,
+}: {
+  lessonActive: string;
+  moduleActive: string;
+  courseId: string | number;
+}) => {
+  const locale = await getLocale();
+  const result = await fetch('http://localhost:3000/json/course.json');
+  const dataUnknown = await result.json();
+  const validData = videoCourseSchema.safeParse(dataUnknown);
+  if (!validData.success) {
+    return (
+      <section className="mx-auto grid rounded-lg bg-white/5">
+        <div className="flex h-[60dvh] w-full items-center justify-center rounded-lg border border-white/20 bg-white/10">
+          <p className="text-center text-3xl font-bold text-red-600">Error inesperado</p>
+        </div>
+      </section>
+    );
+  }
+  const updateLesson = updateLessonViewStatus(validData.data.modules, lessonActive);
+  const lessonActiveId = updateLesson.updated ? lessonActive : validData.data.lastLessonId;
+  const moduleActiveId = moduleActive || validData.data.lastModuleId;
+  if (updateLesson.updated) {
+    validData.data.modules = updateLesson.updatedModules;
+  }
+
   return (
-    <section className="mx-auto grid max-w-6xl rounded-lg bg-white/5 md:grid-cols-[1fr,320px]">
-      <div className="space-y-4 rounded-l-lg bg-white/10 p-4">
-        <VideoPlayer src="https://storage.googleapis.com/klowhub-mediafiles/courses/processed/12345/2024-11-21T16%3A48%3A08.435Z-dandan/hls_stream0.m3u8?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=klouhub-service-be-media%40refreshing-site-441810-v7.iam.gserviceaccount.com%2F20241122%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20241122T174541Z&X-Goog-Expires=3600&X-Goog-SignedHeaders=host&X-Goog-Signature=64a3b20a930ce2e5ac4cab8dcd23edf45758522d482e957b1c6be3ba1823bb3408239bc8ade79b9a40f3698932a544bd818394df4de882084294c7bbb978801a817e0428313d312444269ba96e04e7a2adb0432f0b6dcd9b2cae8acfdf8e0c44f0a289453474c8e910432b91f851cc01a1da2ca6aea06a949c6386ed69c2275cb004b11dbb446942fc0ba552038a87aae819491daf0521a39ba0aeec7406a8a5b54e7b9ccebcffa42eadcf5aeb2b6661894be4629ba89261991ded918372376c5c3a75644e3b17f7901b7fce8084b378ca9fa808f2d8ef6db3b6d8e1e956d63828698b073297e1fca3e00b33c74242c7d148a79bda9570dd4bed6744fca4538f" />
-        <VideoLessons />
+    <section className="mx-auto grid rounded-lg bg-white/5 md:grid-cols-[1fr,26%] min-[2000px]:grid-cols-[1fr,25%]">
+      <div className="space-y-4 rounded-l-lg bg-white/10 p-4 contain-inline-size">
+        <WatchVideoWrapper locale={locale} lessonActiveId={lessonActiveId} />
+        <VideoLessons
+          courseId={courseId}
+          lessonActiveId={lessonActiveId}
+          lessons={
+            validData.data.modules.find(module => module.id === moduleActiveId)?.lessons || []
+          }
+        />
       </div>
       <div className="rounded-r-lg bg-white/10 p-4">
-        <WatchVideoTabs />
+        <WatchCourseNavigator modules={validData.data.modules} />
       </div>
     </section>
   );
