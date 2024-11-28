@@ -1,6 +1,6 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@root/src/core/components/Tabs/Index';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@root/src/core/components/Tabs';
 import type { VideoModuleType } from '../../schemas/video-schemas';
-import VideoModules from '../VideoModules/Index';
+import VideoModules from '../VideoModules';
 
 interface WatchCourseNavigatorProps {
   modules: VideoModuleType[];

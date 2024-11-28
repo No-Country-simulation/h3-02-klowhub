@@ -1,8 +1,8 @@
 import { getLocale } from 'next-intl/server';
 import { videoCourseSchema } from '../../schemas/video-schemas';
 import { updateLessonViewStatus } from '../../service/searchLessonNotVied';
-import VideoLessons from '../VideoLessons/Index';
-import WatchCourseNavigator from '../WatchCourseNavigator/Index';
+import VideoLessons from '../VideoLessons';
+import WatchCourseNavigator from '../WatchCourseNavigator';
 import WatchVideoWrapper from '../WatchVideoWrapper';
 
 const WatchCourseSection = async ({

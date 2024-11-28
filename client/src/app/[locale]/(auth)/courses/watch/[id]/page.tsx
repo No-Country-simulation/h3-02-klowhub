@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing } from '@root/src/core/lib/i18nRouting';
-import WatchCourseSection from '@root/src/features/courses/components/WatchCourseSection/Index';
+import { routing } from '@core/lib/i18nRouting';
+import WatchCourseDetailSection from '@root/src/features/courses/components/WatchCourseDetailSection';
+import WatchCourseSection from '@root/src/features/courses/components/WatchCourseSection';
 
 export async function generateStaticParams({
   params,
@@ -45,12 +46,20 @@ export default async function CoursesPage({
   const { lessonActive = '', moduleActive = '' } = await searchParams;
   setRequestLocale(locale);
   return (
-    <main className="mt-8 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mt-8 size-full space-y-8 px-10 sm:px-[51px] min-[1800px]:px-16">
       <WatchCourseSection
         moduleActive={moduleActive as string}
         lessonActive={lessonActive as string}
         courseId={id}
       />
+      <div className="flex w-full justify-between gap-x-20">
+        <WatchCourseDetailSection />
+        <aside className="w-full min-w-[380px] flex-1 basis-[27%] rounded-lg bg-white/10 shadow-app-1">
+          <h2 className="px-4 py-6 text-base font-semibold text-white">
+            Cursos que te pueden interesar
+          </h2>
+        </aside>
+      </div>
     </main>
   );
 }

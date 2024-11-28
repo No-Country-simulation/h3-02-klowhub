@@ -1,0 +1,12 @@
+.checkListItem {
+  list-style-type: none;
+  list-style-image: url('/svg/checkNormal.svg');
+  position: relative;
+  container-type: inline-size;
+  list-style-position: inside;
+  max-height: 36px;
+}
+
+li.checkListItem::marker {
+  font-size: 0px;
+}
