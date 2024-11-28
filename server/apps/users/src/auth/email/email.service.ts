@@ -21,7 +21,13 @@ export class EmailService {
     });
   }
   async sendVerificationEmail(email: string, verificationToken: string) {
-    const verificationLink = `${process.env.FRONTEND}/verify?token=${verificationToken}`;
+    const frontend = process.env.FRONTEND_URL
+    console.log(frontend)
+    if (!frontend) {
+      throw new Error('La variable de entorno FRONTEND no está definida');
+    }
+
+    const verificationLink = `${frontend}/verify?token=${verificationToken}`;
     const logoUrl =
       'https://res.cloudinary.com/ddv3ckyxa/image/upload/v1731885444/Logo_dzf5dh.png'; // Cambia por la URL de tu logo
 

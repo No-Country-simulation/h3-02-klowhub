@@ -10,7 +10,7 @@ import {
   Get,
   UseGuards,
 } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, Client } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { RegisterSchema } from './dto/registerSchema.dto';
 import { UpdateSchema } from './dto/updateSchema.dto';
@@ -18,15 +18,16 @@ import { LoginDto } from './dto/loginSchema.dto';
 import { ResetTokenDto, ResetTokenSchema } from './dto/resetToken.dto';
 import { CookieService } from 'src/common/services/cookie.service';
 import { Response as ExpressResponse } from 'express';
-import { Roles } from 'src/decorators/roles.decorator';
-import { RolesGuard } from 'src/guards/roles.guard';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth')
 export class AuthController {
   constructor(
-    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy,
+    @Inject('USERS_SERVICE') private readonly usersService: ClientProxy,
+    @Inject('COURSES_SERVICE') private readonly coursesClient: ClientProxy,
     private readonly cookieService: CookieService,
-  ) {}
+    private readonly jwtService: JwtService
+  ) { }
 
   @Post('register')
   async register(@Body() registerDto: any): Promise<any> {
@@ -38,7 +39,7 @@ export class AuthController {
 
     // Enviar los datos al microservicio y manejar el Observable como una Promesa
     return lastValueFrom(
-      this.authClient.send({ cmd: 'register' }, registerDto),
+      this.usersService.send({ cmd: 'register' }, registerDto),
     );
   }
 
@@ -50,16 +51,24 @@ export class AuthController {
     try {
       // Enviar la solicitud al microservicio para verificar el token de correo
       const { token: newToken } = await lastValueFrom(
-        this.authClient.send({ cmd: 'verifyEmail' }, { token }),
+        this.usersService.send({ cmd: 'verifyEmail' }, { token }),
       );
 
       // Usar el servicio CookieService para gestionar la cookie con el nuevo token
       this.cookieService.set(res, 'auth_token', newToken, {
         maxAge: 60 * 60 * 1000, // 1 hora
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
       });
+
+      if (token) {
+        // Emitir el evento para crear la instancia del curso en MongoDB
+        console.log("Enviando solicitud al microservicio de cursos:", { token });
+        await lastValueFrom(
+          this.coursesClient.send({ cmd: 'instance' }, { token }),
+        );
+      }
 
       // Regresar una respuesta al cliente
       return res.status(200).json({
@@ -80,13 +89,13 @@ export class AuthController {
       throw new BadRequestException(validationEmail.error.errors);
     }
     return lastValueFrom(
-      this.authClient.send({ cmd: 'resetToken' }, resetTokenDto),
+      this.usersService.send({ cmd: 'resetToken' }, resetTokenDto),
     );
   }
   //
   @Post('google')
   async google(@Body() token: string): Promise<any> {
-    return lastValueFrom(this.authClient.send({ cmd: 'google' }, { token }));
+    return lastValueFrom(this.usersService.send({ cmd: 'google' }, { token }));
   }
   @Patch('update')
   async update(@Body() updateDto: any, @Request() req: any): Promise<any> {
@@ -99,7 +108,7 @@ export class AuthController {
       throw new BadRequestException(validationResult.error.errors);
     }
     return lastValueFrom(
-      this.authClient.send({ cmd: 'google' }, { token, updateDto }),
+      this.usersService.send({ cmd: 'google' }, { token, updateDto }),
     );
   }
   //
@@ -107,49 +116,36 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
     try {
       // Enviar la solicitud al microservicio
+      console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       const { token } = await lastValueFrom(
-        this.authClient.send({ cmd: 'login' }, loginDto),
+        this.usersService.send({ cmd: 'login' }, loginDto),
       );
 
       // Usar el servicio CookieService para gestionar la cookie
       this.cookieService.set(res, 'auth_token', token, {
         maxAge: 60 * 60 * 1000,
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
       });
+      if (token) {
+        // Emitir el evento para crear la instancia del curso en MongoDB
+        console.log("Enviando solicitud al microservicio de cursos:", { token });
+        await lastValueFrom(
+          this.coursesClient.send({ cmd: 'instance' }, { token }),
+        );
+      }
+
+
 
       // Regresar una respuesta al cliente
       return res.status(200).json({
         message: '¡Inicio de sesión exitoso!',
       });
     } catch (error) {
-      throw error;
+      console.error("Error al iniciar sesión:", error); // Agrega más detalles sobre el error
+      throw new BadRequestException(error.message || 'Error al iniciar sesión');
     }
   }
-  // profile user
-  @Get('profile')
-  @Roles('admin', 'moderator', 'user') // Roles permitidos
-  @UseGuards(RolesGuard) // Verifica el rol del usuario
-  async getProfile(@Request() req: any, @Response() res: ExpressResponse) {
-    const userId = req.user.id; // Recuperamos el userId desde el token (verificado por el middleware)
-    console.log('este es la id del usuario', userId);
-    if (!userId) {
-      throw new BadRequestException('No se encontró el ID del usuario');
-    }
 
-    try {
-      // Enviar el userId al microservicio para obtener la información completa del perfil
-      const profile = await lastValueFrom(
-        this.authClient.send({ cmd: 'getProfile' }, { userId }), // Enviar userId al microservicio
-      );
-
-      // Regresar la información completa del perfil al cliente
-      return res.status(200).json(profile);
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || 'Error al obtener el perfil',
-      );
-    }
-  }
 }

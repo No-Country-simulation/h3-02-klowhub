@@ -7,15 +7,11 @@ import { RegisterDto } from './dto/registerSchema.dto';
 import * as bcrypt from 'bcrypt';
 import { EmailService } from './email/email.service';
 import { AccountEntity } from '../entities/accounts.entity';
-import {
-  generateResetToken,
-  generateVerificationToken,
-} from './utils/authToken';
-import * as jwt from 'jsonwebtoken';
 import { UsersService } from '../users/users.service';
 import * as dotenv from 'dotenv';
 import { TokenDto } from './dto/tokenSchema.dto';
 import { LoginDto } from './dto/loginSchema.dto';
+import { JwtService } from '@nestjs/jwt';
 
 dotenv.config();
 
@@ -23,6 +19,7 @@ dotenv.config();
 export class AuthService {
   [x: string]: any;
   constructor(
+    private jwtService: JwtService,
     private readonly usersService: UsersService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
@@ -40,7 +37,7 @@ export class AuthService {
       }
 
       // Decodificar el token JWT
-      const decoded: any = jwt.verify(tokenDto.token, process.env.JWT_SECRET);
+      const decoded: any = this.jwtService.verify(tokenDto.token);
 
       // Buscar al usuario asociado al token
       const user = await this.userRepository.findOne({
@@ -65,30 +62,22 @@ export class AuthService {
       user.verificationToken = null;
       user.emailVerificationExpiresAt = null;
       await this.userRepository.save(user);
+      //
+      const tokenPayload = {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+      };
 
       // Generar un nuevo token de inicio de sesión
-      const loginToken = jwt.sign(
-        { userId: user.id, email: user.email, role: user.role },
-        process.env.JWT_SECRET,
-        { expiresIn: '1h' },
+      const loginToken = this.jwtService.sign(
+        tokenPayload,
+        { expiresIn: '24h' },
       );
+      console.log(loginToken)
 
       return { message: 'Email verified successfully', token: loginToken };
     } catch (error) {
-      // Manejo de errores relacionados con JWT o usuario no encontrado
-      if (
-        error instanceof jwt.JsonWebTokenError ||
-        error.message === 'User not found'
-      ) {
-        // Invalidar el token del usuario si existe
-        // if (user) {
-        //   user.verificationToken = null;
-        //   user.emailVerificationExpiresAt = null;
-        //   await this.userRepository.save(user);
-        // }
-        throw new BadRequestException('Invalid token');
-      }
-      // Lanzar otros errores
       return { message: 'Something went wrong' };
     }
   }
@@ -110,15 +99,17 @@ export class AuthService {
       email: registerDto.email,
       password: encryptedPassword,
     });
+    await this.userRepository.save(newUser);
 
     // Generar token de verificación con fecha de expiración
     const emailVerificationExpiresAt = new Date();
     emailVerificationExpiresAt.setHours(
       emailVerificationExpiresAt.getHours() + 1,
     );
-    const verificationToken = generateVerificationToken(
-      newUser.id,
-      newUser.email,
+    const verificationToken = this.jwtService.sign({
+      userId: newUser.id,
+      email: newUser.email
+    }
     );
     newUser.verificationToken = verificationToken;
 
@@ -251,13 +242,11 @@ export class AuthService {
       };
 
       // Generar el token
-      const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-      });
+    const token = this.jwtService.sign(tokenPayload, { expiresIn: '24h' });
 
       // Solo se retorna el token aquí, no la cookie
       return { token };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        
     } catch (error) {
       return { message: 'Ocurrio un error al iniciar session' };
     }
@@ -281,7 +270,11 @@ export class AuthService {
       emailVerificationExpiresAt.getHours() + 1,
     ); // 1 hora para expirar
 
-    const verificationToken = generateVerificationToken(user.id, user.email);
+    const verificationToken = this.jwtService.sign(
+      {userId:user.id, 
+      email: user.email},
+      {expiresIn: '1h'}
+    );
 
     user.verificationToken = verificationToken;
     user.emailVerificationExpiresAt = emailVerificationExpiresAt;
@@ -305,7 +298,10 @@ export class AuthService {
     const resetPasswordExpiresAt = new Date();
     resetPasswordExpiresAt.setHours(resetPasswordExpiresAt.getHours() + 1); // 1 hora para expirar
 
-    const resetToken = generateResetToken(user.id, user.email);
+    const resetToken = this.jwtService.sign(
+      {userId:user.id,
+        email: user.email
+      });
 
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpiresAt = resetPasswordExpiresAt;
@@ -347,8 +343,9 @@ export class AuthService {
   // Verificar el token JWT
   verifyJwt(token: string): any {
     try {
-      return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token con la clave secreta
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      return this.jwtService.verify(token)
+      //return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token con la clave secreta
+       
     } catch (error) {
       return { message: 'Token invalido o expirado' };
     }

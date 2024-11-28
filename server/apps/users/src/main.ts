@@ -10,13 +10,13 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        host: process.env.USERS_MICROSERVICE_HOST || '0.0.0.0',
-        port: Number(process.env.USERS_SERVICE_PORT),
+        host: process.env.USERS_MICROSERVICE_HOST, // Puedes usar una variable de entorno
+        port: parseInt(process.env.USERS_MICROSERVICE_PORT, 10), // También puedes definir el puerto en .env
       },
     },
   );
 
   await app.listen();
-  console.log('Microservice Users is listening...', process.env.USERS_SERVICE_PORT);
+  console.log('Microservice Users is listening...', process.env.USERS_MICROSERVICE_PORT);
 }
 bootstrap();
