@@ -2,13 +2,17 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 RUN npm install -g pnpm@9.7.0 typescript
-COPY tsconfig.json types.d.ts package.json pnpm-lock.yaml next.config.mjs postcss.config.cjs tailwind.config.cjs ./
-
-RUN pnpm install --ignore-scripts --prefer-frozen-lockfile
+COPY package.json pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs ./
 
 FROM deps AS builder
 WORKDIR /app
 COPY . .
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NODE_ENV=production
+ENV PORT=8080
+
+RUN pnpm install --ignore-scripts --prefer-frozen-lockfile
 RUN pnpm build
 
 FROM node:20-alpine AS production
