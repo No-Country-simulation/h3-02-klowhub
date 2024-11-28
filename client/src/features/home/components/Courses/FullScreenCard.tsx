@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import Badge from '@root/src/core/components/Badge/Index';
 import Button from '@root/src/core/components/Button';
+import FavButton from '@root/src/core/components/FavButton/FavButton';
 
 interface FullScreenCardProps {
   imageUrl: string;
@@ -54,10 +55,19 @@ const FullScreenCard: React.FC<FullScreenCardProps> = ({
     <div className="mt-6 flex h-auto w-full flex-col items-center overflow-hidden rounded-lg bg-[#222934] shadow-lg md:h-[315px] md:flex-row md:items-stretch">
       {/* Imagen */}
       <div className="relative h-[200px] w-full flex-none md:h-auto md:w-1/3">
-        <Image src={imageUrl} alt="Product" className="size-full object-cover" />
+        <Image
+          src={imageUrl}
+          width={500}
+          height={300}
+          alt="Product"
+          className="size-full object-cover object-center"
+        />
         <span className={`absolute left-2 top-2 rounded px-2 py-1 text-sm font-bold ${styleClass}`}>
           {categoria}
         </span>
+        <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
+          <FavButton className="block first-letter:drop-shadow-[drop-shadow(6px_4px_14px_black)]" />
+        </div>
       </div>
 
       {/* Contenedor de detalles y menú de 3 puntos */}
