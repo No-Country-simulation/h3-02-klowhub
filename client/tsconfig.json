@@ -69,10 +69,12 @@
   "include": [
     "next-env.d.ts",
     "types.d.ts",
+    "global.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "next.config.mjs"  ],
+    ".next/types/**/*.ts",
+    "next.config.mjs"
+  ],
   "exclude": [
     "./out/**/*",
     "./node_modules/**/*",

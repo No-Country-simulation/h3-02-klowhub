@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing } from '@root/src/core/lib/i18nRouting';
-import WatchCourseSection from '@root/src/features/courses/components/WatchCourseSection/Index';
+import { routing } from '@core/lib/i18nRouting';
+import WatchCourseDetailSection from '@root/src/features/courses/components/WatchCourseDetailSection';
+import WatchCourseSection from '@root/src/features/courses/components/WatchCourseSection';
 
 export async function generateStaticParams({
   params,
@@ -10,6 +11,7 @@ export async function generateStaticParams({
   const { id } = await params;
   const paths = routing.locales.map(locale => ({
     locale,
+    id,
     slug: `${locale}/courses/watch/${id}`,
   }));
 
@@ -33,12 +35,31 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function CoursesPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function CoursesPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string; id: string | number }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const { locale, id } = await params;
+  const { lessonActive = '', moduleActive = '' } = await searchParams;
   setRequestLocale(locale);
   return (
-    <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
-      <WatchCourseSection />
+    <main className="mb-14 mt-8 size-full space-y-8 px-10 sm:px-[51px] min-[1800px]:px-16">
+      <WatchCourseSection
+        moduleActive={moduleActive as string}
+        lessonActive={lessonActive as string}
+        courseId={id}
+      />
+      <div className="flex w-full justify-between gap-x-20">
+        <WatchCourseDetailSection />
+        <aside className="w-full min-w-[380px] flex-1 basis-[27%] rounded-lg bg-white/10 shadow-app-1">
+          <h2 className="px-4 py-6 text-base font-semibold text-white">
+            Cursos que te pueden interesar
+          </h2>
+        </aside>
+      </div>
     </main>
   );
 }
