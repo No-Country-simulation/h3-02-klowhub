@@ -4,9 +4,11 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import * as cookieParser from 'cookie-parser';
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { ErrorInterceptor } from './middleware/error.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalInterceptors(new ErrorInterceptor());
   app.use(cookieParser());
   app.use(new AuthMiddleware().use);
   app.enableCors({

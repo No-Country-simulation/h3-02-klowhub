@@ -28,13 +28,15 @@ message UploadFileResponse {
   string url = 1;
   string message = 2;
 }
-service FirmasService {
+service SignaturesService {
   rpc GenerateSignedUrls (GenerateSignedUrlsRequest) returns (GenerateSignedUrlsResponse);
 }
 
 message GenerateSignedUrlsRequest {
   string lessonTitle = 1;
-  string moduleId = 2;
+  string courseID = 3;
+  string moduleTitle = 2;
+
 }
 
 message GenerateSignedUrlsResponse {

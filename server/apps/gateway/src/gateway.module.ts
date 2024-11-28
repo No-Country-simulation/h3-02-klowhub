@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthController } from './auth/auth.controllers';
 import { UploadController } from './upload/upload.controllers';
+import { PubSubGatewayController } from './pubsub/pubsub.gateway.controller';
+import { SignaturesController } from './signatures/signatures.gateway.controller';
 import { join } from "path";
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -34,9 +36,27 @@ dotenv.config();
           url: `${process.env.UPLOAD_MICROSERVICE_HOST}:${process.env.UPLOAD_SERVICE_PORT}`,
         },
       },
+      {
+        name: 'SIGNATURES_SERVICE',
+        transport: Transport.GRPC,
+        options: {
+          package: 'googlecloudstorage',
+          protoPath: join(__dirname,'../protos/upload.proto'),
+          url: `${process.env.UPLOAD_MICROSERVICE_HOST}:${process.env.UPLOAD_SERVICE_PORT}`,
+        },
+      },
+      {
+        name: 'PUBSUB_SERVICE',
+        transport: Transport.GRPC,
+        options: {
+          package: 'googlecloudstorage',
+          protoPath: join(__dirname,'../protos/upload.proto'),
+          url: `${process.env.UPLOAD_MICROSERVICE_HOST}:${process.env.UPLOAD_SERVICE_PORT}`,
+        },
+      },
     ]),
   ],
-  controllers: [AuthController, UploadController],
+  controllers: [AuthController, UploadController,PubSubGatewayController,SignaturesController],
   providers: [],
 })
 export class GatewayModule {}
