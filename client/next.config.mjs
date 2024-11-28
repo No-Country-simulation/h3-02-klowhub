@@ -35,30 +35,6 @@ const config = {
     ],
   },
   transpilePackages: ['@silvermine/videojs-quality-selector'],
-  webpack: (config, { isServer }) => {
-    config.module.rules.push({
-      test: /\.(mjs|cjs)$/,
-      include: /node_modules/,
-      type: 'javascript/auto',
-    });
-
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-      };
-    }
-
-    config.resolve.alias['@root'] = path.resolve(__dirname, './');
-    config.resolve.alias['@'] = path.resolve(__dirname, './src');
-    config.resolve.alias['@app'] = path.resolve(__dirname, './src/app');
-    config.resolve.alias['@features'] = path.resolve(__dirname, './src/features');
-    config.resolve.alias['@core'] = path.resolve(__dirname, './src/core');
-    config.resolve.alias['@styles'] = path.resolve(__dirname, './src/core/styles');
-    return config;
-  }
 };
 
 export default withNextIntl(config);
