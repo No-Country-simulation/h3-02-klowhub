@@ -8,6 +8,7 @@ import { UsersController } from './users/users.controller'
 import { join } from "path";
 import * as dotenv from 'dotenv';
 import { CookieService } from './common/services/cookie.service';
+import { PubSubGatewayService } from './pubsub/pubsub.gateway.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 dotenv.config();
@@ -66,6 +67,6 @@ dotenv.config();
     ]),
   ],
   controllers: [AuthController, UploadController, UsersController,PubSubGatewayController,SignaturesController],
-  providers: [CookieService],
+  providers: [CookieService,PubSubGatewayService],
 })
 export class GatewayModule {}
