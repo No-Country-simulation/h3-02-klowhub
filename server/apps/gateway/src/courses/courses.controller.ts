@@ -14,21 +14,29 @@ import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { CreateCourseGatewayDto, createCourseGatewaySchema } from './dto/create-course.dto';
 import { CookieService } from 'src/common/services/cookie.service';
-import { Roles } from 'src/decorators/roles.decorator';
-import { RolesGuard } from 'src/guards/roles.guard';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('courses')
 export class CoursesController {
   constructor(
     @Inject('COURSES_SERVICE') private readonly coursesClient: ClientProxy,
     private readonly cookieService: CookieService,
+    private readonly jwtService: JwtService
   ) { }
 
   @Post('create')
-  @Roles('admin', 'user', 'creator')
-  @UseGuards(RolesGuard)
-  async createCourse(@Body() courseData: CreateCourseGatewayDto, @Request() req: any) {
-    const userId = req.user?.id;
+async createCourse(@Body() courseData: CreateCourseGatewayDto, @Request() req: any) {
+  // Accede a las cookies usando req.cookies
+  const token = req.cookies['auth_token']; // Verifica que el token esté en la cookie con este nombre
+
+  if (!token) {
+    throw new BadRequestException('Token de autenticación no proporcionado');
+  }
+
+  try {
+    // Decodifica el token para obtener el userId
+    const decoded: any = this.jwtService.decode(token);
+    const userId = decoded.userId;
 
     if (!userId) {
       throw new BadRequestException('No se encontró el ID del usuario');
@@ -45,21 +53,19 @@ export class CoursesController {
       throw new BadRequestException(validationResult.error.errors);
     }
 
-    try {
-      // Envía los datos validados al microservicio
-      const result = await lastValueFrom(
-        this.coursesClient.send({ cmd: 'create_course' }, dataWithUserId)
-      );
-      return {
-        message: 'Course created successfully',
-        data: result,
-      };
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || 'Error al crear curso'
-      );
-    }
+    // Envía los datos validados al microservicio
+    const result = await lastValueFrom(
+      this.coursesClient.send({ cmd: 'create_course' }, dataWithUserId)
+    );
+
+    return {
+      message: 'Course created successfully',
+      data: result,
+    };
+  } catch (error) {
+    throw new BadRequestException(error.message || 'Error al crear curso');
   }
+}
   //buscar curso por filtro
   @Get('filter')
   async filterCourses(

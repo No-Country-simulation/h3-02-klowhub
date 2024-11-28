@@ -1,16 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Course } from './schemas/course.schema';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { Users } from './schemas/users.schema';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class CoursesService {
   constructor(
     @InjectModel(Course.name) private courseModel: Model<Course>,
     @InjectModel(Users.name) private usersModel: Model<Users>,
+    private jwtService: JwtService,
   ) { }
+
+
+  async verifyJwt(token: string): Promise<any> {
+    try {
+      const decoded = this.jwtService.verify(token);  // Verifica el token
+      return decoded;  // Retorna el payload si el token es válido
+    } catch (error) {
+      throw new Error('Token inválido o expirado');  // Si hay error, lanzamos una excepción
+    }
+  }
+
+  // crear isntnacia de usuario de postgres a mongoddb 
+
+  // Función para crear un usuario si no existe
+  async createUserIfNotExists(userId: string): Promise<Users> {
+    // Verificar si el usuario ya existe
+    const existingUser = await this.usersModel.findOne({ userId });
+
+    if (!existingUser) {
+      // Si no existe, crear un nuevo usuario
+      const newUser = new this.usersModel({ userId });
+      return await newUser.save(); // Guardar el usuario en la base de datos
+    }
+
+    // Si ya existe, retornamos el usuario encontrado
+    return existingUser;
+  }
 
   async createCourse(data: CreateCourseDto, userId: string) {
     const courseData = {
@@ -110,6 +139,27 @@ export class CoursesService {
 
   // buscar curse por id
   async findById(id: string): Promise<Course | null> {
-    return await this.courseModel.findById(id).exec();
+    // Validar si el ID proporcionado es un ObjectId válido
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException({
+        statusCode: 400,
+        message: 'El ID proporcionado no es válido',
+        error: 'Bad Request',
+      });
+    }
+  
+    // Buscar el curso por ID
+    const course = await this.courseModel.findById(id).exec();
+  
+    // Si no se encuentra el curso
+    if (!course) {
+      throw new NotFoundException({
+        statusCode: 404,
+        message: `Curso con ID ${id} no encontrado`,
+        error: 'Not Found',
+      });
+    }
+  
+    return course;
   }
 }

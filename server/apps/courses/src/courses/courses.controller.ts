@@ -8,8 +8,10 @@ import { z } from 'zod';
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) { }
 
+
   @MessagePattern({ cmd: 'create_course' }) // Este patrón lo escucharás desde el gateway
   async createCourse(data) {
+    console.log('datos recibidos por el gateway', data)
     const valiData = createCourseSchema.safeParse(data);
     if (!valiData.success) {
       throw new RpcException({
@@ -46,6 +48,7 @@ export class CoursesController {
   @MessagePattern({cmd:'get_course_by_id'})
   async getCourseById(@Payload() id: string) {
     try {
+      
       const course = await this.coursesService.findById(id);
 
       if (!course) {

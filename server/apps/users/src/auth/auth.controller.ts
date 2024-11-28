@@ -74,7 +74,6 @@ export class AuthController {
   @MessagePattern({ cmd: 'login' })
   async loginn(data: any) {
     try {
-      // Validar datos con Zod
       const validateLogin = LoginSchema.safeParse(data);
       if (!validateLogin.success) {
         throw new RpcException({
@@ -82,11 +81,7 @@ export class AuthController {
           message: validateLogin.error.errors,
         });
       }
-
-      // Extraer datos validados
       const loginDto: LoginDto = validateLogin.data;
-
-      // Procesar el inicio de sesión
       const result = await this.authService.login(loginDto);
       console.log(result)
       return result;
