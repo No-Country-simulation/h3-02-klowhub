@@ -46,7 +46,7 @@ export default async function CoursesPage({
   const { lessonActive = '', moduleActive = '' } = await searchParams;
   setRequestLocale(locale);
   return (
-    <main className="mt-8 size-full space-y-8 px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mb-14 mt-8 size-full space-y-8 px-10 sm:px-[51px] min-[1800px]:px-16">
       <WatchCourseSection
         moduleActive={moduleActive as string}
         lessonActive={lessonActive as string}
