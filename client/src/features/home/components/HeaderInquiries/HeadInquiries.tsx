@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { cn } from '@core/lib/utils';
-import styles from './HeadInquiries.module.css';
+import styles from './headInquiries.module.css';
 
 export default function CardInquiries() {
   const t = useTranslations('Platform');

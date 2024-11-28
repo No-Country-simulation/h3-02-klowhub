@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
-import styles from './Card.module.css';
+import styles from './card.module.css';
 
 interface CardProps {
   title: string;
@@ -11,8 +11,8 @@ interface CardProps {
   rating: number;
   reviews: number;
   tags: string[];
-  imageSrc: string; // Nueva propiedad para reutilización
-  imageAlt?: string; // Texto alternativo opcional
+  imageSrc: string;
+  imageAlt?: string;
   textButton: string;
   emoji: string;
   categoria: 'Curso' | 'Lección' | string;

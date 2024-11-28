@@ -2,7 +2,7 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 RUN npm install -g pnpm@9.7.0 typescript
-COPY package.json global.d.ts pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs ./
+COPY package.json pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs ./
 
 FROM deps AS builder
 WORKDIR /app
@@ -13,7 +13,8 @@ ENV NODE_ENV=production
 ENV PORT=8080
 
 RUN pnpm install --ignore-scripts --prefer-frozen-lockfile
-RUN pnpm build
+RUN pnpm install -D postcss-import
+RUN pnpm build && pnpm prune --prod
 
 FROM node:20-alpine AS production
 RUN apk add --no-cache libc6-compat
