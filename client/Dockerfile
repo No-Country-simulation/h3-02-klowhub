@@ -4,10 +4,9 @@ WORKDIR /app
 RUN npm install -g pnpm@9.7.0 typescript
 COPY tsconfig.json types.d.ts package.json pnpm-lock.yaml next.config.mjs postcss.config.cjs tailwind.config.cjs ./
 
-RUN pnpm install --ignore-scripts --prefer-frozen-lockfile --prefer-offline
+RUN pnpm install --ignore-scripts --prefer-frozen-lockfile
 
 FROM deps AS builder
-RUN pnpm install --ignore-scripts --prefer-frozen-lockfile --prefer-offline
 WORKDIR /app
 COPY . .
 RUN pnpm build
