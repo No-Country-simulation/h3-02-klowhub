@@ -2,7 +2,7 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 RUN npm install -g pnpm@9.7.0 typescript
-COPY package.json pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs ./
+COPY package.json reset.d.ts types.d.ts next-env.d.ts global.d.ts pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs ./
 
 FROM deps AS builder
 WORKDIR /app
