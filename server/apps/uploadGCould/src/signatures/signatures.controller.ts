@@ -7,14 +7,14 @@ export class SignaturesController {
   constructor(private readonly signaturesService: SignaturesService) {}
 
   @GrpcMethod('SignaturesService', 'GenerateSignedUrls')
-  async generateSignedUrls(data: { title: string }): Promise<any> {
-    const { title } = data;
+  async generateSignedUrls(data: { courseID: string, moduleTitle: string, lessonTitle: string }): Promise<any> {
+    const { courseID, moduleTitle, lessonTitle } = data;
     console.log("a")
-    if (!title) {
-      throw new Error('Los parámetros moduleId y lessonTitle son requeridos');
+    if (!lessonTitle || !moduleTitle || !courseID) {
+      throw new Error('Los parámetros moduleID y lessonTitle son requeridos');
     }
 
 
-    return this.signaturesService.generateSignedUrls(title);
+    return this.signaturesService.generateSignedUrls(courseID, moduleTitle, lessonTitle); 
   }
 }

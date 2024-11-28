@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SignaturesService } from './signatures.service';
 import { SignaturesController } from './signatures.controller';
-import { Lesson } from '../schema/lesson.schema';
+import { Course, CourseSchema } from '../schema/course.shema';
 import { GrpcOptions, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Lesson', schema: Lesson }]),
+    MongooseModule.forFeature([{ name: 'Course', schema: CourseSchema }]),
   ],
   providers: [SignaturesService],
   controllers: [SignaturesController],

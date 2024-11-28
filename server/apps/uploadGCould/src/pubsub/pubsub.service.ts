@@ -4,7 +4,7 @@ import { PubSub } from '@google-cloud/pubsub';
 import { resolve } from 'path';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { LessonDocument } from '../schema/lesson.schema';
+import { Module } from '../schema/module.schema'; // Asegúrate de importar el esquema correcto
 
 @Injectable()
 export class PubSubService {
@@ -12,7 +12,7 @@ export class PubSubService {
 
   constructor(
     private readonly configService: ConfigService,
-    @InjectModel('Lesson') private readonly lessonModel: Model<LessonDocument>,
+    @InjectModel('Module') private readonly moduleModel: Model<Module>, 
   ) {
     this.pubsub = new PubSub({
       projectId: this.configService.get<string>('PROJECT_ID'),
@@ -27,22 +27,22 @@ export class PubSubService {
       subscription.on('message', async (message) => {
         try {
           console.log(`Received message: ${message.data}`);
-          const data = JSON.parse(message.data.toString()); 
+          const data = JSON.parse(message.data.toString()); // Extraemos los datos del mensaje
 
-        
-          const updatedLesson = await this.lessonModel.findOneAndUpdate(
-            { title: data.title }, 
-            { $set: { videos: data.videos } }, 
+          
+          const updatedModule = await this.moduleModel.findOneAndUpdate(
+            { 'lessons.lessonTitle': data.title }, 
+            { $set: { 'lessons.$.videoUrl': data.videoUrl } }, 
             { new: true } 
           );
 
-          if (updatedLesson) {
-            console.log(`Updated lesson: ${updatedLesson.title}`);
+          if (updatedModule) {
+            console.log(`Updated module: ${updatedModule.moduleTitle}`);
           } else {
-            console.warn(`Lesson with title "${data.title}" not found.`);
+            console.warn(`Module with lesson title "${data.title}" not found.`);
           }
 
-          message.ack();
+          message.ack(); // Confirmamos que el mensaje fue procesado
         } catch (e) {
           console.error('Error handling message:', e);
         }

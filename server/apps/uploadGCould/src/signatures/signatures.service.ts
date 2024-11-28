@@ -1,16 +1,18 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Storage } from '@google-cloud/storage';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { LessonDocument } from '../schema/lesson.schema';
+import { RpcException } from '@nestjs/microservices';
+import { status } from '@grpc/grpc-js';
+import { Course } from '../schema/course.shema';
 
 @Injectable()
 export class SignaturesService {
-  private storageClient = new Storage({ keyFilename: './key.json' }); 
+  private storageClient = new Storage({ keyFilename: './gcckey.json' });
   private bucketName = 'klowhub-mediafiles';
 
   constructor(
-    @InjectModel('Lesson') private readonly lessonModel: Model<LessonDocument>,
+    @InjectModel('Course') private readonly courseModel: Model<Course>, 
   ) {}
 
   private extractTsFilename(line: string): string | null {
@@ -23,44 +25,71 @@ export class SignaturesService {
     return null;
   }
 
-  async generateSignedUrls(title: string): Promise<any> {
-    const lesson = await this.lessonModel.findOne({ title }); 
-    if (!lesson) {
-      throw new HttpException(
-        `No se encontró la lección con el título: ${title}`,
-        HttpStatus.NOT_FOUND,
-      );
+  async generateSignedUrls(courseID: string, moduleTitle: string, lessonTitle: string): Promise<any> {
+    // Buscar el curso por su ID
+    const course = await this.courseModel.findOne({ _id: courseID }).exec();
+    if (!course) {
+      throw new RpcException({
+        message: `No se encontró el curso con el ID: ${courseID}`,
+        code: status.NOT_FOUND,
+      });
     }
 
-    const m3u8Path = lesson.videos;
-    if (!m3u8Path) {
-      throw new Error(`La lección no tiene un video asociado`);
+    // Buscar el módulo dentro del curso por el título del módulo
+    const module = course.modules.find((mod) => mod.moduleTitle === moduleTitle);
+    if (!module) {
+      throw new RpcException({
+        message: `No se encontró el módulo con el título: ${moduleTitle} en el curso ${courseID}`,
+        code: status.NOT_FOUND,
+      });
+    }
+
+    // Buscar la lección dentro del módulo por el título de la lección
+    const lesson = module.lessons.find((lesson) => lesson.lessonTitle === lessonTitle);
+    if (!lesson) {
+      throw new RpcException({
+        message: `No se encontró la lección con el título: ${lessonTitle}`,
+        code: status.NOT_FOUND,
+      });
+    }
+
+    // Obtener la URL del video de la lección
+    const videoUrl = lesson.videoUrl;
+    if (!videoUrl) {
+      throw new RpcException({
+        message: 'La lección no tiene un archivo de video asociado',
+        code: status.NOT_FOUND,
+      });
     }
 
     const bucket = this.storageClient.bucket(this.bucketName);
-    const blob = bucket.file(m3u8Path);
+    const blob = bucket.file(videoUrl);
 
+    // Verificar si el archivo de video existe en el bucket
     const [exists] = await blob.exists();
     if (!exists) {
-      throw new HttpException(
-        `Archivo ${m3u8Path} no encontrado`,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new RpcException({
+        message: `Archivo ${videoUrl} no encontrado`,
+        code: status.NOT_FOUND,
+      });
     }
 
-    const [m3u8SignedUrl] = await blob.getSignedUrl({
+    // Obtener la URL firmada para acceder al video
+    const [signedUrl] = await blob.getSignedUrl({
       version: 'v4',
       action: 'read',
       expires: Date.now() + 24 * 60 * 1000, // Expira en 24 horas
     });
 
+    // Descargar el contenido del archivo M3U8 y generar URLs firmadas para los segmentos
     const [content] = await blob.download();
     const lines = content.toString('utf-8').split('\n');
-    const baseDir = m3u8Path.substring(0, m3u8Path.lastIndexOf('/') + 1);
+    const baseDir = videoUrl.substring(0, videoUrl.lastIndexOf('/') + 1);
 
     const updatedLines: string[] = [];
     const tsSignedUrls: Record<string, string> = {};
 
+    // Procesar los segmentos TS
     for (const line of lines) {
       const tsFilename = this.extractTsFilename(line);
       if (tsFilename) {
@@ -69,25 +98,25 @@ export class SignaturesService {
         const [tsExists] = await tsBlob.exists();
 
         if (tsExists) {
-          const [signedUrl] = await tsBlob.getSignedUrl({
+          const [tsSignedUrl] = await tsBlob.getSignedUrl({
             version: 'v4',
             action: 'read',
-            expires: Date.now() + 24 * 60 * 1000, // Expira en 24 horas 
+            expires: Date.now() + 24 * 60 * 1000, // Expira en 24 horas
           });
 
-          tsSignedUrls[tsFilename] = signedUrl;
-          updatedLines.push(signedUrl); 
+          tsSignedUrls[tsFilename] = tsSignedUrl;
+          updatedLines.push(tsSignedUrl);
         } else {
-          updatedLines.push(line); 
+          updatedLines.push(line);
         }
       } else {
-        updatedLines.push(line); 
+        updatedLines.push(line);
       }
     }
 
     return {
-      m3u8: m3u8SignedUrl,
-      segments: tsSignedUrls,
+      m3u8: signedUrl,
+      //segments: tsSignedUrls,
       updatedContent: updatedLines.join('\n'),
     };
   }
