@@ -10,6 +10,7 @@ export async function generateStaticParams({
   const { id } = await params;
   const paths = routing.locales.map(locale => ({
     locale,
+    id,
     slug: `${locale}/courses/watch/${id}`,
   }));
 
@@ -33,12 +34,23 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function CoursesPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function CoursesPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string; id: string | number }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const { locale, id } = await params;
+  const { lessonActive = '', moduleActive = '' } = await searchParams;
   setRequestLocale(locale);
   return (
     <main className="mt-8 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
-      <WatchCourseSection />
+      <WatchCourseSection
+        moduleActive={moduleActive as string}
+        lessonActive={lessonActive as string}
+        courseId={id}
+      />
     </main>
   );
 }

@@ -160,7 +160,7 @@ jobs:
                 echo "Deleting revision: $REVISION"
                 gcloud run revisions delete $REVISION \
                   --region=${{ secrets.GCLOUD_REGION }} \
-                  --quiet
+                  --quiet || echo "Could not delete revision $REVISION"
               done
             else
               echo "No old revisions to delete for $SERVICE"

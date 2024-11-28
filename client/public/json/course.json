@@ -1,11 +1,8 @@
 {
   "id": "course1",
-  "title": "Curso 1",
-  "lastModuleId": "module1",
-  "lastLesson": {
-    "id": "lesson6",
-    "src": ""
-  },
+  "name": "Curso 1",
+  "lastModuleId": "module2",
+  "lastLessonId": "lesson6",
   "modules": [
     {
       "id": "module1",
@@ -13,24 +10,24 @@
       "lessons": [
         {
           "id": "lesson1",
-          "title": "Lección 1",
+          "name": "Lección 1",
           "duration": "1:35",
           "thumbnail": "/images/mocks/course_mock1.png",
-          "src": ""
+          "isViewd": true
         },
         {
           "id": "lesson2",
-          "title": "Lección 3",
+          "name": "Lección 2",
           "duration": "1:35",
           "thumbnail": "/images/mocks/course_mock1.png",
-          "src": ""
+          "isViewd": true
         },
         {
           "id": "lesson3",
-          "title": "Lección 4",
+          "name": "Lección 3",
           "duration": "1:35",
           "thumbnail": "/images/mocks/course_mock1.png",
-          "src": ""
+          "isViewd": false
         }
       ]
     },
@@ -40,24 +37,133 @@
       "lessons": [
         {
           "id": "lesson4",
-          "title": "Lección 5",
+          "name": "Lección 4",
           "duration": "1:35",
           "thumbnail": "/images/mocks/course_mock1.png",
-          "src": ""
+          "isViewd": false
         },
         {
           "id": "lesson5",
-          "title": "Lección 6",
+          "name": "Lección 5",
           "duration": "1:35",
           "thumbnail": "/images/mocks/course_mock1.png",
-          "src": ""
+          "isViewd": false
         },
         {
           "id": "lesson6",
-          "title": "Lección 7",
+          "name": "Lección 6",
           "duration": "1:35",
           "thumbnail": "/images/mocks/course_mock1.png",
-          "src": ""
+          "isViewd": false
+        },
+        {
+          "id": "lesson7",
+          "name": "Lección 7",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        }
+      ]
+    },
+    {
+      "id": "module3",
+      "title": "Módulo 3",
+      "lessons": [
+        {
+          "id": "lesson8",
+          "name": "Lección 8",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson9",
+          "name": "Lección 9",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson10",
+          "name": "Lección 10",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson11",
+          "name": "Lección 11",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson12",
+          "name": "Lección 12",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson13",
+          "name": "Lección 13",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson14",
+          "name": "Lección 14",
+          "duration": "1:35",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        }
+      ]
+    },
+    {
+      "id": "module4",
+      "title": "Módulo 4",
+      "lessons": [
+        {
+          "id": "lesson15",
+          "name": "Lección 15",
+          "duration": "2:10",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson16",
+          "name": "Lección 16",
+          "duration": "1:50",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        }
+      ]
+    },
+    {
+      "id": "module5",
+      "title": "Módulo 5",
+      "lessons": [
+        {
+          "id": "lesson17",
+          "name": "Lección 17",
+          "duration": "1:45",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson18",
+          "name": "Lección 18",
+          "duration": "2:30",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
+        },
+        {
+          "id": "lesson19",
+          "name": "Lección 19",
+          "duration": "3:00",
+          "thumbnail": "/images/mocks/course_mock1.png",
+          "isViewd": false
         }
       ]
     }

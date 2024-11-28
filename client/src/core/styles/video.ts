@@ -2,6 +2,10 @@ export const videPlayerStyles = `
       /* Custom Video.js theme*/
       .video-js {
         font-family: var(--font-inter), -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        touch-action: manipulation;
+        outline: 0;
       }
 
 

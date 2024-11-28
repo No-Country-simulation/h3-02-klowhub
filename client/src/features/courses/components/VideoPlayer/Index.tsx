@@ -10,11 +10,11 @@ import 'videojs-contrib-eme';
 import type { Locale } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { videoJSTranslations, videPlayerStyles } from '@core/styles/video';
-import css from './videoplayer.module.css';
 
 interface VideoPlayerProps {
   src: string;
   locale: Locale;
+  activeLessonId: string | number;
 }
 
 const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
@@ -83,6 +83,7 @@ const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
       playerRef.current = player;
     };
     const style = document.createElement('style');
+
     initPlayer(style);
     return () => {
       if (playerRef.current) {
@@ -99,13 +100,10 @@ const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
   }, [src, locale]);
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+    <div className="relative aspect-[12/6.5] w-full overflow-hidden rounded-lg bg-black">
       <video
         ref={videoRef}
-        className={cn(
-          'video-js vjs-default-skin vjs-big-play-centered vjs-quality-button',
-          css.videoPlayerContainer
-        )}
+        className={cn('video-js vjs-default-skin vjs-big-play-centered vjs-quality-button')}
       />
     </div>
   );
