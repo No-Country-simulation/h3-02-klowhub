@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image'; // Importa el componente Image de Next.js
 import React, { useEffect, useRef, useState } from 'react';
-import Button from '@root/src/core/components/Button';
-import FavButton from '@root/src/core/components/FavButton/FavButton';
+import Button from '@core/components/Button';
+import FavButton from '@core/components/FavButton/FavButton';
 import styles from './MentorCard.module.css';
 
 interface CardProps {

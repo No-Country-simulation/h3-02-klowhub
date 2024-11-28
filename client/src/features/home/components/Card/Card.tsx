@@ -1,8 +1,8 @@
 import Image from 'next/image'; // Importa el componente Image de Next.js
 import React from 'react';
-import Badge from '@root/src/core/components/Badge/Index';
-import Button from '@root/src/core/components/Button';
-import FavButton from '@root/src/core/components/FavButton/FavButton';
+import Badge from '@core/components/Badge/Index';
+import Button from '@core/components/Button';
+import FavButton from '@core/components/FavButton/FavButton';
 import styles from './Card.module.css';
 
 interface CardProps {

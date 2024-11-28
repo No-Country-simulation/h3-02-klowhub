@@ -2,7 +2,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Link } from '../../lib/i18nRouting';
-export default function Footera() {
+
+export default function Footer() {
   const t = useTranslations('Footer');
   return (
     <div className="flex w-full flex-col justify-center gap-6 bg-gradient-bg-2 pb-4 pt-14 text-sm font-normal text-white">

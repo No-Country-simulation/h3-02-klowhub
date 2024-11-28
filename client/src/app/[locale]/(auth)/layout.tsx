@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import Navbar from '@root/src/core/components/Navbar';
+import Navbar from '@core/components/Navbar';
 
 export default function AuthenticatedLayout({ children }: { children: ReactNode }) {
   return (

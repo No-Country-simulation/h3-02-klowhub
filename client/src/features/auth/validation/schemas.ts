@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { TranslationType } from '@root/src/core/types/translationType';
+import type { TranslationType } from '@core/types/translationType';
 
 export const useAuthSchema = (messages: TranslationType<'Validations'>) => {
   return z.object({

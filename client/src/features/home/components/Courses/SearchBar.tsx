@@ -1,4 +1,4 @@
-import Button from '@root/src/core/components/Button';
+import Button from '@core/components/Button';
 
 export function SearchBar() {
   return (

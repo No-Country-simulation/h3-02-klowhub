@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import AppCard from '@root/src/features/home/components/AppCard';
-import { VerMas } from '@root/src/features/home/components/VerMas/VerMas';
+import AppCard from '@features/home/components/AppCard';
+import { VerMas } from '@features/home/components/VerMas/VerMas';
 
 const Page: React.FC = () => {
   const t = useTranslations('AppCard');

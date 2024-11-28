@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing } from '@root/src/core/lib/i18nRouting';
-import CoursesListSection from '@root/src/features/home/components/Courses';
+import { routing } from '@core/lib/i18nRouting';
+import CoursesListSection from '@features/home/components/Courses';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({

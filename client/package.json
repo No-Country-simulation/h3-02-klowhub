@@ -9,7 +9,6 @@
     "dev": "cross-env FORCE_COLOR=1 next dev",
     "build": "next build",
     "start": "next start",
-    "prebuild": "npm run lint",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "types:check": "tsc --noEmit --pretty",

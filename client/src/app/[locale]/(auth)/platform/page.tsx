@@ -1,10 +1,10 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import BannerCta from '@root/src/core/components/Banner';
-import { routing } from '@root/src/core/lib/i18nRouting';
-import AppSection from '@root/src/features/home/components/AppCard/AppSection';
-import CourseSection from '@root/src/features/home/components/CourseSection';
-import MentorSection from '@root/src/features/home/components/MentorCard/page';
-import SectionIquiris from '@root/src/features/home/components/SectionIquiris/SectionIquiris';
+import BannerCta from '@core/components/Banner';
+import { routing } from '@core/lib/i18nRouting';
+import AppSection from '@features/home/components/AppCard/AppSection';
+import CourseSection from '@features/home/components/CourseSection';
+import MentorSection from '@features/home/components/MentorCard/page';
+import SectionIquiris from '@features/home/components/SectionIquiris/SectionIquiris';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({

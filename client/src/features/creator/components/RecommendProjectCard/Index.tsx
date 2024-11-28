@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import FavButton from '@core/components/FavButton/FavButton';
 import { cn } from '@core/lib/utils';
-import Badge from '@root/src/core/components/Badge/Index';
-import Button from '@root/src/core/components/Button';
+import Badge from '@core/components/Badge/Index';
+import Button from '@core/components/Button';
 import appSheet from '/public/images/appsheet_logo.png';
 import moreVertical from '/public/svg/moreVertical.svg';
 import _powerApp from '/public/svg/powerapp.svg';

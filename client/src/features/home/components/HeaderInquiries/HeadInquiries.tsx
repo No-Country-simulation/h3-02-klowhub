@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { cn } from '@root/src/core/lib/utils';
+import { cn } from '@core/lib/utils';
 import styles from './HeadInquiries.module.css';
 
 export default function CardInquiries() {

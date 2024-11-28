@@ -51,6 +51,12 @@ const config = {
       };
     }
 
+    config.resolve.alias['@root'] = path.resolve(__dirname, './');
+    config.resolve.alias['@'] = path.resolve(__dirname, './src');
+    config.resolve.alias['@app'] = path.resolve(__dirname, './src/app');
+    config.resolve.alias['@features'] = path.resolve(__dirname, './src/features');
+    config.resolve.alias['@core'] = path.resolve(__dirname, './src/core');
+    config.resolve.alias['@styles'] = path.resolve(__dirname, './src/core/styles');
     return config;
   }
 };

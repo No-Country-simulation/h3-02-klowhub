@@ -9,7 +9,7 @@ import 'videojs-http-source-selector';
 import 'videojs-contrib-eme';
 import type { Locale } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
-import { videoJSTranslations, videPlayerStyles } from '@core/styles/video';
+import { videoJSTranslations, videPlayerStyles } from '@styles/video';
 
 interface VideoPlayerProps {
   src: string;

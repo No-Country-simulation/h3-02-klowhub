@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { type ButtonHTMLAttributes, forwardRef } from 'react';
-import { cn } from '@/core/lib/utils';
+import { cn } from '@core/lib/utils';
 
 //Class Variant Authority es una forma declarativa de manejar variantes de componentes
 //Te asegura un estilo inicial, y al momento de usar las variantes evitas choques de clases

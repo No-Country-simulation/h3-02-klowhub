@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
-import WatchCourseDetailSection from '@root/src/features/courses/components/WatchCourseDetailSection';
-import WatchCourseSection from '@root/src/features/courses/components/WatchCourseSection';
+import WatchCourseDetailSection from '@features/courses/components/WatchCourseDetailSection';
+import WatchCourseSection from '@features/courses/components/WatchCourseSection';
 
 export async function generateStaticParams({
   params,

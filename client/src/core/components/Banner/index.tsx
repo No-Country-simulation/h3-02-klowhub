@@ -1,6 +1,6 @@
 import Image, { type StaticImageData } from 'next/image';
 import React from 'react';
-import { cn } from '@root/src/core/lib/utils';
+import { cn } from '@core/lib/utils';
 
 // Interface para definir las propiedades del componente, titulo, descripción, imagen
 interface IBannerProps {

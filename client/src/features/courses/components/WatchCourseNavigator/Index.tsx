@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@root/src/core/components/Tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@core/components/Tabs';
 import type { VideoModuleType } from '../../schemas/video-schemas';
 import VideoModules from '../VideoModules';
 

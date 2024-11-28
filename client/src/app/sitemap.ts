@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
-import { routing } from '@/core/lib/i18nRouting';
-import { getBaseUrl } from '@/core/lib/utils';
+import { routing } from '@core/lib/i18nRouting';
+import { getBaseUrl } from '@core/lib/utils';
 
 // Función que genera un sitemap para la aplicación, cumpliendo con MetadataRoute.Sitemap
 export default function sitemap(): MetadataRoute.Sitemap {
