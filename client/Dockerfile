@@ -21,18 +21,19 @@ ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_APP_URL=https://klowhub-824410275969.southamerica-east1.run.app
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=4002
 
 RUN pnpm build && pnpm prune --prod --ignore-scripts
 
 FROM base AS production
+RUN npm install -g pnpm
 WORKDIR /app
 
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_APP_URL=https://klowhub-824410275969.southamerica-east1.run.app
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=4002
 
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001 && \
@@ -45,6 +46,6 @@ COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
 
-EXPOSE 8080
+EXPOSE 4002
 
 CMD ["pnpm", "start"]

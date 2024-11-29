@@ -120,5 +120,5 @@ jobs:
             --platform=managed \
             --allow-unauthenticated \
             --image=$GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} \
-            --port='8080' \
+            --port='4002' \
             --max-instances=2
