@@ -5,6 +5,7 @@ import { Course } from './schemas/course.schema';
 import { CreateCourseDto } from './dto/create.course.dto';
 import { Users } from './schemas/users.schema';
 import { JwtService } from '@nestjs/jwt';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class CoursesService {
@@ -169,5 +170,31 @@ export class CoursesService {
     }
   
     return course;
+  }
+  // Obtener todos los cursos creados por un usuario específico
+  async getCoursesByUser(userId: string) {
+    try {
+      const courses = await this.courseModel.find({ userId }).exec();
+      return courses;
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 500,
+        message: error.message || 'Error al obtener los cursos del usuario',
+      });
+    }
+  }
+
+  // Obtener un curso específico por ID
+  async findCourseById(courseId: string, userId: string) {
+    try {
+      // Buscar el curso por ID, asegurándonos de que el usuario tenga acceso
+      const course = await this.courseModel.findOne({ _id: courseId, userId }).exec();
+      return course;
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 500,
+        message: error.message || 'Error al obtener el curso',
+      });
+    }
   }
 }

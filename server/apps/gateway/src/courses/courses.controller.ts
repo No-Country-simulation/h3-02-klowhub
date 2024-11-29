@@ -10,6 +10,7 @@ import {
   Query,
   Param,
   Res,
+  Req,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -75,30 +76,36 @@ export class CoursesController {
       throw new BadRequestException('Error al filtrar los cursos');
     }
   }
-  //buscar course por id
-  @Get(':id')
-  async getCourseById(@Param('id') id: string) {
-    if (!id) {
-      throw new BadRequestException('El id del curso es requerido');
+  // Obtener todos los cursos de un usuario
+  @Get('mycourses')
+  async getCoursesByUser(@Req() req: any) {
+    const token = req.cookies.auth_token;
+    
+    if (!token) {
+      throw new Error('Token JWT no encontrado en las cookies');
     }
 
-    try {
-      const course = await lastValueFrom(
-        this.coursesClient.send({ cmd: 'get_course_by_id' }, id),
-      );
+    // Enviar el token al microservicio para obtener los cursos del usuario
+    return this.coursesClient.send(
+      { cmd: 'mycourses' },
+      { token }
+    );
+  }
 
-      if (!course) {
-        throw new BadRequestException(`Curso con id ${id} no encontrado`);
-      }
+  // Obtener un curso específico por ID
+  @Get('course/:id')
+  async getCourseById(@Req() request: Request, @Request() req: any) {
+    const token = req.cookies.auth_token;
+    const courseId = req.params.id;
 
-      return {
-        message: 'Curso obtenido exitosamente',
-        data: course,
-      };
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || 'Error al obtener el curso',
-      );
+    if (!token) {
+      throw new Error('Token JWT no encontrado en las cookies');
     }
+
+    // Enviar el token y el ID del curso al microservicio
+    return this.coursesClient.send(
+      { cmd: 'course' },
+      { token, courseId }
+    );
   }
 }

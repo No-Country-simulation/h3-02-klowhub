@@ -57,18 +57,48 @@ export class CoursesController {
     const { page, limit, filters } = data;
     return this.coursesService.filterCourses(filters, page, limit);
   }
-
-  // Obtener curso por ID
-  @MessagePattern({ cmd: 'get_course_by_id' })
-  async getCourseById(@Payload() id: string) {
+  // Obtener todos los cursos de un usuario específico
+  @MessagePattern({ cmd: 'mycourses' })
+  async getCoursesByUser(@Payload() data: { token: string }) {
     try {
-      const course = await this.coursesService.findById(id);
+      // Verificar el token JWT y extraer el userId
+      const decoded = this.jwtService.verify(data.token);  // Verificar el token
+      const userId = decoded.userId;  // Suponiendo que userId está en el payload del token
+
+      // Obtener los cursos creados por el usuario
+      const courses = await this.coursesService.getCoursesByUser(userId);
+      return courses;
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 500,
+        message: error.message || 'Error al obtener los cursos del usuario',
+      });
+    }
+  }
+
+  // Obtener un curso específico por ID
+  @MessagePattern({ cmd: 'course' })
+  async getCourseById(@Payload() data: { token: string; courseId: string }) {
+    try {
+      // Verificar el token JWT y extraer el userId
+      const decoded = this.jwtService.verify(data.token);  // Verificar el token
+      const userId = decoded.userId;  // Suponiendo que userId está en el payload del token
+
+      // Obtener el curso por ID
+      const course = await this.coursesService.findCourseById(data.courseId, userId);
       if (!course) {
-        throw new Error(`Curso con id ${id} no encontrado`);
+        throw new RpcException({
+          statusCode: 404,
+          message: 'Curso no encontrado',
+        });
       }
+
       return course;
     } catch (error) {
-      throw new Error(error.message || 'Error al obtener curso');
+      throw new RpcException({
+        statusCode: 500,
+        message: error.message || 'Error al obtener el curso',
+      });
     }
   }
 }
