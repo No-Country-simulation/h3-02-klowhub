@@ -79,7 +79,7 @@ jobs:
       # 10. Construir la imagen Docker para Upload Service
       - name: Upload Service - Build Docker image
         working-directory: ./server
-        run: docker build --progress plain --build-arg UPLOAD_MICROSERVICE_HOST={{ secrets.UPLOAD_SERVICE_HOST }} --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} -f ./apps/uploadGCould/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} ./apps/uploadGCould
+        run: docker build --progress plain --build-arg UPLOAD_MICROSERVICE_HOST=${{ secrets.UPLOAD_SERVICE_HOST }} --build-arg MONGO_URI=${{ secrets.MONGO_URI }} --build-arg PROJECT_ID=${{ secrets.PROJECT_ID }} --build-arg BUCKET_NAME=${{ secrets.BUCKET_NAME }} -f ./apps/uploadGCould/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }} ./apps/uploadGCould
 
       # 9. Construir la imagen Docker para Gateway Service
       - name: Gateway Service - Build Docker image
