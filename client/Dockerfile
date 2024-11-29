@@ -9,6 +9,7 @@ RUN pnpm install --prefer-frozen-lockfile --ignore-scripts
 
 FROM base AS builder
 WORKDIR /app
+RUN npm install -g pnpm@9.7.0
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/next.config.mjs ./next.config.mjs
 COPY --from=deps /app/postcss.config.cjs ./postcss.config.cjs
