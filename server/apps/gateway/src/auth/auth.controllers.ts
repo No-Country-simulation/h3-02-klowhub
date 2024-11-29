@@ -9,6 +9,8 @@ import {
   Response,
   Get,
   UseGuards,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { ClientProxy, Client } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -18,7 +20,9 @@ import { LoginDto } from './dto/loginSchema.dto';
 import { ResetTokenDto, ResetTokenSchema } from './dto/resetToken.dto';
 import { Response as ExpressResponse } from 'express';
 import { JwtService } from '@nestjs/jwt';
-
+import { TokenDto, TokenSchema } from './dto/tokenSchema';
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -154,5 +158,58 @@ export class AuthController {
       console.error("Error al iniciar sesión:", error.message); // Registro detallado del error
       throw new BadRequestException(error.message || 'Error al iniciar sesión');
     }
+  }
+
+  //status token
+  @Post('status')
+  async verifyTokenStatus(@Request() req: any) {
+    // Obtenemos el token de las cookies
+    const token = req.cookies.auth_token; // Aquí asumimos que el token está guardado con el nombre 'token'
+
+    if (!token) {
+      return {
+        status: false
+      }
+    }
+
+    // Validamos el token recibido
+    const validationToken = TokenSchema.safeParse({ token });
+    if (!validationToken.success) {
+      throw new BadRequestException(validationToken.error.errors);
+    }
+
+    try {
+      // Verificamos el token utilizando JwtService
+      const decoded = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET, // Usa la clave secreta
+      });
+      
+      // Si el token es válido, podemos devolver los datos decodificados
+      return {
+        status: true
+      };
+    } catch (error) {
+      // Si el token no es válido o ha expirado
+      return {
+        status: false
+      }
+    }
+  }
+
+
+  // close session
+  @Post('logout')
+  async logout(@Res() res: any) {
+    // Limpiar la cookie de la sesión (token)
+    res.clearCookie('auth_token', {
+      httpOnly: true, // Asegúrate de que la cookie es segura
+      secure: process.env.NODE_ENV === 'production', // En producción, utilizar `secure` para HTTPS
+      sameSite: 'Strict', // Puedes elegir 'Strict', 'Lax' o 'None'
+      path: '/', // Especifica el path de la cookie
+    });
+
+    return res.status(200).json({
+      message: 'Sesión cerrada exitosamente',
+    });
   }
 }
