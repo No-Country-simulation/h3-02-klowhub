@@ -58,12 +58,6 @@ jobs:
             --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
             -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} .
 
-      # 6. Subir la imagen a Artifact Registry
-      - name: Push Docker image
-        working-directory: ./client
-        run: |
-          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
-
       # 6.5. Limpiar imágenes antiguas
       - name: Cleanup Old Images
         working-directory: ./client
@@ -74,10 +68,10 @@ jobs:
             --sort-by=~TIMESTAMP)
 
           TOTAL_IMAGES=$(echo "$TAGS" | wc -l)
-          if [ $TOTAL_IMAGES -gt 2 ]; then
-            TO_DELETE=$((TOTAL_IMAGES - 2))
+          if [ $TOTAL_IMAGES -gt 1 ]; then
+            TO_DELETE=$((TOTAL_IMAGES - 1))
               
-            echo "Found $TOTAL_IMAGES images, keeping 2, deleting $TO_DELETE"  
+            echo "Found $TOTAL_IMAGES images, keeping 1, deleting $TO_DELETE"  
             echo "$TAGS" | tail -n $TO_DELETE | while read TAG; do
               if [ ! -z "$TAG" ]; then
                 echo "Deleting image with tag: $TAG"
@@ -88,14 +82,43 @@ jobs:
             done
           fi
 
+      # 6. Subir la imagen a Artifact Registry
+      - name: Push Docker image
+        working-directory: ./client
+        run: |
+          docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
+
+      # 15. Limpiar los nombres de revisiones
+      - name: Clean up old Cloud Run revisions
+        run: |
+          echo "Cleaning up revisions for service: klowhub"
+          REVISIONS=$(gcloud run revisions list \
+          --service=klowhub \
+          --region=${{ secrets.GCLOUD_REGION }} \
+          --sort-by=~creation_timestamp \
+          --format="value(name)")
+          REVISION_COUNT=$(echo "$REVISIONS" | wc -l)
+          if [ $REVISION_COUNT -gt 1 ]; then
+            REVISIONS_TO_DELETE=$(echo "$REVISIONS" | tail -n +2)
+            for REVISION in $REVISIONS_TO_DELETE
+            do
+              echo "Deleting revision: $REVISION"
+              gcloud run revisions delete $REVISION \
+                --region=${{ secrets.GCLOUD_REGION }} \
+                --quiet || echo "Could not delete revision $REVISION"
+            done
+          else
+            echo "No old revisions to delete for $SERVICE"
+          fi
+
       # 7. Desplegar a Cloud Run
       - name: Deploy to Cloud Run
         working-directory: ./client
         run: |
           gcloud run deploy klowhub \
-            --image=$GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} \
             --region=$GCLOUD_REGION \
             --platform=managed \
             --allow-unauthenticated \
+            --image=$GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} \
             --port='8080' \
             --max-instances=2
