@@ -5,6 +5,9 @@ import VideoLessons from '../VideoLessons';
 import WatchCourseNavigator from '../WatchCourseNavigator';
 import WatchVideoWrapper from '../WatchVideoWrapper';
 
+const ENV = process.env.NODE_ENV;
+
+//https://klowhub-824410275969.southamerica-east1.run.app/
 const WatchCourseSection = async ({
   lessonActive,
   courseId,
@@ -15,7 +18,9 @@ const WatchCourseSection = async ({
   courseId: string | number;
 }) => {
   const locale = await getLocale();
-  const result = await fetch('http://localhost:3000/json/course.json');
+  const result = await fetch(
+    `${ENV === 'production' ? 'https://klowhub-824410275969.southamerica-east1.run.app' : 'http://localhost:3000'}/json/course.json`
+  );
   const dataUnknown = await result.json();
   const validData = videoCourseSchema.safeParse(dataUnknown);
   if (!validData.success) {

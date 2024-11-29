@@ -8,11 +8,16 @@ interface WatchVideoWrapperProps {
   lessonActiveId: string | number;
 }
 
+const ENV = process.env.NODE_ENV;
+
 export default async function WatchVideoWrapper({
   lessonActiveId,
   locale,
 }: WatchVideoWrapperProps) {
-  const video = await fetch('http://localhost:3000/json/video-firmed.json', { cache: 'no-store' });
+  const video = await fetch(
+    `${ENV === 'production' ? 'https://klowhub-824410275969.southamerica-east1.run.app' : 'http://localhost:3000'}/json/video-firmed.json`,
+    { cache: 'no-store' }
+  );
   const videoDataUnknown = await video.json();
   const validVideoData = videoFirmedSchema.safeParse(videoDataUnknown);
 
