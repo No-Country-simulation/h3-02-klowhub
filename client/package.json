@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "cross-env FORCE_COLOR=1 next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8080",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "types:check": "tsc --noEmit --pretty",
