@@ -4,7 +4,7 @@ FROM base AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json tsconfig.json postcss.config.cjs ./
-RUN npm ci
+RUN npm_config_ignore_scripts=true npm ci
 
 FROM base AS builder
 WORKDIR /app
