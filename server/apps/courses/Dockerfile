@@ -1,4 +1,5 @@
 FROM node:20-alpine AS base
+RUN npm install -g npm@10.9.1
 
 FROM base AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
