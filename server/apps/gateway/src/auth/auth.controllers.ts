@@ -62,12 +62,14 @@ export class AuthController {
         sameSite: 'strict',
       });
 
-      if (token) {
-        // Emitir el evento para crear la instancia del curso en MongoDB
-        console.log("Enviando solicitud al microservicio de cursos:", { token });
+      if (newToken) {
+        // Intentar emitir el evento al microservicio de cursos sin interrumpir el flujo
+        console.log("Enviando solicitud al microservicio de cursos:", { token: newToken });
         await lastValueFrom(
-          this.coursesClient.send({ cmd: 'instance' }, { token }),
-        );
+          this.coursesClient.send({ cmd: 'instance' }, { token: newToken }),
+        ).catch((err) => {
+          console.warn('El microservicio de cursos no está disponible error al crear instancia', err.message);
+        });
       }
 
       // Regresar una respuesta al cliente
@@ -75,11 +77,14 @@ export class AuthController {
         message: '¡Correo electrónico verificado y sesión iniciada!',
       });
     } catch (error) {
+      // Manejar errores generales del proceso de verificación de correo
+      console.error('Error al verificar el correo:', error.message);
       throw new BadRequestException(
         error.message || 'Error al verificar el correo',
       );
     }
   }
+
 
   // reenviar el token para activar el email
   @Post('resetToken')
@@ -113,42 +118,42 @@ export class AuthController {
   }
   //
   @Post('login')
-async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
-  try {
-    // Solicitar el token al microservicio de USERS
-    console.log("Enviando solicitud al microservicio de USERS:", loginDto);
-    const { token } = await lastValueFrom(
-      this.usersService.send({ cmd: 'login' }, loginDto),
-    );
+  async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
+    try {
+      // Solicitar el token al microservicio de USERS
+      console.log("Enviando solicitud al microservicio de USERS:", loginDto);
+      const { token } = await lastValueFrom(
+        this.usersService.send({ cmd: 'login' }, loginDto),
+      );
 
-    if (!token) {
-      throw new BadRequestException('Token no recibido del microservicio de usuarios');
+      if (!token) {
+        throw new BadRequestException('Token no recibido del microservicio de usuarios');
+      }
+
+      // Configurar la cookie con el token
+      this.cookieService.set(res, 'auth_token', token, {
+        maxAge: 60 * 60 * 1000, // 1 hora
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
+
+      // Intentar enviar la solicitud al microservicio de cursos (puede fallar)
+      console.log("Enviando solicitud al microservicio de cursos:", { token });
+      await lastValueFrom(
+        this.coursesClient.send({ cmd: 'instance' }, { token }),
+      ).catch((err) => {
+        // Manejar errores del microservicio de cursos sin detener el flujo
+        console.warn('El microservicio de cursos no está disponible, error al crear instancia', err.message);
+      });
+
+      // Responder al cliente con éxito
+      return res.status(200).json({
+        message: '¡Inicio de sesión exitoso!',
+      });
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error.message); // Registro detallado del error
+      throw new BadRequestException(error.message || 'Error al iniciar sesión');
     }
-
-    // Configurar la cookie con el token
-    this.cookieService.set(res, 'auth_token', token, {
-      maxAge: 60 * 60 * 1000, // 1 hora
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    });
-
-    // Intentar enviar la solicitud al microservicio de cursos (puede fallar)
-    console.log("Enviando solicitud al microservicio de cursos:", { token });
-    await lastValueFrom(
-      this.coursesClient.send({ cmd: 'instance' }, { token }),
-    ).catch((err) => {
-      // Manejar errores del microservicio de cursos sin detener el flujo
-      console.warn('El microservicio de cursos no está disponible:', err.message);
-    });
-
-    // Responder al cliente con éxito
-    return res.status(200).json({
-      message: '¡Inicio de sesión exitoso!',
-    });
-  } catch (error) {
-    console.error("Error al iniciar sesión:", error.message); // Registro detallado del error
-    throw new BadRequestException(error.message || 'Error al iniciar sesión');
   }
-}
 }
