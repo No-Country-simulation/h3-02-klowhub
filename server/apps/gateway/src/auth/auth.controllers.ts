@@ -126,7 +126,7 @@ export class AuthController {
         maxAge: 60 * 60 * 1000,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: 'none',
       });
       if (token) {
         // Emitir el evento para crear la instancia del curso en MongoDB

@@ -1,3 +1,4 @@
+'use server';
 import { getTranslations } from 'next-intl/server';
 import { randomUUID } from 'crypto';
 import { apiService } from '@/core/services/api.service';
@@ -9,7 +10,7 @@ export async function signin(
   _state: unknown,
   formData: FormData
 ): Promise<ActionResponse | undefined> {
-  const t = await getTranslations();
+  const t = await getTranslations('Validations'); // Obtener las traducciones
   const schema = signinSchema(t);
   const [error, data] = validateSchema(schema, {
     email: formData.get('email')?.toString() || '',
@@ -18,8 +19,8 @@ export async function signin(
 
   if (error || !data) return error;
 
-  const [errorRes, dataRes] = await apiService.post('/login', data);
-
+  const [errorRes, dataRes] = await apiService.post('auth/login', data, { withCredentials: true });
+  console.log('res', errorRes);
   if (errorRes) {
     return {
       traceId: randomUUID(),

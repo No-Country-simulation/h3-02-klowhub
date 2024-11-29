@@ -17,7 +17,8 @@ async function bootstrap() {
   app.use(authMiddleware.use.bind(authMiddleware));
   app.enableCors({
     origin: process.env.FRONTEND_URL, 
-    credentials: true, // Permitir cookies
+    credentials: true, 
+    methods: 'GET,HEAD,POST,PUT,DELETE,OPTIONS',
   });
   console.log(`Gateway is running on: 3000`);
   await app.listen(process.env.PORT);
