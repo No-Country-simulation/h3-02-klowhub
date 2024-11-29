@@ -1,9 +1,9 @@
 import createNextIntlPlugin from 'next-intl/plugin';
-import path from 'node:path';
+import {join, dirname} from 'node:path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 const withNextIntl = createNextIntlPlugin('./src/core/lib/i18n.ts');
 
@@ -19,7 +19,7 @@ const config = {
     },
   },
   output:"standalone",
-  outputFileTracingRoot: path.join(__dirname, ".next"),
+  outputFileTracingRoot: join(__dirname, ".next"),
   images: {
     remotePatterns: [
       {

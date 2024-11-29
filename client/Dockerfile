@@ -23,7 +23,7 @@ ENV NEXT_PUBLIC_APP_URL=https://klowhub-824410275969.southamerica-east1.run.app
 ENV NODE_ENV=production
 ENV PORT=8080
 
-RUN pnpm build
+RUN pnpm build && pnpm prune --prod --ignore-scripts
 
 FROM base AS production
 WORKDIR /app
@@ -39,7 +39,7 @@ RUN addgroup -g 1001 -S nodejs && \
     chown -R nextjs:nodejs /app
 
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
