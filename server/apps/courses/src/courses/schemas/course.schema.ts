@@ -4,7 +4,7 @@ import { Module, ModuleSchema } from './module.schema';
 import { MergeInfo, MergeInfoSchema } from './merge-info.schema';
 import { Funtionalidad, Idiom, Pilar, Platform, Sector, Tool } from './enums';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Course extends Document {
   @Prop({ required: true })
   userId: string; // ID del usuario creador
