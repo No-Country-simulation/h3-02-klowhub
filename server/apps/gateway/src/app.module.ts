@@ -21,6 +21,7 @@ import { GatewayModule } from './gateway.module';
     PubSubModule,
     UsersModule,
     SignaturesModule,
+    CoursesModule,
   ],
 })
 export class AppModule {}

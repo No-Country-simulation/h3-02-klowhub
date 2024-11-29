@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CoursesController } from './courses.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { CookieService } from '../common/services/cookie.service';
 import * as dotenv from 'dotenv';
 import { JwtModule } from '@nestjs/jwt';
 dotenv.config();
@@ -21,6 +20,6 @@ dotenv.config();
     ]),
   ],
   controllers: [CoursesController],
-  providers: [CookieService],
+  providers: [],
 })
 export class CoursesModule {}
