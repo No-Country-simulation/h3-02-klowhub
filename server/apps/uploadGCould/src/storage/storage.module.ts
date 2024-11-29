@@ -17,7 +17,7 @@ export class StorageModule {
       transport: Transport.GRPC, 
       options: {
         package: 'googlecloudstorage',  
-        protoPath: join(__dirname, './proto/storage.proto'), 
+        protoPath: join(__dirname, '../../protos/storage.proto'), 
       },
     };
   }

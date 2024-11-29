@@ -12,7 +12,7 @@ import { join } from "path";
         transport: Transport.GRPC,
         options: {
           package: 'googlecloudstorage', 
-          protoPath: join(__dirname,'../../protos/upload.proto'),
+          protoPath: join(__dirname,'../../protos/pubsub.proto'),
           url: `${process.env.UPLOAD_MICROSERVICE_HOST}:${process.env.UPLOAD_SERVICE_PORT}`,
         },
       },
