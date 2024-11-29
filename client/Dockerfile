@@ -1,10 +1,10 @@
-FROM node:20-alpine AS deps
+FROM node:20-alpine AS base
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
-RUN npm install -g pnpm@9.7.0 typescript
-COPY package.json pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs ./
+RUN npm install -g pnpm@9.7.0
+COPY package.json pnpm-lock.yaml postcss.config.cjs ./
 
-FROM deps AS builder
+FROM base AS builder
 WORKDIR /app
 COPY . .
 ARG NEXT_PUBLIC_API_URL
@@ -12,33 +12,32 @@ ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_APP_URL=https://klowhub-824410275969.southamerica-east1.run.app
 ENV NODE_ENV=production
 ENV PORT=8080
+RUN npm_config_ignore_scripts=true pnpm install
 
-RUN pnpm install --ignore-scripts --prefer-frozen-lockfile
-RUN pnpm install -D postcss-import
-RUN pnpm build && pnpm prune --prod
+RUN pnpm build
 
-FROM node:20-alpine AS production
-RUN apk add --no-cache libc6-compat
+FROM base as production
 WORKDIR /app
-
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nextjs -u 1001 && \
-    chown -R nextjs:nodejs /app
-
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_APP_URL=https://klowhub-824410275969.southamerica-east1.run.app
 ENV NODE_ENV=production
 ENV PORT=8080
 
+COPY package.json pnpm-lock.yaml ./
+RUN npm_config_ignore_scripts=true pnpm install --prod
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjs
+
 # Copia los archivos de la etapa de construcción
-COPY --from=builder /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/postcss.config.cjs ./
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/public ./public
 
-USER nextjs
-
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["pnpm", "start"]
