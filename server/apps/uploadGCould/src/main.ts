@@ -17,7 +17,7 @@ async function bootstrap() {
   });
 
   await app.listen();
-  console.log('gRPC microservice is listening...');
+  console.log(`gRPC microservice is listening on: ${process.env.UPLOAD_SERVICE_PORT}...`);
 }
 
 bootstrap();

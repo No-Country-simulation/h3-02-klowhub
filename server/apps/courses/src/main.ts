@@ -18,7 +18,7 @@ async function bootstrap() {
   );
 
   await app.listen();
-  console.log('Microservice Courses is listening...');
+  console.log(`Microservice Courses is listening on: ${process.env.COURSES_SERVICE_PORT}...`);
 }
 
 bootstrap();
