@@ -1,5 +1,5 @@
-import CardInquiries from '@features/home/components/CardInquiries/CardInquiries';
-import HeadInquiries from '@features/home/components/HeaderInquiries/HeadInquiries';
+import CardInquiries from '../CardInquiries/CardInquiries';
+import HeadInquiries from '../HeaderInquiries/HeadInquiries';
 
 function SectionIquiris() {
   return (
