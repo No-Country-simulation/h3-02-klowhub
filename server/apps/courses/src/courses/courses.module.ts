@@ -3,10 +3,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Course, CourseSchema } from './schemas/course.schema';
 import { CoursesService } from './courses.service';
 import { CoursesController } from './courses.controller';
-import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { Users, UsersSchema } from './schemas/users.schema';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 
 @Module({
   imports: [

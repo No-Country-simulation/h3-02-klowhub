@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Course } from './schemas/course.schema';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CreateCourseDto } from './dto/create.course.dto';
 import { Users } from './schemas/users.schema';
 import { JwtService } from '@nestjs/jwt';
 
@@ -29,6 +29,9 @@ export class CoursesService {
   // Función para crear un usuario si no existe
   async createUserIfNotExists(userId: string): Promise<Users> {
     // Verificar si el usuario ya existe
+    if(!userId){
+      console.log('userId is null')
+    }
     const existingUser = await this.usersModel.findOne({ userId });
 
     if (!existingUser) {
@@ -41,47 +44,52 @@ export class CoursesService {
     return existingUser;
   }
 
-  async createCourse(data: CreateCourseDto, userId: string) {
-    const courseData = {
-      userId,
-      title: data.title,
-      contentType: data.contentType || 'premium',
-      courseType: data.type || 'appsheet',
-      kind: data.kind || 'course',
-      basicDescription: data.basicDescription || '',
-      prerequisites: data.prerequisites || [],
-      detailedContent: data.detailedContent || '',
-      imageUrl: data.imageUrl || '',
-      modules: data.modules || [],
-      status: 'in-progress',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
+  async createCourse(data: CreateCourseDto) {
+    console.log('data entrando en el servicio',  data)
     try {
-      // Crear el curso
-      const newCourse = new this.courseModel(courseData);
-      await newCourse.save(); // Guardar el curso en la base de datos
-
-      // Verificar si el usuario existe
-      let user = await this.usersModel.findOne({ userId });
-
-      if (!user) {
-        // Si el usuario no existe, crear una nueva instancia
-        user = new this.usersModel({
-          userId,
-          createdCourses: [newCourse._id],
-          enrolledCourses: [],
-          progress: [],
-        });
-      } else {
-        // Si el usuario existe, agregar el curso a la lista de cursos creados
-        user.createdCourses.push(newCourse.id);
+      // Validar y decodificar el token
+      const decodedToken = this.jwtService.verify(data.token); // Verifica y decodifica el token JWT
+      const userId = decodedToken.userId;
+  
+      if (!userId) {
+        throw new Error('El token no contiene un userId válido');
       }
-
-      await user.save(); // Guardar el usuario en la base de datos
-
-      return newCourse; // Retornar el curso creado
+  
+      // Preparar los datos del curso
+      const courseData = {
+        userId,
+        title: data.title,
+        contentType: data.contentType || 'premium',
+        courseType: data.type || 'appsheet',
+        kind: data.kind || 'course',
+        basicDescription: data.basicDescription || '',
+        prerequisites: data.prerequisites || [],
+        detailedContent: data.detailedContent || '',
+        imageUrl: data.imageUrl || '',
+        status: 'in-progress',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+  
+      // Crear y guardar el curso
+      const newCourse = await this.courseModel.create(courseData);
+  
+      // Verificar si el usuario ya existe en la base de datos
+      const user = await this.usersModel.findOneAndUpdate(
+        { userId }, // Buscar por userId
+        {
+          $setOnInsert: { // Solo establecer estos valores si el usuario no existe
+            userId,
+            enrolledCourses: [],
+            progress: [],
+          },
+          $push: { createdCourses: newCourse._id }, // Agregar el curso al array de cursos creados
+        },
+        { upsert: true, new: true }, // Crear si no existe, devolver el documento actualizado
+      );
+  
+      // Retornar el curso creado
+      return newCourse;
     } catch (error) {
       throw new Error(`Error al crear el curso: ${error.message}`);
     }

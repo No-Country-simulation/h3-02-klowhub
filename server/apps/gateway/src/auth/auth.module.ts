@@ -1,10 +1,8 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { AuthController } from './auth.controllers';
 import * as dotenv from 'dotenv';
-import { CookieService } from '../common/services/cookie.service';
 import { GatewayModule } from '../gateway.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { JwtTestService } from './services/jwt-test.service';
 
 
 dotenv.config();
@@ -17,7 +15,7 @@ dotenv.config();
       signOptions: { expiresIn: '24h' },
     }),
   ],
-  providers: [JwtService, JwtTestService],
-  exports:[JwtTestService]
+  providers: [JwtService],
+  exports:[JwtModule]
 })
 export class AuthModule {}

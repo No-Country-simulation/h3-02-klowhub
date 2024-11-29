@@ -16,7 +16,6 @@ import { RegisterSchema } from './dto/registerSchema.dto';
 import { UpdateSchema } from './dto/updateSchema.dto';
 import { LoginDto } from './dto/loginSchema.dto';
 import { ResetTokenDto, ResetTokenSchema } from './dto/resetToken.dto';
-import { CookieService } from 'src/common/services/cookie.service';
 import { Response as ExpressResponse } from 'express';
 import { JwtService } from '@nestjs/jwt';
 
@@ -25,8 +24,7 @@ export class AuthController {
   constructor(
     @Inject('USERS_SERVICE') private readonly usersService: ClientProxy,
     @Inject('COURSES_SERVICE') private readonly coursesClient: ClientProxy,
-    private readonly cookieService: CookieService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) { }
 
   @Post('register')
@@ -55,12 +53,12 @@ export class AuthController {
       );
 
       // Usar el servicio CookieService para gestionar la cookie con el nuevo token
-      this.cookieService.set(res, 'auth_token', newToken, {
-        maxAge: 60 * 60 * 1000, // 1 hora
+      res.cookie('auth_token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-      });
+        maxAge: 60 * 60 * 24 * 1000,
+      })
 
       if (newToken) {
         // Intentar emitir el evento al microservicio de cursos sin interrumpir el flujo
@@ -131,12 +129,13 @@ export class AuthController {
       }
 
       // Configurar la cookie con el token
-      this.cookieService.set(res, 'auth_token', token, {
-        maxAge: 60 * 60 * 1000, // 1 hora
+      res.cookie('auth_token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-      });
+        maxAge: 60 * 60 * 24 * 1000,
+      })
+      
 
       // Intentar enviar la solicitud al microservicio de cursos (puede fallar)
       console.log("Enviando solicitud al microservicio de cursos:", { token });

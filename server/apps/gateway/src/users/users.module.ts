@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { UsersController} from './users.controller';
 import * as dotenv from 'dotenv';
-import { CookieService } from '../common/services/cookie.service';
 import { GatewayModule } from 'src/gateway.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 dotenv.config();
@@ -25,6 +24,6 @@ dotenv.config();
     ])
   ],
   controllers: [UsersController],
-  providers: [CookieService, JwtService],
+  providers: [JwtService],
 })
 export class UsersModule {}

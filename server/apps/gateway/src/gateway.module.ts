@@ -4,13 +4,13 @@ import { AuthController } from './auth/auth.controllers';
 import { UploadController } from './upload/upload.controllers';
 import { PubSubGatewayController } from './pubsub/pubsub.gateway.controller';
 import { SignaturesController } from './signatures/signatures.gateway.controller';
-import { UsersController } from './users/users.controller'
+import { UsersController } from './users/users.controller';
 import { join } from "path";
 import * as dotenv from 'dotenv';
-import { CookieService } from './common/services/cookie.service';
 import { PubSubGatewayService } from './pubsub/pubsub.gateway.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
+import { CoursesController } from './courses/courses.controller';
 dotenv.config();
 
 @Module({
@@ -66,7 +66,8 @@ dotenv.config();
       },
     ]),
   ],
-  controllers: [AuthController, UploadController, UsersController,PubSubGatewayController,SignaturesController],
-  providers: [CookieService,PubSubGatewayService],
+  controllers: [AuthController, UploadController, UsersController,
+    PubSubGatewayController,SignaturesController, CoursesController],
+  providers: [PubSubGatewayService],
 })
 export class GatewayModule {}

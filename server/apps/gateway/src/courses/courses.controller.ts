@@ -9,63 +9,46 @@ import {
   Get,
   Query,
   Param,
+  Res,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { CreateCourseGatewayDto, createCourseGatewaySchema } from './dto/create-course.dto';
-import { CookieService } from 'src/common/services/cookie.service';
+import { createCourseGatewaySchema } from './dto/create-course.dto';
 import { JwtService } from '@nestjs/jwt';
+import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
 
 @Controller('courses')
 export class CoursesController {
   constructor(
     @Inject('COURSES_SERVICE') private readonly coursesClient: ClientProxy,
-    private readonly cookieService: CookieService,
     private readonly jwtService: JwtService
   ) { }
 
   @Post('create')
-async createCourse(@Body() courseData: CreateCourseGatewayDto, @Request() req: any) {
-  // Accede a las cookies usando req.cookies
-  const token = req.cookies['auth_token']; // Verifica que el token esté en la cookie con este nombre
+  async createCourse(@Body() courseData: CreateCourseDto, @Request() req: any) {
+    // Accede al token desde las cookies
+    const token = req.cookies.auth_token;
 
-  if (!token) {
-    throw new BadRequestException('Token de autenticación no proporcionado');
-  }
-
-  try {
-    // Decodifica el token para obtener el userId
-    const decoded: any = this.jwtService.decode(token);
-    const userId = decoded.userId;
-
-    if (!userId) {
-      throw new BadRequestException('No se encontró el ID del usuario');
+    // Si no se encuentra el token, lanza una excepción
+    if (!token) {
+      throw new BadRequestException('Token de autenticación no proporcionado');
     }
-
-    // Agrega `userId` a los datos del curso
-    const dataWithUserId = { ...courseData, userId };
-
-    // Valida los datos usando el esquema
-    const validationResult = createCourseGatewaySchema.safeParse(dataWithUserId);
-
-    // Si la validación falla, lanza un error con los detalles
+    const data = { token, ...courseData };
+    const validationResult = createCourseSchema.safeParse(data);
     if (!validationResult.success) {
-      throw new BadRequestException(validationResult.error.errors);
+      return (validationResult.error)
     }
-
+    const sanitizedData = validationResult.data
     // Envía los datos validados al microservicio
     const result = await lastValueFrom(
-      this.coursesClient.send({ cmd: 'create_course' }, dataWithUserId)
+      this.coursesClient.send({ cmd: 'create_course' }, sanitizedData)
     );
-
+    // Retorna el mensaje de éxito con el resultado
     return {
       message: 'Course created successfully',
       data: result,
     };
-  } catch (error) {
-    throw new BadRequestException(error.message || 'Error al crear curso');
   }
-}
   //buscar curso por filtro
   @Get('filter')
   async filterCourses(
