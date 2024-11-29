@@ -3,5 +3,11 @@ export const publicRoutes: string[] = [
   '/auth/login',
   '/auth/verifyEmail',
   '/auth/resetToken',
-  '/gateway/hello'
+  '/gateway/hello',
+  '/pubsub/test',
+  "/signatures/signed-urls",
+  '/courses/filter',
+  '/courses/',
+  '/auth/status',
+  '/auth/logout'
 ];

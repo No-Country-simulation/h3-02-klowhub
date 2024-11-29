@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { PubSubGatewayController } from './pubsub.gateway.controller';
-import { PubSubGatewayService } from './pubsub.gateway.service';
+import { PubSubGatewayService } from './pubsub.gateway.service';  
 import { join } from "path";
 
 @Module({

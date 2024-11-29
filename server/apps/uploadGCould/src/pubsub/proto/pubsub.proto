@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package googlecloudstorage;
+
+// Servicio PubSub
+
+service PubSubService {
+  rpc Test (TestRequest) returns (TestResponse);
+}
+
+message TestRequest {}
+
+message TestResponse {
+  string message = 1;
+}

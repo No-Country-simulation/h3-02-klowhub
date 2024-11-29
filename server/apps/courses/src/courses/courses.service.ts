@@ -1,64 +1,200 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Course } from './schemas/course.schema';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CreateCourseDto } from './dto/create.course.dto';
+import { Users } from './schemas/users.schema';
+import { JwtService } from '@nestjs/jwt';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class CoursesService {
   constructor(
-    @InjectModel(Course.name) private ModelCourse: Model<Course>, // Asegúrate de que 'Course.name' esté correctamente referenciado
-  ) {}
+    @InjectModel(Course.name) private courseModel: Model<Course>,
+    @InjectModel(Users.name) private usersModel: Model<Users>,
+    private jwtService: JwtService,
+  ) { }
+
+
+  async verifyJwt(token: string): Promise<any> {
+    try {
+      const decoded = this.jwtService.verify(token);  // Verifica el token
+      return decoded;  // Retorna el payload si el token es válido
+    } catch (error) {
+      throw new Error('Token inválido o expirado');  // Si hay error, lanzamos una excepción
+    }
+  }
+
+  // crear isntnacia de usuario de postgres a mongoddb 
+
+  // Función para crear un usuario si no existe
+  async createUserIfNotExists(userId: string): Promise<Users> {
+    // Verificar si el usuario ya existe
+    if(!userId){
+      console.log('userId is null')
+    }
+    const existingUser = await this.usersModel.findOne({ userId });
+
+    if (!existingUser) {
+      // Si no existe, crear un nuevo usuario
+      const newUser = new this.usersModel({ userId });
+      return await newUser.save(); // Guardar el usuario en la base de datos
+    }
+
+    // Si ya existe, retornamos el usuario encontrado
+    return existingUser;
+  }
 
   async createCourse(data: CreateCourseDto) {
-    console.log('Datos recibidos para crear curso:', data);
-
+    console.log('data entrando en el servicio',  data)
     try {
-      // Creamos un objeto de curso de manera explícita para evitar errores con datos no proporcionados
-    const courseData: any = {
-      userId: data.userId, // Asegúrate de que siempre esté presente el ID del usuario
-      title: data.title, // Asegúrate de que el título esté presente
-      contentType: data.contentType || 'premium', // Default 'premium' si no se proporciona
-      courseType: data.courseType || 'appsheet', // Default 'appsheet' si no se proporciona
-      kind: data.kind || 'course', // Default 'course' si no se proporciona
-      basicDescription: data.basicDescription, // Si no se proporciona, no se agrega
-      prerequisites: data.prerequisites || [], // Default vacío si no se proporciona
-      detailedContent: data.detailedContent, // Si no se proporciona, no se agrega
-      imageUrl: data.imageUrl, // Si no se proporciona, no se agrega
-      modules: data.modules || [], // Default vacío si no se proporciona
-      status: 'in-progress', // Estado inicial del curso
-      createdAt: new Date(), // Fecha de creación
-      updatedAt: new Date(), // Fecha de actualización
-    };
-
-    // Crear el curso con los datos validados y asignados explícitamente
-    const newCourse = new this.ModelCourse(courseData);
-      return await newCourse.save(); // Guardamos el curso en la base de datos
+      // Validar y decodificar el token
+      const decodedToken = this.jwtService.verify(data.token); // Verifica y decodifica el token JWT
+      const userId = decodedToken.userId;
+  
+      if (!userId) {
+        throw new Error('El token no contiene un userId válido');
+      }
+  
+      // Preparar los datos del curso
+      const courseData = {
+        userId,
+        title: data.title,
+        contentType: data.contentType || 'premium',
+        courseType: data.type || 'appsheet',
+        kind: data.kind || 'course',
+        basicDescription: data.basicDescription || '',
+        prerequisites: data.prerequisites || [],
+        detailedContent: data.detailedContent || '',
+        imageUrl: data.imageUrl || '',
+        status: 'in-progress',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+  
+      // Crear y guardar el curso
+      const newCourse = await this.courseModel.create(courseData);
+  
+      // Verificar si el usuario ya existe en la base de datos
+      const user = await this.usersModel.findOneAndUpdate(
+        { userId }, // Buscar por userId
+        {
+          $setOnInsert: { // Solo establecer estos valores si el usuario no existe
+            userId,
+            enrolledCourses: [],
+            progress: [],
+          },
+          $push: { createdCourses: newCourse._id }, // Agregar el curso al array de cursos creados
+        },
+        { upsert: true, new: true }, // Crear si no existe, devolver el documento actualizado
+      );
+  
+      // Retornar el curso creado
+      return newCourse;
     } catch (error) {
       throw new Error(`Error al crear el curso: ${error.message}`);
     }
   }
+  // filtro
+  async filterCourses(filters: Record<string, any>, page: number, limit: number) {
+    const query = this.buildQuery(filters); // Supongamos que tienes una función para construir el filtro
+    return this.courseModel.find(query)
+      .skip((page - 1) * limit) // Implementación simple de paginación
+      .limit(limit)
+      .exec();
+  }
+
+  private buildQuery(filters: Record<string, any>) {
+    let query = {};
+    
+    // Puedes construir una lógica más compleja dependiendo de los filtros
+    if (filters.status) {
+      query['status'] = filters.status;
+    }
+  
+    if (filters.contentType) {
+      query['contentType'] = filters.contentType;
+    }
+  
+    if (filters.kind) {
+      query['kind'] = filters.kind;
+    }
+    if (filters.level){
+      query['level'] = filters.level
+    }
+    if (filters.platafor){
+      query['platafor'] = filters.platafor
+    }
+    if (filters.idiom){
+      query['idiom'] = filters.idiom
+    }
+    if (filters.pilar){
+      query['pilar'] = filters.pilar
+    }
+    if (filters.funtionalidad){
+      query['funtionalidad'] = filters.funtionalidad
+    }
+    if (filters.sector){
+      query['sector']= filters.sector
+    }
+    if (filters.tool){
+      query['tool']= filters.tool
+    }
+  
+    // Aquí puedes agregar más filtros según las propiedades del curso
+    
+    return query;
+  }
+
+  // buscar curse por id
+  async findById(id: string): Promise<Course | null> {
+    // Validar si el ID proporcionado es un ObjectId válido
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException({
+        statusCode: 400,
+        message: 'El ID proporcionado no es válido',
+        error: 'Bad Request',
+      });
+    }
+  
+    // Buscar el curso por ID
+    const course = await this.courseModel.findById(id).exec();
+  
+    // Si no se encuentra el curso
+    if (!course) {
+      throw new NotFoundException({
+        statusCode: 404,
+        message: `Curso con ID ${id} no encontrado`,
+        error: 'Not Found',
+      });
+    }
+  
+    return course;
+  }
+  // Obtener todos los cursos creados por un usuario específico
+  async getCoursesByUser(userId: string) {
+    try {
+      const courses = await this.courseModel.find({ userId }).exec();
+      return courses;
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 500,
+        message: error.message || 'Error al obtener los cursos del usuario',
+      });
+    }
+  }
+
+  // Obtener un curso específico por ID
+  async findCourseById(courseId: string, userId: string) {
+    try {
+      // Buscar el curso por ID, asegurándonos de que el usuario tenga acceso
+      const course = await this.courseModel.findOne({ _id: courseId, userId }).exec();
+      return course;
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 500,
+        message: error.message || 'Error al obtener el curso',
+      });
+    }
+  }
 }
-//constructor(@InjectModel(Course.name) private courseModel: Model<Course>) { }
-
-// async createCourse(data: { title: string; description?: string }) {
-//   const newCourse = new this.courseModel(data);
-//   return newCourse.save();
-// }
-
-// async getAllCourses() {
-//   return this.courseModel.find().exec();
-// }
-
-// async getCourse(){
-//   return this.courseModel.find();
-// }
-// async getCourseId(id){
-//   return await this.courseModel.findById(id);
-// }
-
-//   // Método para crear un curso
-//   async create(createCourseDto: CreateCourseDto): Promise<Course> {
-//     const course = new this.courseModel(createCourseDto);  // Usa el DTO para crear el curso
-//     return course.save();  // Guarda el curso en la base de datos
-//   }

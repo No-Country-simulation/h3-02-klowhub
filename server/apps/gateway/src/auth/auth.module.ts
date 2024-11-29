@@ -1,24 +1,21 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AuthController } from './auth.controllers';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import * as dotenv from 'dotenv';
-import { CookieService } from '../common/services/cookie.service';
+import { GatewayModule } from '../gateway.module';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+
+
 dotenv.config();
 
 @Module({
   imports: [
-    ClientsModule.register([
-      {
-        name: 'AUTH_MICROSERVICE',
-        transport: Transport.TCP, // Especifica el transporte TCP para la comunicación con el microservicio.
-        options: {
-          host: process.env.USERS_MICROSERVICE_HOST,
-          port: Number(process.env.USERS_SERVICE_PORT),
-        },
-      },
-    ]),
+    forwardRef(() => GatewayModule),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '24h' },
+    }),
   ],
-  controllers: [AuthController],
-  providers: [CookieService],
+  providers: [JwtService],
+  exports:[JwtModule]
 })
 export class AuthModule {}
