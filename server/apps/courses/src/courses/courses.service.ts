@@ -217,40 +217,39 @@ export class CoursesService {
       // Intentamos encontrar el curso
       const course = await this.courseModel.findOne({
         _id: courseId,  // Aseguramos que el courseId sea un ObjectId
-        userId: userId,  // Verificamos que el curso pertenezca al usuario
+        userId: userId,  // Aseguramos que el curso pertenezca al usuario
       });
   
+      // Si no se encuentra el curso, lanzamos un error
       if (!course) {
         throw new NotFoundException('Course not found or access denied');
       }
   
-      // Verificamos que no exista un módulo con el mismo nombre dentro del curso
-      const moduleExists = await this.moduleModel.findOne({
-        courseId: courseId,
-        moduleTitle: valiData.moduleTitle, // El nombre del módulo debe ser único
-      });
+      // Verificamos si ya existe un módulo con el mismo nombre
+      const existingModule = course.modules.find(
+        (module) => module.moduleTitle === valiData.moduleTitle
+      );
   
-      if (!moduleExists) {
-        return ('Module with this name already exists')
+      if (existingModule) {
+        // Si el módulo ya existe, lanzamos un error de conflicto
         throw new ConflictException('Module with this name already exists');
       }
   
-      // Si todo es correcto, creamos el módulo
-      const newModule = new this.moduleModel({
-        ...valiData,
-        courseId: courseId,
-      });
+      // Crear el nuevo módulo
+      const newModule = {
+        moduleTitle: valiData.moduleTitle,
+        moduleDescription: valiData.moduleDescription,
+      };
   
-      await newModule.save();
+      // Agregamos el nuevo módulo al array de módulos del curso
+      course.modules.push(newModule);
+      await course.save();
   
-      if(moduleExists){
-        return {
-          message: 'Module added successfully',
-          module: newModule,
-        };
-      }
+      // Retornamos el nuevo módulo
+      return newModule;
     } catch (error) {
-      throw error; // Si ocurre cualquier error, se vuelve a lanzar
+      console.error(error);  // Imprimir el error para fines de depuración
+      throw new NotFoundException('Error decoding JWT or adding module');
     }
-  }
+}
 }

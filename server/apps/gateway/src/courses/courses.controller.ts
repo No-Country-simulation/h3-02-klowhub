@@ -121,7 +121,6 @@ export class CoursesController {
       throw new Error('Token JWT no encontrado en las cookies');
     }
     const data = {token, courseId, ...moduleData }
-    console.log('data', data)
     const validationResult = createModuleSchema.safeParse(data);
     
     if(!validationResult.success) {
