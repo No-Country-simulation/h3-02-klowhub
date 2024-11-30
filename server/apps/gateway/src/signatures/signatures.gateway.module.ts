@@ -11,7 +11,7 @@ import { SignaturesController } from './signatures.gateway.controller';
         transport: Transport.GRPC,
         options: {
           package: 'googlecloudstorage', 
-          protoPath: join(__dirname,'../../protos/signatures.proto'),
+          protoPath: join(__dirname,'../../protos/upload.proto'),
           url: `${process.env.UPLOAD_MICROSERVICE_HOST}:${process.env.UPLOAD_SERVICE_PORT}`,
         },
       },
