@@ -191,7 +191,7 @@ jobs:
             --allow-unauthenticated \
             --max-instances=2 \
             --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }}' \
-            --port='3001'
+            --port='4441'
 
       - name: Deploy Course Service
         working-directory: ./server
