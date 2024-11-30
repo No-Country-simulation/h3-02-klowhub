@@ -22,7 +22,7 @@ export class Lesson extends Document {
 export const LessonSchema = SchemaFactory.createForClass(Lesson);
 
 @Schema()
-export class Module extends Document {
+export class Modules extends Document {
   @Prop({ required: true })
   moduleTitle: string; // Título del módulo
 
@@ -33,4 +33,4 @@ export class Module extends Document {
   lessons?: Lesson[]; // Lecciones del módulo
 }
 
-export const ModuleSchema = SchemaFactory.createForClass(Module);
+export const ModuleSchema = SchemaFactory.createForClass(Modules);

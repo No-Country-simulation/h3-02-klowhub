@@ -1,9 +1,11 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
-import { CoursesService } from './courses.service';
+import { CoursesService , } from './courses.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { z } from 'zod';
 import { JwtService } from '@nestjs/jwt';
+import { createLessonSchema } from './dto/create.lesson.dto';
+import { CreateModuleDto, createModuleSchema } from './dto/create.module.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -31,7 +33,6 @@ export class CoursesController {
       // Verificar el token JWT y extraer el userId
       const decoded = this.jwtService.verify(data.token);  // Verificar el token
       const userId = decoded.userId;  // Suponiendo que userId está en el payload del token
-      console.log(decoded)
 
       // Combina el `userId` con los datos del curso
       const courseDataWithUserId = {
@@ -100,5 +101,22 @@ export class CoursesController {
         message: error.message || 'Error al obtener el curso',
       });
     }
+  }
+  // Agregar módulo a un curso
+  @MessagePattern({ cmd: 'addModule' })  // Escuchamos el patrón enviado por el gateway
+  async handleAddModule(data: CreateModuleDto ) {
+    // Validación de los datos recibidos usando Zod
+    const valiData = createModuleSchema.safeParse(data);
+    if (!valiData.success) {
+      const validationErrors = valiData.error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+      throw new RpcException({
+        statusCode: 400,
+        message: 'Validation errors',
+        errors: validationErrors,
+      });
+    }
+
+    // Llamada al servicio con los datos validados
+    return this.coursesService.addModule(valiData.data);
   }
 }

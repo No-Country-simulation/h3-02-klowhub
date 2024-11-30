@@ -16,7 +16,7 @@ export class Users extends Document {
     type: [
       {
         courseId: { type: Types.ObjectId, ref: 'Course' },
-        moduleId: { type: Types.ObjectId, ref: 'Module' },
+        moduleId: { type: Types.ObjectId, ref: 'Modules' },
         lessonId: { type: Types.ObjectId, ref: 'Lesson' },
       },
     ],

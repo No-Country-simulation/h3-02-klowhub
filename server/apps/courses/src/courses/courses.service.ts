@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Course } from './schemas/course.schema';
@@ -6,12 +6,19 @@ import { CreateCourseDto } from './dto/create.course.dto';
 import { Users } from './schemas/users.schema';
 import { JwtService } from '@nestjs/jwt';
 import { RpcException } from '@nestjs/microservices';
+import { CreateModuleDto } from './dto/create.module.dto';
+import { CreateLessonDto } from './dto/create.lesson.dto';
+import { Modules, ModulesSchema } from './schemas/module.schema';
+import {Lesson } from './schemas/lesson.module.schema';
+import { REQUEST } from '@nestjs/core'; 
 
 @Injectable()
 export class CoursesService {
   constructor(
     @InjectModel(Course.name) private courseModel: Model<Course>,
     @InjectModel(Users.name) private usersModel: Model<Users>,
+    @InjectModel(Modules.name) private moduleModel: Model<Modules>,
+    @InjectModel(Lesson.name) private lessonModel: Model<Lesson>,
     private jwtService: JwtService,
   ) { }
 
@@ -30,7 +37,7 @@ export class CoursesService {
   // Función para crear un usuario si no existe
   async createUserIfNotExists(userId: string): Promise<Users> {
     // Verificar si el usuario ya existe
-    if(!userId){
+    if (!userId) {
       console.log('userId is null')
     }
     const existingUser = await this.usersModel.findOne({ userId });
@@ -46,16 +53,16 @@ export class CoursesService {
   }
 
   async createCourse(data: CreateCourseDto) {
-    console.log('data entrando en el servicio',  data)
+    console.log('data entrando en el servicio', data)
     try {
       // Validar y decodificar el token
       const decodedToken = this.jwtService.verify(data.token); // Verifica y decodifica el token JWT
       const userId = decodedToken.userId;
-  
+
       if (!userId) {
         throw new Error('El token no contiene un userId válido');
       }
-  
+
       // Preparar los datos del curso
       const courseData = {
         userId,
@@ -71,10 +78,10 @@ export class CoursesService {
         createdAt: new Date(),
         updatedAt: new Date(),
       };
-  
+
       // Crear y guardar el curso
       const newCourse = await this.courseModel.create(courseData);
-  
+
       // Verificar si el usuario ya existe en la base de datos
       const user = await this.usersModel.findOneAndUpdate(
         { userId }, // Buscar por userId
@@ -88,7 +95,7 @@ export class CoursesService {
         },
         { upsert: true, new: true }, // Crear si no existe, devolver el documento actualizado
       );
-  
+
       // Retornar el curso creado
       return newCourse;
     } catch (error) {
@@ -106,43 +113,43 @@ export class CoursesService {
 
   private buildQuery(filters: Record<string, any>) {
     let query = {};
-    
+
     // Puedes construir una lógica más compleja dependiendo de los filtros
     if (filters.status) {
       query['status'] = filters.status;
     }
-  
+
     if (filters.contentType) {
       query['contentType'] = filters.contentType;
     }
-  
+
     if (filters.kind) {
       query['kind'] = filters.kind;
     }
-    if (filters.level){
+    if (filters.level) {
       query['level'] = filters.level
     }
-    if (filters.platafor){
+    if (filters.platafor) {
       query['platafor'] = filters.platafor
     }
-    if (filters.idiom){
+    if (filters.idiom) {
       query['idiom'] = filters.idiom
     }
-    if (filters.pilar){
+    if (filters.pilar) {
       query['pilar'] = filters.pilar
     }
-    if (filters.funtionalidad){
+    if (filters.funtionalidad) {
       query['funtionalidad'] = filters.funtionalidad
     }
-    if (filters.sector){
-      query['sector']= filters.sector
+    if (filters.sector) {
+      query['sector'] = filters.sector
     }
-    if (filters.tool){
-      query['tool']= filters.tool
+    if (filters.tool) {
+      query['tool'] = filters.tool
     }
-  
+
     // Aquí puedes agregar más filtros según las propiedades del curso
-    
+
     return query;
   }
 
@@ -156,10 +163,10 @@ export class CoursesService {
         error: 'Bad Request',
       });
     }
-  
+
     // Buscar el curso por ID
     const course = await this.courseModel.findById(id).exec();
-  
+
     // Si no se encuentra el curso
     if (!course) {
       throw new NotFoundException({
@@ -168,7 +175,7 @@ export class CoursesService {
         error: 'Not Found',
       });
     }
-  
+
     return course;
   }
   // Obtener todos los cursos creados por un usuario específico
@@ -195,6 +202,55 @@ export class CoursesService {
         statusCode: 500,
         message: error.message || 'Error al obtener el curso',
       });
+    }
+  }
+  // Método para agregar un módulo a un curso
+  async addModule(valiData: CreateModuleDto) {
+    try {
+      // Decodificamos el token JWT
+      const decoded = this.jwtService.verify(valiData.token);
+      const userId = decoded.userId;
+  
+      // Verificamos que el courseId sea un ObjectId válido
+      const courseId = new Types.ObjectId(valiData.courseId);
+  
+      // Intentamos encontrar el curso
+      const course = await this.courseModel.findOne({
+        _id: courseId,  // Aseguramos que el courseId sea un ObjectId
+        userId: userId,  // Verificamos que el curso pertenezca al usuario
+      });
+  
+      if (!course) {
+        throw new NotFoundException('Course not found or access denied');
+      }
+  
+      // Verificamos que no exista un módulo con el mismo nombre dentro del curso
+      const moduleExists = await this.moduleModel.findOne({
+        courseId: courseId,
+        moduleTitle: valiData.moduleTitle, // El nombre del módulo debe ser único
+      });
+  
+      if (!moduleExists) {
+        return ('Module with this name already exists')
+        throw new ConflictException('Module with this name already exists');
+      }
+  
+      // Si todo es correcto, creamos el módulo
+      const newModule = new this.moduleModel({
+        ...valiData,
+        courseId: courseId,
+      });
+  
+      await newModule.save();
+  
+      if(moduleExists){
+        return {
+          message: 'Module added successfully',
+          module: newModule,
+        };
+      }
+    } catch (error) {
+      throw error; // Si ocurre cualquier error, se vuelve a lanzar
     }
   }
 }

@@ -1,5 +1,6 @@
 // module.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 
 @Schema()
 export class Lesson {
@@ -22,8 +23,9 @@ export class Lesson {
 export const LessonSchema = SchemaFactory.createForClass(Lesson);
 
 @Schema()
-export class Module {
-  @Prop({ required: true })
+export class Modules {
+  
+  @Prop({ required: true , unique: true })
   moduleTitle: string;
 
   @Prop()
@@ -33,4 +35,4 @@ export class Module {
   lessons?: Lesson[];
 }
 
-export const ModuleSchema = SchemaFactory.createForClass(Module);
+export const ModulesSchema = SchemaFactory.createForClass(Modules);
