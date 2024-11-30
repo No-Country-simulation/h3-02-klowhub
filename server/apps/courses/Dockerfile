@@ -15,6 +15,12 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/tsconfig.json ./tsconfig.json
 COPY . .
 
+RUN npm run build && npm prune --production
+
+# Fase de producción
+FROM base AS production
+WORKDIR /app
+
 ARG COURSES_SERVICE_HOST
 ARG JWT_SECRET
 ARG MONGO_URI
@@ -25,12 +31,6 @@ ENV COURSES_SERVICE_HOST=0.0.0.0
 ENV COURSES_MICROSERVICE_PORT=3002
 ENV JWT_SECRET=$JWT_SECRET
 ENV MONGO_URI=$MONGO_URI
-
-RUN npm run build && npm prune --production
-
-# Fase de producción
-FROM base AS production
-WORKDIR /app
 
 # Configuración de usuario no-root
 RUN addgroup -g 1001 -S nodejs && \
