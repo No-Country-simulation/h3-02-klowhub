@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { SignaturesModule } from './signatures/signatures.gateway.module';
 import { GatewayModule } from './gateway.module';
+import { GatewayController } from './gateway.controller';
 
 @Module({
   imports: [
@@ -23,5 +24,6 @@ import { GatewayModule } from './gateway.module';
     SignaturesModule,
     CoursesModule,
   ],
+  controllers: [GatewayController],
 })
 export class AppModule {}
