@@ -1,11 +1,11 @@
 FROM node:20-alpine AS base
-RUN npm install -g npm@10.9.1
 
 FROM base AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json tsconfig.json ./
-RUN npm ci --ignore-scripts
+RUN npm install -g npm@10.9.1
+RUN npm install --ignore-scripts
 
 # Fase de Construcción
 FROM base AS builder
@@ -44,12 +44,13 @@ ENV GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
 ENV GOOGLE_CALLBACK_URL=$GOOGLE_CALLBACK_URL
 ENV POSTGRES_URL=$POSTGRES_URL
 ENV MONGO_URI=$MONGO_URI
-
+RUN npm install -g npm@10.9.1
 RUN npm run build && npm prune --production
     
 # Fase de producción
 FROM base AS production
 WORKDIR /app
+RUN npm install -g npm@10.9.1
 
 # Configuración de usuario no-root
 RUN addgroup -g 1001 -S nodejs && \
