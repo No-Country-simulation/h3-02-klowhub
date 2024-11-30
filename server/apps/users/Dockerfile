@@ -5,7 +5,7 @@ RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json tsconfig.json ./
 RUN npm install -g npm@10.9.1
-RUN npm install --ignore-scripts
+RUN npm install
 
 # Fase de Construcción
 FROM base AS builder
