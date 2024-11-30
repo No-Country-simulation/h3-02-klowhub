@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { RegisterDto } from './dto/registerSchema.dto';
-import * as bcrypt from 'bcrypt';
+import {hash, compare} from 'bcrypt';
 import { EmailService } from './email/email.service';
 import { AccountEntity } from '../entities/accounts.entity';
 import { UsersService } from '../users/users.service';
@@ -93,7 +93,7 @@ export class AuthService {
       return { message: 'El email ya está registrado.' };
     }
     // Encriptar la contraseña
-    const encryptedPassword = await bcrypt.hash(registerDto.password, 10);
+    const encryptedPassword = await hash(registerDto.password, 10);
     // Crear nuevo usuario
     const newUser = this.userRepository.create({
       firstName: registerDto.firstName,
@@ -237,7 +237,7 @@ export class AuthService {
       }
 
       // Verificar si la contraseña es válida
-      const isPasswordValid = await bcrypt.compare(
+      const isPasswordValid = await compare(
         loginDto.password,
         user.password,
       );
@@ -345,7 +345,7 @@ export class AuthService {
       return { message: 'Invalid or expired token' };
     }
 
-    const encryptedPassword = await bcrypt.hash(newPassword, 10);
+    const encryptedPassword = await hash(newPassword, 10);
 
     user.password = encryptedPassword;
     user.resetPasswordToken = null; // Limpiar token

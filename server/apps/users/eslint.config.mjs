@@ -28,7 +28,7 @@ const baseConfig = {
       ...globals.browser,
       ...globals.node,
       ...globals.jest,
-      ...globals['es2022'],
+      ...globals['es2021'],
     },
     parserOptions: {
       ecmaVersion: 'latest',
