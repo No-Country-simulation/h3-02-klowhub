@@ -15,6 +15,12 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/tsconfig.json ./tsconfig.json
 COPY . .
 
+RUN npm run build && npm prune --production
+
+# Fase de producción
+FROM base AS production
+WORKDIR /app
+
 # Declaración de los ARGs (se pasarán desde GitHub Actions)
 ARG USERS_MICROSERVICE_HOST
 ARG COURSES_MICROSERVICE_HOST
@@ -32,12 +38,6 @@ ENV UPLOAD_MICROSERVICE_HOST=$UPLOAD_MICROSERVICE_HOST
 ENV UPLOAD_SERVICE_PORT=3003
 ENV JWT_SECRET=$JWT_SECRET
 ENV FRONTEND_URL=https://klowhub-824410275969.southamerica-east1.run.app
-
-RUN npm run build && npm prune --production
-
-# Fase de producción
-FROM base AS production
-WORKDIR /app
 
 # Configuración de usuario no-root
 RUN addgroup -g 1001 -S nodejs && \

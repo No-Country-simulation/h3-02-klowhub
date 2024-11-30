@@ -21,13 +21,12 @@ ARG MONGO_URI
 
 # Variables de entorno
 ENV NODE_ENV=production
-ENV COURSES_SERVICE_HOST=$COURSES_SERVICE_HOST
+ENV COURSES_SERVICE_HOST=0.0.0.0
 ENV COURSES_MICROSERVICE_PORT=3002
 ENV JWT_SECRET=$JWT_SECRET
 ENV MONGO_URI=$MONGO_URI
 
 RUN npm run build && npm prune --production
-
 
 # Fase de producción
 FROM base AS production

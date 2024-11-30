@@ -15,6 +15,12 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/tsconfig.json ./tsconfig.json
 COPY . .
 
+RUN npm run build && npm prune --production
+
+# Fase de producción
+FROM base AS production
+WORKDIR /app
+
 # Declaración de los ARGs (se pasarán desde GitHub Actions)
 ARG UPLOAD_MICROSERVICE_HOST
 ARG MONGO_URI
@@ -23,17 +29,11 @@ ARG BUCKET_NAME
 
 # Variables de entorno
 ENV NODE_ENV=production
-ENV UPLOAD_MICROSERVICE_HOST=$UPLOAD_MICROSERVICE_HOST
+ENV UPLOAD_MICROSERVICE_HOST=0.0.0.0
 ENV UPLOAD_SERVICE_PORT=3003
 ENV PROJECT_ID=$PROJECT_ID
 ENV BUCKET_NAME=$BUCKET_NAME
 ENV MONGO_URI=$MONGO_URI
-
-RUN npm run build && npm prune --production
-
-# Fase de producción
-FROM base AS production
-WORKDIR /app
 
 # Configuración de usuario no-root
 RUN addgroup -g 1001 -S nodejs && \
