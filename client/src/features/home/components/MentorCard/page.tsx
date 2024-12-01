@@ -1,7 +1,11 @@
+import { useTranslations } from 'next-intl';
+import Button from '@core/components/Button';
+import { Link } from '@core/lib/i18nRouting';
 import CardTeacher from '@features/home/components/MentorCard';
-import { VerMas } from '@features/home/components/VerMas/VerMas';
 
 const MentorSection = () => {
+  const ct = useTranslations<'Common'>('Common');
+
   return (
     <div className="pt-8">
       <div className="mx-auto w-full">
@@ -59,7 +63,11 @@ const MentorSection = () => {
           />
         </div>
 
-        <VerMas />
+        <div className="mx-auto mt-8 w-full max-w-72">
+          <Button variant="outline" asChild size="full" className="py-6">
+            <Link href="/mentors">{ct('viewMore')}</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -16,7 +16,9 @@
     "metastade": "Estado",
     "metaTitle": "Klowhub - Página de plataforma",
     "metaDescription": "Klowhub pagina principal de la plataforma",
-    "metaSiteName": "Plataforma Klowhub"
+    "metaSiteName": "Plataforma Klowhub",
+    "recocourseTitle": "Cursos recomendados",
+    "recocourseDesc": "Descubre los cursos más destacados y lleva tus habilidades al siguiente nivel. Aprende de expertos y aplica tus conocimientos en proyectos reales."
   },
   "AboutAppsheet": {
     "metaTitle": "Klowhub - Página sobre app sheet",
@@ -76,7 +78,6 @@
     "publishedCourses": "Cursos publicados",
     "transferredApps": "Aplicaciones transferidas",
     "mentoringHours": "Horas de mentoria",
-    "viewDetails": "Ver detalles",
     "viewEarnings": "Ver ganancias",
     "navigatorCourse": "Mis cursos",
     "navigatorProjects": "Mis proyectos",
@@ -85,6 +86,11 @@
     "recommendedTitle": "Oportunidades que se alinean con tu perfil",
     "recommendedDescription": "Explorá las postulaciones recomendadas especialmente para vos. Estas oportunidades están diseñadas para que encuentres el próximo paso en tu carrera de forma fácil y rápida. ¡No dejes pasar la chance de postularte a tu próximo desafío profesional!",
     "viewProjects": "Ver proyectos"
+  },
+  "Mentors": {
+    "metaTitle": "Klowhub - Página para mentores",
+    "metaDescription": "Klowhub pagina para mentores",
+    "metaSiteName": "Klowhub - Página para mentores"
   },
   "Membership": {
     "metaTitle": "Klowhub - Membresias",
@@ -155,13 +161,10 @@
     "connectWithExperts": "Conecta con Expertos",
     "learnFromTheBest": "Aprende de los mejores: impulsa tu conocimiento con nuestros mentores especializados"
   },
-  "Card": {
-    "title": "Dominando el desarrollo de aplicaciones con AppSheet",
-    "description": "Conviértete en un experto en AppSheetHub y aprende a crear aplicaciones sin escribir una sola línea de código.",
-    "textButton": "AppSheet",
-    "categoria": "Lección",
-    "titulo": "Cursos recomendados",
-    "desc": "Descubre los cursos más destacados y lleva tus habilidades al siguiente nivel. Aprende de expertos y aplica tus conocimientos en proyectos reales."
+  "Common": {
+    "viewMore": "Ver más",
+    "addToCart": "Añadir al carrito",
+    "viewDetails": "Ver detalles"
   },
   "AppCard":{
       "titulo": "Aplicaciones recomendadas",

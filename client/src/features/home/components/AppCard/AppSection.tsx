@@ -1,9 +1,11 @@
 import { useTranslations } from 'next-intl';
+import Button from '@core/components/Button';
+import { Link } from '@core/lib/i18nRouting';
 import AppCard from '@features/home/components/AppCard';
-import { VerMas } from '@features/home/components/VerMas/VerMas';
 
 const AppSection = () => {
   const t = useTranslations('AppCard');
+  const ct = useTranslations<'Common'>('Common');
 
   return (
     <div className="pt-8">
@@ -65,7 +67,11 @@ const AppSection = () => {
             emoji="/images/appsheet_logo.png"
           />
         </div>
-        <VerMas />
+        <div className="mx-auto mt-8 w-full max-w-72">
+          <Button variant="outline" asChild size="full" className="py-6">
+            <Link href="/appstore">{ct('viewMore')}</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

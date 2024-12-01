@@ -1,6 +1,6 @@
 'use client';
-import Image from 'next/image'; // Importa el componente Image de Next.js
-import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
@@ -13,10 +13,12 @@ interface CardProps {
   rating: number;
   reviews: number;
   tags: string[];
-  imageSrc: string; // Nueva propiedad para reutilización
-  imageAlt?: string; // Texto alternativo opcional
+  imageSrc: string;
+  imageAlt?: string;
   textButton: string;
   emoji: string;
+  viewDetails: string;
+  addToCart: string;
   categoria: 'Curso' | 'Lección' | string;
 }
 
@@ -26,7 +28,7 @@ const categoryStyles: Record<string, string> = {
   default: 'bg-gray-200 text-gray-800',
 };
 
-const CourseCard: React.FC<CardProps> = ({
+const CourseCard = ({
   title,
   description,
   price,
@@ -36,9 +38,11 @@ const CourseCard: React.FC<CardProps> = ({
   imageSrc,
   textButton,
   emoji,
+  viewDetails,
+  addToCart,
   imageAlt = 'Imagen del curso',
   categoria,
-}) => {
+}: CardProps) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -175,23 +179,17 @@ const CourseCard: React.FC<CardProps> = ({
         </div>
       </div>
       <div className="mt-auto flex items-center p-4">
-        <Button
-          className="rounded-lg px-4 py-2 text-sm text-white hover:bg-purple-700"
-          style={{
-            backgroundColor: 'var(--color-primary-B-500)',
-            borderColor: 'var(--color-primary-A-500)',
-          }}
-          variant="default">
+        <Button className="rounded-lg px-4 py-2 text-sm text-white">
           <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
-          Añadir al carrito
+          {addToCart}
         </Button>
         <Button
-          className="ml-4 text-sm font-bold hover:underline"
+          className="ms-auto text-sm font-bold hover:underline"
           style={{
             color: 'var(--color-primary-B-200)',
           }}
           variant="ghost">
-          Ver detalles
+          {viewDetails}
         </Button>
       </div>
     </div>

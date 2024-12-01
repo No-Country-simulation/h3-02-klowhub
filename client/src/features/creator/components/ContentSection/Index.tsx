@@ -4,6 +4,7 @@ import ContentTabs from '../ContentTabs/Index';
 
 const ContentSection = async () => {
   const t = await getTranslations<'Creator'>('Creator');
+  const ct = await getTranslations<'Common'>('Common');
   return (
     <div className="w-full rounded-lg bg-neutral-100 p-6 text-white shadow-app-1">
       <h2 className="pb-4 text-2xl font-bold leading-6">{t('contentTitle')}</h2>
@@ -20,7 +21,7 @@ const ContentSection = async () => {
           headerPlatform={t('headerPlatform')}
           headerState={t('headerState')}
           headerType={t('headerType')}
-          viewDetails={t('viewDetails')}
+          viewDetails={ct('viewDetails')}
         />
         <ContentExtraInfoCard
           totalEarningsText={t('totalEarnings')}
