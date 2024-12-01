@@ -30,7 +30,7 @@ const NavigatorSection = () => {
         {t('navigatorApps')}
       </Navigator>
       <Navigator
-        href="/creator/consultancies"
+        href="/creator/mentors"
         bgSize="300% 240%"
         bgPosition="-50% 3%"
         bgImage="/images/klowhub_banner2.png"

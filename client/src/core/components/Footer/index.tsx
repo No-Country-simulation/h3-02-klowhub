@@ -5,7 +5,7 @@ import { Link } from '@core/lib/i18nRouting';
 export default function Footer() {
   const t = useTranslations('Footer');
   return (
-    <div className="flex w-full flex-col justify-center gap-6 bg-gradient-bg-2 pb-4 pt-14 text-sm font-normal text-white">
+    <div className="mt-auto flex w-full flex-col justify-center gap-6 bg-gradient-bg-2 pb-4 pt-14 text-sm font-normal text-white">
       <div className="flex flex-col items-center justify-center gap-8 min-[1025px]:items-start min-[1025px]:justify-start">
         <div className="mx-auto flex w-full max-w-[1998px] flex-col items-center justify-center gap-x-[6.5rem] gap-y-16 px-9 min-[790px]:flex-row min-[1025px]:gap-x-[8.5rem] min-[1025px]:px-[10.5rem]">
           <ul className="flex min-w-[145px] flex-col gap-5">
