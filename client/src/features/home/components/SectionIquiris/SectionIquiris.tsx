@@ -1,4 +1,6 @@
 import { useTranslations } from 'next-intl';
+import Button from '@core/components/Button';
+import { Link } from '@core/lib/i18nRouting';
 import CardInquiries from '../CardInquiries/CardInquiries';
 import HeadInquiries from '../HeaderInquiries/HeadInquiries';
 
@@ -64,6 +66,11 @@ export default function SectionIquiris() {
           nameapp="Appsheet"
           imageEstado="/svg/checkCircle.svg"
         />
+      </div>
+      <div className="mx-auto mt-8 w-full max-w-72">
+        <Button asChild size="full" className="py-6">
+          <Link href="/consultancies">{t('gotoInquiries')}</Link>
+        </Button>
       </div>
     </section>
   );
