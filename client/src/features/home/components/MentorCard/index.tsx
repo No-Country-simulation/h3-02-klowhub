@@ -1,36 +1,34 @@
 'use client';
 import Image from 'next/image'; // Importa el componente Image de Next.js
-import React, { useEffect, useRef, useState } from 'react';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { cn } from '@core/lib/utils';
 import styles from './MentorCard.module.css';
 
 interface CardProps {
   title: string;
   price: string;
   reviews: number;
-  imageSrc: string; // Nueva propiedad para reutilización
-  imageAlt?: string; // Texto alternativo opcional
+  imageSrc: string;
   textButton: string;
   emoji: string;
-  sessions: string;
+  sessions: string | number;
   idioma: string;
   urlPais: string;
 }
 
-const CardTeacher: React.FC<CardProps> = ({
+const CardTeacher = ({
   title,
   price,
   reviews,
   imageSrc,
   textButton,
   emoji,
-  imageAlt = 'Imagen del curso',
   sessions,
   idioma,
   urlPais,
-}) => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
+}: CardProps) => {
+  /* const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Manejar la apertura/cierre del menú
@@ -61,10 +59,10 @@ const CardTeacher: React.FC<CardProps> = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, []);*/
 
   return (
-    <div className={`${styles.card} rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md`}>
+    <div className={cn('rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md', styles.card)}>
       <div className="relative">
         <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
           <FavButton
@@ -75,7 +73,7 @@ const CardTeacher: React.FC<CardProps> = ({
         </div>
         <Image
           src={imageSrc}
-          alt={imageAlt}
+          alt={title}
           width={500}
           height={400}
           className="h-48 w-full rounded-t-lg object-cover"
@@ -87,7 +85,7 @@ const CardTeacher: React.FC<CardProps> = ({
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-slate-200">{title}</h3>
           <Image width={30} alt="s" src={urlPais} height={20}></Image>
-          {/* Menú de tres puntos */}
+          {/*
           <div className="relative" ref={menuRef}>
             <button
               onClick={handleMenuToggle}
@@ -107,7 +105,6 @@ const CardTeacher: React.FC<CardProps> = ({
                 />
               </svg>
             </button>
-            {/* Contenido del menú */}
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
                 <ul className="py-1">
@@ -129,6 +126,7 @@ const CardTeacher: React.FC<CardProps> = ({
               </div>
             )}
           </div>
+          */}
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2 pb-2">

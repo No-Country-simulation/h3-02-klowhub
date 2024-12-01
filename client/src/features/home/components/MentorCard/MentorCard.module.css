@@ -8,18 +8,21 @@
 
 .card {
   width: 100%;
-  max-width: 330px; /* Ancho máximo por tarjeta */
-  height: 486px; /* Altura fija por defecto */
+  max-width: 450px;
+  height: 100%;
+  min-height: 500px;
+  min-height: 500px;
+  max-height: 500px;
   border-radius: 10px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* .card {
     transition: transform 0.2s ease-in-out;
   }
    */
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-
+.card:hover {
+  transform: translateY(-5px);
+}

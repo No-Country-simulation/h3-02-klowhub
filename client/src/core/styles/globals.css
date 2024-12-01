@@ -108,6 +108,7 @@
 
 body {
   max-width: 100dvw;
+  min-height: 100dvh;
   overflow-x: hidden;
   touch-action: manipulation;
   background: var(--gradient-bg-1);
