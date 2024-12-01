@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useSearchParams } from 'next/navigation';
-import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type {
+  DeserializerFunction,
+  RouterQueryStateHookResponse,
+  SerializerFunction,
+} from '@coreTypes/routerQueryState.types';
 import { usePathname, useRouter } from '../lib/i18nRouting';
-
-type SerializerFunction = (value: any) => string | undefined;
-type DeserializerFunction = (value: string) => any;
 
 interface Options {
   serializer?: SerializerFunction;
@@ -16,7 +16,7 @@ export function useRouterQueryState<T>(
   name: string,
   defaultValue?: T,
   opts: Options = {}
-): [T, Dispatch<SetStateAction<T>>] {
+): RouterQueryStateHookResponse<T> {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();

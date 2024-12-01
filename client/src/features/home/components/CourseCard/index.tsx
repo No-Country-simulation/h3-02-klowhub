@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
@@ -43,11 +42,11 @@ const CourseCard = ({
   imageAlt = 'Imagen del curso',
   categoria,
 }: CardProps) => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  //const [isMenuOpen, setMenuOpen] = useState(false);
+  //const menuRef = useRef<HTMLDivElement>(null);
 
   // Manejar la apertura/cierre del menú
-  const handleMenuToggle = () => {
+  /*const handleMenuToggle = () => {
     setMenuOpen(prev => !prev);
   };
 
@@ -74,7 +73,7 @@ const CourseCard = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, []);*/
 
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
 
@@ -105,9 +104,11 @@ const CourseCard = ({
       <div className="grow p-4">
         {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-slate-200">{title}</h3>
+          <h3 className="line-clamp-2 max-h-14 text-ellipsis text-lg font-bold text-slate-200">
+            {title}
+          </h3>
           {/* Menú de tres puntos */}
-          <div className="relative" ref={menuRef}>
+          {/* <div className="relative" ref={menuRef}>
             <button
               onClick={handleMenuToggle}
               className="text-slate-200 hover:text-slate-200 focus:outline-none"
@@ -126,7 +127,6 @@ const CourseCard = ({
                 />
               </svg>
             </button>
-            {/* Contenido del menú */}
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
                 <ul className="py-1">
@@ -147,9 +147,11 @@ const CourseCard = ({
                 </ul>
               </div>
             )}
-          </div>
+          </div>*/}
         </div>
-        <p className="mt-1 pb-2 text-sm text-slate-200">{description}</p>
+        <p className="mt-1 line-clamp-2 max-h-10 text-ellipsis pb-2 text-sm text-slate-200">
+          {description}
+        </p>
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
           <Button variant="neutral" className="rounded-lg" size="default">
             <Image src={emoji} alt="Carrito" width="20" height="20" className="mr-2" />
