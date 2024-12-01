@@ -18,7 +18,11 @@
     "metaDescription": "Klowhub page platform",
     "metaSiteName": "Klowhub Platform",
     "recocourseTitle": "Recommended courses",
-    "recocourseDesc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects."
+    "recocourseDesc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects.",
+    "latestInquiriesTitle": "Latest inquiries",
+    "connectWithExperts": "Connect with Experts",
+    "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors",
+    "mainTitle": "Welcome to KlowHub: the homepage of our No Code and Low Code learning and collaboration platform"
   },
   "AboutAppsheet": {
     "metaTitle": "Klowhub - About app sheet",
@@ -157,10 +161,6 @@
     "passwordRequired": "Password is required",
     "emailInvalid": "Email is invalid",
     "passwordInvalid": "Password is invalid"
-  },
-  "Banner": {
-    "connectWithExperts": "Connect with Experts",
-    "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors"
   },
   "Common": {
     "viewMore": "View more",

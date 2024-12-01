@@ -18,7 +18,11 @@
     "metaDescription": "Klowhub pagina principal de la plataforma",
     "metaSiteName": "Plataforma Klowhub",
     "recocourseTitle": "Cursos recomendados",
-    "recocourseDesc": "Descubre los cursos más destacados y lleva tus habilidades al siguiente nivel. Aprende de expertos y aplica tus conocimientos en proyectos reales."
+    "recocourseDesc": "Descubre los cursos más destacados y lleva tus habilidades al siguiente nivel. Aprende de expertos y aplica tus conocimientos en proyectos reales.",
+    "latestInquiriesTitle": "Ultimas consultas",
+    "connectWithExperts": "Conecta con Expertos",
+    "learnFromTheBest": "Aprende de los mejores: impulsa tu conocimiento con nuestros mentores especializados",
+    "mainTitle": "Bienvenido a KlowHub: la página principal de nuestra plataforma de aprendizaje y colaboración No Code y Low Code"
   },
   "AboutAppsheet": {
     "metaTitle": "Klowhub - Página sobre app sheet",
@@ -157,10 +161,6 @@
     "passwordRequired": "Contraseña es requerida",
     "emailInvalid": "Correo electronico es invalido",
     "passwordInvalid": "Contraseña es invalida"
-  },
-  "Banner": {
-    "connectWithExperts": "Conecta con Expertos",
-    "learnFromTheBest": "Aprende de los mejores: impulsa tu conocimiento con nuestros mentores especializados"
   },
   "Common": {
     "viewMore": "Ver más",

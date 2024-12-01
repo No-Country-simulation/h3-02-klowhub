@@ -1,10 +1,12 @@
+import { useTranslations } from 'next-intl';
 import CardInquiries from '../CardInquiries/CardInquiries';
 import HeadInquiries from '../HeaderInquiries/HeadInquiries';
 
-function SectionIquiris() {
+export default function SectionIquiris() {
+  const t = useTranslations<'Platform'>('Platform');
   return (
-    <section className="mt-16 flex flex-col gap-[24px] text-xl">
-      <h3 className="text-white">Cunsultas</h3>
+    <section className="flex flex-col gap-[24px] text-xl">
+      <h2 className="text-white">{t('latestInquiriesTitle')}</h2>
       <div className="flex min-w-full flex-row gap-[25px] p-12 min-[730px]:flex-col min-[730px]:bg-neutral-100">
         <HeadInquiries />
         <CardInquiries
@@ -66,5 +68,3 @@ function SectionIquiris() {
     </section>
   );
 }
-
-export default SectionIquiris;
