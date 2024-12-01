@@ -1,39 +1,45 @@
 FROM node:20-alpine AS base
+
+FROM base AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
-RUN npm install -g pnpm@9.7.0
-COPY package.json pnpm-lock.yaml postcss.config.cjs ./
+RUN npm install -g pnpm@9.7.0 typescript
+COPY package.json pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs tailwind.config.cjs ./
+RUN pnpm install --prefer-frozen-lockfile --ignore-scripts
 
 FROM base AS builder
 WORKDIR /app
+RUN npm install -g pnpm@9.7.0
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/next.config.mjs ./next.config.mjs
+COPY --from=deps /app/postcss.config.cjs ./postcss.config.cjs
+COPY --from=deps /app/tsconfig.json ./tsconfig.json
+COPY --from=deps /app/tailwind.config.cjs ./tailwind.config.cjs
 COPY . .
+
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-RUN npm_config_ignore_scripts=true pnpm install
-
-RUN pnpm build
-
-FROM base as production
-WORKDIR /app
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_APP_URL=https://klowhub-824410275969.southamerica-east1.run.app
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=4002
 
-COPY package.json pnpm-lock.yaml ./
-RUN npm_config_ignore_scripts=true pnpm install --prod
+RUN pnpm build && pnpm prune --prod --ignore-scripts
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+FROM base AS production
+RUN npm install -g pnpm
+WORKDIR /app
+
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001 && \
+    chown -R nextjs:nodejs /app
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
 USER nextjs
 
-# Copia los archivos de la etapa de construcción
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/next.config.mjs ./
-COPY --from=builder /app/postcss.config.cjs ./
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/public ./public
-
-EXPOSE 8080
+EXPOSE 4002
 
 CMD ["pnpm", "start"]

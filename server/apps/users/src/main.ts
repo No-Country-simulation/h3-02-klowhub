@@ -1,22 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
-dotenv.config();
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-console.log('Env variables:', process.env);
+
+dotenv.config();
+
+console.log({ MICRO_HOST: process.env.USERS_MICROSERVICE_HOST});
+console.log({ MICRO_PORT: process.env.USERS_MICROSERVICE_PORT });
+console.log({ PG_URL: process.env.POSTGRES_URL});
+console.log({ PG_HOST: process.env.POSTGRES_DB_HOST});
+
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.TCP,
       options: {
-        host: process.env.USERS_MICROSERVICE_HOST, // Puedes usar una variable de entorno
-        port: parseInt(process.env.USERS_MICROSERVICE_PORT, 10), // También puedes definir el puerto en .env
+        host: process.env.USERS_MICROSERVICE_HOST,
+        port: Number(process.env.USERS_MICROSERVICE_PORT),
       },
     },
   );
 
   await app.listen();
-  console.log('Microservice Users is listening...', process.env.USERS_MICROSERVICE_PORT);
+  console.log(`Microservice Users is listening on: ${ process.env.USERS_MICROSERVICE_PORT}...`);
 }
 bootstrap();

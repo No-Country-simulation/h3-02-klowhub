@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
-import CourseCard from '@root/src/features/home/components/CourseCard';
-import { VerMas } from '@root/src/features/home/components/VerMas/VerMas';
+import CourseCard from '@features/home/components/CourseCard';
+import { VerMas } from '@features/home/components/VerMas/VerMas';
 
 const Page = () => {
   const t = useTranslations<'Card'>('Card');

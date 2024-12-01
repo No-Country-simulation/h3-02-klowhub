@@ -1,5 +1,5 @@
-import type { FieldType } from '@/core/types/fields';
-import type { TranslationType } from '@root/src/core/types/translationType';
+import type { FieldType } from '@core/types/fields';
+import type { TranslationType } from '@core/types/translationType';
 
 export const useAuthFieldsin = (t: TranslationType<'Fields'>): FieldType[] => {
   return [

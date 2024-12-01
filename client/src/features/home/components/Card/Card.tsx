@@ -1,8 +1,8 @@
-import Image from 'next/image'; // Importa el componente Image de Next.js
-import React from 'react';
-import Badge from '@root/src/core/components/Badge/Index';
-import Button from '@root/src/core/components/Button';
-import styles from './Card.module.css';
+import Image from 'next/image';
+import Badge from '@core/components/Badge/Index';
+import Button from '@core/components/Button';
+import FavButton from '@core/components/FavButton/FavButton';
+import styles from './card.module.css';
 
 interface CardProps {
   title: string;
@@ -11,8 +11,8 @@ interface CardProps {
   rating: number;
   reviews: number;
   tags: string[];
-  imageSrc: string; // Nueva propiedad para reutilización
-  imageAlt?: string; // Texto alternativo opcional
+  imageSrc: string;
+  imageAlt?: string;
   textButton: string;
   emoji: string;
   categoria: 'Curso' | 'Lección' | string;
@@ -24,7 +24,7 @@ const categoryStyles: Record<string, string> = {
   default: 'bg-gray-200 text-gray-800',
 };
 
-const Card: React.FC<CardProps> = ({
+const Card = ({
   title,
   description,
   price,
@@ -36,15 +36,15 @@ const Card: React.FC<CardProps> = ({
   emoji,
   imageAlt = 'Imagen del curso', // Valor predeterminado para `alt`
   categoria,
-}) => {
+}: CardProps) => {
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
   return (
     <div
       className={`${styles.card} max-w-sm rounded-lg border-2 border-[#21262f] bg-[#222934] p-4 shadow-md`}>
       <div className="relative">
-        <Button className="absolute right-2 top-2 border-none bg-transparent p-0 text-2xl focus:outline-none">
-          🤍
-        </Button>
+        <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
+          <FavButton className="block first-letter:drop-shadow-[drop-shadow(6px_4px_14px_black)]" />
+        </div>
 
         <Image
           src={imageSrc} // Imagen reutilizable
@@ -77,12 +77,6 @@ const Card: React.FC<CardProps> = ({
         <div className="mt-3 flex flex-wrap gap-2"></div>
         <div className="mt-3 flex flex-wrap gap-2">
           {tags.map((tag, index) => (
-            // <span
-            //   key={index}
-            //   className="bg-purple-200 text-purple-800 text-xs font-medium py-1 px-3 rounded-full"
-            // >
-            //   {tag}
-            // </span>
             <Badge key={index} text={tag}></Badge>
           ))}
         </div>

@@ -3,8 +3,8 @@
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { Link } from '@core/lib/i18nRouting';
 import { MenuItem } from './MenuItem';
-import { Link } from '../../lib/i18nRouting';
 import Button from '../Button';
 import NavLink from '../NavLink';
 

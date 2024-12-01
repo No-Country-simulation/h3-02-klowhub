@@ -26,7 +26,7 @@ dotenv.config();
         transport: Transport.TCP,
         options: {
           host: process.env.USERS_MICROSERVICE_HOST,
-          port: parseInt(process.env.USERS_MICROSERVICE_PORT, 10),
+          port: Number(process.env.USERS_MICROSERVICE_PORT),
         },
       },
       {
@@ -34,7 +34,7 @@ dotenv.config();
         transport: Transport.TCP,
         options: {
           host: process.env.COURSES_MICROSERVICE_HOST,
-          port: parseInt(process.env.COURSES_MICROSERVICE_PORT, 10),
+          port: Number(process.env.COURSES_MICROSERVICE_PORT),
         },
       },
       {

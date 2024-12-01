@@ -21,7 +21,7 @@ export class PubSubModule {
       transport: Transport.GRPC,
       options: {
         package: 'googlecloudstorage',
-        protoPath: join(__dirname, './proto/pubsub.proto'),
+        protoPath: join(__dirname, '../../protos/pubsub.proto'), 
       },
     };
   }

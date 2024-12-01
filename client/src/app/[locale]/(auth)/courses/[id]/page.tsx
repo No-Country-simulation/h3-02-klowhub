@@ -1,10 +1,9 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing } from '@root/src/core/lib/i18nRouting';
+import { routing } from '@core/lib/i18nRouting';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
     locale,
-    slug: `${locale}/courses`,
   }));
 
   return paths.map(params => ({

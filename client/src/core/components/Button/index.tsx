@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { type ButtonHTMLAttributes, forwardRef } from 'react';
-import { cn } from '@/core/lib/utils';
+import { cn } from '@core/lib/utils';
 
 //Class Variant Authority es una forma declarativa de manejar variantes de componentes
 //Te asegura un estilo inicial, y al momento de usar las variantes evitas choques de clases
@@ -11,9 +11,10 @@ const btnStyle = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary-B-500 border border-primary-B-500',
+        default:
+          'bg-primary-B-500 border border-primary-B-500 hover:border-primary-B-500/80  hover:bg-primary-B-500/70 active:border-primary-B-600 active:bg-primary-B-600',
         outline:
-          'bg-transparent border border-primary-B-200 text-primary-B-200 data-[state=current]:bg-primary-B-200',
+          'bg-transparent border border-primary-B-200 hover:border-primary-B-300 hover:bg-primary-B-200/5 active:bg-primary-B-200/10 text-primary-B-200 data-[state=current]:bg-primary-B-200',
         'outline-light':
           'bg-transparent border border-primary-A-100 text-primary-A-100 data-[state=current]:bg-primary-A-100',
         ghost: 'bg-transparent no-outline text-primary-B-200',

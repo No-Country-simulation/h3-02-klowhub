@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { TabsList, TabsTrigger } from '@core/components/Tabs/Index';
+import { TabsList, TabsTrigger } from '@core/components/Tabs';
 import ContentDropdown from '../ContentDropdown/Index';
 
 interface ContentTabListProps {

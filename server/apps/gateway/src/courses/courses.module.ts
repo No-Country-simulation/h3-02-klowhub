@@ -13,8 +13,8 @@ dotenv.config();
         name: 'COURSES_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: process.env.COURSES_SERVICE_HOST,
-          port: Number(process.env.COURSES_SERVICE_PORT),
+          host: process.env.COURSES_MICROSERVICE_HOST,
+          port: Number(process.env.COURSES_MICROSERVICE_PORT),
         },
       },
     ]),

@@ -1,8 +1,9 @@
 'use client';
 import Image from 'next/image'; // Importa el componente Image de Next.js
 import React, { useEffect, useRef, useState } from 'react';
-import Badge from '@root/src/core/components/Badge/Index';
-import Button from '@root/src/core/components/Button';
+import Badge from '@core/components/Badge/Index';
+import Button from '@core/components/Button';
+import FavButton from '@core/components/FavButton/FavButton';
 import styles from './CourseCard.module.css';
 
 interface CardProps {
@@ -77,9 +78,9 @@ const CourseCard: React.FC<CardProps> = ({
     <div
       className={`${styles.card} flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md`}>
       <div className="relative">
-        <Button className="absolute right-2 top-2 border-none bg-transparent p-0 text-2xl focus:outline-none">
-          🤍
-        </Button>
+        <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
+          <FavButton className="block first-letter:drop-shadow-[drop-shadow(6px_4px_14px_black)]" />
+        </div>
 
         <Image
           src={imageSrc}

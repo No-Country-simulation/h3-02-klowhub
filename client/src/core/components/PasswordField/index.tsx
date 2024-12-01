@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { forwardRef, useState } from 'react';
-import type { FormFieldProps } from '@/core/types/fields';
+import type { FormFieldProps } from '@core/types/fields';
 import FormField from '../FormField';
 
 interface PasswordFormField extends Omit<FormFieldProps, 'type'> {

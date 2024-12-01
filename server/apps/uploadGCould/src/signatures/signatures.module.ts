@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SignaturesService } from './signatures.service';
 import { SignaturesController } from './signatures.controller';
-import { Course, CourseSchema } from '../schema/course.shema';
+import { CourseSchema } from '../schema/course.shema';
 import { GrpcOptions, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ export class SignaturesModule {
       transport: Transport.GRPC,
       options: {
         package: 'googlecloudstorage',
-        protoPath: 'src/signatures/signatures.proto',
+        protoPath: join(__dirname, '../../protos/signatures.proto'), 
       },
     };
   }

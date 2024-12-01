@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { randomUUID } from 'crypto';
-import { apiService } from '@/core/services/api.service';
-import { validateSchema } from '@/core/services/validateSchema';
-import type { ActionResponse } from '@/core/types/actionResponse';
+import { apiService } from '@core/services/api.service';
+import { validateSchema } from '@core/services/validateSchema';
+import type { ActionResponse } from '@core/types/actionResponse';
 import { signinSchema } from '../validation/schemas';
 
 export async function signin(
