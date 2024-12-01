@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { cn } from '@core/lib/utils';
 import styles from './CourseCard.module.css';
 
 interface CardProps {
@@ -79,7 +80,10 @@ const CourseCard = ({
 
   return (
     <div
-      className={`${styles.card} flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md`}>
+      className={cn(
+        'flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
+        styles.card
+      )}>
       <div className="relative">
         <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
           <FavButton
@@ -189,12 +193,7 @@ const CourseCard = ({
           <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
           {addToCart}
         </Button>
-        <Button
-          className="ms-auto text-sm font-bold hover:underline"
-          style={{
-            color: 'var(--color-primary-B-200)',
-          }}
-          variant="ghost">
+        <Button className="ms-auto text-sm font-bold hover:underline" variant="ghost">
           {viewDetails}
         </Button>
       </div>

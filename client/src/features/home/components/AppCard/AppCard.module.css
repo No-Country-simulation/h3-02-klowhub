@@ -1,7 +1,22 @@
 .card {
+  width: 100%;
+  max-width: 385px;
+  height: 100%;
+  min-height: 595px;
+  min-height: 595px;
+  max-height: 595px;
+
   transition: transform 0.2s ease-in-out;
 }
 
 .card:hover {
   transform: translateY(-5px);
+}
+
+@media only screen and (min-width: 1240px) {
+  .card {
+    width: 25%;
+    min-width: 295px;
+    max-width: 525px;
+  }
 }
