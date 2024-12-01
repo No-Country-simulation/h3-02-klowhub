@@ -1,12 +1,9 @@
-import { Breadcrumb } from './Breadcrumb';
 import FullScreenCard from './FullScreenCard';
 import { SearchBar } from './SearchBar';
 
 export default function CoursesListSection() {
   return (
     <div className="w-full text-white">
-      <Breadcrumb />
-      <h1 className="mb-4 text-lg font-bold">Encuentra el aprendizaje que estás buscando</h1>
       <SearchBar />
       {/* <Categories /> */}
       <FullScreenCard
