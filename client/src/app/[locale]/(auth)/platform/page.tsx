@@ -3,7 +3,7 @@ import BannerCta from '@core/components/Banner';
 import { routing } from '@core/lib/i18nRouting.ts';
 import AppSection from '@features/home/components/AppCard/AppSection';
 import CourseSection from '@features/home/components/CourseSection';
-import MentorSection from '@features/home/components/MentorCard/page';
+import MentorSection from '@features/home/components/MentorSection';
 import SectionIquiris from '@features/home/components/SectionIquiris/SectionIquiris';
 
 export async function generateStaticParams() {

@@ -1,11 +1,18 @@
 .favContainer {
   --heart-color: rgb(253, 51, 51);
-  --heart-outline: rgba(255, 255, 255, 0.74);
+  --heart-outline: #ffffffbd;
   position: relative;
   width: 24px;
   height: 24px;
   margin: 3px;
   transition: 0.3s;
+}
+
+.favContainer.grayOutline {
+  --heart-outline: #ffffffbd;
+}
+.favContainer.whiteOutline {
+  --heart-outline: #fffffff3;
 }
 
 .favContainer .checkbox {
@@ -38,6 +45,7 @@
 .favContainer .svgFilled {
   animation: svgFilledAnimation 1s;
   display: none;
+  transition: all 300ms ease;
 }
 
 .favContainer .svgCelebrate {
@@ -56,6 +64,15 @@
 
 .favContainer .checkbox:checked ~ .svgContainer .svgCelebrate {
   display: block;
+}
+
+.favContainer.favFilled .checkbox:not(:checked) ~ .svgContainer .svgFilled {
+  display: block;
+  fill: var(--heart-outline);
+}
+
+.favContainer.favFilled .checkbox:checked ~ .svgContainer .svgFilled {
+  fill: var(--heart-color);
 }
 
 @keyframes svgFilledAnimation {

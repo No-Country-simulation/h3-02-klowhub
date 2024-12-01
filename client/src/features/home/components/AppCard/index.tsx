@@ -69,7 +69,11 @@ const AppCard: React.FC<CardProps> = ({
       className={`${styles.card} flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md`}>
       <div className="relative">
         <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
-          <FavButton className="block first-letter:drop-shadow-[drop-shadow(6px_4px_14px_black)]" />
+          <FavButton
+            color="white"
+            variant="filled"
+            className="block drop-shadow-[6px_4px_14px_black]"
+          />
         </div>
 
         <Image

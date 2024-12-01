@@ -1,14 +1,34 @@
 'use client';
 
+import { cva } from 'class-variance-authority';
 import { useState } from 'react';
 import css from './favbutton.module.css';
 import { cn } from '../../lib/utils';
 
 interface FavButtonProps {
   className?: string;
+  color?: 'default' | 'white';
+  variant?: 'default' | 'filled';
 }
 
-const FavButton = ({ className = '' }: FavButtonProps) => {
+const favButtonStyles = cva(css.favContainer, {
+  variants: {
+    color: {
+      default: css.grayOutline,
+      white: css.whiteOutline,
+    },
+    variant: {
+      default: '',
+      filled: css.favFilled,
+    },
+  },
+  defaultVariants: {
+    color: 'default',
+    variant: 'default',
+  },
+});
+
+const FavButton = ({ className = '', color = 'default', variant = 'default' }: FavButtonProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleFavorite = async () => {
@@ -16,7 +36,10 @@ const FavButton = ({ className = '' }: FavButtonProps) => {
   };
 
   return (
-    <label htmlFor="favButton" className={cn(css.favContainer, className)} onClick={handleFavorite}>
+    <label
+      htmlFor="favButton"
+      className={cn(favButtonStyles({ color, variant }), className)}
+      onClick={handleFavorite}>
       <input
         type="checkbox"
         className={css.checkbox}
