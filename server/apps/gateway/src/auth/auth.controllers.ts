@@ -121,22 +121,10 @@ export class AuthController {
   //
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
-    try {
-      // Solicitar el token al microservicio de USERS
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       const { token } = await lastValueFrom(
         this.usersService.send({ cmd: 'login' }, loginDto),
       );
-
-<<<<<<< HEAD
-      // Usar el servicio CookieService para gestionar la cookie
-      res.cookie('auth_token', token, {
-        maxAge: 60 * 60 * 1000, // 1 hora
-        httpOnly: true, // La cookie no es accesible desde JavaScript
-        secure: false, // Usa `false` en HTTP (solo desarrollo)
-        sameSite: 'strict', // La cookie solo se puede acceder desde el mismo dominio
-        path: '/', // Asegura que esté disponible en todas las rutas
-=======
       if (!token) {
         throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }
@@ -157,17 +145,12 @@ export class AuthController {
       ).catch((err) => {
         // Manejar errores del microservicio de cursos sin detener el flujo
         console.warn('El microservicio de cursos no está disponible, error al crear instancia', err.message);
->>>>>>> 64bd76068a431559b88e7379dfbac2ea1dc8e768
       });
 
       // Responder al cliente con éxito
       return res.status(200).json({
         message: '¡Inicio de sesión exitoso!',
       });
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error.message); // Registro detallado del error
-      throw new BadRequestException(error.message || 'Error al iniciar sesión');
-    }
   }
 
   //status token
