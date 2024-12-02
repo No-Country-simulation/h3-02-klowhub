@@ -1,108 +1,78 @@
+version: '3.8'
+
 services:
   gateway:
     build:
-      context: ./apps/gateway
+      context: .
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: development
-      DATABASE_URL: ${DATABASE_URL}
-      MONGO_URI: ${MONGO_URI}
-      PORT: ${PORT}
+      SERVICE: gateway
+      NODE_ENV: ${NODE_ENV}
       FRONTEND_URL: ${FRONTEND_URL}
+      PORT: ${PORT}
       JWT_SECRET: ${JWT_SECRET}
-      USERS_MICROSERVICE_HOST: ${USERS_MICROSERVICE_HOST}
-      USERS_SERVICE_PORT: ${USERS_SERVICE_PORT}
-      MICROSERVICE_HOST: ${MICROSERVICE_HOST}
-      MICROSERVICE_PORT: ${MICROSERVICE_PORT}
-      COURSES_SERVICE_HOST: ${COURSES_SERVICE_HOST}
-      COURSES_SERVICE_PORT: ${COURSES_SERVICE_PORT}
+      USERS_MICROSERVICE_HOST: users
+      USERS_MICROSERVICE_PORT: 3001
+      COURSES_MICROSERVICE_HOST: courses
+      COURSES_MICROSERVICE_PORT: 3002
+      UPLOAD_MICROSERVICE_HOST: upload
+      UPLOAD_SERVICE_PORT: ${UPLOAD_SERVICE_PORT}
     volumes:
-      - ./apps/gateway:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./apps/gateway:/usr/src/app/apps/gateway
     depends_on:
       - users
       - courses
+    networks:
+      - app-network
 
   users:
     build:
-      context: ./apps/users
+      context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3001:3000"
+      - "3001:3001"
     environment:
-      NODE_ENV: development
+      SERVICE: users
+      NODE_ENV: ${NODE_ENV}
       JWT_SECRET: ${JWT_SECRET}
-      MICROSERVICE_HOST: ${MICROSERVICE_HOST}
-      MICROSERVICE_PORT: ${MICROSERVICE_PORT}
+      USERS_MICROSERVICE_HOST: users
+      USERS_MICROSERVICE_PORT: 3001
+      FRONTEND_URL: ${FRONTEND_URL}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASS: ${SMTP_PASS}
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}
       SMTP_SECURE: ${SMTP_SECURE}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
-      DATABASE_URL: ${DATABASE_URL}
-      DATABASE_URL_UNPOOLED: ${DATABASE_URL_UNPOOLED}
-      PGHOST: ${PGHOST}
-      PGHOST_UNPOOLED: ${PGHOST_UNPOOLED}
-      PGUSER: ${PGUSER}
-      PGDATABASE: ${PGDATABASE}
-      PGPASSWORD: ${PGPASSWORD}
+      GOOGLE_CLIENT_ID : ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET : ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_CALLBACK_URL : ${GOOGLE_CALLBACK_URL}
       POSTGRES_URL: ${POSTGRES_URL}
-      POSTGRES_URL_NON_POOLING: ${POSTGRES_URL_NON_POOLING}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
-      POSTGRES_URL_NO_SSL: ${POSTGRES_URL_NO_SSL}
     volumes:
-      - ./apps/users:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./apps/users:/usr/src/app/apps/users
+    networks:
+      - app-network
 
   courses:
     build:
-      context: ./apps/courses
+      context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3002:3000"
+      - "3002:3002"
     environment:
-      NODE_ENV: development
-      DATABASE_URL: ${DATABASE_URL}
+      SERVICE: courses
+      NODE_ENV: ${NODE_ENV}
       MONGO_URI: ${MONGO_URI}
-      FRONTEND_URL: ${FRONTEND_URL}
-      JWT_SECRET: ${JWT_SECRET}
-      USERS_MICROSERVICE_HOST: ${USERS_MICROSERVICE_HOST}
-      USERS_SERVICE_PORT: ${USERS_SERVICE_PORT}
-      MICROSERVICE_HOST: ${MICROSERVICE_HOST}
-      MICROSERVICE_PORT: ${MICROSERVICE_PORT}
-      COURSES_SERVICE_HOST: ${COURSES_SERVICE_HOST}
-      COURSES_SERVICE_PORT: ${COURSES_SERVICE_PORT}
-
+      COURSES_MICROSERVICE_HOST: courses
+      COURSES_MICROSERVICE_PORT: 3002
     volumes:
-      - ./apps/courses:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./apps/courses:/usr/src/app/apps/courses
+    depends_on:
+      - users
+    networks:
+      - app-network
 
-  postgres:
-    image: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-  mongo:
-    image: mongo:4.4
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-
-volumes:
-  postgres-data:
-  mongo-data:
+networks:
+  app-network:
+    driver: bridge

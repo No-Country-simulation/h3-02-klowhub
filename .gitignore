@@ -1,8 +1,0 @@
-Base
-.vscode
-server/apps/courses/Dockerfile.dev
-server/apps/gateway/Dockerfile.dev
-server/apps/uploadGCould/Dockerfile.dev
-server/apps/users/Dockerfile.dev
-#
-client/Dockerfile.dev

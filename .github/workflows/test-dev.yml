@@ -1,0 +1,42 @@
+name: Validate and Test Backend
+
+on:
+  push:
+    branches:
+      - orlando
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clonar el repositorio
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Moverse a la carpeta del backend (server)
+      - name: Set working directory to server
+        run: cd server
+
+      # 3. Instalar Docker Compose
+      - name: Install Docker Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
+
+      # 4. Construir los servicios
+      - name: Build services
+        run: docker-compose -f server/docker-compose.dev.yml build
+
+      # 5. Levantar los servicios en modo detached
+      - name: Start services
+        run: docker-compose -f server/docker-compose.dev.yml up -d
+
+      # 6. Ejecutar tests dentro de los contenedores
+      - name: Run tests in containers
+        run: |
+          docker-compose -f server/docker-compose.dev.yml exec users npm test
+          docker-compose -f server/docker-compose.dev.yml exec gateway npm test
+          docker-compose -f server/docker-compose.dev.yml exec courses npm test
+
+      # 7. Detener los servicios
+      - name: Stop services
+        run: docker-compose -f server/docker-compose.dev.yml down
