@@ -4,7 +4,7 @@ import { routing } from '@core/lib/i18nRouting.ts';
 import AppSection from '@features/home/components/AppsSection';
 import CourseSection from '@features/home/components/CourseSection';
 import MentorSection from '@features/home/components/MentorSection';
-import SectionIquiris from '@features/home/components/SectionIquiris/SectionIquiris';
+import SectionIquiris from '@features/home/components/SectionIquiris';
 
 export default async function PlatformPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

@@ -4,7 +4,7 @@ import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import { Link } from '@core/lib/i18nRouting';
 import AppCard from '@features/home/components/AppCard';
 import { getRecommendedApps } from '@features/home/services/getRecommendedApps';
-import AppCarruselWrapper from './AppCarruselWrapper';
+import AppCarouselWrapper from './AppCarouselWrapper';
 
 export default async function AppSection() {
   const t = await getTranslations('AppCard');
@@ -35,7 +35,7 @@ export default async function AppSection() {
           />
         )}
       </CardsFlexContainer>
-      <AppCarruselWrapper apps={apps} viewDetails={ct('viewDetails')} addToCart={ct('addToCart')} />
+      <AppCarouselWrapper apps={apps} viewDetails={ct('viewDetails')} addToCart={ct('addToCart')} />
       <div className="mx-auto mt-8 w-full max-w-72">
         <Button variant="outline" asChild size="full" className="py-6">
           <Link href="/appstore">{ct('viewMore')}</Link>

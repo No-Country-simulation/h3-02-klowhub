@@ -8,7 +8,6 @@ import type { ReactNode } from 'react';
 import { inter } from '@styles/font';
 import { routing } from '@core/lib/i18nRouting';
 import { cn, getBaseUrl } from '@core/lib/utils';
-import { AuthProvider } from '@features/auth/provider/AuthProvider';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -61,7 +60,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={cn(inter.className, inter.variable)} suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <AuthProvider>{children}</AuthProvider>
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

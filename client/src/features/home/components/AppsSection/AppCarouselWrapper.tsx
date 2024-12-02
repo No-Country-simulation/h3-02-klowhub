@@ -1,22 +1,22 @@
 'use client';
 
-import CardsFlexCarrusel from '@core/components/CardsFlexCarrusel';
+import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import type { AppsCardType } from '@core/schemas/app-card.schema';
 import AppCard from '../AppCard';
 
-interface AppCarruselWrapperProps {
+interface AppCarouselWrapperProps {
   apps: AppsCardType[];
   viewDetails: string;
   addToCart: string;
 }
 
-export default function AppCarruselWrapper({
+export default function AppCarouselWrapper({
   apps,
   viewDetails,
   addToCart,
-}: AppCarruselWrapperProps) {
+}: AppCarouselWrapperProps) {
   return (
-    <CardsFlexCarrusel classNameContainer="max-w-[385px]" items={apps}>
+    <CardsFlexCarousel classNameContainer="max-w-[385px]" items={apps}>
       {(app, i) => (
         <AppCard
           key={`gac-${i}`}
@@ -34,6 +34,6 @@ export default function AppCarruselWrapper({
           addToCart={addToCart}
         />
       )}
-    </CardsFlexCarrusel>
+    </CardsFlexCarousel>
   );
 }

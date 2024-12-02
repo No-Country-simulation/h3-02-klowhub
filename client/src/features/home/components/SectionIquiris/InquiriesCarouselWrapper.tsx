@@ -1,19 +1,16 @@
 'use client';
 
-import CardsFlexCarrusel from '@core/components/CardsFlexCarrusel';
+import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import type { InquiriesCardType } from '@core/schemas/inquiries-card.schema';
 import CardInquiries from '../CardInquiries/CardInquiries';
 
-interface InquiriesCarruselWrapperProps {
+interface InquiriesCarouselWrapperProps {
   inquiries: InquiriesCardType[];
 }
-/*
-      classNameContainer="max-w-[325px] min-w-[325px]"
-      classNmaeButtons="min-[730px]:hidden"
-*/
-export default function InquiriesCarruselWrapper({ inquiries }: InquiriesCarruselWrapperProps) {
+
+export default function InquiriesCarouselWrapper({ inquiries }: InquiriesCarouselWrapperProps) {
   return (
-    <CardsFlexCarrusel
+    <CardsFlexCarousel
       items={inquiries}
       className="min-[730px]:hidden"
       classNameContainer="max-w-[325px] min-w-[325px] pl-6"
@@ -31,6 +28,6 @@ export default function InquiriesCarruselWrapper({ inquiries }: InquiriesCarruse
           imageEstado="/svg/checkCircle.svg"
         />
       )}
-    </CardsFlexCarrusel>
+    </CardsFlexCarousel>
   );
 }

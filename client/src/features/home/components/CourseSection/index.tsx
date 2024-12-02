@@ -4,7 +4,7 @@ import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import { Link } from '@core/lib/i18nRouting';
 import CourseCard from '@features/home/components/CourseCard';
 import { getRecommendedCourses } from '@features/home/services/getRecommendedCourses';
-import CourseCarruselWraper from './CourseCarruselWraper';
+import CourseCarouselWraper from './CourseCarouselWraper';
 
 export default async function CourseSection() {
   const pt = await getTranslations<'Platform'>('Platform');
@@ -36,7 +36,7 @@ export default async function CourseSection() {
           />
         )}
       </CardsFlexContainer>
-      <CourseCarruselWraper
+      <CourseCarouselWraper
         viewDetails={ct('viewDetails')}
         addToCart={ct('addToCart')}
         courses={courses}

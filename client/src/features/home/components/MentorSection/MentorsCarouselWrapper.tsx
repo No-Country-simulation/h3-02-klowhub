@@ -1,24 +1,24 @@
 'use client';
 
-import CardsFlexCarrusel from '@core/components/CardsFlexCarrusel';
+import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import type { MentorsCardType } from '@core/schemas/mentor-card.schema';
 import MentorCard from '../MentorCard';
 
-interface MentorsCarruselWrapperProps {
+interface MentorsCarouselWrapperProps {
   mentors: MentorsCardType[];
   hourText: string;
   reviewText: string;
   sessionText: string;
 }
 
-export default function MentorsCarruselWrapper({
+export default function MentorsCarouselWrapper({
   hourText,
   reviewText,
   sessionText,
   mentors,
-}: MentorsCarruselWrapperProps) {
+}: MentorsCarouselWrapperProps) {
   return (
-    <CardsFlexCarrusel items={mentors} classNameContainer="max-w-[320px] min-[500px]:max-w-[450px]">
+    <CardsFlexCarousel items={mentors} classNameContainer="max-w-[320px] min-[500px]:max-w-[450px]">
       {(item, i) => (
         <MentorCard
           key={`gcm-${i}`}
@@ -36,6 +36,6 @@ export default function MentorsCarruselWrapper({
           sessionText={sessionText}
         />
       )}
-    </CardsFlexCarrusel>
+    </CardsFlexCarousel>
   );
 }

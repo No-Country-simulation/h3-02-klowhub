@@ -4,7 +4,7 @@ import { type ReactNode, useEffect, useState } from 'react';
 import { cn } from '@core/lib/utils';
 import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '../Carrusel';
 
-interface CardsFlexCarruselProps<T> {
+interface CardsFlexCarouselProps<T> {
   children: (item: T, i: number) => ReactNode;
   className?: string;
   classNameContainer?: string;
@@ -12,13 +12,13 @@ interface CardsFlexCarruselProps<T> {
   items: T[];
 }
 
-export default function CardsFlexCarrusel<T>({
+export default function CardsFlexCarousel<T>({
   className = '',
   classNameContainer = '',
   classNmaeButtons = '',
   items,
   children,
-}: CardsFlexCarruselProps<T>) {
+}: CardsFlexCarouselProps<T>) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [_count, setCount] = useState(0);
@@ -40,10 +40,6 @@ export default function CardsFlexCarrusel<T>({
       api.off('select', onSelect);
     };
   }, [api]);
-
-  console.log({ items });
-  console.log({ count: _count });
-  console.log({ current });
 
   return (
     <>

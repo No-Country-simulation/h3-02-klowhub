@@ -4,7 +4,7 @@ import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import { Link } from '@core/lib/i18nRouting';
 import CardTeacher from '@features/home/components/MentorCard';
 import { getRecommendedMentors } from '@features/home/services/getRecommendedMentors';
-import MentorsCarruselWrapper from './MentorsCarruselWrapper';
+import MentorsCarouselWrapper from './MentorsCarouselWrapper';
 
 export default async function MentorSection() {
   const ct = await getTranslations<'Common'>('Common');
@@ -31,7 +31,7 @@ export default async function MentorSection() {
         )}
       </CardsFlexContainer>
 
-      <MentorsCarruselWrapper
+      <MentorsCarouselWrapper
         mentors={mentors}
         hourText={ct('hours')}
         reviewText={ct('reviews')}

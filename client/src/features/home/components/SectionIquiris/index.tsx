@@ -3,7 +3,7 @@ import Button from '@core/components/Button';
 import { Link } from '@core/lib/i18nRouting';
 import type { InquiriesCardType } from '@core/schemas/inquiries-card.schema';
 import { getContent } from '@core/services/getContent';
-import InquiriesCarruselWrapper from './InquiriesCarruselWrapper';
+import InquiriesCarouselWrapper from './InquiriesCarouselWrapper';
 import CardInquiries from '../CardInquiries/CardInquiries';
 import HeadInquiries from '../HeaderInquiries/HeadInquiries';
 
@@ -31,7 +31,7 @@ export default async function SectionIquiris() {
             />
           ))}
         </div>
-        <InquiriesCarruselWrapper inquiries={inquiries} />
+        <InquiriesCarouselWrapper inquiries={inquiries} />
       </div>
       <div className="mx-auto mt-8 w-full max-w-72">
         <Button asChild size="full" className="py-6">

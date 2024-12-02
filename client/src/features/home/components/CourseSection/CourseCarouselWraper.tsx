@@ -1,22 +1,22 @@
 'use client';
 
-import CardsFlexCarrusel from '@core/components/CardsFlexCarrusel';
+import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
 import CourseCard from '../CourseCard';
 
-interface CourseCarruselWraperProps {
+interface CourseCarouselWraperProps {
   courses: CourseCardType[];
   viewDetails: string;
   addToCart: string;
 }
 
-export default function CourseCarruselWraper({
+export default function CourseCarouselWraper({
   courses,
   viewDetails,
   addToCart,
-}: CourseCarruselWraperProps) {
+}: CourseCarouselWraperProps) {
   return (
-    <CardsFlexCarrusel items={courses}>
+    <CardsFlexCarousel items={courses}>
       {(item, i) => (
         <CourseCard
           key={`gcc-${i}`}
@@ -35,6 +35,6 @@ export default function CourseCarruselWraper({
           addToCart={addToCart}
         />
       )}
-    </CardsFlexCarrusel>
+    </CardsFlexCarousel>
   );
 }
