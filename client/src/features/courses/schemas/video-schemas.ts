@@ -1,29 +1,30 @@
 import { z } from 'zod';
+import { idSchema, nameSchema } from '@core/schemas/common.schema';
 
 export const videoLessonsSchema = z.object({
-  id: z.string().or(z.number()),
-  name: z.string(),
+  id: idSchema,
+  name: nameSchema,
   duration: z.string(),
   thumbnail: z.string(),
   isViewd: z.boolean().optional(),
 });
 
 export const videoModuleSchema = z.object({
-  id: z.string().or(z.number()),
+  id: idSchema,
   title: z.string(),
   lessons: z.array(videoLessonsSchema),
 });
 
 export const videoCourseSchema = z.object({
-  id: z.string().or(z.number()),
-  name: z.string(),
-  lastModuleId: z.string().or(z.number()),
-  lastLessonId: z.string().or(z.number()),
+  id: idSchema,
+  name: nameSchema,
+  lastModuleId: idSchema,
+  lastLessonId: idSchema,
   modules: z.array(videoModuleSchema),
 });
 
 export const videoFirmedSchema = z.object({
-  id: z.string().or(z.number()),
+  id: idSchema,
   src: z.string(),
 });
 

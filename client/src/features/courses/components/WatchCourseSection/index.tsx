@@ -1,13 +1,11 @@
 import { getLocale } from 'next-intl/server';
-import { videoCourseSchema } from '../../schemas/video-schemas';
-import { updateLessonViewStatus } from '../../service/searchLessonNotVied';
+import { getContent } from '@core/services/getContent';
+import { type VideoCourseType } from '../../schemas/video-schemas';
+import { updateLessonViewStatus } from '../../service/searchLessonNotView';
 import VideoLessons from '../VideoLessons';
 import WatchCourseNavigator from '../WatchCourseNavigator';
 import WatchVideoWrapper from '../WatchVideoWrapper';
 
-const ENV = process.env.NODE_ENV;
-
-//https://klowhub-824410275969.southamerica-east1.run.app/
 const WatchCourseSection = async ({
   lessonActive,
   courseId,
@@ -18,12 +16,9 @@ const WatchCourseSection = async ({
   courseId: string | number;
 }) => {
   const locale = await getLocale();
-  const result = await fetch(
-    `${ENV === 'production' ? 'https://klowhub-824410275969.southamerica-east1.run.app' : 'http://localhost:3000'}/json/course.json`
-  );
-  const dataUnknown = await result.json();
-  const validData = videoCourseSchema.safeParse(dataUnknown);
-  if (!validData.success) {
+  const course = await getContent<VideoCourseType>('/json/course.json');
+
+  if (!course) {
     return (
       <section className="mx-auto grid rounded-lg bg-white/5">
         <div className="flex h-[60dvh] w-full items-center justify-center rounded-lg border border-white/20 bg-white/10">
@@ -32,11 +27,12 @@ const WatchCourseSection = async ({
       </section>
     );
   }
-  const updateLesson = updateLessonViewStatus(validData.data.modules, lessonActive);
-  const lessonActiveId = updateLesson.updated ? lessonActive : validData.data.lastLessonId;
-  const moduleActiveId = moduleActive || validData.data.lastModuleId;
+
+  const updateLesson = updateLessonViewStatus(course.modules, lessonActive);
+  const lessonActiveId = updateLesson.updated ? lessonActive : course.lastLessonId;
+  const moduleActiveId = moduleActive || course.lastModuleId;
   if (updateLesson.updated) {
-    validData.data.modules = updateLesson.updatedModules;
+    course.modules = updateLesson.updatedModules;
   }
 
   return (
@@ -46,13 +42,11 @@ const WatchCourseSection = async ({
         <VideoLessons
           courseId={courseId}
           lessonActiveId={lessonActiveId}
-          lessons={
-            validData.data.modules.find(module => module.id === moduleActiveId)?.lessons || []
-          }
+          lessons={course.modules.find(module => module.id === moduleActiveId)?.lessons || []}
         />
       </div>
       <div className="rounded-r-lg bg-white/10 p-4">
-        <WatchCourseNavigator modules={validData.data.modules} />
+        <WatchCourseNavigator modules={course.modules} />
       </div>
     </section>
   );

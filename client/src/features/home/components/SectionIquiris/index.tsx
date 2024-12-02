@@ -9,7 +9,7 @@ import HeadInquiries from '../HeaderInquiries/HeadInquiries';
 
 export default async function SectionIquiris() {
   const t = await getTranslations<'Platform'>('Platform');
-  const inquiries = await getContent<InquiriesCardType>('/json/recommended-inquiries.json');
+  const inquiries = await getContent<InquiriesCardType[]>('/json/recommended-inquiries.json');
 
   return (
     <section className="flex flex-col space-y-8 text-xl">

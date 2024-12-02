@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -7,20 +6,22 @@ import 'video.js/dist/video-js.css';
 // Import Video.js HLS plugin
 import 'videojs-http-source-selector';
 import 'videojs-contrib-eme';
+import type Player from 'video.js/dist/types/player';
 import type { Locale } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
+import { getVideoSourceType } from '@features/courses/service/getVideoSourceType';
 import { videoJSTranslations, videPlayerStyles } from '@styles/video';
 
 interface VideoPlayerProps {
   src: string;
   locale: Locale;
   activeLessonId: string | number;
+  poster?: string;
 }
 
-const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
+const VideoPlayer = ({ src, locale, poster }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const playerRef = useRef<any>(null);
-  const audioContextRef = useRef<any | null>(null);
+  const playerRef = useRef<Player | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -44,6 +45,7 @@ const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
         language: locale,
         playbackRates: [0.5, 1, 1.5, 2],
         preload: 'auto',
+        poster,
         html5: {
           vhs: {
             fastQualityChange: true,
@@ -51,7 +53,7 @@ const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
             enableLowInitialPlaylist: true,
             smoothQualityChange: true,
             overrideNative: !videojs.browser.IS_SAFARI,
-            maxPlaylistRetries: 3,
+            maxPlaylistRetries: 5,
             bandwidth: 5000000,
             backBufferLength: 30,
             limitRenditionByPlayerDimensions: true,
@@ -60,12 +62,13 @@ const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
         nativeAudioTracks: false,
         nativeVideoTracks: false,
         useBandwidthFromLocalStorage: true,
+        playsinline: true,
       });
 
       // Add HLS source
       player.src({
         src: src,
-        type: 'application/vnd.apple.mpegurl',
+        type: getVideoSourceType(src),
       });
 
       // Manejar errores
@@ -91,9 +94,6 @@ const VideoPlayer = ({ src, locale }: VideoPlayerProps) => {
         playerRef.current = null;
         if (style.parentNode) {
           style.parentNode.removeChild(style);
-        }
-        if (audioContextRef.current) {
-          audioContextRef.current?.close();
         }
       }
     };
