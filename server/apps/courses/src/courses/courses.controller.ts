@@ -48,6 +48,7 @@ export class CoursesController {
         statusCode: 500,
         message: error.message || 'Error al crear el curso',
       });
+      return ({ message: error.error })
     }
   }
 

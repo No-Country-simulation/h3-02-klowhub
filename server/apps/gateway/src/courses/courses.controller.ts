@@ -49,6 +49,11 @@ export class CoursesController {
       this.coursesClient.send({ cmd: 'create_course' }, sanitizedData)
     );
     // Retorna el mensaje de éxito con el resultado
+    if(result.error){
+      return {
+        message:'Error in created Course'
+      }
+    }
     return {
       message: 'Course created successfully',
       data: result,

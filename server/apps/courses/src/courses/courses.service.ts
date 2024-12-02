@@ -53,16 +53,17 @@ export class CoursesService {
   }
 
   async createCourse(data: CreateCourseDto) {
-    console.log('data entrando en el servicio', data)
+    console.log('data entrando en el servicio', data);
+  
     try {
-      // Validar y decodificar el token
+      // Decodificar y validar el token
       const decodedToken = this.jwtService.verify(data.token); // Verifica y decodifica el token JWT
       const userId = decodedToken.userId;
-
+  
       if (!userId) {
         throw new Error('El token no contiene un userId válido');
       }
-
+  
       // Preparar los datos del curso
       const courseData = {
         userId,
@@ -78,30 +79,26 @@ export class CoursesService {
         createdAt: new Date(),
         updatedAt: new Date(),
       };
-
+  
       // Crear y guardar el curso
       const newCourse = await this.courseModel.create(courseData);
-
-      // Verificar si el usuario ya existe en la base de datos
-      const user = await this.usersModel.findOneAndUpdate(
+  
+      // Actualizar la información del usuario SOLO si ya existe
+      await this.usersModel.updateOne(
         { userId }, // Buscar por userId
         {
-          $setOnInsert: { // Solo establecer estos valores si el usuario no existe
-            userId,
-            enrolledCourses: [],
-            progress: [],
-          },
           $push: { createdCourses: newCourse._id }, // Agregar el curso al array de cursos creados
-        },
-        { upsert: true, new: true }, // Crear si no existe, devolver el documento actualizado
+        }
       );
-
+  
       // Retornar el curso creado
       return newCourse;
     } catch (error) {
+      // Manejo genérico de errores
       throw new Error(`Error al crear el curso: ${error.message}`);
     }
-  }
+  }  
+  
   // filtro
   async filterCourses(filters: Record<string, any>, page: number, limit: number) {
     const query = this.buildQuery(filters); // Supongamos que tienes una función para construir el filtro
