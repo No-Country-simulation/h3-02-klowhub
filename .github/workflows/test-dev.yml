@@ -33,9 +33,9 @@ jobs:
       # 6. Ejecutar tests dentro de los contenedores
       - name: Run tests in containers
         run: |
-          docker-compose -f server/docker-compose.dev.yml exec users npm test
-          docker-compose -f server/docker-compose.dev.yml exec gateway npm test
-          docker-compose -f server/docker-compose.dev.yml exec courses npm test
+          docker-compose -f server/docker-compose.dev.yml exec users npm run start
+          docker-compose -f server/docker-compose.dev.yml exec gateway npm start
+          docker-compose -f server/docker-compose.dev.yml exec courses npm start
 
       # 7. Detener los servicios
       - name: Stop services
