@@ -9,6 +9,7 @@ const withNextIntl = createNextIntlPlugin('./src/core/lib/i18n.ts');
 
 /** @type {import('next').NextConfig} */
 const config = {
+
   eslint: {
     ignoreDuringBuilds: true,
   },

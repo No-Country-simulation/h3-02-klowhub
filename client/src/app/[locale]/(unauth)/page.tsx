@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 //Pagina Home/About principal
-export default async function App({ params }: { params: Promise<{ locale: string }> }) {
+export default async function App({ params }: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('Root');

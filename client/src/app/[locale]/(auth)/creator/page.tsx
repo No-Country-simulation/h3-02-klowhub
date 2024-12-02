@@ -17,7 +17,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   const t = await getTranslations<'Creator'>({ locale: locale, namespace: 'Creator' });
   return {
@@ -32,7 +34,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function CreatorPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function CreatorPage({
+  params,
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations<'Creator'>({ locale: locale, namespace: 'Creator' });
