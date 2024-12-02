@@ -21,7 +21,7 @@ export default function AppCarouselWrapper({
         <AppCard
           key={`gac-${i}`}
           title={app.title}
-          description={app.description || ''}
+          description={app?.description || ''}
           price={app.price}
           rating={app.rating}
           reviews={app.reviews}

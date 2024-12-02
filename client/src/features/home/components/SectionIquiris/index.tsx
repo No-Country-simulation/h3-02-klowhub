@@ -21,7 +21,7 @@ export default async function SectionIquiris() {
             <CardInquiries
               key={`gci-${i}`}
               title={item.title}
-              description={item.description || ''}
+              description={item?.description || ''}
               name={item.name}
               date={item.date}
               state={item.state}
