@@ -1,7 +1,6 @@
 import { getLocale } from 'next-intl/server';
 import { getContent } from '@core/services/getContent';
 import { type VideoCourseType } from '../../schemas/video-schemas';
-import { updateLessonViewStatus } from '../../service/searchLessonNotView';
 import VideoLessons from '../VideoLessons';
 import WatchCourseNavigator from '../WatchCourseNavigator';
 import WatchVideoWrapper from '../WatchVideoWrapper';
@@ -28,12 +27,8 @@ const WatchCourseSection = async ({
     );
   }
 
-  const updateLesson = updateLessonViewStatus(course.modules, lessonActive);
-  const lessonActiveId = updateLesson.updated ? lessonActive : course.lastLessonId;
+  const lessonActiveId = lessonActive || course.lastLessonId;
   const moduleActiveId = moduleActive || course.lastModuleId;
-  if (updateLesson.updated) {
-    course.modules = updateLesson.updatedModules;
-  }
 
   return (
     <section className="mx-auto grid rounded-lg bg-white/5 md:grid-cols-[1fr,26%] min-[2000px]:grid-cols-[1fr,25%]">

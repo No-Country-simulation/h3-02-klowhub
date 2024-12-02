@@ -13,7 +13,7 @@ export default async function WatchVideoWrapper({
   lessonActiveId,
   locale,
 }: WatchVideoWrapperProps) {
-  const validVideoData = await getContent<VideoFirmedType>(`json/video-firmed.json`, {
+  const validVideoData = await getContent<VideoFirmedType>(`/json/video-firmed.json`, {
     next: {
       revalidate: 3600,
       tags: ['video-firmed'],

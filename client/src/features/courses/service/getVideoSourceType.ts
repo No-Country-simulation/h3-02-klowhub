@@ -1,5 +1,36 @@
+type VideoMimeType =
+  | 'video/mp4'
+  | 'video/webm'
+  | 'video/ogg'
+  | 'video/x-msvideo'
+  | 'video/quicktime'
+  | 'video/x-matroska'
+  | 'video/youtube'
+  | 'application/vnd.apple.mpegurl'
+  | 'application/dash+xml';
+
+const extractExtension = (pathOrUrlString: string): string => {
+  try {
+    const processedString = pathOrUrlString.includes('://')
+      ? decodeURIComponent(pathOrUrlString)
+      : pathOrUrlString;
+
+    // Eliminar cualquier parámetro de consulta si es una URL
+    const pathPart = processedString?.split('?')?.[0] || '';
+
+    // Manejar paths de sistemas de archivos (Windows y Unix)
+    const pathParts = pathPart.replace(/\\/g, '/').split('/');
+    const lastPart = pathParts[pathParts.length - 1] || '';
+
+    const extensionMatch = lastPart.split('.').pop();
+    return extensionMatch ? extensionMatch.toLowerCase() : '';
+  } catch {
+    return '';
+  }
+};
+
 export const getVideoSourceType = (url: string): string => {
-  const extensionMap = {
+  const extensionMap: { [key: string]: VideoMimeType } = {
     m3u8: 'application/vnd.apple.mpegurl',
     mp4: 'video/mp4',
     webm: 'video/webm',
@@ -10,16 +41,17 @@ export const getVideoSourceType = (url: string): string => {
   };
 
   // Extraer extensión
-  const extension = url.split('.').pop()?.toLowerCase() || '';
 
   // Verificaciones adicionales para URLs complejas
   if (url.includes('youtube.com') || url.includes('youtu.be')) {
     return 'video/youtube';
   }
 
-  if (url.endsWith('.mpd')) {
+  if (url.includes('.mpd')) {
     return 'application/dash+xml';
   }
 
-  return extensionMap[extension as keyof typeof extensionMap] || 'video/mp4';
+  const extension = extractExtension(url);
+  const media = extensionMap[extension as keyof typeof extensionMap];
+  return media || 'video/mp4';
 };
