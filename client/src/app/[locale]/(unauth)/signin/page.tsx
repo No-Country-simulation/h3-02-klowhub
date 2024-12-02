@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Footera from '@core/components/Footer/index';
+import Footer from '@core/components/Footer/index';
 import { getFieldsMessages } from '@core/lib/i18nFields';
 import { routing } from '@core/lib/i18nRouting';
 import SigninForm from '@features/auth/components/SigninForm';
@@ -40,7 +40,7 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
           textpreLinkin="No tienes cuenta ? "
         />
       </AuthLayout>
-      <Footera></Footera>
+      <Footer></Footer>
     </div>
   );
 }

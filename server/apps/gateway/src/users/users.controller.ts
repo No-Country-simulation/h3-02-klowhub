@@ -13,7 +13,6 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { CookieService } from 'src/common/services/cookie.service';
 import { Response as ExpressResponse } from 'express';
 import { ModeDto, ModeSchema } from './dto/mode.Shcema'
 import { JwtService } from '@nestjs/jwt';
@@ -23,7 +22,6 @@ import { JwtService } from '@nestjs/jwt';
 export class UsersController {
   constructor(
     @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
-    private readonly cookieService: CookieService,
     private readonly jwtService: JwtService,
   ) { }
   // profile user

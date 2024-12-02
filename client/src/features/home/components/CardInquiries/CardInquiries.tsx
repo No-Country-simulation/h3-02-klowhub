@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './CardInquiries.module.css';
+import styles from './cardInquiries.module.css';
 import { cardSkeletonBlur } from '../../models/cardSkeleton.blur';
 
 export interface CardInquiriesProps {
@@ -72,7 +72,7 @@ export default function CardInquiries({
               width={20}
               height={20}
               className="justify-self-center p-1"
-            />{' '}
+            />
             <p className="flex items-center p-1">{estado}</p>
           </span>
         </div>

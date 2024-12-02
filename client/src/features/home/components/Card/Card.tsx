@@ -1,9 +1,8 @@
-import Image from 'next/image'; // Importa el componente Image de Next.js
-import React from 'react';
-import Badge from '@root/src/core/components/Badge/Index';
-import Button from '@root/src/core/components/Button';
-import FavButton from '@root/src/core/components/FavButton/FavButton';
-import styles from './Card.module.css';
+import Image from 'next/image';
+import Badge from '@core/components/Badge/Index';
+import Button from '@core/components/Button';
+import FavButton from '@core/components/FavButton/FavButton';
+import styles from './card.module.css';
 
 interface CardProps {
   title: string;
@@ -12,8 +11,8 @@ interface CardProps {
   rating: number;
   reviews: number;
   tags: string[];
-  imageSrc: string; // Nueva propiedad para reutilización
-  imageAlt?: string; // Texto alternativo opcional
+  imageSrc: string;
+  imageAlt?: string;
   textButton: string;
   emoji: string;
   categoria: 'Curso' | 'Lección' | string;
@@ -25,7 +24,7 @@ const categoryStyles: Record<string, string> = {
   default: 'bg-gray-200 text-gray-800',
 };
 
-const Card: React.FC<CardProps> = ({
+const Card = ({
   title,
   description,
   price,
@@ -37,7 +36,7 @@ const Card: React.FC<CardProps> = ({
   emoji,
   imageAlt = 'Imagen del curso', // Valor predeterminado para `alt`
   categoria,
-}) => {
+}: CardProps) => {
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
   return (
     <div

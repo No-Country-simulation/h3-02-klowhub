@@ -1,6 +1,6 @@
 import { type NextFetchEvent, type NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { routing } from '@/core/lib/i18nRouting';
+import { routing } from '@core/lib/i18nRouting';
 
 const intlMiddleware = createMiddleware(routing);
 

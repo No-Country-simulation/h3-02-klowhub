@@ -10,18 +10,18 @@ async function bootstrap() {
     options: {
       package: 'googlecloudstorage',
       protoPath: [
-        join(__dirname, '../src/storage/proto/storage.proto'),
-        join(__dirname, '../src/signatures/proto/signatures.proto'),
-        join(__dirname, '../src/pubsub/proto/pubsub.proto'),
+        join(__dirname, '../protos/storage.proto'),
+        join(__dirname, '../protos/signatures.proto'),
+        join(__dirname, '../protos/pubsub.proto'),
       ], 
-      url: `${process.env.UPLOAD_MICROSERVICE_HOST || '0.0.0.0'}:${process.env.UPLOAD_SERVICE_PORT || 3003}`,
+      url: `${process.env.UPLOAD_MICROSERVICE_HOST}:${process.env.UPLOAD_SERVICE_PORT}`,
       maxReceiveMessageLength: 10 * 1024 * 1024,  
       maxSendMessageLength: 10 * 1024 * 1024,    
     },
   });
 
   await app.listen();
-  console.log('gRPC microservice is listening...');
+  console.log(`gRPC microservice is listening on: ${process.env.UPLOAD_SERVICE_PORT}...`);
 }
 
 bootstrap();

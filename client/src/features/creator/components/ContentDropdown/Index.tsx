@@ -6,8 +6,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@core/components/Dropdown/Index';
-import Button from '@root/src/core/components/Button';
-import TabsTrigger from '@root/src/core/components/Tabs/TabTrigger';
+import Button from '@core/components/Button';
+import TabsTrigger from '@core/components/Tabs/TabTrigger';
 import caretDown from '/public/svg/caretDown.svg';
 
 interface ContentDropdownProps {

@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { RegisterDto } from './dto/registerSchema.dto';
-import * as bcrypt from 'bcrypt';
+import {hash, compare} from 'bcrypt';
 import { EmailService } from './email/email.service';
 import { AccountEntity } from '../entities/accounts.entity';
 import { UsersService } from '../users/users.service';
@@ -26,7 +26,7 @@ export class AuthService {
     @InjectRepository(AccountEntity)
     private readonly accountRepository: Repository<AccountEntity>,
     private readonly emailService: EmailService,
-  ) {}
+  ) { }
 
   // Verificacion de Email
   async verifyEmailToken(tokenDto: TokenDto) {
@@ -67,6 +67,7 @@ export class AuthService {
         userId: user.id,
         email: user.email,
         role: user.role,
+        
       };
 
       // Generar un nuevo token de inicio de sesión
@@ -92,26 +93,27 @@ export class AuthService {
       return { message: 'El email ya está registrado.' };
     }
     // Encriptar la contraseña
-    const encryptedPassword = await bcrypt.hash(registerDto.password, 10);
+    const encryptedPassword = await hash(registerDto.password, 10);
     // Crear nuevo usuario
     const newUser = this.userRepository.create({
       firstName: registerDto.firstName,
       email: registerDto.email,
       password: encryptedPassword,
+      isEmailVerified: true
     });
     await this.userRepository.save(newUser);
 
     // Generar token de verificación con fecha de expiración
-    const emailVerificationExpiresAt = new Date();
-    emailVerificationExpiresAt.setHours(
-      emailVerificationExpiresAt.getHours() + 1,
-    );
-    const verificationToken = this.jwtService.sign({
-      userId: newUser.id,
-      email: newUser.email
-    }
-    );
-    newUser.verificationToken = verificationToken;
+    // const emailVerificationExpiresAt = new Date();
+    // emailVerificationExpiresAt.setHours(
+    //   emailVerificationExpiresAt.getHours() + 1,
+    // );
+    // const verificationToken = this.jwtService.sign({
+    //   userId: newUser.id,
+    //   email: newUser.email
+    // }
+    //);
+    //newUser.verificationToken = verificationToken;
 
     // Guardar el nuevo usuario
     await this.userRepository.save(newUser);
@@ -127,20 +129,29 @@ export class AuthService {
     await this.accountRepository.save(newAccount);
 
     // Enviar correo de verificación
-    try {
-      await this.emailService.sendVerificationEmail(
-        newUser.email,
-        verificationToken,
-      );
-    } catch (error) {
-      console.error('Error enviando correo de verificación:', error);
-      return { message: 'No se  pudo enviar el correo de verificacion' };
-    }
+    // try {
+    //   await this.emailService.sendVerificationEmail(
+    //     newUser.email,
+    //     verificationToken,
+    //   );
+    // } catch (error) {
+    //   console.error('Error enviando correo de verificación:', error);
+    //   return { message: 'No se  pudo enviar el correo de verificacion' };
+    // }
 
     // Retornar respuesta
-    return {
-      message: 'Registro exitoso. Por favor verifica tu email.',
+    // Crear el payload del token
+    const tokenPayload = {
+      userId: newUser.id,
+      email: newUser.email,
+      role: newUser.role,
     };
+
+    // Generar el token
+    const token = this.jwtService.sign(tokenPayload, { expiresIn: '24h' });
+
+    // Solo se retorna el token aquí, no la cookie
+    return { token };
   }
   // Login y tambien Registro con Google
   async validateGoogleUser(profile: any) {
@@ -226,7 +237,7 @@ export class AuthService {
       }
 
       // Verificar si la contraseña es válida
-      const isPasswordValid = await bcrypt.compare(
+      const isPasswordValid = await compare(
         loginDto.password,
         user.password,
       );
@@ -242,11 +253,11 @@ export class AuthService {
       };
 
       // Generar el token
-    const token = this.jwtService.sign(tokenPayload, { expiresIn: '24h' });
+      const token = this.jwtService.sign(tokenPayload, { expiresIn: '24h' });
 
       // Solo se retorna el token aquí, no la cookie
       return { token };
-        
+
     } catch (error) {
       return { message: 'Ocurrio un error al iniciar session' };
     }
@@ -271,9 +282,11 @@ export class AuthService {
     ); // 1 hora para expirar
 
     const verificationToken = this.jwtService.sign(
-      {userId:user.id, 
-      email: user.email},
-      {expiresIn: '1h'}
+      {
+        userId: user.id,
+        email: user.email
+      },
+      { expiresIn: '24h' }
     );
 
     user.verificationToken = verificationToken;
@@ -299,7 +312,8 @@ export class AuthService {
     resetPasswordExpiresAt.setHours(resetPasswordExpiresAt.getHours() + 1); // 1 hora para expirar
 
     const resetToken = this.jwtService.sign(
-      {userId:user.id,
+      {
+        userId: user.id,
         email: user.email
       });
 
@@ -331,7 +345,7 @@ export class AuthService {
       return { message: 'Invalid or expired token' };
     }
 
-    const encryptedPassword = await bcrypt.hash(newPassword, 10);
+    const encryptedPassword = await hash(newPassword, 10);
 
     user.password = encryptedPassword;
     user.resetPasswordToken = null; // Limpiar token
@@ -345,7 +359,7 @@ export class AuthService {
     try {
       return this.jwtService.verify(token)
       //return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token con la clave secreta
-       
+
     } catch (error) {
       return { message: 'Token invalido o expirado' };
     }

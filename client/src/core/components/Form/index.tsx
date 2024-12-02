@@ -1,9 +1,9 @@
 'use client'; //Use client necesario por usar hooks y eventos como useState,useFormState,onSubmit(Solo disponibles en el cliente)
 
 import { type FormEvent, type ReactNode, useActionState, useEffect, useTransition } from 'react';
-import { cn } from '@/core/lib/utils';
-import type { ActionResponse, OnSubmitType } from '@/core/types/actionResponse';
-import type { FieldType } from '@/core/types/fields';
+import { cn } from '@core/lib/utils';
+import type { ActionResponse, OnSubmitType } from '@core/types/actionResponse';
+import type { FieldType } from '@core/types/fields';
 import RenderFields from '../RenderFields';
 
 interface FormComponentProps {

@@ -6,7 +6,6 @@ import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 
 dotenv.config();
-
 @Module({
   imports: [
     JwtModule.register({

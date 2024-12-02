@@ -5,7 +5,7 @@ import '@styles/globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import type { ReactNode } from 'react';
-import { inter } from '@core/styles/font';
+import { inter } from '@styles/font';
 import { routing } from '@core/lib/i18nRouting';
 import { cn, getBaseUrl } from '@core/lib/utils';
 import { AuthProvider } from '@features/auth/provider/AuthProvider';

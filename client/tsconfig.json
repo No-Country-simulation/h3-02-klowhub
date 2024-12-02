@@ -40,11 +40,11 @@
       }
     ],
     "paths": {
-      "@root/*": [
-        "*"
+      "@types/*": [
+        "./src/core/types/*"
       ],
-      "@/*": [
-        "./src/*"
+      "@styles/*": [
+        "./src/core/styles/*"
       ],
       "@app/*": [
         "./src/app/*"
@@ -52,17 +52,17 @@
       "@features/*": [
         "./src/features/*"
       ],
-      "@types/*": [
-        "./src/core/types/*"
-      ],
-      "@styles/*": [
-        "./src/core/styles/*"
-      ],
       "@core/*": [
         "./src/core/*"
       ],
       "test-utils": [
         "./__test__/test-utils.jsx"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "@root/*": [
+        "*"
       ]
     }
   },

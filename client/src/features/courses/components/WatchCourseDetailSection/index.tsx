@@ -4,8 +4,12 @@ import CheckList from '@core/components/CheckList';
 import H2SimpleSection from '@core/components/H2SimpleSection';
 import { courseDetailsSchema } from '../../types/coursedetails.types';
 
+const ENV = process.env.NODE_ENV;
+
 export default async function WatchCourseDetailSection() {
-  const result = await fetch('http://localhost:3000/json/course-detail.json');
+  const result = await fetch(
+    `${ENV === 'production' ? 'https://klowhub-824410275969.southamerica-east1.run.app' : 'http://localhost:3000'}/json/course-detail.json`
+  );
   const dataUnknown = await result.json();
   const courseDetail = courseDetailsSchema.safeParse(dataUnknown);
   if (!courseDetail.success) {

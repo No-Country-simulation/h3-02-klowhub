@@ -6,7 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { ErrorInterceptor } from './middleware/error.interceptor';
 import { JwtService } from '@nestjs/jwt';
-
+console.log('Env variables:', process.env);
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
@@ -19,7 +19,11 @@ async function bootstrap() {
   const jwtService = app.get(JwtService);
   const authMiddleware = new AuthMiddleware(jwtService);
   app.use(authMiddleware.use.bind(authMiddleware));
-  console.log(`Gateway is running on: 3000`);
+  app.enableCors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  });
   await app.listen(process.env.PORT);
+  console.log(`Gateway is running on: ${process.env.PORT}`);
 }
 bootstrap();

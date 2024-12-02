@@ -9,63 +9,47 @@ import {
   Get,
   Query,
   Param,
+  Res,
+  Req,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { CreateCourseGatewayDto, createCourseGatewaySchema } from './dto/create-course.dto';
-import { CookieService } from 'src/common/services/cookie.service';
+import { createCourseGatewaySchema } from './dto/create-course.dto';
 import { JwtService } from '@nestjs/jwt';
+import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
 
 @Controller('courses')
 export class CoursesController {
   constructor(
     @Inject('COURSES_SERVICE') private readonly coursesClient: ClientProxy,
-    private readonly cookieService: CookieService,
     private readonly jwtService: JwtService
   ) { }
 
   @Post('create')
-async createCourse(@Body() courseData: CreateCourseGatewayDto, @Request() req: any) {
-  // Accede a las cookies usando req.cookies
-  const token = req.cookies['auth_token']; // Verifica que el token esté en la cookie con este nombre
+  async createCourse(@Body() courseData: CreateCourseDto, @Request() req: any) {
+    // Accede al token desde las cookies
+    const token = req.cookies.auth_token;
 
-  if (!token) {
-    throw new BadRequestException('Token de autenticación no proporcionado');
-  }
-
-  try {
-    // Decodifica el token para obtener el userId
-    const decoded: any = this.jwtService.decode(token);
-    const userId = decoded.userId;
-
-    if (!userId) {
-      throw new BadRequestException('No se encontró el ID del usuario');
+    // Si no se encuentra el token, lanza una excepción
+    if (!token) {
+      throw new BadRequestException('Token de autenticación no proporcionado');
     }
-
-    // Agrega `userId` a los datos del curso
-    const dataWithUserId = { ...courseData, userId };
-
-    // Valida los datos usando el esquema
-    const validationResult = createCourseGatewaySchema.safeParse(dataWithUserId);
-
-    // Si la validación falla, lanza un error con los detalles
+    const data = { token, ...courseData };
+    const validationResult = createCourseSchema.safeParse(data);
     if (!validationResult.success) {
-      throw new BadRequestException(validationResult.error.errors);
+      return (validationResult.error)
     }
-
+    const sanitizedData = validationResult.data
     // Envía los datos validados al microservicio
     const result = await lastValueFrom(
-      this.coursesClient.send({ cmd: 'create_course' }, dataWithUserId)
+      this.coursesClient.send({ cmd: 'create_course' }, sanitizedData)
     );
-
+    // Retorna el mensaje de éxito con el resultado
     return {
       message: 'Course created successfully',
       data: result,
     };
-  } catch (error) {
-    throw new BadRequestException(error.message || 'Error al crear curso');
   }
-}
   //buscar curso por filtro
   @Get('filter')
   async filterCourses(
@@ -92,30 +76,36 @@ async createCourse(@Body() courseData: CreateCourseGatewayDto, @Request() req: a
       throw new BadRequestException('Error al filtrar los cursos');
     }
   }
-  //buscar course por id
-  @Get(':id')
-  async getCourseById(@Param('id') id: string) {
-    if (!id) {
-      throw new BadRequestException('El id del curso es requerido');
+  // Obtener todos los cursos de un usuario
+  @Get('mycourses')
+  async getCoursesByUser(@Req() req: any) {
+    const token = req.cookies.auth_token;
+    
+    if (!token) {
+      throw new Error('Token JWT no encontrado en las cookies');
     }
 
-    try {
-      const course = await lastValueFrom(
-        this.coursesClient.send({ cmd: 'get_course_by_id' }, id),
-      );
+    // Enviar el token al microservicio para obtener los cursos del usuario
+    return this.coursesClient.send(
+      { cmd: 'mycourses' },
+      { token }
+    );
+  }
 
-      if (!course) {
-        throw new BadRequestException(`Curso con id ${id} no encontrado`);
-      }
+  // Obtener un curso específico por ID
+  @Get('course/:id')
+  async getCourseById(@Req() request: Request, @Request() req: any) {
+    const token = req.cookies.auth_token;
+    const courseId = req.params.id;
 
-      return {
-        message: 'Curso obtenido exitosamente',
-        data: course,
-      };
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || 'Error al obtener el curso',
-      );
+    if (!token) {
+      throw new Error('Token JWT no encontrado en las cookies');
     }
+
+    // Enviar el token y el ID del curso al microservicio
+    return this.coursesClient.send(
+      { cmd: 'course' },
+      { token, courseId }
+    );
   }
 }

@@ -1,6 +1,7 @@
-import React from 'react';
+import type { ReactNode } from 'react';
+
 interface AuthLayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
   title: string;
   description: string;
   imageUrl: string;

@@ -7,5 +7,7 @@ export const publicRoutes: string[] = [
   '/pubsub/test',
   "/signatures/signed-urls",
   '/courses/filter',
-  '/courses/'
+  '/courses/',
+  '/auth/status',
+  '/auth/logout'
 ];

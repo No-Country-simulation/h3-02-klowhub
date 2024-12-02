@@ -1,9 +1,9 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import Badge from '@root/src/core/components/Badge/Index';
-import Button from '@root/src/core/components/Button';
-import FavButton from '@root/src/core/components/FavButton/FavButton';
+import Badge from '@core/components/Badge/Index';
+import Button from '@core/components/Button';
+import FavButton from '@core/components/FavButton/FavButton';
 
 interface FullScreenCardProps {
   imageUrl: string;

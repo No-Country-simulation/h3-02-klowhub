@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import React from 'react';
-import { Link } from '../../lib/i18nRouting';
-export default function Footera() {
+import { Link } from '@core/lib/i18nRouting';
+
+export default function Footer() {
   const t = useTranslations('Footer');
   return (
     <div className="flex w-full flex-col justify-center gap-6 bg-gradient-bg-2 pb-4 pt-14 text-sm font-normal text-white">
@@ -11,40 +11,40 @@ export default function Footera() {
           <ul className="flex min-w-[145px] flex-col gap-5">
             <h3 className="text-[17px] font-semibold text-white/60">Categoria</h3>
             <li>
-              <a href="#">{t('categoryCourses')}</a>
+              <Link href="#">{t('categoryCourses')}</Link>
             </li>
             <li>
-              <a href="#">{t('categoryApps')}</a>
+              <Link href="#">{t('categoryApps')}</Link>
             </li>
             <li>
-              <a href="#">{t('categorySellCourse')}</a>
+              <Link href="#">{t('categorySellCourse')}</Link>
             </li>
             <li>
-              <a href="#"> {t('categorySellApp')}</a>
+              <Link href="#"> {t('categorySellApp')}</Link>
             </li>
           </ul>
           <ul className="flex min-w-[145px] flex-col gap-5">
             <h3 className="text-[17px] font-semibold text-white/60">{t('aboutTitle')}</h3>
             <li>
-              <a href="#">{t('aboutInstructors')}</a>
+              <Link href="#">{t('aboutInstructors')}</Link>
             </li>
             <li>
-              <a href="#">{t('aboutTermsOfService')}</a>
+              <Link href="#">{t('aboutTermsOfService')}</Link>
             </li>
             <li>
-              <a href="#">{t('aboutPrivacyPolicy')}</a>
+              <Link href="#">{t('aboutPrivacyPolicy')}</Link>
             </li>
           </ul>
           <ul className="flex min-w-[145px] flex-col gap-5">
             <h3 className="text-[17px] font-semibold text-white/60"> {t('supportTitle')}</h3>
             <li>
-              <a href="#">{t('supportFAQ')}</a>
+              <Link href="#">{t('supportFAQ')}</Link>
             </li>
             <li>
-              <a href="#">{t('supportContact')}</a>
+              <Link href="#">{t('supportContact')}</Link>
             </li>
             <li>
-              <a href="#">{t('supportForum')}</a>
+              <Link href="#">{t('supportForum')}</Link>
             </li>
           </ul>
           <div className="me-4 flex min-w-[145px] flex-col self-center justify-self-end min-[790px]:ms-auto min-[1025px]:me-16">

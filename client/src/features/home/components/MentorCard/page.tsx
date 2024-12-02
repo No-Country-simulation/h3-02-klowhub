@@ -1,8 +1,7 @@
-import React from 'react';
-import CardTeacher from '@root/src/features/home/components/MentorCard';
-import { VerMas } from '@root/src/features/home/components/VerMas/VerMas';
+import CardTeacher from '@features/home/components/MentorCard';
+import { VerMas } from '@features/home/components/VerMas/VerMas';
 
-const MentorSection: React.FC = () => {
+const MentorSection = () => {
   return (
     <div className="pt-8">
       <div className="mx-auto w-full">

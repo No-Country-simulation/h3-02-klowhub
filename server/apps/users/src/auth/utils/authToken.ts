@@ -16,7 +16,7 @@ export class AuthService {
   // Función para generar un token JWT de verificación
   generateVerificationToken(userId: string, email: string): string {
     return this.jwtService.sign({ userId, email }, {
-      expiresIn: '1h', // Expiración de 1 hora
+      expiresIn: '24h', // Expiración de 1 hora
     });
   }
   // Verificar email
@@ -53,56 +53,7 @@ export class AuthService {
   // generarResentToken
   generateResetToken(userId: string, email: string): string {
     return this.jwtService.sign({ userId, email }, {
-      expiresIn: '1h', // Expiración de 1 hora
+      expiresIn: '24h', // Expiración de 1 hora
     });
   }
 }
-// codigo viejo
-// Función para generar un token JWT de verificación
-// export const generateVerificationToken = (
-//   userId: string,
-//   email: string,
-// ): string => {
-//   return jwt.sign({ userId, email }, process.env.JWT_SECRET, {
-//     expiresIn: '1h',
-//   });
-// };
-
-// export const verifyEmailToken = async (
-//   token: string,
-//   userRepository: Repository<UserEntity>,
-// ): Promise<void> => {
-//   try {
-//     // Verificar y decodificar el token JWT
-//     const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
-
-//     const user = await userRepository.findOne({
-//       where: { id: decoded.userId, email: decoded.email },
-//     });
-
-//     if (!user) {
-//       throw new BadRequestException('User not found');
-//     }
-
-//     const currentTime = new Date();
-//     if (user.emailVerificationExpiresAt < currentTime) {
-//       throw new BadRequestException('Token has expired');
-//     }
-
-//     user.emailVerificationExpiresAt = new Date();
-//     user.verificationToken = null; // Limpiar el token de verificación después de usarlo
-//     await userRepository.save(user);
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   } catch (error) {
-//     throw new BadRequestException('Invalid or expired token');
-//   }
-// };
-
-// export function generateResetToken(userId: string, email: string): string {
-//   if (!process.env.JWT_SECRET) {
-//     throw new Error('JWT_SECRET is not defined in environment variables');
-//   }
-//   return jwt.sign({ userId, email }, process.env.JWT_SECRET, {
-//     expiresIn: '1h',
-//   });
-// }

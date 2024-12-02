@@ -9,6 +9,8 @@ import {
   Response,
   Get,
   UseGuards,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { ClientProxy, Client } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -16,17 +18,17 @@ import { RegisterSchema } from './dto/registerSchema.dto';
 import { UpdateSchema } from './dto/updateSchema.dto';
 import { LoginDto } from './dto/loginSchema.dto';
 import { ResetTokenDto, ResetTokenSchema } from './dto/resetToken.dto';
-import { CookieService } from 'src/common/services/cookie.service';
 import { Response as ExpressResponse } from 'express';
 import { JwtService } from '@nestjs/jwt';
-
+import { TokenDto, TokenSchema } from './dto/tokenSchema';
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Controller('auth')
 export class AuthController {
   constructor(
     @Inject('USERS_SERVICE') private readonly usersService: ClientProxy,
     @Inject('COURSES_SERVICE') private readonly coursesClient: ClientProxy,
-    private readonly cookieService: CookieService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) { }
 
   @Post('register')
@@ -55,19 +57,21 @@ export class AuthController {
       );
 
       // Usar el servicio CookieService para gestionar la cookie con el nuevo token
-      this.cookieService.set(res, 'auth_token', newToken, {
-        maxAge: 60 * 60 * 1000, // 1 hora
+      res.cookie('auth_token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-      });
+        maxAge: 60 * 60 * 24 * 1000,
+      })
 
-      if (token) {
-        // Emitir el evento para crear la instancia del curso en MongoDB
-        console.log("Enviando solicitud al microservicio de cursos:", { token });
+      if (newToken) {
+        // Intentar emitir el evento al microservicio de cursos sin interrumpir el flujo
+        console.log("Enviando solicitud al microservicio de cursos:", { token: newToken });
         await lastValueFrom(
-          this.coursesClient.send({ cmd: 'instance' }, { token }),
-        );
+          this.coursesClient.send({ cmd: 'instance' }, { token: newToken }),
+        ).catch((err) => {
+          console.warn('El microservicio de cursos no está disponible error al crear instancia', err.message);
+        });
       }
 
       // Regresar una respuesta al cliente
@@ -75,11 +79,14 @@ export class AuthController {
         message: '¡Correo electrónico verificado y sesión iniciada!',
       });
     } catch (error) {
+      // Manejar errores generales del proceso de verificación de correo
+      console.error('Error al verificar el correo:', error.message);
       throw new BadRequestException(
         error.message || 'Error al verificar el correo',
       );
     }
   }
+
 
   // reenviar el token para activar el email
   @Post('resetToken')
@@ -115,12 +122,13 @@ export class AuthController {
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
     try {
-      // Enviar la solicitud al microservicio
+      // Solicitar el token al microservicio de USERS
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       const { token } = await lastValueFrom(
         this.usersService.send({ cmd: 'login' }, loginDto),
       );
 
+<<<<<<< HEAD
       // Usar el servicio CookieService para gestionar la cookie
       res.cookie('auth_token', token, {
         maxAge: 60 * 60 * 1000, // 1 hora
@@ -128,25 +136,90 @@ export class AuthController {
         secure: false, // Usa `false` en HTTP (solo desarrollo)
         sameSite: 'strict', // La cookie solo se puede acceder desde el mismo dominio
         path: '/', // Asegura que esté disponible en todas las rutas
-      });
-      if (token) {
-        // Emitir el evento para crear la instancia del curso en MongoDB
-        console.log("Enviando solicitud al microservicio de cursos:", { token });
-        await lastValueFrom(
-          this.coursesClient.send({ cmd: 'instance' }, { token }),
-        );
+=======
+      if (!token) {
+        throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }
 
+      // Configurar la cookie con el token
+      res.cookie('auth_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 1000,
+      })
+      
 
+      // Intentar enviar la solicitud al microservicio de cursos (puede fallar)
+      console.log("Enviando solicitud al microservicio de cursos:", { token });
+      await lastValueFrom(
+        this.coursesClient.send({ cmd: 'instance' }, { token }),
+      ).catch((err) => {
+        // Manejar errores del microservicio de cursos sin detener el flujo
+        console.warn('El microservicio de cursos no está disponible, error al crear instancia', err.message);
+>>>>>>> 64bd76068a431559b88e7379dfbac2ea1dc8e768
+      });
 
-      // Regresar una respuesta al cliente
+      // Responder al cliente con éxito
       return res.status(200).json({
         message: '¡Inicio de sesión exitoso!',
       });
     } catch (error) {
-      console.error("Error al iniciar sesión:", error); // Agrega más detalles sobre el error
+      console.error("Error al iniciar sesión:", error.message); // Registro detallado del error
       throw new BadRequestException(error.message || 'Error al iniciar sesión');
     }
   }
 
+  //status token
+  @Post('status')
+  async verifyTokenStatus(@Request() req: any) {
+    // Obtenemos el token de las cookies
+    const token = req.cookies.auth_token; // Aquí asumimos que el token está guardado con el nombre 'token'
+
+    if (!token) {
+      return {
+        status: false
+      }
+    }
+
+    // Validamos el token recibido
+    const validationToken = TokenSchema.safeParse({ token });
+    if (!validationToken.success) {
+      throw new BadRequestException(validationToken.error.errors);
+    }
+
+    try {
+      // Verificamos el token utilizando JwtService
+      const decoded = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET, // Usa la clave secreta
+      });
+      
+      // Si el token es válido, podemos devolver los datos decodificados
+      return {
+        status: true
+      };
+    } catch (error) {
+      // Si el token no es válido o ha expirado
+      return {
+        status: false
+      }
+    }
+  }
+
+
+  // close session
+  @Post('logout')
+  async logout(@Res() res: any) {
+    // Limpiar la cookie de la sesión (token)
+    res.clearCookie('auth_token', {
+      httpOnly: true, // Asegúrate de que la cookie es segura
+      secure: process.env.NODE_ENV === 'production', // En producción, utilizar `secure` para HTTPS
+      sameSite: 'Strict', // Puedes elegir 'Strict', 'Lax' o 'None'
+      path: '/', // Especifica el path de la cookie
+    });
+
+    return res.status(200).json({
+      message: 'Sesión cerrada exitosamente',
+    });
+  }
 }

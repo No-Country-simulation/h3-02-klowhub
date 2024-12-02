@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
-import { cn } from '@/core/lib/utils';
-import type { FormFieldProps } from '@/core/types/fields';
+import { cn } from '@core/lib/utils';
+import type { FormFieldProps } from '@core/types/fields';
 import EyeButton from '../EyeButton';
 
 const formFieldCVA = cva(
