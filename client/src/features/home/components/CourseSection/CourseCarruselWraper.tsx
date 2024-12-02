@@ -21,7 +21,7 @@ export default function CourseCarruselWraper({
         <CourseCard
           key={`gcc-${i}`}
           title={item.title}
-          description={item.description}
+          description={item.description || ''}
           price={item.price}
           rating={item.rating}
           reviews={item.reviews}

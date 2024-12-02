@@ -8,12 +8,14 @@ interface CardsFlexCarruselProps<T> {
   children: (item: T, i: number) => ReactNode;
   className?: string;
   classNameContainer?: string;
+  classNmaeButtons?: string;
   items: T[];
 }
 
 export default function CardsFlexCarrusel<T>({
   className = '',
   classNameContainer = '',
+  classNmaeButtons = '',
   items,
   children,
 }: CardsFlexCarruselProps<T>) {
@@ -39,30 +41,39 @@ export default function CardsFlexCarrusel<T>({
     };
   }, [api]);
 
+  console.log({ items });
+  console.log({ count: _count });
+  console.log({ current });
+
   return (
-    <div className={cn('relative min-[1240px]:hidden', className)}>
-      <Carousel className="overflow-hidden" setApi={setApi}>
-        <CarouselContent className="-ml-6 flex">
-          {items.map((item, i) => (
-            <CarouselItem
-              className={cn('w-full min-w-[350px] max-w-[450px]', classNameContainer)}
-              key={i}>
-              {children(item, i)}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      <div className="mt-6 flex justify-center gap-2">
+    <>
+      <div className={cn('relative min-[1240px]:hidden', className)}>
+        <Carousel className="overflow-hidden" setApi={setApi}>
+          <CarouselContent className="-ml-6 flex">
+            {items.map((item, i) => (
+              <CarouselItem
+                className={cn('w-full min-w-[350px] max-w-[450px]', classNameContainer)}
+                key={i}>
+                {children(item, i)}
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
+      <div
+        className={cn(
+          'mt-6 inline-flex w-full items-center justify-center gap-2 min-[1240px]:hidden',
+          classNmaeButtons
+        )}>
         {Array.from({ length: items.length }).map((_, index) => (
           <button
             key={`csb-${index}`}
-            className={`size-2 rounded-full transition-colors ${
+            className={`size-[.65rem] rounded-full transition-colors ${
               index === current ? 'bg-white' : 'bg-white/30'
             }`}
-            onClick={() => api?.scrollTo(index)}
-          />
+            onClick={() => api?.scrollTo(index)}></button>
         ))}
       </div>
-    </div>
+    </>
   );
 }

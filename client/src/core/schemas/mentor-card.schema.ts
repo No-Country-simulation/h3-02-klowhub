@@ -1,8 +1,7 @@
 import { z } from 'zod';
+import { baseNameSchema } from './common.schema';
 
-export const mentorsCardSchema = z.object({
-  id: z.string().or(z.number()),
-  name: z.string(),
+export const mentorsCardSchema = baseNameSchema.extend({
   price: z.string(),
   language: z.string(),
   country: z.string(),

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Inquiry about course availability",
+    "description": "Is the Advanced React course available for enrollment?",
+    "name": "John Doe",
+    "date": "2024-11-30",
+    "state": "completed",
+    "avatar": "/images/mocks/avatar_mock1.png",
+    "platform": "AppSheet"
+  },
+  {
+    "id": 2,
+    "title": "Inquiry about course availability",
+    "description": "Is the Advanced React course available for enrollment?",
+    "name": "John Doe",
+    "date": "2024-11-22",
+    "state": "completed",
+    "avatar": "/images/mocks/avatar_mock2.png",
+    "platform": "AppSheet"
+  },
+  {
+    "id": 3,
+    "title": "Inquiry about course availability",
+    "description": "Is the Advanced React course available for enrollment?",
+    "name": "John Doe",
+    "date": "2024-11-18",
+    "state": "completed",
+    "avatar": "/images/mocks/avatar_mock1.png",
+    "platform": "AppSheet"
+  },
+  {
+    "id": 4,
+    "title": "Inquiry about course availability",
+    "description": "Is the Advanced React course available for enrollment?",
+    "name": "John Doe",
+    "date": "2024-11-10",
+    "state": "completed",
+    "avatar": "/images/mocks/avatar_mock2.png",
+    "platform": "AppSheet"
+  }
+]

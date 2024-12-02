@@ -1,9 +1,7 @@
 import { z } from 'zod';
+import { baseTitleSchema } from './common.schema';
 
-export const courseCardSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  description: z.string(),
+export const courseCardSchema = baseTitleSchema.extend({
   isFavorite: z.boolean(),
   price: z.string(),
   rating: z.number(),
