@@ -122,11 +122,12 @@ export class AuthController {
       );
 
       // Usar el servicio CookieService para gestionar la cookie
-      this.cookieService.set(res, 'auth_token', token, {
-        maxAge: 60 * 60 * 1000,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'none',
+      res.cookie('auth_token', token, {
+        maxAge: 60 * 60 * 1000, // 1 hora
+        httpOnly: true, // La cookie no es accesible desde JavaScript
+        secure: false, // Usa `false` en HTTP (solo desarrollo)
+        sameSite: 'strict', // La cookie solo se puede acceder desde el mismo dominio
+        path: '/', // Asegura que esté disponible en todas las rutas
       });
       if (token) {
         // Emitir el evento para crear la instancia del curso en MongoDB

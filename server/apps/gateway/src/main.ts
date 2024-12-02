@@ -9,17 +9,16 @@ import { JwtService } from '@nestjs/jwt';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalInterceptors(new ErrorInterceptor());
-  app.use(cookieParser());
-  const jwtService = app.get(JwtService);
-  const authMiddleware = new AuthMiddleware(jwtService);
-
-  app.use(authMiddleware.use.bind(authMiddleware));
   app.enableCors({
     origin: process.env.FRONTEND_URL, 
     credentials: true, 
     methods: 'GET,HEAD,POST,PUT,DELETE,OPTIONS',
   });
+  app.useGlobalInterceptors(new ErrorInterceptor());
+  app.use(cookieParser());
+  const jwtService = app.get(JwtService);
+  const authMiddleware = new AuthMiddleware(jwtService);
+  app.use(authMiddleware.use.bind(authMiddleware));
   console.log(`Gateway is running on: 3000`);
   await app.listen(process.env.PORT);
 }
