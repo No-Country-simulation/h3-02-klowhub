@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Control de Inventario para retail",
+    "description": "App diseñada para gestionar y monitorear el stock en tiendas físicas.",
+    "isFavorite": false,
+    "price": "12.500",
+    "rating": 4.1,
+    "reviews": 74,
+    "platform": "AppSheet",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/app_mock3.png"
+  },
+  {
+    "id": 2,
+    "title": "Gestión de inventario",
+    "description": "Una aplicación para controlar y administrar el inventario de tu empresa en tiempo real.",
+    "isFavorite": false,
+    "price": "12.500",
+    "rating": 4.2,
+    "reviews": 91,
+    "platform": "Power Apps",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/app_mock1.png"
+  },
+  {
+    "id": 3,
+    "title": "Seguimiento de proyectos",
+    "description": "Una herramienta para asignar tareas, establecer plazos y monitorear el progreso.",
+    "isFavorite": false,
+    "price": "00.00",
+    "rating": 3.8,
+    "reviews": 82,
+    "platform": "AppSheet",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/app_mock2.png"
+  },
+  {
+    "id": 4,
+    "title": "Registro de clientes",
+    "description": "Una aplicación para almacenar información de clientes y comunicaciones.",
+    "isFavorite": false,
+    "price": "38.700",
+    "rating": 3.4,
+    "reviews": 82,
+    "platform": "AppSheet",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/app_mock2.png"
+  }
+]

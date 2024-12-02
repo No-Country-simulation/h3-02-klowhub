@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Martin Fernandez",
+    "price": "6",
+    "language": "Español",
+    "country": "España",
+    "reviews": 136,
+    "sessions": 50,
+    "platform": "AppSheet",
+    "img": "/images/mocks/mentor_mock1.png",
+    "isFavorite": false
+  },
+  {
+    "id": 2,
+    "name": "Laura Sánchez",
+    "price": "8",
+    "language": "Español",
+    "country": "España",
+    "reviews": 136,
+    "sessions": 50,
+    "platform": "Power Apps",
+    "img": "/images/mocks/mentor_mock2.png",
+    "isFavorite": false
+  },
+  {
+    "id": 3,
+    "name": "Marco Rojas",
+    "price": "6",
+    "language": "Español",
+    "country": "España",
+    "reviews": 136,
+    "sessions": 50,
+    "platform": "AppSheet",
+    "img": "/images/mocks/mentor_mock3.png",
+    "isFavorite": false
+  },
+  {
+    "id": 4,
+    "name": "Nora Martínez",
+    "price": "6",
+    "language": "Español",
+    "country": "España",
+    "reviews": 136,
+    "sessions": 50,
+    "platform": "AppSheet",
+    "img": "/images/mocks/mentor_mock1.png",
+    "isFavorite": false
+  }
+]

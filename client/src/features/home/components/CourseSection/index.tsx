@@ -1,64 +1,51 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import Button from '@core/components/Button';
+import CardsFlexContainer from '@core/components/CardsFlexContainer';
+import { Link } from '@core/lib/i18nRouting';
 import CourseCard from '@features/home/components/CourseCard';
-import { VerMas } from '@features/home/components/VerMas/VerMas';
+import { getRecommendedCourses } from '@features/home/services/getRecommendedCourses';
+import CourseCarouselWraper from './CourseCarouselWraper';
 
-const Page = () => {
-  const t = useTranslations<'Card'>('Card');
-
+export default async function CourseSection() {
+  const pt = await getTranslations<'Platform'>('Platform');
+  const ct = await getTranslations<'Common'>('Common');
+  const courses = await getRecommendedCourses();
   return (
-    <div className="pt-8">
-      <div className="mx-auto w-full">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-white">{t('titulo')}</h1>
-          <p className="text-gray-300">{t('desc')}</p>
-        </div>
-        <div className="grid grid-cols-1 items-center justify-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <CourseCard
-            title={t('title')}
-            description={t('description')}
-            price="80.000"
-            rating={3.5}
-            reviews={136}
-            textButton={t('textButton')}
-            tags={['Logistica', 'Optimización', 'Inventarios']}
-            imageSrc="/images/mocks/course_mock3png.png" // Ruta de la imagen
-            imageAlt="Portada del curso de Next.js" // Descripción opcional
-            emoji="/images/appsheet_logo.png"
-            categoria="Lección"
-          />
-
-          <CourseCard
-            title="Automatiza tus procesos con AppSheet"
-            description="Aprende a simplificar y automatizar tareas rutinarias utilizando las herramientas intuitivas de AppSheetHub."
-            price="25.000"
-            rating={3.5}
-            reviews={136}
-            textButton="Power Apps"
-            tags={['Logistica', 'Optimización', 'Inventarios']}
-            imageSrc="/images/mocks/course_mock2.png" // Ruta de la imagen
-            imageAlt="Portada del curso de Next.js" // Descripción opcional
-            emoji="/svg/powerapp.svg"
-            categoria="Curso"
-          />
-
-          <CourseCard
-            title="Creación de aplicaciones empresariales"
-            description="Descubre cómo desarrollar aplicaciones personalizadas que optimicen los procesos de tu empresa"
-            price="gratis"
-            rating={3.5}
-            reviews={136}
-            tags={['Logistica', 'Retail', 'Inventarios']}
-            imageSrc="/images/mocks/course_mock3png.png" // Ruta de la imagen
-            imageAlt="Portada del curso de Next.js" // Descripción opcional
-            textButton="AppSheet"
-            emoji="/images/appsheet_logo.png"
-            categoria="Curso"
-          />
-        </div>
-        <VerMas />
+    <section className="mx-auto w-full">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-white">{pt('recocourseTitle')}</h2>
+        <p className="text-gray-300">{pt('recocourseDesc')}</p>
       </div>
-    </div>
+      <CardsFlexContainer items={courses}>
+        {(item, i) => (
+          <CourseCard
+            key={`gcc-${i}`}
+            title={item.title}
+            description={item?.description || ''}
+            price={item.price}
+            rating={item.rating}
+            reviews={item.reviews}
+            textButton={item.platform}
+            tags={item.tags}
+            imageSrc={item.img}
+            imageAlt={item.title}
+            emoji="/images/appsheet_logo.png"
+            categoria={item.type}
+            viewDetails={ct('viewDetails')}
+            addToCart={ct('addToCart')}
+          />
+        )}
+      </CardsFlexContainer>
+      <CourseCarouselWraper
+        viewDetails={ct('viewDetails')}
+        addToCart={ct('addToCart')}
+        courses={courses}
+      />
+      <div className="mx-auto mt-8 w-full max-w-72">
+        <Button variant="outline" asChild size="full" className="py-6">
+          <Link href="/courses">{ct('viewMore')}</Link>
+        </Button>
+      </div>
+    </section>
   );
-};
-
-export default Page;
+}

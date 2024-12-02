@@ -1,9 +1,12 @@
 import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios';
+import { type ApiErrorType, type ApiResultType } from '@coreTypes/actionResponse';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
+const isProd = process.env.NODE_ENV === 'production';
 //Instancia de axios
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: isProd ? APP_URL : API_URL,
   timeout: 19999,
   withCredentials: true,
   headers: {
@@ -11,6 +14,7 @@ const api = axios.create({
   },
 });
 
+/*
 api.interceptors.request.use(
   config => {
     return config;
@@ -19,23 +23,24 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-type HandleRequestResponse = () => Promise<AxiosResponse>;
+*/
 
 //Envia la peticion utilizando axios
 //Devuelva una respuesta utilizando un patron [error, data]
 //Patron util para asegurar el manejo del error
-const handleRequest = async (request: HandleRequestResponse) => {
+const handleRequest = async <T = unknown>(
+  request: () => Promise<AxiosResponse>
+): Promise<ApiResultType<T>> => {
   try {
     const response = await request();
     //Si no hubo errores se envia la data y error undefined
-    return [undefined, response.data];
+    return [undefined, response.data as T];
   } catch (error) {
     //SI hubo algun error se maneja y data undefined
     return [handleError(error), undefined];
   }
 };
-const handleError = (error: unknown) => {
+const handleError = (error: unknown): ApiErrorType | undefined => {
   if (error instanceof AxiosError && error.response) {
     const status = error.response.status;
     //TODO: Actualizar posibles respuesta de errores
@@ -61,28 +66,28 @@ const handleError = (error: unknown) => {
 
 //API Services: Wrapper de Axios para hacer 4 peticiones basicas
 export const apiService = {
-  async get(url: string, config: AxiosRequestConfig | undefined = {}) {
-    return handleRequest(() => api.get(url, config));
+  async get<T = unknown>(url: string, config: AxiosRequestConfig | undefined = {}) {
+    return handleRequest<T>(() => api.get(url, config));
   },
 
-  async post(
+  async post<T = unknown>(
+    url: string,
+    data: Record<string, string>,
+    config: AxiosRequestConfig | undefined = {}
+  ): Promise<ApiResultType<T>> {
+    return handleRequest<T>(() => api.post(url, data, config));
+  },
+
+  async put<T = unknown>(
     url: string,
     data: Record<string, string>,
     config: AxiosRequestConfig | undefined = {}
   ) {
-    return handleRequest(() => api.post(url, data, config));
+    return handleRequest<T>(() => api.put(url, data, config));
   },
 
-  async put(
-    url: string,
-    data: Record<string, string>,
-    config: AxiosRequestConfig | undefined = {}
-  ) {
-    return handleRequest(() => api.put(url, data, config));
-  },
-
-  async delete(url: string, config: AxiosRequestConfig | undefined = {}) {
-    return handleRequest(() => api.delete(url, config));
+  async delete<T = unknown>(url: string, config: AxiosRequestConfig | undefined = {}) {
+    return handleRequest<T>(() => api.delete(url, config));
   },
 };
 

@@ -10,7 +10,7 @@ interface BannerCtaProps {
 
 const BannerCta = ({ title, description, imageSrc, type = 'explorer' }: BannerCtaProps) => {
   return (
-    <div className="max-w-8xl relative m-4 mx-auto flex h-60 items-center justify-start overflow-hidden rounded-lg bg-gradient-to-r from-blue-900 to-purple-900 px-6 py-4 text-white shadow-sm sm:h-60 md:h-60 md:shadow-md lg:h-60 lg:shadow-lg xl:h-60 xl:shadow-xl">
+    <article className="max-w-8xl relative m-4 mx-auto flex h-60 items-center justify-start overflow-hidden rounded-lg bg-gradient-to-r from-blue-900 to-purple-900 px-6 py-4 text-white shadow-sm sm:h-60 md:h-60 md:shadow-md lg:h-60 lg:shadow-lg xl:h-60 xl:shadow-xl">
       {/* div que contiene el texto title y description*/}
       <div className={cn('z-10 p-2 md:w-1/2', type === 'creator' ? 'mx-auto text-center' : '')}>
         <h2
@@ -42,7 +42,7 @@ const BannerCta = ({ title, description, imageSrc, type = 'explorer' }: BannerCt
         {/* Degradado sobre la imagen */}
         <div className="bg-gradient absolute inset-0 from-transparent to-blue-900 opacity-70" />
       </div>
-    </div>
+    </article>
   );
 };
 

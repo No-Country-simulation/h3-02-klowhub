@@ -1,12 +1,16 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
 import CoursesListSection from '@features/home/components/Courses';
+import { Breadcrumb } from '@features/home/components/Courses/Breadcrumb';
 
 export default async function CoursesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations<'Courses'>({ locale: locale, namespace: 'Courses' });
   return (
-    <main className="mb-8 mt-10 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mb-20 mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+      <Breadcrumb />
+      <h1 className="mb-4 text-lg font-bold text-white">{t('pageTitle')}</h1>
       <CoursesListSection />
     </main>
   );

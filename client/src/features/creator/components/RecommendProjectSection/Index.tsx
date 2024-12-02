@@ -4,6 +4,7 @@ import RecommendProjectCard from '../RecommendProjectCard/Index';
 
 export default function RecommendProjectSection() {
   const t = useTranslations<'Creator'>('Creator');
+  const ct = useTranslations<'Common'>('Common');
   return (
     <section className="flex size-full flex-col gap-y-4 text-white">
       <h2 className="pb-4 text-2xl font-bold leading-6">{t('recommendedTitle')}</h2>
@@ -18,7 +19,7 @@ export default function RecommendProjectSection() {
           platform="AppSheet"
           ratingText="Calificacion del instructor"
           rating={5}
-          viewDetails={t('viewDetails')}
+          viewDetails={ct('viewDetails')}
           published="Publicado hace 3 dias"
           tags={['CRM', 'Clientes', 'Ventas']}
         />
@@ -32,7 +33,7 @@ export default function RecommendProjectSection() {
           platform="AppSheet"
           ratingText="Calificacion del instructor"
           rating={5}
-          viewDetails={t('viewDetails')}
+          viewDetails={ct('viewDetails')}
           published="Publicado hace 3 dias"
           tags={['CRM', 'Clientes', 'Ventas']}
         />
@@ -46,7 +47,7 @@ export default function RecommendProjectSection() {
           platform="AppSheet"
           ratingText="Calificacion del instructor"
           rating={5}
-          viewDetails={t('viewDetails')}
+          viewDetails={ct('viewDetails')}
           published="Publicado hace 3 dias"
           tags={['CRM', 'Clientes', 'Ventas']}
         />

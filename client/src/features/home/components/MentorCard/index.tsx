@@ -1,36 +1,40 @@
 'use client';
-import Image from 'next/image'; // Importa el componente Image de Next.js
-import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { cn } from '@core/lib/utils';
 import styles from './MentorCard.module.css';
 
 interface CardProps {
-  title: string;
+  name: string;
   price: string;
   reviews: number;
-  imageSrc: string; // Nueva propiedad para reutilización
-  imageAlt?: string; // Texto alternativo opcional
-  textButton: string;
-  emoji: string;
-  sessions: string;
+  imageSrc: string;
+  platform: string;
+  platformImg: string;
+  sessions: string | number;
   idioma: string;
   urlPais: string;
+  hourText: string;
+  reviewText: string;
+  sessionText: string;
 }
 
-const CardTeacher: React.FC<CardProps> = ({
-  title,
+const CardTeacher = ({
+  name,
   price,
   reviews,
   imageSrc,
-  textButton,
-  emoji,
-  imageAlt = 'Imagen del curso',
+  platform,
+  platformImg,
   sessions,
   idioma,
   urlPais,
-}) => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  hourText,
+  reviewText,
+  sessionText,
+}: CardProps) => {
+  /* const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Manejar la apertura/cierre del menú
@@ -61,17 +65,21 @@ const CardTeacher: React.FC<CardProps> = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, []);*/
 
   return (
-    <div className={`${styles.card} rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md`}>
+    <div className={cn('rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md', styles.card)}>
       <div className="relative">
         <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
-          <FavButton className="block first-letter:drop-shadow-[drop-shadow(6px_4px_14px_black)]" />
+          <FavButton
+            color="white"
+            variant="filled"
+            className="block drop-shadow-[6px_4px_14px_black]"
+          />
         </div>
         <Image
           src={imageSrc}
-          alt={imageAlt}
+          alt={name}
           width={500}
           height={400}
           className="h-48 w-full rounded-t-lg object-cover"
@@ -81,9 +89,9 @@ const CardTeacher: React.FC<CardProps> = ({
       <div className="grow p-4">
         {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-slate-200">{title}</h3>
+          <h3 className="text-lg font-bold text-slate-200">{name}</h3>
           <Image width={30} alt="s" src={urlPais} height={20}></Image>
-          {/* Menú de tres puntos */}
+          {/*
           <div className="relative" ref={menuRef}>
             <button
               onClick={handleMenuToggle}
@@ -103,7 +111,6 @@ const CardTeacher: React.FC<CardProps> = ({
                 />
               </svg>
             </button>
-            {/* Contenido del menú */}
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
                 <ul className="py-1">
@@ -125,12 +132,13 @@ const CardTeacher: React.FC<CardProps> = ({
               </div>
             )}
           </div>
+          */}
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
           <Button variant="neutral" className="rounded-lg" size="default">
-            <Image src={emoji} alt="Carrito" width="20" height="20" className="mr-2" />
-            {textButton}
+            <Image src={platformImg} alt="Carrito" width="20" height="20" className="mr-2" />
+            {platform}
           </Button>
         </div>
 
@@ -149,14 +157,20 @@ const CardTeacher: React.FC<CardProps> = ({
             <path d="M12 17v4"></path>
             <polygon points="10 9 15 12 10 15 10 9"></polygon>
           </svg>
-          <p className="text-sm text-slate-200"> {sessions} Sesiones </p>
-          <p className="ml-2 text-sm text-slate-200">({reviews} Reseñas)</p>
+          <p className="text-sm text-slate-200">
+            {sessions} {sessionText}
+          </p>
+          <p className="ml-2 text-sm text-slate-200">
+            ({reviews} {reviewText})
+          </p>
         </div>
         <div className="mt-4 flex items-center gap-2">
           <p className="text-sm text-slate-200"> {idioma} </p>
         </div>
         <div className="mt-4 flex items-center gap-2">
-          <div className="text-lg font-bold text-slate-200">${price} USD / Hora</div>
+          <div className="text-lg font-bold text-slate-200">
+            ${price} USD / {hourText}
+          </div>
         </div>
       </div>
     </div>

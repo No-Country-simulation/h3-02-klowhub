@@ -40,7 +40,7 @@
       }
     ],
     "paths": {
-      "@types/*": [
+      "@coreTypes/*": [
         "./src/core/types/*"
       ],
       "@styles/*": [

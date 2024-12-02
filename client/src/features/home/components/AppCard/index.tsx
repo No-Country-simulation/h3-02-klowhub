@@ -1,9 +1,9 @@
 'use client';
 import Image from 'next/image'; // Importa el componente Image de Next.js
-import React, { useEffect, useRef, useState } from 'react';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { cn } from '@core/lib/utils';
 import styles from './AppCard.module.css';
 
 interface CardProps {
@@ -17,9 +17,11 @@ interface CardProps {
   imageAlt?: string; // Texto alternativo opcional
   textButton: string;
   emoji: string;
+  viewDetails: string;
+  addToCart: string;
 }
 
-const AppCard: React.FC<CardProps> = ({
+const AppCard = ({
   title,
   description,
   price,
@@ -30,8 +32,10 @@ const AppCard: React.FC<CardProps> = ({
   textButton,
   emoji,
   imageAlt = 'Imagen del curso',
-}) => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  viewDetails,
+  addToCart,
+}: CardProps) => {
+  /*const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Manejar la apertura/cierre del menú
@@ -62,14 +66,21 @@ const AppCard: React.FC<CardProps> = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, []);*/
 
   return (
     <div
-      className={`${styles.card} flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md`}>
+      className={cn(
+        'flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
+        styles.card
+      )}>
       <div className="relative">
         <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
-          <FavButton className="block first-letter:drop-shadow-[drop-shadow(6px_4px_14px_black)]" />
+          <FavButton
+            color="white"
+            variant="filled"
+            className="block drop-shadow-[6px_4px_14px_black]"
+          />
         </div>
 
         <Image
@@ -84,8 +95,11 @@ const AppCard: React.FC<CardProps> = ({
       <div className="grow p-4">
         {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-slate-200">{title}</h3>
+          <h3 className="line-clamp-1 max-h-7 text-ellipsis text-lg font-bold text-slate-200">
+            {title}
+          </h3>
           {/* Menú de tres puntos */}
+          {/*
           <div className="relative" ref={menuRef}>
             <button
               onClick={handleMenuToggle}
@@ -105,7 +119,6 @@ const AppCard: React.FC<CardProps> = ({
                 />
               </svg>
             </button>
-            {/* Contenido del menú */}
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
                 <ul className="py-1">
@@ -127,8 +140,11 @@ const AppCard: React.FC<CardProps> = ({
               </div>
             )}
           </div>
+          */}
         </div>
-        <p className="mt-1 pb-2 text-sm text-slate-200">{description}</p>
+        <p className="mt-1 line-clamp-2 max-h-10 text-ellipsis pb-2 text-sm text-slate-200">
+          {description}
+        </p>
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
           <Button variant="neutral" className="rounded-lg" size="default">
             <Image src={emoji} alt="Carrito" width="20" height="20" className="mr-2" />
@@ -163,23 +179,12 @@ const AppCard: React.FC<CardProps> = ({
       </div>
 
       <div className="mt-auto flex items-center p-4">
-        <Button
-          className="rounded-lg text-sm text-white hover:bg-purple-700"
-          style={{
-            backgroundColor: 'var(--color-primary-B-500)',
-            borderColor: 'var(--color-primary-A-500)',
-          }}
-          variant="default">
+        <Button className="rounded-lg px-4 py-2 text-sm text-white">
           <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
-          Añadir al carrito
+          {addToCart}
         </Button>
-        <Button
-          className="ml-4 text-sm font-bold hover:underline"
-          style={{
-            color: 'var(--color-primary-B-200)',
-          }}
-          variant="ghost">
-          Ver detalles
+        <Button className="ms-auto text-sm font-bold hover:underline" variant="ghost">
+          {viewDetails}
         </Button>
       </div>
     </div>

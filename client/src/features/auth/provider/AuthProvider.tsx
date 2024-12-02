@@ -11,8 +11,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     async function verifyAuth() {
-      const user = await checkAuth();
-      setUser(user);
+      await checkAuth();
     }
 
     verifyAuth();

@@ -16,7 +16,14 @@
     "metastade": "Stade",
     "metaTitle": "Klowhub Platform",
     "metaDescription": "Klowhub page platform",
-    "metaSiteName": "Klowhub Platform"
+    "metaSiteName": "Klowhub Platform",
+    "recocourseTitle": "Recommended courses",
+    "recocourseDesc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects.",
+    "latestInquiriesTitle": "Latest inquiries",
+    "connectWithExperts": "Connect with Experts",
+    "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors",
+    "mainTitle": "Welcome to KlowHub: the homepage of our No Code and Low Code learning and collaboration platform",
+    "gotoInquiries": "Go to inquiries"
   },
   "AboutAppsheet": {
     "metaTitle": "Klowhub - About app sheet",
@@ -36,7 +43,8 @@
   "Courses": {
     "metaTitle": "Klowhub - Courses",
     "metaDescription": "Klowhub Courses page",
-    "metaSiteName": "Klowhub - Courses"
+    "metaSiteName": "Klowhub - Courses",
+    "pageTitle": "Find the learning you're looking for"
   },
   "Footer": {
     "categoryTitle": "Category",
@@ -76,7 +84,6 @@
     "publishedCourses": "Published courses",
     "transferredApps": "Transferred Applications",
     "mentoringHours": "Mentoring hours",
-    "viewDetails": "View details",
     "viewEarnings": "View earnings",
     "navigatorCourse": "My courses",
     "navigatorProjects": "My projects",
@@ -85,6 +92,11 @@
     "recommendedTitle": "Opportunities that align with your profile",
     "recommendedDescription": "Explore the applications recommended especially for you. These opportunities are designed to help you find the next step in your career quickly and easily. Don't miss the chance to apply for your next professional challenge!",
     "viewProjects": "View projects"
+  },
+  "Mentors": {
+    "metaTitle": "Klowhub - Mentors page",
+    "metaDescription": "Klowhub Mentors page",
+    "metaSiteName": "Klowhub - Mentors page"
   },
   "Membership": {
     "metaTitle": "Klowhub - Membership",
@@ -151,17 +163,13 @@
     "emailInvalid": "Email is invalid",
     "passwordInvalid": "Password is invalid"
   },
-  "Banner": {
-    "connectWithExperts": "Connect with Experts",
-    "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors"
-  },
-  "Card": {
-    "title": "Mastering App Development with AppSheet",
-    "description": "Become an AppSheetHub expert and learn how to build apps without writing a single line of code.",
-    "textButton": "AppSheet",
-    "categoria": "Lección",
-    "titulo": "Recommended courses",
-    "desc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects."
+  "Common": {
+    "viewMore": "View more",
+    "addToCart": "Add to cart",
+    "viewDetails": "View details",
+    "hours": "Hour",
+    "reviews": "Review",
+    "session": "Session"
   },
   "AppCard": {
     "titulo": "Recommended applications",

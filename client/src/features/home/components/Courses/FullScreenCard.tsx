@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
@@ -23,7 +23,7 @@ const categoryStyles: Record<string, string> = {
   default: 'bg-gray-200 text-gray-800',
 };
 
-const FullScreenCard: React.FC<FullScreenCardProps> = ({
+const FullScreenCard = ({
   imageUrl,
   title,
   description,
@@ -33,7 +33,7 @@ const FullScreenCard: React.FC<FullScreenCardProps> = ({
   emoji,
   tags,
   categoria,
-}) => {
+}: FullScreenCardProps) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +66,11 @@ const FullScreenCard: React.FC<FullScreenCardProps> = ({
           {categoria}
         </span>
         <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
-          <FavButton className="block first-letter:drop-shadow-[drop-shadow(6px_4px_14px_black)]" />
+          <FavButton
+            color="white"
+            variant="filled"
+            className="block drop-shadow-[6px_4px_14px_black]"
+          />
         </div>
       </div>
 
