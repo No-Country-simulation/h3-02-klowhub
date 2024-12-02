@@ -4,6 +4,7 @@ import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import { Link } from '@core/lib/i18nRouting';
 import CardTeacher from '@features/home/components/MentorCard';
 import { getRecommendedMentors } from '@features/home/services/getRecommendedMentors';
+import MentorsCarruselWrapper from './MentorsCarruselWrapper';
 
 export default async function MentorSection() {
   const ct = await getTranslations<'Common'>('Common');
@@ -14,18 +15,28 @@ export default async function MentorSection() {
         {(item, i) => (
           <CardTeacher
             key={`gcm-${i}`}
-            title={item.name}
+            name={item.name}
             price={item.price}
             reviews={item.reviews}
-            textButton={item.platform}
+            platform={item.platform}
             imageSrc={item.img}
-            emoji="/images/appsheet_logo.png"
+            platformImg="/images/appsheet_logo.png"
             urlPais="/svg/argentina.svg"
             sessions={item.sessions}
             idioma={item.language}
+            hourText={ct('hours')}
+            reviewText={ct('reviews')}
+            sessionText={ct('session')}
           />
         )}
       </CardsFlexContainer>
+
+      <MentorsCarruselWrapper
+        mentors={mentors}
+        hourText={ct('hours')}
+        reviewText={ct('reviews')}
+        sessionText={ct('session')}
+      />
 
       <div className="mx-auto mt-8 w-full max-w-72">
         <Button variant="outline" asChild size="full" className="py-6">

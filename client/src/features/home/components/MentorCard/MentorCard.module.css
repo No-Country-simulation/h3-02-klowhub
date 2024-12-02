@@ -7,8 +7,9 @@
 }
 
 .card {
+  --card-max-w: 300px;
   width: 100%;
-  max-width: 450px;
+  max-width: var(--card-max-w);
   height: 100%;
   min-height: 500px;
   min-height: 500px;
@@ -25,4 +26,10 @@
    */
 .card:hover {
   transform: translateY(-5px);
+}
+
+@media only screen and (min-width: 550px) {
+  .card {
+    --card-max-w: 450px;
+  }
 }

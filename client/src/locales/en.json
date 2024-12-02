@@ -166,7 +166,10 @@
   "Common": {
     "viewMore": "View more",
     "addToCart": "Add to cart",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "hours": "Hour",
+    "reviews": "Review",
+    "session": "Session"
   },
   "AppCard": {
     "titulo": "Recommended applications",
