@@ -11,12 +11,16 @@ import {
   Param,
   Res,
   Req,
+  HttpStatus,
+  HttpException,
 } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, Payload } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { createCourseGatewaySchema } from './dto/create-course.dto';
 import { JwtService } from '@nestjs/jwt';
 import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
+import { CreateLessonDto } from './dto/create.lesson.dto';
+import { CreateModuleDto, createModuleSchema } from './dto/create.module.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -108,4 +112,29 @@ export class CoursesController {
       { token, courseId }
     );
   }
+  // agregar un modulo a un curso
+  @Post('course/:id')
+  async addModuleCourse(@Req() request: Request, @Request() req: any , @Body()  moduleData: CreateModuleDto){
+    const token = req.cookies.auth_token;
+    const courseId = req.params.id;
+    if (!token){
+      throw new Error('Token JWT no encontrado en las cookies');
+    }
+    const data = {token, courseId, ...moduleData }
+    const validationResult = createModuleSchema.safeParse(data);
+    
+    if(!validationResult.success) {
+      return (validationResult.error)
+    }
+    const sanitizedData = validationResult.data
+    const result = await lastValueFrom(
+      this.coursesClient.send(
+        { cmd: 'addModule'},
+        sanitizedData
+      )
+    );
+    return {
+      data: result,
+    }
+  }  
 }

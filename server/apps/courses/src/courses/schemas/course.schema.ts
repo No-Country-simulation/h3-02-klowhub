@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { Module, ModuleSchema } from './module.schema';
+import { Modules, ModulesSchema } from './module.schema';
 import { MergeInfo, MergeInfoSchema } from './merge-info.schema';
 import { Funtionalidad, Idiom, Pilar, Platform, Sector, Tool } from './enums';
 
@@ -92,8 +92,8 @@ export class Course extends Document {
 
   // tercer paso 
 
-  @Prop({ type: [ModuleSchema], default: [] })
-  modules?: Module[]; // Lista de módulos
+  @Prop({ type: [ModulesSchema], default: [] })
+  modules?: Modules[]; // Lista de módulos
 
   @Prop({ type: MergeInfoSchema })
   mergeInfo?: MergeInfo; // Información de fusiones
