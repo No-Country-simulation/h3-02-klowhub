@@ -1,11 +1,9 @@
 'use server';
-import { getTranslations } from 'next-intl/server';
-import { randomUUID } from 'crypto';
-import { apiService } from '@/core/services/api.service';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { validateSchema } from '@/core/services/validateSchema';
 import type { ActionResponse } from '@/core/types/actionResponse';
+import { redirect } from '@core/lib/i18nRouting';
 import { signinSchema } from '../validation/schemas';
-
 export async function signin(
   _state: unknown,
   formData: FormData
@@ -19,18 +17,20 @@ export async function signin(
 
   if (error || !data) return error;
 
-  const [errorRes, dataRes] = await apiService.post('auth/login', data, { withCredentials: true });
-  console.log('res', errorRes);
-  if (errorRes) {
-    return {
-      traceId: randomUUID(),
-      status: 'FETCH_ERROR',
-      errors: {
-        GLOBAL: 'Error al crear la cuenta',
-      },
-    };
+  const res = await fetch('http://localhost:3000/auth/login', {
+    body: JSON.stringify(data),
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  //console.log(res);
+  //const dataRes = await res.json();
+  const cookieHeader = res.headers.get('Set-Cookie');
+  if (!cookieHeader) {
+    return { errors: { GLOBAL: 'Error al crear la cuenta' } };
   }
-  // Manejar respuesta aqui
-  console.log({ dataRes });
-  //redirect(`/siguiente-ruta`);
+  //console.log(cookieHeader);
+
+  const locale = await getLocale();
+  redirect({ href: { pathname: '/platform' }, locale });
 }
