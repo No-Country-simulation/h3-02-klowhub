@@ -33,6 +33,10 @@ jobs:
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
+      - name: Install dependencies
+        working-directory: ./client
+        run: pnpm i --ignore-scripts
+
       - name: Run Linter
         working-directory: ./client
         run: pnpm lint
@@ -60,6 +64,14 @@ jobs:
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
+      - name: Install dependencies
+        working-directory: ./client
+        run: pnpm i --prefer-frozen-lockfile --ignore-scripts
+
       - name: Run build client
         working-directory: ./client
         run: pnpm build
+
+      - name: Run prune
+        working-directory: ./client
+        run: pnpm prune --prod --ignore-scripts
