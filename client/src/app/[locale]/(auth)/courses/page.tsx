@@ -3,7 +3,9 @@ import { routing } from '@core/lib/i18nRouting';
 import CoursesListSection from '@features/home/components/Courses';
 import { Breadcrumb } from '@features/home/components/Courses/Breadcrumb';
 
-export default async function CoursesPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function CoursesPage({
+  params,
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations<'Courses'>({ locale: locale, namespace: 'Courses' });
@@ -27,7 +29,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   const t = await getTranslations<'Courses'>({ locale: locale, namespace: 'Courses' });
   return {

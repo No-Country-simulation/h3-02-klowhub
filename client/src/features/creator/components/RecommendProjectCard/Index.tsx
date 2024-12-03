@@ -1,13 +1,9 @@
 import Image from 'next/image';
-import FavButton from '@core/components/FavButton/FavButton';
-import { cn } from '@core/lib/utils';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
-import appSheet from '/public/images/appsheet_logo.png';
-import moreVertical from '/public/svg/moreVertical.svg';
-import _powerApp from '/public/svg/powerapp.svg';
-import star from '/public/svg/star.svg';
-import link from '/public/svg/link.svg';
+import FavButton from '@core/components/FavButton/FavButton';
+import { cn } from '@core/lib/utils';
+import { getPlatformLogo } from '@core/services/getPlatformLogo';
 
 interface RecommendProjectCardProps {
   profile: string;
@@ -49,11 +45,23 @@ export default function RecommendProjectCard({
           <span className="text-sm text-gray-400">{published}</span>
           <div className="relative flex gap-2">
             <Button variant="ghost" size="fit" className="size-8 hover:bg-white/10">
-              <Image src={link} width={16} height={16} alt="AppSheet" className="size-4" />
+              <Image
+                src={'/svg/link.svg'}
+                width={16}
+                height={16}
+                alt="AppSheet"
+                className="size-4"
+              />
             </Button>
             <FavButton />
             <Button variant="ghost" size="fit" className="size-8 hover:bg-white/10">
-              <Image src={moreVertical} width={16} height={16} alt="AppSheet" className="size-4" />
+              <Image
+                src={'/svg/moreVertical.svg'}
+                width={16}
+                height={16}
+                alt="AppSheet"
+                className="size-4"
+              />
             </Button>
           </div>
         </div>
@@ -68,7 +76,13 @@ export default function RecommendProjectCard({
         </div>
         <Button variant="neutral" size="fit" asChild>
           <div className="flex items-center gap-2 rounded-lg p-2">
-            <Image src={appSheet} width={24} height={24} alt="AppSheet" className="size-6" />
+            <Image
+              src={getPlatformLogo(platform)}
+              width={24}
+              height={24}
+              alt="AppSheet"
+              className="size-6"
+            />
             <span className="text-sm text-white">{platform}</span>
           </div>
         </Button>
@@ -93,7 +107,7 @@ export default function RecommendProjectCard({
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <Image src={star} width={16} height={16} alt="Star" className="size-4" />
+          <Image src={'/svg/star.svg'} width={16} height={16} alt="Star" className="size-4" />
           <span className="text-sm text-gray-400">
             {ratingText}: {rating}
           </span>

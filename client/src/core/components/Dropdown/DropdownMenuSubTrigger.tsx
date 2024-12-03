@@ -1,8 +1,7 @@
 import { SubTrigger } from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
 import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react';
-import { cn } from '../../lib/utils';
-import chevron from '/public/svg/chevronRight.svg';
+import { cn } from '@core/lib/utils';
 
 const DropdownMenuSubTrigger = forwardRef<
   ElementRef<typeof SubTrigger>,
@@ -19,7 +18,7 @@ const DropdownMenuSubTrigger = forwardRef<
     )}
     {...props}>
     {children}
-    <Image src={chevron} alt="Chevron" width={16} height={16} className="ml-auto" />
+    <Image src={'/svg/chevronRight.svg'} alt="Chevron" width={16} height={16} className="ml-auto" />
   </SubTrigger>
 ));
 DropdownMenuSubTrigger.displayName = SubTrigger.displayName;

@@ -1,9 +1,17 @@
+import { Breadcrumb } from './Breadcrumb';
 import FullScreenCard from './FullScreenCard';
 import { SearchBar } from './SearchBar';
 
 export default function CoursesListSection() {
+  const breadcrumbItems = [
+    { label: 'Home', href: '/es/platform' },
+    { label: 'Cursos y lecciones', href: '/courses' },
+  ];
   return (
     <div className="w-full text-white">
+      <Breadcrumb items={breadcrumbItems} />
+      <h1 className="mb-4 text-lg font-bold">Encuentra el aprendizaje que estás buscando</h1>
+
       <SearchBar />
       {/* <Categories /> */}
       <FullScreenCard

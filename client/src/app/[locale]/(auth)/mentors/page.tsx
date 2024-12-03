@@ -1,7 +1,9 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
 
-export default async function MentorsPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function MentorsPage({
+  params,
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   setRequestLocale(locale);
   return <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16"></main>;

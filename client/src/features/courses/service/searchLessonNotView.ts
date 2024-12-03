@@ -1,10 +1,9 @@
-import type { z } from 'zod';
-import { videoModuleSchema } from '../schemas/video-schemas';
+import { type VideoModuleType } from '../schemas/video-schemas';
 
 export function updateLessonViewStatus(
-  modules: z.infer<typeof videoModuleSchema>[],
+  modules: VideoModuleType[],
   lessonId: string | number
-) {
+): { updated: boolean; updatedModules: VideoModuleType[] } {
   let updated = false;
   const updatedModules = modules.map(module => ({
     ...module,

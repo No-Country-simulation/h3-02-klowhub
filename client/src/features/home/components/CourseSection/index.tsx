@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import Button from '@core/components/Button';
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
+import CourseCard from '@core/components/CourseCard';
 import { Link } from '@core/lib/i18nRouting';
-import CourseCard from '@features/home/components/CourseCard';
 import { getRecommendedCourses } from '@features/home/services/getRecommendedCourses';
 import CourseCarouselWraper from './CourseCarouselWraper';
 
@@ -25,11 +25,10 @@ export default async function CourseSection() {
             price={item.price}
             rating={item.rating}
             reviews={item.reviews}
-            textButton={item.platform}
+            platform={item.platform}
             tags={item.tags}
             imageSrc={item.img}
             imageAlt={item.title}
-            emoji="/images/appsheet_logo.png"
             categoria={item.type}
             viewDetails={ct('viewDetails')}
             addToCart={ct('addToCart')}

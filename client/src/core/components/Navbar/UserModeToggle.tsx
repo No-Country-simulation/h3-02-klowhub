@@ -7,15 +7,16 @@ import { cn } from '../../lib/utils';
 interface UserModeToggleProps {
   explorerText: string;
   creatorText: string;
+  className?: string;
 }
 
-const UserModeToggle = ({ creatorText, explorerText }: UserModeToggleProps) => {
+const UserModeToggle = ({ creatorText, explorerText, className = '' }: UserModeToggleProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const mode = searchParams.get('mode');
 
   return (
-    <div className="flex h-full max-h-full items-center justify-center gap-2">
+    <div className={cn('flex h-full max-h-full items-center justify-center gap-2', className)}>
       <span className="min-w-[85px] max-w-[85px] text-ellipsis text-nowrap font-medium text-white">
         {mode === 'creator' || pathname === '/creator' ? creatorText : explorerText}
       </span>

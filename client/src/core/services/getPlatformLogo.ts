@@ -4,6 +4,8 @@ export const getPlatformLogo = (platform: string) => {
       return '/images/appsheet_logo.png';
     case 'Power Apps':
       return '/svg/powerapp.svg';
+    case 'PowerApps':
+      return '/svg/powerapp.svg';
     default:
       return '';
   }

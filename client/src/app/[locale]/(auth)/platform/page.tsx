@@ -6,7 +6,9 @@ import CourseSection from '@features/home/components/CourseSection';
 import MentorSection from '@features/home/components/MentorSection';
 import SectionIquiris from '@features/home/components/SectionIquiris';
 
-export default async function PlatformPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function PlatformPage({
+  params,
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations<'Platform'>({ locale: locale, namespace: 'Platform' });

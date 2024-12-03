@@ -12,7 +12,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   const t = await getTranslations<'Consultancies'>({ locale: locale, namespace: 'Consultancies' });
   return {
@@ -29,9 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ConsultanciesPage({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+}: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   setRequestLocale(locale);
   return <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16"></main>;

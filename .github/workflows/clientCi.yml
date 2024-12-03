@@ -1,0 +1,77 @@
+name: ClientCI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["*"]
+  workflow_dispatch:
+
+concurrency:
+  group: cci-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        node-version: [20.x]
+    name: Run all tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup/ Install pnpm 9.7.0 manually
+        working-directory: ./client
+        run: npm install -g pnpm@9.7.0
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: pnpm i --ignore-scripts
+
+      - name: Run Linter
+        working-directory: ./client
+        run: pnpm lint
+
+      - name: Run Types check
+        working-directory: ./client
+        run: pnpm types:check
+
+  build:
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    name: Build with ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup/ Install pnpm 9.7.0 manually
+        working-directory: ./client
+        run: npm install -g pnpm@9.7.0
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: pnpm i --prefer-frozen-lockfile --ignore-scripts
+
+      - name: Run build client
+        working-directory: ./client
+        run: pnpm build
+
+      - name: Run prune
+        working-directory: ./client
+        run: pnpm prune --prod --ignore-scripts

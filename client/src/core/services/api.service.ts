@@ -1,95 +1,85 @@
-import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { type ApiErrorType, type ApiResultType } from '@coreTypes/actionResponse';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
 const isProd = process.env.NODE_ENV === 'production';
-//Instancia de axios
-const api = axios.create({
-  baseURL: isProd ? APP_URL : API_URL,
-  timeout: 19999,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
 
-/*
-api.interceptors.request.use(
-  config => {
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  }
-);
-*/
+const handleError = (error: Error, status?: number): ApiErrorType => {
+  // Mapeo de errores específicos
+  const errorMap: Record<number, string> = {
+    400: 'Bad Request',
+    401: 'UNAUTHORIZED',
+    403: 'FORBIDDEN',
+    404: 'NOT_FOUND',
+    412: 'PRE_CONDITION_FAILED',
+    500: 'SERVER_ERROR',
+  };
 
-//Envia la peticion utilizando axios
-//Devuelva una respuesta utilizando un patron [error, data]
-//Patron util para asegurar el manejo del error
+  return {
+    error: errorMap[status as number] || error.message,
+    status,
+  };
+};
+
 const handleRequest = async <T = unknown>(
-  request: () => Promise<AxiosResponse>
+  input: RequestInfo,
+  init?: RequestInit
 ): Promise<ApiResultType<T>> => {
   try {
-    const response = await request();
-    //Si no hubo errores se envia la data y error undefined
-    return [undefined, response.data as T];
-  } catch (error) {
-    //SI hubo algun error se maneja y data undefined
-    return [handleError(error), undefined];
-  }
-};
-const handleError = (error: unknown): ApiErrorType | undefined => {
-  if (error instanceof AxiosError && error.response) {
-    const status = error.response.status;
-    //TODO: Actualizar posibles respuesta de errores
-    if (status === 401) {
-      return { error: 'UNAUTHORIZED' };
-    } else if (status === 403) {
-      return { error: 'FORBIDDEN' };
-    } else if (status === 404) {
-      return { error: 'NOT_FOUND' };
-    } else if (status === 412) {
-      return { error: 'PRE_CONDITION_FAILED' };
-    } else if (status >= 500) {
-      return { error: 'SERVER_ERROR' };
-    } else {
-      return { error: error.response.data?.message };
+    const baseUrl = isProd ? APP_URL : API_URL;
+    const url = typeof input === 'string' ? `${baseUrl}${input}` : input;
+
+    const response = await fetch(url, {
+      ...init,
+      headers: {
+        'Content-Type': 'application/json',
+        ...init?.headers,
+      },
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      return [handleError(new Error('Request failed'), response.status), undefined];
     }
-  } else if (error instanceof AxiosError && error.request) {
-    return { error: 'NETWORK_ERROR' };
-  } else if (error instanceof Error) {
-    return { error: error.message };
+
+    const data = await response.json();
+    return [undefined, data as T];
+  } catch (error) {
+    return [handleError(error instanceof Error ? error : new Error('Unknown error')), undefined];
   }
 };
 
 //API Services: Wrapper de Axios para hacer 4 peticiones basicas
 export const apiService = {
-  async get<T = unknown>(url: string, config: AxiosRequestConfig | undefined = {}) {
-    return handleRequest<T>(() => api.get(url, config));
+  async get<T = unknown>(url: string, init: RequestInit | undefined = {}) {
+    return handleRequest<T>(url, { method: 'GET', ...init });
   },
 
   async post<T = unknown>(
     url: string,
-    data: Record<string, string>,
-    config: AxiosRequestConfig | undefined = {}
+    body: Record<string, string>,
+    init: RequestInit | undefined = {}
   ): Promise<ApiResultType<T>> {
-    return handleRequest<T>(() => api.post(url, data, config));
+    return handleRequest<T>(url, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      ...init,
+    });
   },
 
   async put<T = unknown>(
     url: string,
-    data: Record<string, string>,
-    config: AxiosRequestConfig | undefined = {}
+    body: Record<string, string>,
+    init: RequestInit | undefined = {}
   ) {
-    return handleRequest<T>(() => api.put(url, data, config));
+    return handleRequest<T>(url, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      ...init,
+    });
   },
 
-  async delete<T = unknown>(url: string, config: AxiosRequestConfig | undefined = {}) {
-    return handleRequest<T>(() => api.delete(url, config));
+  async delete<T = unknown>(url: string, init: RequestInit | undefined = {}) {
+    return handleRequest<T>(url, { method: 'DELETE', ...init });
   },
 };
-
-//La instancia de axios es el import default
-export default api;

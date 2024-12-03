@@ -1,63 +1,60 @@
 'use client';
 
+import { Root as Portal } from '@radix-ui/react-portal';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
+import useClickOutside from '@core/hooks/useClickOutside';
 import { Link } from '@core/lib/i18nRouting';
+import { cn } from '@core/lib/utils';
 import { MenuItem } from './MenuItem';
+import css from './navbar.module.css';
+import UserModeToggle from './UserModeToggle';
 import Button from '../Button';
 import NavLink from '../NavLink';
 
 const ANIMATION_HEADER_RANGE = [0, 100];
+const menuVariants = {
+  closed: { opacity: 0, x: '100%' },
+  open: { opacity: 1, x: 0 },
+};
+
 export const NavbarClient = ({
   children,
   navItems,
+  explorerText,
+  creatorText,
 }: {
   children: ReactNode;
   navItems: { href: string; text: string }[];
+  explorerText: string;
+  creatorText: string;
 }) => {
   const [supportBackdrop, setSupportBackdrop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const menuRef = useRef<HTMLDivElement>(null);
-  const ignoreRef = useRef<HTMLButtonElement>(null);
   const backgroundColor = useTransform(scrollY, ANIMATION_HEADER_RANGE, [
     'rgba(31, 41, 55, 0.4)',
     supportBackdrop ? 'rgba(31, 41, 55, 0.4)' : 'rgba(31, 41, 55, 1)',
   ]);
   const blurFilter = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['blur(20px)', 'blur(40px)']);
   const top = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['25px', '0px']);
-  const topNegative = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['-25px', '0px']);
+
   useEffect(() => {
     // Verifica si la API está disponible en el cliente
     if (typeof window !== 'undefined' && CSS.supports) {
       setSupportBackdrop(CSS.supports('backdrop-filter', 'blur(1px)'));
+      const initialScrollY = window.scrollY;
+      if (initialScrollY > 0) {
+        scrollY.set(initialScrollY);
+      }
     }
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        ignoreRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !ignoreRef.current.contains(event.target as Node) &&
-        isMenuOpen
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const menuVariants = {
-    closed: { opacity: 0, x: '100%' },
-    open: { opacity: 1, x: 0 },
-  };
+  useClickOutside(menuRef, () => {
+    setIsMenuOpen(false);
+  });
 
   return (
     <motion.div
@@ -78,47 +75,67 @@ export const NavbarClient = ({
               variant="ghost"
               size="fit"
               className="h-full"
-              ref={ignoreRef}
               onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {!isMenuOpen ? (
-                <Image src="/svg/menu.svg" alt="Menu" width={28} height={28} className="size-7" />
-              ) : (
-                <Image src="/svg/cross.svg" alt="Menu" width={28} height={28} className="size-7" />
-              )}
+              <Image src="/svg/menu.svg" alt="Menu" width={28} height={28} className="size-7" />
             </Button>
           </div>
-          <AnimatePresence>
-            {isMenuOpen && (
-              <motion.div
-                ref={menuRef}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={menuVariants}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                style={{ top: topNegative }}
-                className="fixed right-0 z-10 min-h-screen w-full rounded-l-sm bg-neutral-100/80 backdrop-blur-2xl sm:max-w-[350px] min-[1400px]:hidden">
-                <div className="flex h-full flex-col justify-between p-4">
-                  <motion.nav
-                    className="mt-16 flex flex-col space-y-4"
-                    variants={{
-                      open: {
-                        transition: { staggerChildren: 0.07, delayChildren: 0.2 },
-                      },
-                      closed: {
-                        transition: { staggerChildren: 0.05, staggerDirection: -1 },
-                      },
-                    }}>
-                    {navItems.map(item => (
-                      <MenuItem key={item.href}>
-                        <NavLink href={item.href}>{item.text}</NavLink>
-                      </MenuItem>
-                    ))}
-                  </motion.nav>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <Portal>
+            <AnimatePresence>
+              {isMenuOpen && (
+                <motion.div
+                  ref={menuRef}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  variants={menuVariants}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="fixed right-0 top-0 z-50 min-h-screen w-full rounded-l-sm bg-neutral-100/80 backdrop-blur-2xl sm:max-w-[350px] min-[1400px]:hidden">
+                  <div className="relative h-dvh w-full">
+                    <Button
+                      variant="ghost"
+                      size="fit"
+                      className={cn('absolute right-6 top-5', css.menuMobileOpen)}
+                      onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                      <Image
+                        src="/svg/cross.svg"
+                        alt="Menu"
+                        width={28}
+                        height={28}
+                        className="size-7"
+                      />
+                    </Button>
+                    <div className="flex h-full flex-col justify-between py-4">
+                      <motion.nav
+                        className="mt-20 flex h-full flex-col space-y-4"
+                        variants={{
+                          open: {
+                            transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+                          },
+                          closed: {
+                            transition: { staggerChildren: 0.05, staggerDirection: -1 },
+                          },
+                        }}>
+                        {navItems.map(item => (
+                          <MenuItem
+                            className="py-2 pe-4 ps-6 text-primary-B-100 transition-colors hover:cursor-pointer hover:bg-white/5 hover:!text-primary-A-200"
+                            key={item.href}>
+                            <NavLink className="text-inherit" href={item.href}>
+                              {item.text}
+                            </NavLink>
+                          </MenuItem>
+                        ))}
+                      </motion.nav>
+                      <UserModeToggle
+                        className="absolute left-1 top-4 mt-0 h-fit scale-90 flex-row-reverse justify-end gap-x-3"
+                        explorerText={explorerText}
+                        creatorText={creatorText}
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Portal>
         </div>
       </div>
     </motion.div>

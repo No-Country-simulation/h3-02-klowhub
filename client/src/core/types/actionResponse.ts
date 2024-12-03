@@ -13,6 +13,7 @@ export type OnSubmitType = (
 
 export type ApiErrorType = {
   error: string | object;
+  status?: number | string;
 };
 
 export type ApiResultType<T = unknown> = [ApiErrorType | undefined, T | undefined];

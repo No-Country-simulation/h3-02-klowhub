@@ -15,19 +15,21 @@ interface CollapsableModuleProps {
 
 const CollapsableModule = ({ module, isOpen, onToggle }: CollapsableModuleProps) => {
   return (
-    <div className="mb-2">
+    <>
       <Button
         variant="ghost"
         onClick={onToggle}
         className={cn(
-          'w-full items-center justify-between p-2 pe-4 ps-3 text-[15px] font-normal text-white transition-colors duration-200 hover:bg-white/5',
+          'w-full items-center justify-between py-6 pe-4 ps-3 text-[15px] font-normal text-white transition-colors duration-200 hover:bg-white/5',
           isOpen && 'text-primary-B-300'
         )}>
         <span className="flex items-center gap-2">
-          <div className="size-5">
+          <div className="size-7">
             <ModuleIcon />
           </div>
-          <span>{module.title}</span>
+          <span className="line-clamp-1 max-h-6 text-ellipsis text-[18px] leading-6">
+            {module.title}
+          </span>
         </span>
         <AnimatedChevron isOpen={isOpen} />
       </Button>
@@ -47,7 +49,7 @@ const CollapsableModule = ({ module, isOpen, onToggle }: CollapsableModuleProps)
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 };
 

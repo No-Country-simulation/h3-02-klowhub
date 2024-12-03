@@ -1,8 +1,8 @@
 'use client';
 
 import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
+import CourseCard from '@core/components/CourseCard';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
-import CourseCard from '../CourseCard';
 
 interface CourseCarouselWraperProps {
   courses: CourseCardType[];
@@ -25,11 +25,10 @@ export default function CourseCarouselWraper({
           price={item.price}
           rating={item.rating}
           reviews={item.reviews}
-          textButton={item.platform}
+          platform={item.platform}
           tags={item.tags}
           imageSrc={item.img}
           imageAlt={item.title}
-          emoji="/images/appsheet_logo.png"
           categoria={item.type}
           viewDetails={viewDetails}
           addToCart={addToCart}

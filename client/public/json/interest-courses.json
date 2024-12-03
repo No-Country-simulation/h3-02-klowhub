@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Dominando el desarrollo de aplicaciones con AppSheet",
+    "type": "Curso",
+    "isFavorite": false,
+    "price": "80.000",
+    "rating": 3.5,
+    "reviews": 136,
+    "platform": "AppSheet",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/course_mock3.png"
+  },
+  {
+    "id": 2,
+    "title": "Automatiza tus procesos con AppSheet",
+    "type": "Curso",
+    "isFavorite": false,
+    "price": "25.000",
+    "rating": 4.1,
+    "reviews": 184,
+    "platform": "AppSheet",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/course_mock1.png"
+  },
+  {
+    "id": 3,
+    "title": "Creación de aplicaciones empresariales",
+    "type": "Curso",
+    "isFavorite": false,
+    "price": "00.00",
+    "rating": 3.7,
+    "reviews": 128,
+    "platform": "Power Apps",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/course_mock2.png"
+  },
+  {
+    "id": 4,
+    "title": "Automatización de flujos de trabajo con AppSheet",
+    "type": "Curso",
+    "isFavorite": false,
+    "price": "00.00",
+    "rating": 3.7,
+    "reviews": 128,
+    "platform": "Power Apps",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/course_mock2.png"
+  }
+]

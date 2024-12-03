@@ -19,7 +19,7 @@ export default function Navbar() {
   ];
   return (
     <div className="header-bg-image fixed inset-x-0 top-0 z-50 mb-auto h-20 w-full">
-      <NavbarClient navItems={navItems}>
+      <NavbarClient navItems={navItems} explorerText={t('explorer')} creatorText={t('creator')}>
         <nav className="hidden grow items-center justify-center space-x-10 min-[1400px]:flex">
           {/* <PlatformToggle homeText={t('homeText')} platformText={t('platformText')} /> */}
           <div className="flex items-center justify-center gap-4">

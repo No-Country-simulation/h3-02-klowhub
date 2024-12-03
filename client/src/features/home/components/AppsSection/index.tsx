@@ -25,11 +25,10 @@ export default async function AppSection() {
             price={item.price}
             rating={item.rating}
             reviews={item.reviews}
-            textButton={item.platform}
+            platform={item.platform}
             tags={item.tags}
             imageSrc={item.img}
             imageAlt={item.title}
-            emoji="/images/appsheet_logo.png"
             viewDetails={ct('viewDetails')}
             addToCart={ct('addToCart')}
           />
