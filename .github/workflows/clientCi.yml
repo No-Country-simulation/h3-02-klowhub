@@ -60,6 +60,6 @@ jobs:
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
-      - nane: Run build client
+      - name: Run build client
         working-directory: ./client
         run: pnpm build
