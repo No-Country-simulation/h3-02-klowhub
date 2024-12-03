@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import Button from '@core/components/Button';
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
+import CourseCard from '@core/components/CourseCard';
 import { Link } from '@core/lib/i18nRouting';
-import CourseCard from '@features/home/components/CourseCard';
 import { getRecommendedCourses } from '@features/home/services/getRecommendedCourses';
 import CourseCarouselWraper from './CourseCarouselWraper';
 

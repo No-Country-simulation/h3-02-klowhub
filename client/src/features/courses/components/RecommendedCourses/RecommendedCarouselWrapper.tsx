@@ -4,25 +4,24 @@ import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import CourseCard from '@core/components/CourseCard';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
 
-interface CourseCarouselWraperProps {
+interface RecommendedCarouselWrapperProps {
   courses: CourseCardType[];
   viewDetails: string;
   addToCart: string;
 }
 
-export default function CourseCarouselWraper({
+export default function RecommendedCarouselWrapper({
   courses,
   viewDetails,
   addToCart,
-}: CourseCarouselWraperProps) {
+}: RecommendedCarouselWrapperProps) {
   return (
-    <CardsFlexCarousel items={courses}>
+    <CardsFlexCarousel items={courses} classNameContainer="pl-6">
       {(item, i) => (
         <CourseCard
+          className="!max-h-[530px] !min-h-[530px] !max-w-[475px] min-[1340px]:!max-h-[515px] min-[1340px]:!min-h-[515px]"
           key={`gcc-${i}`}
           title={item.title}
-          description={item?.description || ''}
-          price={item.price}
           rating={item.rating}
           reviews={item.reviews}
           platform={item.platform}
