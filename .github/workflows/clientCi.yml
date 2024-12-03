@@ -33,8 +33,13 @@ jobs:
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
-      - name: Linter
+      - name: Run Linter
+        working-directory: ./client
         run: pnpm lint
+
+      - name: Run Types check
+        working-directory: ./client
+        run: pnpm types:check
 
   build:
     strategy:
@@ -55,4 +60,6 @@ jobs:
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
-      - run: pnpm build
+      - nane: Run build client
+        working-directory: ./client
+        run: pnpm build
