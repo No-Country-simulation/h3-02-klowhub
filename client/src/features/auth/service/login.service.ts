@@ -1,3 +1,4 @@
+'use server';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
@@ -15,8 +16,9 @@ export async function signin(
   });
 
   if (error || !data) return error;
-
+  console.log(data);
   const res = await fetch('http://localhost:3000/auth/login', {
+    credentials: 'include',
     body: JSON.stringify(data),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -24,11 +26,12 @@ export async function signin(
 
   //console.log(res);
   //const dataRes = await res.json();
-  const cookieHeader = res.headers.get('Set-Cookie');
+  const cookieHeader = res.headers;
+  console.log('token', cookieHeader);
+
   if (!cookieHeader) {
     return { errors: { GLOBAL: 'Error al crear la cuenta' } };
   }
-  //console.log(cookieHeader);
 
   const locale = await getLocale();
   redirect({ href: { pathname: '/platform' }, locale });

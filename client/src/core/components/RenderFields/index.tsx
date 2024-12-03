@@ -25,7 +25,7 @@ const RenderFields = ({ field, error }: RenderFieldsProps) => {
     );
   }
   //Aqui se podria agregar logica para otro tipo de fields (textarea,select,number,date,etc)
-  return <FormField {...commonProps} type={field.type} />;
+  return <FormField className="text-black" {...commonProps} type={field.type} />;
 };
 // Export default en componentes
 export default RenderFields;

@@ -5,7 +5,7 @@ import type { FormFieldProps } from '@core/types/fields';
 import EyeButton from '../EyeButton';
 
 const formFieldCVA = cva(
-  'autofill-inherit w-full bg-white/90 relative z-10 focus:outline-primary-B-500 placeholder:text-neutral-300 border-neutral-400 py-2 px-3  max-w-[350px] max-h-[75px] rounded-lg transition-all duration-300 ease border  border-solid text-sm leading-6 font-normal',
+  'relative z-10 border-neutral-400 bg-white/90 px-3 py-2 border border-solid rounded-lg w-full font-normal autofill-inherit focus:outline-primary-B-500 max-w-[350px] max-h-[75px] text-sm placeholder:text-neutral-300 leading-6 transition-all duration-300 ease',
   {
     variants: {
       error: {
@@ -21,7 +21,7 @@ const formFieldCVA = cva(
   }
 );
 
-const labelCVA = cva('group relative w-full max-w-[350px] text-base font-normal leading-4', {
+const labelCVA = cva('relative w-full max-w-[350px] font-normal text-base leading-4 group', {
   variants: {
     error: {
       true: 'text-red-500',
@@ -32,12 +32,12 @@ const labelCVA = cva('group relative w-full max-w-[350px] text-base font-normal 
 });
 
 const FormField = forwardRef<HTMLInputElement, FormFieldProps>(function FormField(
-  { className = '', id = '', type = 'text', error, onTypeChange, ...props },
+  { className = 'text-black', id = '', type = 'text', error, onTypeChange, ...props },
   ref
 ) {
   return (
     <label data-testid={id} className={cn(labelCVA({ error: !!error }))} htmlFor={id}>
-      <div className="relative mt-4">
+      <div className="relative mt-4 text-black">
         <input
           {...props}
           id={id}
