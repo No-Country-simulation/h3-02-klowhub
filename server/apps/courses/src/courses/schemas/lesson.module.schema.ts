@@ -1,36 +1,25 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Types } from 'mongoose';
 
 @Schema()
-export class Lesson extends Document {
+export class Lesson {
+  @Prop({ type: Types.ObjectId, default: () => new Types.ObjectId() })
+  _id: Types.ObjectId;
+
   @Prop({ required: true })
-  lessonTitle: string; // Título de la lección
+  lessonTitle: string;
 
   @Prop()
-  lessonDescription?: string; // Descripción de la lección
+  lessonDescription?: string;
 
   @Prop()
-  materialUrl?: string; // URL del material
+  materialUrl?: string;
 
   @Prop()
-  uploadedMaterial?: string; // Material subido
+  uploadedMaterial?: string;
 
   @Prop()
-  videoUrl?: string; // URL del video
+  videoUrl?: string;
 }
 
 export const LessonSchema = SchemaFactory.createForClass(Lesson);
-
-@Schema()
-export class Modules extends Document {
-  @Prop({ required: true })
-  moduleTitle: string; // Título del módulo
-
-  @Prop()
-  moduleDescription?: string; // Descripción del módulo
-
-  @Prop({ type: [Lesson], default: [] })
-  lessons?: Lesson[]; // Lecciones del módulo
-}
-
-export const ModuleSchema = SchemaFactory.createForClass(Modules);
