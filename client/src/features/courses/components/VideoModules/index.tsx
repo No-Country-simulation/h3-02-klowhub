@@ -19,7 +19,7 @@ const VideoModules = ({ modules }: VideoModulesProps) => {
 
   return (
     <ScrollArea className="h-[calc(100vh-200px)]">
-      <div className="space-y-2 py-4 pe-2">
+      <div className="space-y-4 py-4 pe-2">
         {modules.map(module => (
           <CollapsableModule
             key={module.id}
