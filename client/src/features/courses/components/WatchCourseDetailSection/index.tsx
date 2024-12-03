@@ -40,9 +40,9 @@ export default async function WatchCourseDetailSection() {
                 <span className="text-sm text-[#D8C5C5]">{courseDetail.creatorHeader}</span>
               </div>
             </div>
-            <Button variant="default" className="font-semibold text-white">
+            {/* <Button variant="default" className="font-semibold text-white">
               Suscribirme
-            </Button>
+            </Button> */}
           </div>
           <div className="flex flex-col space-y-3">
             <Button
