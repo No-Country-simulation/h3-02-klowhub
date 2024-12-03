@@ -1,9 +1,11 @@
 import { z } from 'zod';
+import { idSchema, nameSchema } from '@core/schemas/common.schema';
 
 export const courseDetailsSchema = z.object({
-  id: z.string().or(z.number()),
-  name: z.string(),
-  creatorId: z.string().or(z.number()),
+  id: idSchema,
+  name: nameSchema,
+  creatorId: idSchema,
+  platform: z.string(),
   creatorName: z.string(),
   creatorAvatar: z.string().optional(),
   creatorHeader: z.string().optional(),

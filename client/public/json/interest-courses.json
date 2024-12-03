@@ -2,7 +2,6 @@
   {
     "id": 1,
     "title": "Dominando el desarrollo de aplicaciones con AppSheet",
-    "description": "Conviértete en un experto en AppSheetHub y aprende a crear aplicaciones sin escribir una sola línea de código.",
     "type": "Curso",
     "isFavorite": false,
     "price": "80.000",
@@ -15,7 +14,6 @@
   {
     "id": 2,
     "title": "Automatiza tus procesos con AppSheet",
-    "description": "Aprende a simplificar y automatizar tareas rutinarias utilizando las herramientas intuitivas de AppSheetHub.",
     "type": "Curso",
     "isFavorite": false,
     "price": "25.000",
@@ -28,7 +26,18 @@
   {
     "id": 3,
     "title": "Creación de aplicaciones empresariales",
-    "description": "Descubre cómo desarrollar aplicaciones personalizadas que optimicen los procesos de tu empresa.",
+    "type": "Curso",
+    "isFavorite": false,
+    "price": "00.00",
+    "rating": 3.7,
+    "reviews": 128,
+    "platform": "Power Apps",
+    "tags": ["Logistica", "Optimización", "Inventarios"],
+    "img": "/images/mocks/course_mock2.png"
+  },
+  {
+    "id": 4,
+    "title": "Automatización de flujos de trabajo con AppSheet",
     "type": "Curso",
     "isFavorite": false,
     "price": "00.00",

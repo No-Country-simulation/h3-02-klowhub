@@ -4,6 +4,7 @@ import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
 import { cn } from '@core/lib/utils';
+import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import styles from './AppCard.module.css';
 
 interface CardProps {
@@ -15,8 +16,7 @@ interface CardProps {
   tags: string[];
   imageSrc: string; // Nueva propiedad para reutilización
   imageAlt?: string; // Texto alternativo opcional
-  textButton: string;
-  emoji: string;
+  platform: string;
   viewDetails: string;
   addToCart: string;
 }
@@ -29,8 +29,7 @@ const AppCard = ({
   reviews,
   tags,
   imageSrc,
-  textButton,
-  emoji,
+  platform,
   imageAlt = 'Imagen del curso',
   viewDetails,
   addToCart,
@@ -146,9 +145,21 @@ const AppCard = ({
           {description}
         </p>
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
-          <Button variant="neutral" className="rounded-lg" size="default">
-            <Image src={emoji} alt="Carrito" width="20" height="20" className="mr-2" />
-            {textButton}
+          <Button
+            asChild
+            variant="neutral"
+            className="pointer-events-none select-none rounded-lg"
+            size="default">
+            <div>
+              <Image
+                src={getPlatformLogo(platform)}
+                alt={platform}
+                width="20"
+                height="20"
+                className="mr-2"
+              />
+              {platform}
+            </div>
           </Button>
         </div>
 

@@ -25,11 +25,10 @@ export default function AppCarouselWrapper({
           price={app.price}
           rating={app.rating}
           reviews={app.reviews}
-          textButton={app.platform}
+          platform={app.platform}
           tags={app.tags}
           imageSrc={app.img}
           imageAlt={app.title}
-          emoji="/images/appsheet_logo.png"
           viewDetails={viewDetails}
           addToCart={addToCart}
         />
