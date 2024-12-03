@@ -4,7 +4,7 @@ import { CoursesService , } from './courses.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { z } from 'zod';
 import { JwtService } from '@nestjs/jwt';
-import { createLessonSchema } from './dto/create.lesson.dto';
+import { CreateLessonDto, createLessonSchema } from './dto/create.lesson.dto';
 import { CreateModuleDto, createModuleSchema } from './dto/create.module.dto';
 
 @Controller('courses')
@@ -29,8 +29,6 @@ export class CoursesController {
       });
     }
 
-    try {
-      // Verificar el token JWT y extraer el userId
       const decoded = this.jwtService.verify(data.token);  // Verificar el token
       const userId = decoded.userId;  // Suponiendo que userId está en el payload del token
 
@@ -43,12 +41,6 @@ export class CoursesController {
       // Delegar la creación del curso al servicio
       const newCourse = await this.coursesService.createCourse(courseDataWithUserId);
       return newCourse;
-    } catch (error) {
-      throw new RpcException({
-        statusCode: 500,
-        message: error.message || 'Error al crear el curso',
-      });
-    }
   }
 
   // Buscar curso por filtro
@@ -119,4 +111,19 @@ export class CoursesController {
     // Llamada al servicio con los datos validados
     return this.coursesService.addModule(valiData.data);
   }
+
+  // add lesson
+  @MessagePattern({cmd: 'add-lesson'})
+  async addLessonToModule(data: CreateLessonDto) {
+    const valiData = createLessonSchema.safeParse(data);
+    if (!valiData.success) {
+      const validationErrors = valiData.error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+      throw new RpcException({
+        statusCode: 400,
+        message: 'Validation errors',
+        errors: validationErrors,
+      });
+    }
+    return this.coursesService.addLessonToModule(valiData.data)
+    }
 }

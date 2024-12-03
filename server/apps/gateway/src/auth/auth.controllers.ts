@@ -121,13 +121,10 @@ export class AuthController {
   //
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
-    try {
-      // Solicitar el token al microservicio de USERS
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       const { token } = await lastValueFrom(
         this.usersService.send({ cmd: 'login' }, loginDto),
       );
-
       if (!token) {
         throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }
@@ -152,10 +149,6 @@ export class AuthController {
       return res.status(200).json({
         message: '¡Inicio de sesión exitoso!',
       });
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error.message); // Registro detallado del error
-      throw new BadRequestException(error.message || 'Error al iniciar sesión');
-    }
   }
 
   //status token
