@@ -20,12 +20,12 @@ export default async function WatchCourseDetailSection() {
   }
 
   return (
-    <section className="h-fit w-full space-y-6 rounded-lg bg-white/10 px-14 py-10 shadow-app-1 backdrop-blur-sm">
+    <section className="h-fit w-full space-y-9 rounded-lg bg-white/10 px-4 py-8 shadow-app-1 backdrop-blur-sm min-[620px]:space-y-6 min-[620px]:px-14 min-[620px]:py-10">
       <header className="flex flex-col items-center justify-start space-y-6 text-white">
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-lg font-bold">{courseDetail.name}</h1>
+          <h1 className="text-xl font-bold">{courseDetail.name}</h1>
         </div>
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full flex-col items-start justify-center gap-y-6 min-[620px]:flex-row min-[620px]:items-center min-[620px]:justify-between">
           <div className="space-y-4">
             <div className="flex items-center justify-start gap-3">
               <Image
@@ -44,7 +44,7 @@ export default async function WatchCourseDetailSection() {
               Suscribirme
             </Button> */}
           </div>
-          <div className="flex flex-col space-y-3">
+          <div className="flex space-x-7 min-[620px]:flex-col min-[620px]:space-x-0 min-[620px]:space-y-3">
             <Button
               asChild
               variant="neutral"

@@ -19,7 +19,7 @@ export default function RecommendedCarouselWrapper({
     <CardsFlexCarousel items={courses} classNameContainer="pl-6">
       {(item, i) => (
         <CourseCard
-          className="!max-h-[530px] !min-h-[530px] !max-w-[475px] min-[1340px]:!max-h-[515px] min-[1340px]:!min-h-[515px]"
+          className="!max-h-[530px] !min-h-[530px] !max-w-[475px]"
           key={`gcc-${i}`}
           title={item.title}
           rating={item.rating}
