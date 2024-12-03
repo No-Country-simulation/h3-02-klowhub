@@ -14,15 +14,15 @@ export default async function CoursesPage({
   const { lessonActive = '', moduleActive = '' } = await searchParams;
   setRequestLocale(locale);
   return (
-    <main className="mb-20 mt-36 size-full space-y-8 px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mb-20 mt-36 size-full space-y-8 px-0 min-[780px]:px-10 min-[1800px]:px-16">
       <WatchCourseSection
         moduleActive={moduleActive as string}
         lessonActive={lessonActive as string}
         courseId={id}
       />
-      <div className="flex w-full justify-between gap-x-20">
+      <div className="flex w-full justify-between gap-x-[5%] px-[3%] min-[780px]:px-0">
         <WatchCourseDetailSection />
-        <aside className="w-full min-w-[380px] flex-1 basis-[27%] rounded-lg bg-white/10 shadow-app-1">
+        <aside className="w-full min-w-[380px] flex-1 basis-[21%] rounded-lg bg-white/10 shadow-app-1">
           <h2 className="px-4 py-6 text-base font-semibold text-white">
             Cursos que te pueden interesar
           </h2>

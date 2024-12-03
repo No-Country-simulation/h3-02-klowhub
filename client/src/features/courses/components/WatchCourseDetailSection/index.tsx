@@ -23,7 +23,7 @@ export default async function WatchCourseDetailSection() {
   }
 
   return (
-    <section className="w-full max-w-[1148px] flex-1 basis-[73%] space-y-6 rounded-lg bg-white/10 p-5 shadow-app-1 backdrop-blur-sm">
+    <section className="w-full max-w-[1148px] flex-1 basis-[71%] space-y-6 rounded-lg bg-white/10 p-5 shadow-app-1 backdrop-blur-sm">
       <header className="flex flex-col items-center justify-start space-y-6 text-white">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-base font-bold">{courseDetail.data.name}</h1>

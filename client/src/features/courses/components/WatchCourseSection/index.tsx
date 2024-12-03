@@ -31,16 +31,19 @@ const WatchCourseSection = async ({
   const moduleActiveId = moduleActive || course.lastModuleId;
 
   return (
-    <section className="mx-auto grid rounded-lg bg-white/5 md:grid-cols-[1fr,26%] min-[2000px]:grid-cols-[1fr,25%]">
-      <div className="space-y-4 rounded-l-lg bg-white/10 p-4 contain-inline-size">
+    <section className="mx-auto flex flex-col gap-y-8 rounded-lg min-[1280px]:grid min-[1280px]:grid-cols-[1fr,26%] min-[1280px]:gap-y-0 min-[1280px]:bg-white/5 min-[2000px]:grid-cols-[1fr,25%]">
+      <div className="space-y-4 rounded-lg bg-white/15 contain-inline-size min-[780px]:p-4 min-[1280px]:rounded-r-none min-[1280px]:bg-white/10">
         <WatchVideoWrapper locale={locale} lessonActiveId={lessonActiveId} />
-        <VideoLessons
-          courseId={courseId}
-          lessonActiveId={lessonActiveId}
-          lessons={course.modules.find(module => module.id === moduleActiveId)?.lessons || []}
-        />
+        <div className="px-4 pb-4 min-[780px]:px-0">
+          <h3 className="mb-3 ps-4 font-normal text-white">Vista previa</h3>
+          <VideoLessons
+            courseId={courseId}
+            lessonActiveId={lessonActiveId}
+            lessons={course.modules.find(module => module.id === moduleActiveId)?.lessons || []}
+          />
+        </div>
       </div>
-      <div className="rounded-r-lg bg-white/10 p-4">
+      <div className="mx-[3%] rounded-lg bg-neutral-100 p-4 min-[780px]:mx-0 min-[1280px]:rounded-l-none min-[1280px]:bg-white/10">
         <WatchCourseNavigator modules={course.modules} />
       </div>
     </section>
