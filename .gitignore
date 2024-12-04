@@ -1,4 +1,0 @@
-.github/workflows/test-dev.yml
-server/Dockerfile.dev
-server/scriptDevp.sh
-server/docker-compose.dev.yml
