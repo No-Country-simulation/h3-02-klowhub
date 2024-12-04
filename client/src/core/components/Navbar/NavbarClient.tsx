@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-unnecessary-arbitrary-value */
 'use client';
 
 import { Root as Portal } from '@radix-ui/react-portal';
@@ -6,18 +7,12 @@ import Image from 'next/image';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import useClickOutside from '@core/hooks/useClickOutside';
 import { Link } from '@core/lib/i18nRouting';
-import { cn } from '@core/lib/utils';
 import { MenuItem } from './MenuItem';
-import css from './navbar.module.css';
 import UserModeToggle from './UserModeToggle';
 import Button from '../Button';
 import NavLink from '../NavLink';
 
 const ANIMATION_HEADER_RANGE = [0, 100];
-const menuVariants = {
-  closed: { opacity: 0, x: '100%' },
-  open: { opacity: 1, x: 0 },
-};
 
 export const NavbarClient = ({
   children,
@@ -34,27 +29,29 @@ export const NavbarClient = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const menuRef = useRef<HTMLDivElement>(null);
+
   const backgroundColor = useTransform(scrollY, ANIMATION_HEADER_RANGE, [
     'rgba(31, 41, 55, 0.4)',
     supportBackdrop ? 'rgba(31, 41, 55, 0.4)' : 'rgba(31, 41, 55, 1)',
   ]);
   const blurFilter = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['blur(20px)', 'blur(40px)']);
   const top = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['25px', '0px']);
-
+  const topNegative = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['-25px', '0px']);
   useEffect(() => {
     // Verifica si la API está disponible en el cliente
     if (typeof window !== 'undefined' && CSS.supports) {
       setSupportBackdrop(CSS.supports('backdrop-filter', 'blur(1px)'));
-      const initialScrollY = window.scrollY;
-      if (initialScrollY > 0) {
-        scrollY.set(initialScrollY);
-      }
     }
   }, []);
 
   useClickOutside(menuRef, () => {
     setIsMenuOpen(false);
   });
+
+  const menuVariants = {
+    closed: { opacity: 0, x: '100%' },
+    open: { opacity: 1, x: 0 },
+  };
 
   return (
     <motion.div
@@ -89,12 +86,13 @@ export const NavbarClient = ({
                   exit="closed"
                   variants={menuVariants}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  style={{ top: topNegative }}
                   className="fixed right-0 top-0 z-50 min-h-screen w-full rounded-l-sm bg-neutral-100/80 backdrop-blur-2xl sm:max-w-[350px] min-[1400px]:hidden">
-                  <div className="relative h-dvh w-full">
+                  <div className="relative h-[100dvh] w-full">
                     <Button
                       variant="ghost"
                       size="fit"
-                      className={cn('absolute right-6 top-5', css.menuMobileOpen)}
+                      className="absolute right-6 top-5 animate-fade-in opacity-50 duration-300 animate-delay-300 hover:rotate-90 hover:opacity-100"
                       onClick={() => setIsMenuOpen(!isMenuOpen)}>
                       <Image
                         src="/svg/cross.svg"

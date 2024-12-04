@@ -4,32 +4,32 @@
   gap: 24px;
   padding: 24px;
 }
+
 .logoState {
   padding: 3px 6px;
 }
 
-@media (min-width: 1025px) {
+@media only screen and (min-width: 1025px) {
   .gridContainer {
     grid-template-columns: repeat(6, 1fr);
     max-width: 100%;
   }
+
   .firstRowContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding-block: 16px;
     border-radius: 8px;
     gap: 24px;
+    grid-column: span 4;
   }
+
   .titleDescription {
     grid-column: 1 / span 2;
   }
-
-  .firstRowContainer {
-    grid-column: span 4;
-  }
 }
 
-@media (max-width: 1024px) and (min-width: 730px) {
+@media only screen and (max-width: 1024px) and (min-width: 730px) {
   .gridContainer {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -60,7 +60,7 @@
   }
 }
 
-@media (max-width: 730px) {
+@media only screen and (max-width: 730px) {
   .gridContainer {
     flex-direction: column;
     padding: 24px;
@@ -87,7 +87,7 @@
   .logoState {
     max-width: max-content;
     order: 1;
-    padding: 0px 12px;
+    padding: 0 12px;
     gap: 12px;
   }
 

@@ -62,14 +62,7 @@ const Card = ({
         <p className="mt-1 text-sm text-slate-200">{description}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           <Button variant="neutral" className="rounded-lg" size="default">
-            <Image
-              src={emoji}
-              //src="/images/appsheet_logo.png"
-              alt="Carrito"
-              width="20"
-              height="20"
-              className="mr-2"
-            />
+            <Image src={emoji} alt="Carrito" width="20" height="20" className="mr-2" />
             {textButton}
           </Button>
         </div>
