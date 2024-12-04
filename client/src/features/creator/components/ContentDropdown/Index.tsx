@@ -43,7 +43,7 @@ const ContentDropdown = ({
           <Button variant="outline" className="w-full justify-between">
             {activeTab}
             <Image
-              src={'/svg/caretDown.svg'}
+              src="/svg/caretDown.svg"
               alt="Caret down"
               width={16}
               height={16}

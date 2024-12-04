@@ -18,7 +18,7 @@ const DropdownMenuSubTrigger = forwardRef<
     )}
     {...props}>
     {children}
-    <Image src={'/svg/chevronRight.svg'} alt="Chevron" width={16} height={16} className="ml-auto" />
+    <Image src="/svg/chevronRight.svg" alt="Chevron" width={16} height={16} className="ml-auto" />
   </SubTrigger>
 ));
 DropdownMenuSubTrigger.displayName = SubTrigger.displayName;
