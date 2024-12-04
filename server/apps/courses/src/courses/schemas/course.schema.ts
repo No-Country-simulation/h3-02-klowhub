@@ -88,7 +88,7 @@ export class Course extends Document {
   prerequisites?: string[]; // Requisitos previos del curso
 
   @Prop()
-  detailedContent?: string; // Descripción detallada
+  detailedContent?: string; // Descripción detallada *Acerca de este curso*
 
   @Prop()
   imageUrl?: string; // URL de la imagen del curso
