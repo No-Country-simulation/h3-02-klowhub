@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -6,7 +7,6 @@ import 'video.js/dist/video-js.css';
 // Import Video.js HLS plugin
 import 'videojs-http-source-selector';
 import 'videojs-contrib-eme';
-import type Player from 'video.js/dist/types/player';
 import type { Locale } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getVideoSourceType } from '@features/courses/service/getVideoSourceType';
@@ -21,7 +21,7 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ src, locale, poster }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const playerRef = useRef<Player | null>(null);
+  const playerRef = useRef<any | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

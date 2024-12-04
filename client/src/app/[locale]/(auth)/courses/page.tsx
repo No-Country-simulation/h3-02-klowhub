@@ -11,7 +11,7 @@ export default async function CoursesPage({
   const t = await getTranslations<'Courses'>({ locale: locale, namespace: 'Courses' });
   return (
     <main className="mb-20 mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
-      <Breadcrumb />
+      <Breadcrumb items={[]} />
       <h1 className="mb-4 text-lg font-bold text-white">{t('pageTitle')}</h1>
       <CoursesListSection />
     </main>
