@@ -21,7 +21,7 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     // Obtener el token de las cookies
-    const token = req.cookies['auth_token'];
+    const token = req.body?.headers?.cookie?.split?.('=')?.[1];
 
     if (!token) {
       throw new UnauthorizedException('Token no proporcionado');
