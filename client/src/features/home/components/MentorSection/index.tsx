@@ -2,8 +2,8 @@ import { getTranslations } from 'next-intl/server';
 import Button from '@core/components/Button';
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import { Link } from '@core/lib/i18nRouting';
-import CardTeacher from '@features/home/components/MentorCard';
 import { getRecommendedMentors } from '@features/home/services/getRecommendedMentors';
+import CardTeacher from '@features/mentors/components/MentorCard';
 import MentorsCarouselWrapper from './MentorsCarouselWrapper';
 
 export default async function MentorSection() {

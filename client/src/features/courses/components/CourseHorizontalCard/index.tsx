@@ -5,7 +5,7 @@ import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
 
-interface FullScreenCardProps {
+interface CourseHorizontalCardProps {
   imageUrl: string;
   title: string;
   description: string;
@@ -23,7 +23,7 @@ const categoryStyles: Record<string, string> = {
   default: 'bg-gray-200 text-gray-800',
 };
 
-const FullScreenCard = ({
+const CourseHorizontalCard = ({
   imageUrl,
   title,
   description,
@@ -33,7 +33,7 @@ const FullScreenCard = ({
   emoji,
   tags,
   categoria,
-}: FullScreenCardProps) => {
+}: CourseHorizontalCardProps) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -175,4 +175,4 @@ const FullScreenCard = ({
   );
 };
 
-export default FullScreenCard;
+export default CourseHorizontalCard;

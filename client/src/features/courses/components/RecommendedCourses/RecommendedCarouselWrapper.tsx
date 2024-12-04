@@ -1,8 +1,8 @@
 'use client';
 
 import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
-import CourseCard from '@core/components/CourseCard';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
+import CourseCard from '@features/courses/components/CourseCard';
 
 interface RecommendedCarouselWrapperProps {
   courses: CourseCardType[];
