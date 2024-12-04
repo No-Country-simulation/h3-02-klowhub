@@ -11,6 +11,9 @@ export class Course extends Document {
 
   @Prop({ required: true })
   title: string; // Título del curso o lección
+   
+  @Prop({ required: true })
+  rating: number; // Título del curso o lección
 
   @Prop({
     type: String,
@@ -85,7 +88,7 @@ export class Course extends Document {
   prerequisites?: string[]; // Requisitos previos del curso
 
   @Prop()
-  detailedContent?: string; // Descripción detallada
+  detailedContent?: string; // Descripción detallada *Acerca de este curso*
 
   @Prop()
   imageUrl?: string; // URL de la imagen del curso
