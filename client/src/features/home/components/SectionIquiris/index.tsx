@@ -17,7 +17,7 @@ export default async function SectionIquiris() {
       <div className="flex min-w-full flex-col gap-[25px] px-0 min-[730px]:bg-neutral-100 min-[730px]:p-12">
         <HeadInquiries />
         <div className="hidden w-full flex-col gap-[25px] min-[730px]:flex">
-          {inquiries.map((item, i) => (
+          {inquiries?.map((item, i) => (
             <CardInquiries
               key={`gci-${i}`}
               title={item.title}
