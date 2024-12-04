@@ -1,6 +1,5 @@
-import { getTranslations } from 'next-intl/server';
-import { randomUUID } from 'crypto';
-import { apiService } from '@core/services/api.service';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
 import { signupSchema } from '../validation/schemas';
@@ -9,7 +8,7 @@ export async function signup(
   _state: unknown,
   formData: FormData
 ): Promise<ActionResponse | undefined> {
-  const t = await getTranslations();
+  const t = await getTranslations('Validations');
   const schema = signupSchema(t);
   const [error, data] = validateSchema(schema, {
     email: formData.get('email')?.toString() || '',
@@ -18,18 +17,18 @@ export async function signup(
 
   if (error || !data) return error;
 
-  const [errorRes, dataRes] = await apiService.post('/signup', data);
+  const res = await fetch('http://localhost:3000/auth/register', {
+    body: JSON.stringify(data),
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
 
-  if (errorRes) {
-    return {
-      traceId: randomUUID(),
-      status: 'FETCH_ERROR',
-      errors: {
-        GLOBAL: 'Error al crear la cuenta',
-      },
-    };
-  }
+  //console.log(res);
+  //const dataRes = await res.json();
+  //const cookieHeader = res.headers.get('Set-Cookie');
+  //console.log(cookieHeader);
   // Manejar respuesta aqui
-  console.log({ dataRes });
-  //redirect(`/siguiente-ruta`);
+  console.log({ res });
+  const locale = await getLocale();
+  redirect({ href: { pathname: '/platform' }, locale });
 }

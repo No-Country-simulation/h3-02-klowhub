@@ -121,13 +121,10 @@ export class AuthController {
   //
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
-    try {
-      // Solicitar el token al microservicio de USERS
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       const { token } = await lastValueFrom(
         this.usersService.send({ cmd: 'login' }, loginDto),
       );
-
       if (!token) {
         throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }
@@ -139,8 +136,6 @@ export class AuthController {
         sameSite: 'strict',
         maxAge: 60 * 60 * 24 * 1000,
       })
-      
-
       // Intentar enviar la solicitud al microservicio de cursos (puede fallar)
       console.log("Enviando solicitud al microservicio de cursos:", { token });
       await lastValueFrom(
@@ -154,18 +149,20 @@ export class AuthController {
       return res.status(200).json({
         message: '¡Inicio de sesión exitoso!',
       });
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error.message); // Registro detallado del error
-      throw new BadRequestException(error.message || 'Error al iniciar sesión');
-    }
   }
 
   //status token
   @Post('status')
   async verifyTokenStatus(@Request() req: any) {
+    console.log("status token" );
     // Obtenemos el token de las cookies
-    const token = req.cookies.auth_token; // Aquí asumimos que el token está guardado con el nombre 'token'
-
+    if (!req.body.headers.cookie) {
+      return {
+        status: false
+      }
+    }
+    const token = req.body.headers.cookie.split('=')[1]; // Aquí asumimos que el token está guardado con el nombre 'auth_token'
+    console.log("token",token);
     if (!token) {
       return {
         status: false

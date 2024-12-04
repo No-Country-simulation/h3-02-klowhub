@@ -11,12 +11,16 @@ import {
   Param,
   Res,
   Req,
+  HttpStatus,
+  HttpException,
 } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, Payload } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { createCourseGatewaySchema } from './dto/create-course.dto';
 import { JwtService } from '@nestjs/jwt';
 import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
+import { CreateLessonDto, createLessonSchema } from './dto/create.lesson.dto';
+import { CreateModuleDto, createModuleSchema } from './dto/create.module.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -45,6 +49,11 @@ export class CoursesController {
       this.coursesClient.send({ cmd: 'create_course' }, sanitizedData)
     );
     // Retorna el mensaje de éxito con el resultado
+    if (result.error) {
+      return {
+        message: 'Error in created Course'
+      }
+    }
     return {
       message: 'Course created successfully',
       data: result,
@@ -80,7 +89,7 @@ export class CoursesController {
   @Get('mycourses')
   async getCoursesByUser(@Req() req: any) {
     const token = req.cookies.auth_token;
-    
+
     if (!token) {
       throw new Error('Token JWT no encontrado en las cookies');
     }
@@ -107,5 +116,59 @@ export class CoursesController {
       { cmd: 'course' },
       { token, courseId }
     );
+  }
+  // agregar un modulo a un curso
+  @Post('course/:id')
+  async addModuleCourse(@Req() request: Request, @Request() req: any, @Body() moduleData: CreateModuleDto) {
+    const token = req.cookies.auth_token;
+    const courseId = req.params.id;
+    if (!token) {
+      throw new Error('Token JWT no encontrado en las cookies');
+    }
+    const data = { token, courseId, ...moduleData }
+    const validationResult = createModuleSchema.safeParse(data);
+
+    if (!validationResult.success) {
+      return (validationResult.error)
+    }
+    const sanitizedData = validationResult.data
+    const result = await lastValueFrom(
+      this.coursesClient.send(
+        { cmd: 'addModule' },
+        sanitizedData
+      )
+    );
+    return {
+      data: result,
+    }
+  }
+
+  // agregar lesson a course 
+  @Post('lesson/:id')
+  async addLessonToModule(@Req() request: Request, @Request() req: any, @Body() LessonDto: CreateLessonDto) {
+    const token = req.cookies.auth_token;
+    const moduleId = req.params.id;
+
+    if (!token) {
+      throw new Error('Token JWT no encontrado en las cookies');
+    }
+
+    const data = { token, moduleId, ...LessonDto }
+    // Validar los datos de la lección con Zod
+    const validationResult = createLessonSchema.safeParse(data);
+
+    if (!validationResult.success) {
+      return {
+        error: validationResult.error,
+      };
+    }
+    const sanitizedData = validationResult.data;
+    const result = await lastValueFrom(
+      this.coursesClient.send({ cmd: 'add-lesson' }, sanitizedData),
+    );
+    console.log('esto es la respuesta del backend', result)
+    return {
+      data: result,
+    };
   }
 }

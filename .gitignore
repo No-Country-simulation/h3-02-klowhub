@@ -1,7 +1,4 @@
-Base
-.vscode
-server/apps/courses/Dockerfile.dev
-server/apps/gateway/Dockerfile.dev
-server/apps/uploadGCould/Dockerfile.dev
-server/apps/users/Dockerfile.dev
-#
+.github/workflows/test-dev.yml
+server/Dockerfile.dev
+server/scriptDevp.sh
+server/docker-compose.dev.yml

@@ -16,12 +16,12 @@ export default function CardsFlexCarousel<T>({
   className = '',
   classNameContainer = '',
   classNmaeButtons = '',
-  items,
+  items = [],
   children,
 }: CardsFlexCarouselProps<T>) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [_count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!api) {
@@ -46,7 +46,7 @@ export default function CardsFlexCarousel<T>({
       <div className={cn('relative min-[1240px]:hidden', className)}>
         <Carousel className="overflow-hidden" setApi={setApi}>
           <CarouselContent className="-ml-6 flex">
-            {items.map((item, i) => (
+            {items?.map((item, i) => (
               <CarouselItem
                 className={cn('w-full min-w-[350px] max-w-[450px]', classNameContainer)}
                 key={i}>
@@ -61,7 +61,7 @@ export default function CardsFlexCarousel<T>({
           'mt-6 inline-flex w-full items-center justify-center gap-2 min-[1240px]:hidden',
           classNmaeButtons
         )}>
-        {Array.from({ length: items.length }).map((_, index) => (
+        {Array.from({ length: count || 0 }).map((_, index) => (
           <button
             key={`csb-${index}`}
             className={`size-[.65rem] rounded-full transition-colors ${

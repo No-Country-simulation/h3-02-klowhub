@@ -1,9 +1,11 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
-import { CoursesService } from './courses.service';
+import { CoursesService , } from './courses.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { z } from 'zod';
 import { JwtService } from '@nestjs/jwt';
+import { CreateLessonDto, createLessonSchema } from './dto/create.lesson.dto';
+import { CreateModuleDto, createModuleSchema } from './dto/create.module.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -27,11 +29,8 @@ export class CoursesController {
       });
     }
 
-    try {
-      // Verificar el token JWT y extraer el userId
       const decoded = this.jwtService.verify(data.token);  // Verificar el token
       const userId = decoded.userId;  // Suponiendo que userId está en el payload del token
-      console.log(decoded)
 
       // Combina el `userId` con los datos del curso
       const courseDataWithUserId = {
@@ -42,12 +41,6 @@ export class CoursesController {
       // Delegar la creación del curso al servicio
       const newCourse = await this.coursesService.createCourse(courseDataWithUserId);
       return newCourse;
-    } catch (error) {
-      throw new RpcException({
-        statusCode: 500,
-        message: error.message || 'Error al crear el curso',
-      });
-    }
   }
 
   // Buscar curso por filtro
@@ -101,4 +94,36 @@ export class CoursesController {
       });
     }
   }
+  // Agregar módulo a un curso
+  @MessagePattern({ cmd: 'addModule' })  // Escuchamos el patrón enviado por el gateway
+  async handleAddModule(data: CreateModuleDto ) {
+    // Validación de los datos recibidos usando Zod
+    const valiData = createModuleSchema.safeParse(data);
+    if (!valiData.success) {
+      const validationErrors = valiData.error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+      throw new RpcException({
+        statusCode: 400,
+        message: 'Validation errors',
+        errors: validationErrors,
+      });
+    }
+
+    // Llamada al servicio con los datos validados
+    return this.coursesService.addModule(valiData.data);
+  }
+
+  // add lesson
+  @MessagePattern({cmd: 'add-lesson'})
+  async addLessonToModule(data: CreateLessonDto) {
+    const valiData = createLessonSchema.safeParse(data);
+    if (!valiData.success) {
+      const validationErrors = valiData.error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+      throw new RpcException({
+        statusCode: 400,
+        message: 'Validation errors',
+        errors: validationErrors,
+      });
+    }
+    return this.coursesService.addLessonToModule(valiData.data)
+    }
 }

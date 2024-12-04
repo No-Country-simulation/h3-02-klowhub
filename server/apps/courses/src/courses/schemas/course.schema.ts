@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { Module, ModuleSchema } from './module.schema';
+import { Modules, ModulesSchema } from './module.schema';
 import { MergeInfo, MergeInfoSchema } from './merge-info.schema';
 import { Funtionalidad, Idiom, Pilar, Platform, Sector, Tool } from './enums';
 
@@ -11,6 +11,9 @@ export class Course extends Document {
 
   @Prop({ required: true })
   title: string; // Título del curso o lección
+   
+  @Prop({ required: true })
+  rating: number; // Título del curso o lección
 
   @Prop({
     type: String,
@@ -85,15 +88,15 @@ export class Course extends Document {
   prerequisites?: string[]; // Requisitos previos del curso
 
   @Prop()
-  detailedContent?: string; // Descripción detallada
+  detailedContent?: string; // Descripción detallada *Acerca de este curso*
 
   @Prop()
   imageUrl?: string; // URL de la imagen del curso
 
   // tercer paso 
 
-  @Prop({ type: [ModuleSchema], default: [] })
-  modules?: Module[]; // Lista de módulos
+  @Prop({ type: [ModulesSchema], default: [] })
+  modules?: Modules[]; // Lista de módulos
 
   @Prop({ type: MergeInfoSchema })
   mergeInfo?: MergeInfo; // Información de fusiones

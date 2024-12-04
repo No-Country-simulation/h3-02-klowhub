@@ -1,9 +1,9 @@
 import type { UUID } from 'crypto';
 
 export interface ActionResponse {
-  traceId: UUID;
+  traceId?: UUID;
   errors: Record<string, string>;
-  status: string;
+  status?: string;
 }
 
 export type OnSubmitType = (

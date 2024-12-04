@@ -1,36 +1,22 @@
 // module.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
+import { Lesson, LessonSchema } from './lesson.module.schema';
 
 @Schema()
-export class Lesson {
-  @Prop({ required: true })
-  lessonTitle: string;
+export class Modules {
+  @Prop({ type: Types.ObjectId, default: () => new Types.ObjectId() })
+  _id: Types.ObjectId;
 
-  @Prop()
-  lessonDescription?: string;
-
-  @Prop()
-  materialUrl?: string;
-
-  @Prop()
-  uploadedMaterial?: string;
-
-  @Prop()
-  videoUrl?: string;
-}
-
-export const LessonSchema = SchemaFactory.createForClass(Lesson);
-
-@Schema()
-export class Module {
   @Prop({ required: true })
   moduleTitle: string;
 
   @Prop()
   moduleDescription?: string;
 
+
   @Prop({ type: [LessonSchema], default: [] })
   lessons?: Lesson[];
 }
 
-export const ModuleSchema = SchemaFactory.createForClass(Module);
+export const ModulesSchema = SchemaFactory.createForClass(Modules);

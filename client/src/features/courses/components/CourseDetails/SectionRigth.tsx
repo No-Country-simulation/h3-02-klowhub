@@ -194,9 +194,7 @@ export const SectionRigth = () => {
                 <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
                 Añadir al carrito
               </Button>
-              <a
-                href="#"
-                className="my-2 ml-3 text-center text-sm text-purple-400 hover:underline">
+              <a href="#" className="my-2 ml-3 text-center text-sm text-purple-400 hover:underline">
                 Ver detalles
               </a>
             </div>

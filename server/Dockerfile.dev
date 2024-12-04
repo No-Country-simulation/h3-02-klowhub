@@ -1,0 +1,33 @@
+# Usar la imagen oficial de Node.js
+FROM node:18
+
+# Crear y establecer el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Copiar dependencias para todos los servicios
+COPY ./apps/gateway/package*.json ./apps/gateway/
+COPY ./apps/users/package*.json ./apps/users/
+COPY ./apps/courses/package*.json ./apps/courses/
+
+# Instalar las dependencias para todos los servicios
+RUN npm install --prefix ./apps/gateway
+RUN npm install --prefix ./apps/users
+RUN npm install --prefix ./apps/courses
+
+# Copiar todo el código fuente de los servicios
+COPY ./apps/gateway ./apps/gateway
+COPY ./apps/users ./apps/users
+COPY ./apps/courses ./apps/courses
+
+# Exponer los puertos requeridos (usualmente solo para debug)
+EXPOSE 3000 3001 3002
+
+# Copiar el script al contenedor desde la raíz del proyecto
+COPY ./scriptDevp.sh /usr/local/bin/entrypoint.sh
+
+# Dar permisos de ejecución
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Establecer el script como punto de entrada
+CMD ["entrypoint.sh"]
+
