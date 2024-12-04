@@ -10,7 +10,7 @@ export default async function CreatorCoursesPage({
 
   return (
     <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
-      <h1>{t('mainTitle')}</h1>
+      <h1 className="text-lg font-medium text-white">{t('mainTitle')}</h1>
     </main>
   );
 }

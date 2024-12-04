@@ -32,11 +32,12 @@ const labelCVA = cva('relative w-full max-w-[350px] font-normal text-base leadin
 });
 
 const FormField = forwardRef<HTMLInputElement, FormFieldProps>(function FormField(
-  { className = 'text-black', id = '', type = 'text', error, onTypeChange, ...props },
+  { className = 'text-black', id = '', type = 'text', error, onTypeChange, label, ...props },
   ref
 ) {
   return (
     <label data-testid={id} className={cn(labelCVA({ error: !!error }))} htmlFor={id}>
+      {label ? <span className="text-base font-medium">{label}</span> : null}
       <div className="relative mt-4 text-black">
         <input
           {...props}
