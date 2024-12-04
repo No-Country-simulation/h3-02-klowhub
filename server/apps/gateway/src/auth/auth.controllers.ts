@@ -154,14 +154,14 @@ export class AuthController {
   //status token
   @Post('status')
   async verifyTokenStatus(@Request() req: any) {
-    console.log("status token");
+    console.log("status token" );
     // Obtenemos el token de las cookies
-    if (!req.body.headers.cookies) {
+    if (!req.body.headers.cookie) {
       return {
         status: false
       }
     }
-    const token = req.body.headers.cookies.split('=')[1]; // Aquí asumimos que el token está guardado con el nombre 'auth_token'
+    const token = req.body.headers.cookie.split('=')[1]; // Aquí asumimos que el token está guardado con el nombre 'auth_token'
     console.log("token",token);
     if (!token) {
       return {
