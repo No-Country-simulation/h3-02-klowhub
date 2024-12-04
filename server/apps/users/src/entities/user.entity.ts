@@ -34,8 +34,23 @@ export class UserEntity {
   @Column({ type: 'varchar', nullable: true })
   image!: string | null;
 
+  @Column({ type: 'varchar', nullable: true })
+  title!: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  biography!: string | null;
+
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
+
+  @Column({ type: 'number', nullable: true , default : 0 })
+  reviws: number | null;
+
+  @Column({ type: 'varchar', nullable: true , default : 0 })
+  whyLearn: string | null;
+
+  @Column({ type: 'number', nullable: true ,default : 0 })
+  rating: number | null;
 
   @OneToMany(() => AccountEntity, (account) => account.user, {
     cascade: true,
