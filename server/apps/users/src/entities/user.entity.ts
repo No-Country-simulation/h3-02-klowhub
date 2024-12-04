@@ -34,7 +34,12 @@ export class UserEntity {
   @Column({ type: 'varchar', nullable: true })
   image!: string | null;
 
-  @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+  @Column({ 
+    type: 'enum',
+    enum: UserRole,
+    array:true,
+    default: [UserRole.USER, UserRole.CREATOR]
+  })
   role: UserRole;
 
   @OneToMany(() => AccountEntity, (account) => account.user, {
