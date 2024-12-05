@@ -31,7 +31,7 @@ export class UserEntity {
   @Column({ type: 'boolean', default: false })
   isEmailVerified: boolean;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: true, default: 'https://res.cloudinary.com/ddv3ckyxa/image/upload/v1731885444/Logo_dzf5dh.png'})
   image!: string | null;
 
   @Column({ type: 'varchar', nullable: true })

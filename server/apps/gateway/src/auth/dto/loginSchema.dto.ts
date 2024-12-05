@@ -9,17 +9,6 @@ export const LoginSchema = z.object({
     .string()
     .min(8, { message: 'Password must be at least 8 characters long.' })
     .max(64, { message: 'Password cannot exceed 64 characters.' })
-    .regex(/[A-Z]/, {
-      message: 'Password must include at least one uppercase letter.',
-    })
-    .regex(/[a-z]/, {
-      message: 'Password must include at least one lowercase letter.',
-    })
-    .regex(/\d/, { message: 'Password must include at least one number.' })
-    .regex(/[@$!%*?&#]/, {
-      message:
-        'Password must include at least one special character (@, $, !, %, *, ?, &, #).',
-    }),
 });
 
 export type LoginDto = z.infer<typeof LoginSchema>;
