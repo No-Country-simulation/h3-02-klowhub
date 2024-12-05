@@ -3,11 +3,12 @@ import TabsTrigger from './TabTrigger';
 
 interface TabListTriggerProps {
   triggers: { label: string; value: string }[];
+  className?: string;
 }
 
-export default function TabListTrigger({ triggers }: TabListTriggerProps) {
+export default function TabListTrigger({ triggers, className = '' }: TabListTriggerProps) {
   return (
-    <TabsList>
+    <TabsList className={className}>
       {triggers.map((item, i) => (
         <TabsTrigger key={`tlt-${i}`} value={item.value}>
           {item.label}

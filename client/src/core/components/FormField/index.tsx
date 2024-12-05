@@ -37,7 +37,7 @@ const FormField = forwardRef<HTMLInputElement, FormFieldProps>(function FormFiel
 ) {
   return (
     <label data-testid={id} className={cn(labelCVA({ error: !!error }))} htmlFor={id}>
-      {label ? <span className="text-base font-medium">{label}</span> : null}
+      {label ? <span className="text-base font-medium text-white">{label}</span> : null}
       <div className="relative mt-4 text-black">
         <input
           {...props}

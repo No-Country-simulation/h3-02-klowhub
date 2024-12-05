@@ -1,0 +1,14 @@
+.tiptapEditor {
+  @apply max-h-[200px] min-h-[100px] w-full resize-y overflow-auto rounded-md px-3 py-2 text-[15px] outline-none disabled:cursor-not-allowed disabled:opacity-50;
+
+  &:focus,
+  &:active,
+  &:focus-visible,
+  &:focus-within {
+    outline: none;
+  }
+}
+
+/*
+placeholder:text-gray no-outline
+*/

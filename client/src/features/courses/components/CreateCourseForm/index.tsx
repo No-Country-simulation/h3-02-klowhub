@@ -1,5 +1,7 @@
 import { Tabs, TabsContent } from '@core/components/Tabs';
 import TabListTrigger from '@core/components/Tabs/TabListTrigger';
+import { CreateCourseTriggers } from '@features/courses/enums/createCourseEnums';
+import CourseGeneralFormStep from './CourseGeneralFormStep';
 
 interface CreateCourseFormProps {
   tabGeneralText: string;
@@ -15,21 +17,23 @@ export default function CreateCourseForm({
   tabPromotionText,
 }: CreateCourseFormProps) {
   const triggers = [
-    { label: tabGeneralText, value: 'general' },
-    { label: tabDetailsText, value: 'details' },
-    { label: tabModulesText, value: 'modules' },
-    { label: tabPromotionText, value: 'promotion' },
+    { label: tabGeneralText, value: CreateCourseTriggers.GENERAL },
+    { label: tabDetailsText, value: CreateCourseTriggers.DETAILS },
+    { label: tabModulesText, value: CreateCourseTriggers.MODULES },
+    { label: tabPromotionText, value: CreateCourseTriggers.PROMOTION },
   ];
 
   return (
-    <section>
-      <Tabs defaultValue="general">
-        <TabListTrigger triggers={triggers} />
-        <TabsContent value="genral"></TabsContent>
-        <TabsContent value="details"></TabsContent>
-        <TabsContent value="modules"></TabsContent>
-        <TabsContent value="promotion"></TabsContent>
+    <form>
+      <Tabs defaultValue={CreateCourseTriggers.GENERAL}>
+        <TabListTrigger className="max-w-3xl" triggers={triggers} />
+        <TabsContent value={CreateCourseTriggers.GENERAL}>
+          <CourseGeneralFormStep />
+        </TabsContent>
+        <TabsContent value={CreateCourseTriggers.DETAILS}></TabsContent>
+        <TabsContent value={CreateCourseTriggers.MODULES}></TabsContent>
+        <TabsContent value={CreateCourseTriggers.PROMOTION}></TabsContent>
       </Tabs>
-    </section>
+    </form>
   );
 }

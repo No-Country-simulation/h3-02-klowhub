@@ -6,7 +6,6 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 // Import Video.js HLS plugin
 import 'videojs-http-source-selector';
-import 'videojs-contrib-eme';
 import type { Locale } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getVideoSourceType } from '@features/courses/service/getVideoSourceType';

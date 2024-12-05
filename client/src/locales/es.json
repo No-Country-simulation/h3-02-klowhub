@@ -175,7 +175,11 @@
     "metaTitle": "Klowhub - Crear nuevo curso",
     "metaDescription": "Klowhub Pagina para crear un curso nuevo en klowhub",
     "metaSiteName": "Klowhub - Crear nuevo curso",
-    "mainTitle": "Lanza tu curso: Comparte tu conocimiento"
+    "mainTitle": "Lanza tu curso: Comparte tu conocimiento",
+    "tabGeneralText": "Información general",
+    "tabDetailsText": "Detalles del curso",
+    "tabModulesText": "Modulos y lecciones",
+    "tabPromotionText": "Promociones"
   },
   "AppCard":{
       "titulo": "Aplicaciones recomendadas",

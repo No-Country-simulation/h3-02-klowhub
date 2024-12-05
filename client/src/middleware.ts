@@ -9,28 +9,25 @@ const intlMiddleware = createMiddleware(routing);
 export default async function middleware(request: NextRequest, _: NextFetchEvent) {
   const _pathname = request.nextUrl.pathname;
   const _mode = request.nextUrl.searchParams.get('mode');
+  const error = request.nextUrl.searchParams.get('error');
   const locale = await getLocale();
   const token = request.cookies.get('auth_token');
-  //console.log('token', token?.value);
 
-  try {
+  if (!!error) {
     const [_error, data] = await apiService.post('/auth/status', {
       headers: `cookie: ${token}`,
     });
+
     const isvalid = data instanceof Object && 'status' in data;
-    console.log('data', data);
-    console.log('phaname', _pathname);
-    console.log(_error);
+
     if (
       isvalid &&
       data?.status &&
       (_pathname === `/${locale}/signin` || _pathname === `/${locale}/signup`)
     ) {
-      console.log('redir'); //redirect({ href: { pathname: '/platform' }, locale });
+      //redirect({ href: { pathname: '/platform' }, locale });
       return NextResponse.redirect(new URL('/platform', request.url));
     }
-  } catch (error) {
-    console.error('Error al validar el token:', error);
   }
 
   return intlMiddleware(request);

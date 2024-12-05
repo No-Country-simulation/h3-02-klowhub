@@ -175,7 +175,11 @@
     "metaTitle": "Klowhub - Create a new course",
     "metaDescription": "Klowhub Create a new course page",
     "metaSiteName": "Klowhub - Create a new course",
-    "mainTitle": "Create Your Course: Share It with the World"
+    "mainTitle": "Create Your Course: Share It with the World",
+    "tabGeneralText": "General Information",
+    "tabDetailsText": "Course Details",
+    "tabModulesText": "Modules and Lessons",
+    "tabPromotionText": "Promotions"
   },
   "AppCard": {
     "titulo": "Recommended applications",

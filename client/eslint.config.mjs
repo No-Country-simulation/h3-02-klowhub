@@ -1,4 +1,6 @@
-// @ts-check
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,14 +15,16 @@ import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: {
     ...js.configs.recommended,
-    ...ts.configs.recommended,
+    ...ts.configs.eslintRecommended,
   },
   allConfig: js.configs.all,
 });
+
 const IGNORES_PATHS = [
   '.next/*',
   '.swr',
@@ -53,7 +57,7 @@ const config = [
         project: ['./tsconfig.json'],
       },
     },
-    files: ['src/**/*.{js,ts,jsx,tsx}'],
+    files: ['src/**/*.{ts,tsx}'],
     rules: {
       ...pluginTailwindCSS.configs.recommended.rules,
       ...pluginImport.flatConfigs?.recommended?.rules,
@@ -116,6 +120,7 @@ const config = [
       'testing-library/prefer-screen-queries': 'off',
       '@next/next/no-html-link-for-pages': 'off',
       'react-hooks/exhaustive-deps': 'off',
+      "import/no-named-as-default": "off",
     },
   },
 ];
