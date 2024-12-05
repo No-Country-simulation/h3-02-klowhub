@@ -9,17 +9,17 @@ import styles from './CourseCard.module.css';
 
 interface CardProps {
   title: string;
-  description?: string;
-  price?: string;
+  basicDescription?: string;
+  contentType?: string;
   rating: number;
   reviews?: number;
   tags: string[];
-  imageSrc: string;
+  imageUrl: string;
   imageAlt?: string;
   platform: string;
   viewDetails: string;
   addToCart: string;
-  categoria: 'Curso' | 'Lección' | string;
+  kind: 'Curso' | 'Lección' | string;
   className?: string;
 }
 
@@ -31,17 +31,17 @@ const categoryStyles: Record<string, string> = {
 
 const CourseCard = ({
   title,
-  description,
-  price,
+  basicDescription,
+  contentType,
   rating,
-  reviews,
-  tags,
-  imageSrc,
+  reviews = 0,
+  tags = [],
+  imageUrl,
   platform,
-  viewDetails,
-  addToCart,
-  imageAlt = 'Imagen del curso',
-  categoria,
+  viewDetails = '',
+  addToCart = '',
+  imageAlt = imageUrl,
+  kind,
   className = '',
 }: CardProps) => {
   //const [isMenuOpen, setMenuOpen] = useState(false);
@@ -77,7 +77,7 @@ const CourseCard = ({
     };
   }, []);*/
 
-  const styleClass = categoryStyles[categoria] || categoryStyles.default;
+  const styleClass = categoryStyles[kind] || categoryStyles.default;
 
   return (
     <div
@@ -96,19 +96,19 @@ const CourseCard = ({
         </div>
 
         <Image
-          src={imageSrc}
+          src={imageUrl}
           alt={imageAlt}
           width={500}
           height={400}
           className="h-48 w-full rounded-t-lg object-cover"
         />
         <span className={`absolute left-2 top-2 rounded px-2 py-1 text-sm font-bold ${styleClass}`}>
-          {categoria}
+          {kind}
         </span>
       </div>
 
       <div className="grow p-4">
-        {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
+        {/* <h3 className="font-bold text-lg text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
           <h3 className="line-clamp-2 max-h-14 min-h-14 text-ellipsis text-lg font-bold text-slate-200">
             {title}
@@ -134,19 +134,19 @@ const CourseCard = ({
               </svg>
             </button>
             {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
+              <div className="right-0 absolute bg-[#2D3748] shadow-lg mt-2 rounded-lg w-32">
                 <ul className="py-1">
                   <li>
                     <button
                       onClick={handleEdit}
-                      className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
+                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
                       Editar
                     </button>
                   </li>
                   <li>
                     <button
                       onClick={handleDelete}
-                      className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
+                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
                       Eliminar
                     </button>
                   </li>
@@ -156,9 +156,9 @@ const CourseCard = ({
           </div>*/}
         </div>
 
-        {description ? (
+        {basicDescription ? (
           <p className="mt-1 line-clamp-2 max-h-10 text-ellipsis pb-2 text-sm text-slate-200">
-            {description}
+            {basicDescription}
           </p>
         ) : null}
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
@@ -203,9 +203,9 @@ const CourseCard = ({
             <p className="ml-2 text-sm text-slate-200">({reviews})</p>
           ) : null}
         </div>
-        {price ? (
+        {contentType ? (
           <div className="mt-4 flex items-center gap-2">
-            <strong className="text-lg font-bold text-slate-200">${price}</strong>
+            <strong className="text-lg font-bold text-slate-200">${contentType}</strong>
           </div>
         ) : null}
       </div>

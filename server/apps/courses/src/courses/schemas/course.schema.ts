@@ -53,6 +53,12 @@ export class Course extends Document {
 
   @Prop({
     type: String,
+    default: 0,
+  })
+  reviews: string;
+
+  @Prop({
+    type: String,
     enum: Pilar,
     default: Pilar.NONE,
   })
@@ -84,8 +90,20 @@ export class Course extends Document {
   @Prop()
   descriptionBasic? : string // descripcion basica
 
+
+  @Prop()
+  purpose? : string // descripcion mas completa
+
   @Prop({ type: [String] })
   prerequisites?: string[]; // Requisitos previos del curso
+
+  @Prop({ type: [String] })
+  followUp?: string[]; // depues del curso
+
+  @Prop({ type: [String] })
+  contents?: string[]; // para quein es
+
+
 
   @Prop()
   detailedContent?: string; // Descripción detallada *Acerca de este curso*

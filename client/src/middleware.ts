@@ -14,9 +14,15 @@ export default async function middleware(request: NextRequest, _: NextFetchEvent
   //console.log('token', token?.value);
 
   try {
-    const [_error, data] = await apiService.post('/auth/status', {
-      headers: `cookie: ${token}`,
-    });
+    const [_error, data] = await apiService.post(
+      '/auth/status',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Enviar token como Bearer
+        },
+      }
+    );
     const isvalid = data instanceof Object && 'status' in data;
     console.log('data', data);
     console.log('phaname', _pathname);

@@ -84,8 +84,10 @@ export const createCourseSchema = z.object({
     Tool.TWILIO,
     Tool.TRELLO,
   ]).optional(), // Herramienta utilizada
-  descriptionBasic: z.string().optional(), // Descripción básica del curso
   prerequisites: z.array(z.string()).optional(), // Requisitos previos
+  purpose :z.string().optional(), // para quien
+  followUp: z.array(z.string()).optional(),//después de completar este curso, serás capaz de
+  contents :z.array(z.string()).optional(),//contenido
   detailedContent: z.string().optional(), // Contenido detallado
   imageUrl: z.string().url().optional(), // URL de la imagen
   modules: z.array(z.object({
