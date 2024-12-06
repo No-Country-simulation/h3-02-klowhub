@@ -2,7 +2,7 @@
 
 import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import type { MentorsCardType } from '@core/schemas/mentor-card.schema';
-import MentorCard from '../MentorCard';
+import MentorCard from '../../../mentors/components/MentorCard';
 
 interface MentorsCarouselWrapperProps {
   mentors: MentorsCardType[];

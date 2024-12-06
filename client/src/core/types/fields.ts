@@ -31,4 +31,5 @@ export interface FormFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   type?: InputFieldsTypes;
   error?: string;
   onTypeChange?: OnTypeChangeType;
+  label?: string;
 }

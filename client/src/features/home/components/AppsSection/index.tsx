@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import Button from '@core/components/Button';
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import { Link } from '@core/lib/i18nRouting';
-import AppCard from '@features/home/components/AppCard';
+import AppCard from '@features/apps/components/AppCard';
 import { getRecommendedApps } from '@features/home/services/getRecommendedApps';
 import AppCarouselWrapper from './AppCarouselWrapper';
 

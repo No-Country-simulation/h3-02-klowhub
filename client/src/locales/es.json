@@ -171,6 +171,12 @@
     "reviews": "Reseñas",
     "session": "Sesiones"
   },
+  "NewCourse": {
+    "metaTitle": "Klowhub - Crear nuevo curso",
+    "metaDescription": "Klowhub Pagina para crear un curso nuevo en klowhub",
+    "metaSiteName": "Klowhub - Crear nuevo curso",
+    "mainTitle": "Lanza tu curso: Comparte tu conocimiento"
+  },
   "AppCard":{
       "titulo": "Aplicaciones recomendadas",
       "desc": "Explorá soluciones listas para usar. Encontrá la app perfecta para tu proyecto y empezá a trabajar de inmediato."

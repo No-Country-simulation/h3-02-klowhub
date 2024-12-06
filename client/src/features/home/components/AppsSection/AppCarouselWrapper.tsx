@@ -2,7 +2,7 @@
 
 import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import type { AppsCardType } from '@core/schemas/app-card.schema';
-import AppCard from '../AppCard';
+import AppCard from '../../../apps/components/AppCard';
 
 interface AppCarouselWrapperProps {
   apps: AppsCardType[];
