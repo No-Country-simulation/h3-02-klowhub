@@ -61,7 +61,6 @@ export default function FileUpload({
         onChange={handleFileSelect}
         name={name}
         ref={inputRef}
-        defaultValue={defaultValue ? defaultValue : undefined}
       />
 
       {isLoading ? (
