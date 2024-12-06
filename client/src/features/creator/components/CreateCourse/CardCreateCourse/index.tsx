@@ -15,12 +15,12 @@ export default async function CardCreateCourse() {
           <CourseCardCreate
             key={`gcc-${i}`}
             title={item.title}
-            description={item?.description || ''}
+            description={item?.basicDescription || ''}
             rating={item.rating}
             reviews={item.reviews}
             platform={item.platform}
             tags={item.tags}
-            imageSrc={item.img}
+            imageSrc={item.imageUrl}
             imageAlt={item.title}
             categoria={item.type}
           />
