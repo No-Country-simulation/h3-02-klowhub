@@ -1,12 +1,17 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
+import SectionCreateCourse from '@features/creator/components/CreateCourse';
 
 export default async function CreatorCoursesPage({
   params,
 }: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16"></main>;
+  return (
+    <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+      <SectionCreateCourse />
+    </main>
+  );
 }
 
 export async function generateStaticParams() {
