@@ -3,9 +3,7 @@
   max-width: 385px;
   height: 100%;
   min-height: 595px;
-  min-height: 595px;
   max-height: 595px;
-
   transition: transform 0.2s ease-in-out;
 }
 

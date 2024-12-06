@@ -7,7 +7,6 @@
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -ms-text-size-adjust: 100%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
 
@@ -33,6 +32,7 @@
     --color-primary-A-700: #421e75;
     --color-primary-A-800: #321758;
     --color-primary-A-900: #210f3a;
+
     /* Primary B */
     --color-primary-B-50: #f7e5ff;
     --color-primary-B-100: #e8c9f1;
@@ -68,7 +68,6 @@
     --shadow-app-1: 0px 0px 20px 0px #00000066;
     --shadow-app-2: 0px 1px 1px 0px #0000000f;
     --shadow-app-3: 0px 1px 2px 0px #0000001a;
-
     --background-blur: 10px;
     --background-blur-md: 18.72px;
     --background-overlay: #20222f3b;
@@ -99,6 +98,7 @@
   .no-outline {
     @apply no-underline outline-none focus:outline-none focus-visible:outline-none active:outline-none;
   }
+
   .header-bg-image {
     background-image: url('/images/headerBanner.png');
     background-repeat: no-repeat;
@@ -116,13 +116,4 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-    transition-duration: 0.01ms;
-    scroll-behavior: auto;
-  }
 }

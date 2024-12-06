@@ -41,6 +41,10 @@ jobs:
         working-directory: ./client
         run: pnpm lint
 
+      - name: Run CSS Linter
+        working-directory: ./client
+        run: pnpm lint:css
+
       - name: Run Types check
         working-directory: ./client
         run: pnpm types:check

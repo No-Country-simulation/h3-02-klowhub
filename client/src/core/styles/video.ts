@@ -8,7 +8,6 @@ export const videPlayerStyles = `
         outline: 0;
       }
 
-
       /* Control bar styling */
       .video-js .vjs-control-bar {
         background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.1));
@@ -42,6 +41,7 @@ export const videPlayerStyles = `
         left: 0;
         height: 0.4em;
       }
+
       /* Progress bar holder styling */
       .video-js .vjs-progress-holder {
         height: 5px;
@@ -50,18 +50,22 @@ export const videPlayerStyles = `
       .video-js .vjs-progress-holder .vjs-play-progress:before {
         display: none;
       }
+
       .video-js .vjs-time-control {
         margin-inline-end: auto;
       }
+
       .video-js .vjs-remaining-time span {
         font-size: 1.5em;
         line-height: 35px;
         white-space: nowrap;
         color: #ddd;
       }
+
       .video-js .vjs-control-bar .vjs-button {
         width: 48px;
       }
+
       .video-js .vjs-button > .vjs-icon-placeholder:before {
         font-size: 2em;
         line-height: 35px;

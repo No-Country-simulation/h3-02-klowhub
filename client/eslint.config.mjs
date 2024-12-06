@@ -7,6 +7,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 import { fixupConfigRules } from '@eslint/compat';
 import ts from 'typescript-eslint';
 import pluginTailwindCSS from 'eslint-plugin-tailwindcss';
+import parser from '@typescript-eslint/parser';
 import * as pluginImport from 'eslint-plugin-import';
 import globals from 'globals';
 
@@ -14,7 +15,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
+  recommendedConfig: {
+    ...js.configs.recommended,
+    ...ts.configs.recommended,
+  },
   allConfig: js.configs.all,
 });
 const IGNORES_PATHS = [
@@ -28,7 +32,7 @@ const IGNORES_PATHS = [
   '.vscode',
 ];
 const patchedConfig = fixupConfigRules([...compat.extends('next/core-web-vitals')]);
-//pluginImport.rules
+
 const config = [
   { ignores: IGNORES_PATHS },
   ...patchedConfig,
@@ -36,17 +40,17 @@ const config = [
   ...pluginTailwindCSS.configs['flat/recommended'],
   {
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
       globals: {
         ...globals.browser,
         ...globals.node,
+        ...globals['es2022'],
       },
+      parser: parser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
         tsconfigRootDir: __dirname,
-        project: 'tsconfig.json',
+        project: ['./tsconfig.json'],
       },
     },
     files: ['src/**/*.{js,ts,jsx,tsx}'],
