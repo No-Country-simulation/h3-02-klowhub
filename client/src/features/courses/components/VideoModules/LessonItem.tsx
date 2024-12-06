@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useMemo } from 'react';
 import Button from '@core/components/Button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@core/components/HoverCard';
-import CheckCircle from '@core/components/Icon/CheckCircle';
 import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
 import { cn } from '@core/lib/utils';
 import type { VideoLessonsType } from '../../schemas/coursevideo.schemas';
@@ -54,7 +53,8 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
           <HoverCardTrigger className="flex w-full items-center gap-2">
             <span className="truncate">{lesson.name}</span>
             <AnimatePresence>
-              {isViewdAndNotActive && (
+              {/*
+              isViewdAndNotActive && (
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -65,7 +65,7 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
                     <CheckCircle />
                   </div>
                 </motion.div>
-              )}
+              )*/}
             </AnimatePresence>
           </HoverCardTrigger>
           <HoverCardContent

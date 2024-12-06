@@ -5,8 +5,7 @@ import { useCreateCourseDetailsStep } from '@features/courses/hooks/useCreateCou
 import CreateFormPart from '../CreateFormPart';
 
 export default function CourseDetailsFormStep() {
-  const { handleSubmit, courseDetailsStep, coursePoster, setResources } =
-    useCreateCourseDetailsStep();
+  const { handleSubmit, courseDetailsStep, setCourseCreation } = useCreateCourseDetailsStep();
   return (
     <form className="mt-5 space-y-12 rounded-lg bg-neutral-100 p-8" onSubmit={handleSubmit}>
       <CreateFormPart title="¿Decinos que van a aprender tus estudiantes al finalizar el curso?">
@@ -26,11 +25,14 @@ export default function CourseDetailsFormStep() {
           name="coursePoster"
           firstText="Sube una imagen de portada para el curso"
           secondText="Arrastre o haga click aqui para subir su imagen"
-          defaultValue={coursePoster}
+          defaultValue={courseDetailsStep.coursePoster}
           onPreviewSelect={preview => {
-            setResources(prev => ({
+            setCourseCreation(prev => ({
               ...prev,
-              coursePoster: preview as string | undefined,
+              courseDetailsStep: {
+                ...prev.courseDetailsStep,
+                coursePoster: preview as string | undefined,
+              },
             }));
           }}
         />

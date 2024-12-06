@@ -31,5 +31,23 @@ export const createCourseDetailsSchema = z.object({
     ),
 });
 
+export const createModuleLessonSchema = z.object({
+  title: z.string(),
+  video: z.instanceof(File),
+  thumbnail: z
+    .instanceof(File)
+    .refine(
+      file => ACCEPTED_IMAGE_TYPES.includes(file.type),
+      'Solo se aceptan archivos .jpg, .jpeg, .png, .webp y .gif.'
+    ),
+});
+
+export const createModuleSchema = z.object({
+  title: z.string(),
+  lessons: z.array(createModuleLessonSchema),
+});
+
 export type CreateCourseType = z.infer<typeof createCourseSchema>;
 export type CreateCourseDetailsType = z.infer<typeof createCourseDetailsSchema>;
+export type CreateModuleType = z.infer<typeof createModuleSchema>;
+export type CreateModuleLessonType = z.infer<typeof createModuleLessonSchema>;

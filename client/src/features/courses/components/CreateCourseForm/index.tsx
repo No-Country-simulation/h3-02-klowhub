@@ -7,6 +7,7 @@ import { CreateCourseTriggers } from '@features/courses/models/enums/createCours
 import { courseCreationStore } from '@features/courses/store/courseCreationStore';
 import CourseDetailsFormStep from './CourseDetailsFormStep';
 import CourseGeneralFormStep from './CourseGeneralFormStep';
+import CourseModuleFormStep from './CourseModuleFormStep';
 
 interface CreateCourseFormProps {
   tabGeneralText: string;
@@ -43,7 +44,9 @@ export default function CreateCourseForm({
         <TabsContent value={CreateCourseTriggers.DETAILS}>
           <CourseDetailsFormStep />
         </TabsContent>
-        <TabsContent value={CreateCourseTriggers.MODULES}></TabsContent>
+        <TabsContent value={CreateCourseTriggers.MODULES}>
+          <CourseModuleFormStep />
+        </TabsContent>
         <TabsContent value={CreateCourseTriggers.PROMOTION}></TabsContent>
       </Tabs>
     </section>

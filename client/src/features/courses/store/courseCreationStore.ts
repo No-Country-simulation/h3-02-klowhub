@@ -17,6 +17,7 @@ export interface CourseDetailsStep {
   courseLearnings: string[];
   courseRequirements: string[];
   courseBenefits: string[];
+  coursePoster: string | undefined;
 }
 
 // Tipo principal para la store
@@ -41,5 +42,6 @@ export const courseCreationStore = atom<CreateCourseStore>({
     courseLearnings: [],
     courseRequirements: [],
     courseBenefits: [],
+    coursePoster: undefined,
   },
 });

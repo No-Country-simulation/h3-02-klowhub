@@ -4,11 +4,9 @@ import type { ActionResponse } from '@coreTypes/actionResponse';
 import { CreateCourseTriggers } from '../models/enums/createCourseEnums';
 import createCourseDetails from '../service/createCourseDetails';
 import { courseCreationStore } from '../store/courseCreationStore';
-import { courseResourcesStore } from '../store/courseResourcesStore';
 
 export const useCreateCourseDetailsStep = () => {
-  const [{ courseDetailsStep }, setActiveTab] = useAtom(courseCreationStore);
-  const [{ coursePoster }, setResources] = useAtom(courseResourcesStore);
+  const [{ courseDetailsStep }, setCourseCreation] = useAtom(courseCreationStore);
   const [result, dispatch] = useActionState<ActionResponse | undefined, FormData>(
     createCourseDetails,
     undefined
@@ -25,10 +23,11 @@ export const useCreateCourseDetailsStep = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     startTransition(() => dispatch(formData));
-    setActiveTab(prev => ({
+    setCourseCreation(prev => ({
       ...prev,
       activeStep: CreateCourseTriggers.MODULES,
       courseDetailsStep: {
+        ...prev.courseDetailsStep,
         courseLearnings: (formData.get('courseLearnings')?.toString() || '').split(',') || [],
         courseRequirements: (formData.get('courseRequirements')?.toString() || '').split(',') || [],
         courseBenefits: (formData.get('courseBenefits')?.toString() || '').split(',') || [],
@@ -38,8 +37,7 @@ export const useCreateCourseDetailsStep = () => {
 
   return {
     handleSubmit,
-    setResources,
-    coursePoster,
+    setCourseCreation,
     courseDetailsStep,
     result,
     isPending,
