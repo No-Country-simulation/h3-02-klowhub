@@ -29,8 +29,7 @@ const ContentItem = ({ profile, name, type, price, state, details }: ContentItem
       <div className="flex h-8 items-center justify-between gap-4 rounded-lg bg-white/10 px-5 py-6 min-[820px]:h-auto min-[820px]:justify-center min-[820px]:rounded-none min-[820px]:bg-transparent min-[820px]:p-0">
         <span className="inline-flex min-[820px]:hidden">Tipo</span>
         <div className="flex h-fit select-none items-center justify-center gap-x-2 rounded-2xl border border-success-200 bg-success-300/15 px-3 py-[6px] font-bold text-success-200">
-          <Image src={'/svg/checkCircleLight.svg'} width={16} height={16} alt="Check circle" />{' '}
-          {type}
+          <Image src="/svg/checkCircleLight.svg" width={16} height={16} alt="Check circle" /> {type}
         </div>
       </div>
       <div className="flex h-8 items-center justify-between gap-4 rounded-lg bg-white/10 px-5 py-6 min-[820px]:h-auto min-[820px]:justify-center min-[820px]:rounded-none min-[820px]:bg-transparent min-[820px]:p-0">

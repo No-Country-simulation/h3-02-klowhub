@@ -1,4 +1,5 @@
 import plugin from 'tailwindcss/plugin';
+import animations from '@midudev/tailwind-animations';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -113,6 +114,7 @@ module.exports = {
         });
       });
     }),
+    animations
   ],
   future: {
     hoverOnlyWhenSupported: true,

@@ -32,12 +32,7 @@ const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
 
   console.log({ isDragging });
   return (
-    <Carousel
-      className={cn('h-[110px] w-full overflow-auto', css.containerLessons)}
-      opts={{
-        direction: 'ltr',
-        align: 'start',
-      }}>
+    <Carousel className={cn('h-[110px] w-full overflow-auto', css.containerLessons)}>
       <CarouselContent
         onPointerDown={onPointerDown}
         onPointerCancel={onPointerUp}
@@ -45,7 +40,7 @@ const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
         onPointerLeave={onPointerUp}
         className="-ml-1 flex h-[110px] space-x-4">
         {lessons.map((lesson, index) => (
-          <CarouselItem key={index} data-carousel-item className="max-w-[190px] shrink-0">
+          <CarouselItem key={index} data-carousel-item="true" className="max-w-[190px] shrink-0">
             <Link
               href={{
                 pathname: `${courseId}`,

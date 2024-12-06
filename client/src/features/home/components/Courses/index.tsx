@@ -1,20 +1,11 @@
-import { Breadcrumb } from './Breadcrumb';
-import FullScreenCard from './FullScreenCard';
+import CourseHorizontalCard from '@features/courses/components/CourseHorizontalCard';
 import { SearchBar } from './SearchBar';
 
 export default function CoursesListSection() {
-  const breadcrumbItems = [
-    { label: 'Home', href: '/es/platform' },
-    { label: 'Cursos y lecciones', href: '/courses' },
-  ];
   return (
     <div className="w-full text-white">
-      <Breadcrumb items={breadcrumbItems} />
-      <h1 className="mb-4 text-lg font-bold">Encuentra el aprendizaje que estás buscando</h1>
-
       <SearchBar />
-      {/* <Categories /> */}
-      <FullScreenCard
+      <CourseHorizontalCard
         imageUrl="/images/mocks/course_mock1.png"
         title="Automatización de flujos de trabajo con AppSheet"
         description="Aprende a crear flujos de trabajo automatizados en AppSheet, optimizando la gestión de tareas y aprobaciones, lo que mejorará la productividad en tus proyectos."
@@ -25,7 +16,7 @@ export default function CoursesListSection() {
         tags={['CRM', 'Clientes', 'Ventas']}
         categoria="Curso"
       />
-      <FullScreenCard
+      <CourseHorizontalCard
         imageUrl="/images/mocks/course_mock2.png"
         title="Automatización de flujos de trabajo con AppSheet"
         description="Aprende a crear flujos de trabajo automatizados en AppSheet, optimizando la gestión de tareas y aprobaciones, lo que mejorará la productividad en tus proyectos."
@@ -37,7 +28,7 @@ export default function CoursesListSection() {
         categoria="Curso"
       />
 
-      <FullScreenCard
+      <CourseHorizontalCard
         imageUrl="/images/mocks/course_mock3png.png"
         title="Automatización de flujos de trabajo con AppSheet"
         description="Conviértete en un experto en AppSheetHub y aprende a crear aplicaciones sin escribir una sola línea de código.Desarrollar aplicaciones personalizadas"

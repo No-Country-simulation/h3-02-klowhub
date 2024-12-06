@@ -45,18 +45,12 @@ export default function RecommendProjectCard({
           <span className="text-sm text-gray-400">{published}</span>
           <div className="relative flex gap-2">
             <Button variant="ghost" size="fit" className="size-8 hover:bg-white/10">
-              <Image
-                src={'/svg/link.svg'}
-                width={16}
-                height={16}
-                alt="AppSheet"
-                className="size-4"
-              />
+              <Image src="/svg/link.svg" width={16} height={16} alt="AppSheet" className="size-4" />
             </Button>
             <FavButton />
             <Button variant="ghost" size="fit" className="size-8 hover:bg-white/10">
               <Image
-                src={'/svg/moreVertical.svg'}
+                src="/svg/moreVertical.svg"
                 width={16}
                 height={16}
                 alt="AppSheet"
@@ -107,7 +101,7 @@ export default function RecommendProjectCard({
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <Image src={'/svg/star.svg'} width={16} height={16} alt="Star" className="size-4" />
+          <Image src="/svg/star.svg" width={16} height={16} alt="Star" className="size-4" />
           <span className="text-sm text-gray-400">
             {ratingText}: {rating}
           </span>

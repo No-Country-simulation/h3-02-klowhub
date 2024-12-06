@@ -171,6 +171,12 @@
     "reviews": "Review",
     "session": "Session"
   },
+  "NewCourse": {
+    "metaTitle": "Klowhub - Create a new course",
+    "metaDescription": "Klowhub Create a new course page",
+    "metaSiteName": "Klowhub - Create a new course",
+    "mainTitle": "Create Your Course: Share It with the World"
+  },
   "AppCard": {
     "titulo": "Recommended applications",
     "desc": "Explore ready-to-use solutions. Find the perfect app for your project and get started right away."

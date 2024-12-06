@@ -5,6 +5,7 @@ import parser from '@typescript-eslint/parser';
 import prettierRecommended from 'eslint-config-prettier';
 import jestRecommended from 'eslint-plugin-jest';
 import unicornRecommended from 'eslint-plugin-unicorn';
+
 import globals from 'globals';
 import path from 'path';
 import { fileURLToPath } from 'url';

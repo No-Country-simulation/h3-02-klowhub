@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
-import CourseCard from '@core/components/CourseCard';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
 import { getContent } from '@core/services/getContent';
+import CourseCard from '@features/courses/components/CourseCard';
 import RecommendedCarouselWrapper from './RecommendedCarouselWrapper';
 
 export default async function RecommendedCourses() {
