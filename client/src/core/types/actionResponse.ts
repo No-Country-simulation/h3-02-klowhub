@@ -2,7 +2,7 @@ import type { UUID } from 'crypto';
 
 export interface ActionResponse {
   traceId?: UUID;
-  errors: Record<string, string>;
+  errors?: Record<string, string>;
   status?: string;
 }
 

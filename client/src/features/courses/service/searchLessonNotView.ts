@@ -1,4 +1,4 @@
-import { type VideoModuleType } from '../schemas/video-schemas';
+import { type VideoModuleType } from '../schemas/coursevideo.schemas';
 
 export function updateLessonViewStatus(
   modules: VideoModuleType[],

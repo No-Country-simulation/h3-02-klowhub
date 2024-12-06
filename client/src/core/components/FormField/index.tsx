@@ -5,7 +5,7 @@ import type { FormFieldProps } from '@core/types/fields';
 import EyeButton from '../EyeButton';
 
 const formFieldCVA = cva(
-  'relative z-10 border-neutral-400 bg-white/90 px-3 py-2 border border-solid rounded-lg w-full font-normal autofill-inherit focus:outline-primary-B-500 max-w-[350px] max-h-[75px] text-sm placeholder:text-neutral-300 leading-6 transition-all duration-300 ease',
+  'relative z-10 border-neutral-400 bg-white/90 px-3 py-2 border border-solid rounded-lg w-full font-normal autofill-inherit focus:outline-primary-B-500 max-w-[350px] max-h-[75px] text-sm placeholder:text-neutral-300 leading-6 transition-all duration-300 ease autofill-inherit',
   {
     variants: {
       error: {

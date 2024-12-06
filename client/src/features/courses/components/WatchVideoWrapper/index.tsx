@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
-import { type VideoFirmedType } from '../../schemas/video-schemas';
+import { type VideoFirmedType } from '../../schemas/coursevideo.schemas';
 import VideoPlayer from '../VideoPlayer';
 
 interface WatchVideoWrapperProps {

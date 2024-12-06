@@ -5,7 +5,7 @@ import Button from '@core/components/Button';
 import ModuleIcon from '@core/components/Icon/ModuleIcon';
 import { cn } from '@core/lib/utils';
 import LessonItem from './LessonItem';
-import { videoModuleSchema } from '../../schemas/video-schemas';
+import { videoModuleSchema } from '../../schemas/coursevideo.schemas';
 
 interface CollapsableModuleProps {
   module: z.infer<typeof videoModuleSchema>;

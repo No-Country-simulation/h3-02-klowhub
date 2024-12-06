@@ -7,7 +7,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@core/components/
 import CheckCircle from '@core/components/Icon/CheckCircle';
 import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
 import { cn } from '@core/lib/utils';
-import type { VideoLessonsType } from '../../schemas/video-schemas';
+import type { VideoLessonsType } from '../../schemas/coursevideo.schemas';
 
 interface LessonItemProps {
   lesson: VideoLessonsType;

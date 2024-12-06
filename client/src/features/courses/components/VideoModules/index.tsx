@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ScrollArea from '@core/components/ScrollArea/ScrollArea';
 import CollapsableModule from './CollapsableModule';
-import type { VideoModuleType } from '../../schemas/video-schemas';
+import type { VideoModuleType } from '../../schemas/coursevideo.schemas';
 
 interface VideoModulesProps {
   modules: VideoModuleType[];

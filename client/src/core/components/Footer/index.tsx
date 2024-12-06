@@ -18,7 +18,7 @@ export default function Footer() {
           <FooterLinkList links={supportLinks} title={t('supportTitle')} />
           <div className="me-4 flex min-w-[19.5%] flex-col self-center justify-self-end min-[790px]:ms-auto min-[1025px]:me-16 min-[1340px]:min-w-[18%]">
             <h3 className="text-center">{t('followTitle')}</h3>
-            <ul className="my-6 flex flex-row items-center justify-center gap-6">
+            <ul className="my-6 flex list-none flex-row items-center justify-center gap-6">
               {socialLinks.map(({ href, src, alt, size }) => (
                 <li key={alt} className="min-h-7 min-w-7">
                   <Link href={href}>

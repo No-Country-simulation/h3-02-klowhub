@@ -36,12 +36,13 @@ export const NavbarClient = ({
   ]);
   const blurFilter = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['blur(20px)', 'blur(40px)']);
   const top = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['25px', '0px']);
-  const topNegative = useTransform(scrollY, ANIMATION_HEADER_RANGE, ['-25px', '0px']);
   useEffect(() => {
     // Verifica si la API está disponible en el cliente
-    if (typeof window !== 'undefined' && CSS.supports) {
-      setSupportBackdrop(CSS.supports('backdrop-filter', 'blur(1px)'));
-    }
+    setSupportBackdrop(
+      typeof window !== 'undefined' && CSS.supports
+        ? CSS.supports('backdrop-filter', 'blur(1px)')
+        : false
+    );
   }, []);
 
   useClickOutside(menuRef, () => {
@@ -86,7 +87,6 @@ export const NavbarClient = ({
                   exit="closed"
                   variants={menuVariants}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  style={{ top: topNegative }}
                   className="fixed right-0 top-0 z-50 min-h-screen w-full rounded-l-sm bg-neutral-100/80 backdrop-blur-2xl sm:max-w-[350px] min-[1400px]:hidden">
                   <div className="relative h-[100dvh] w-full">
                     <Button

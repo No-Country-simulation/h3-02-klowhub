@@ -80,8 +80,8 @@
 
   .autofill-inherit:-webkit-autofill {
     background-color: inherit !important;
-    -webkit-text-fill-color: white !important;
-    color: white !important;
+    -webkit-text-fill-color: black !important;
+    color: black !important;
     transition: background-color 5000s ease-in-out 0s;
   }
 }
@@ -103,6 +103,14 @@
     background-image: url('/images/headerBanner.png');
     background-repeat: no-repeat;
     background-size: 100%;
+  }
+
+  .animate-slide-in-fade-top {
+    animation: slide-in-fade-top 0.4s ease-out both;
+  }
+
+  .animate-slide-out-fade-top {
+    animation: slide-out-fade-top 0.4s ease-out both;
   }
 }
 
@@ -174,5 +182,32 @@ ol ol {
       margin-top: 0.25em;
       margin-bottom: 0.25em;
     }
+  }
+}
+
+input:disabled + label.view-disabled-input {
+  cursor: not-allowed;
+}
+
+@keyframes slide-in-fade-top {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 100;
+  }
+}
+
+@keyframes slide-out-fade-top {
+  from {
+    transform: translateY(0);
+    opacity: 100;
+  }
+  to {
+    transform: translateY(-20px);
+    opacity: 0;
   }
 }

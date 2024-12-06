@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@core/components/Tabs';
-import type { VideoModuleType } from '../../schemas/video-schemas';
+import type { VideoModuleType } from '../../schemas/coursevideo.schemas';
 import VideoModules from '../VideoModules';
 
 interface WatchCourseNavigatorProps {

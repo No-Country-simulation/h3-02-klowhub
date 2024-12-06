@@ -1,85 +1,48 @@
 'use client';
 
-import Bold from '@tiptap/extension-bold';
-import BulletList from '@tiptap/extension-bullet-list';
-import Document from '@tiptap/extension-document';
-import History from '@tiptap/extension-history';
-import Italic from '@tiptap/extension-italic';
-import ListItem from '@tiptap/extension-list-item';
-import ListKeymap from '@tiptap/extension-list-keymap';
-import Paragraph from '@tiptap/extension-paragraph';
-import Placeholder from '@tiptap/extension-placeholder';
-import Text from '@tiptap/extension-text';
-import Underline from '@tiptap/extension-underline';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { EditorContent } from '@tiptap/react';
 import EmojiPicker from 'emoji-picker-react';
 import Image from 'next/image';
+import { useEditorConfig } from '@core/hooks/useEditorConfig';
 import { useEmojis } from '@core/hooks/useEmojis';
 import { cn } from '@core/lib/utils';
 import EditorToolBar from './EditorToolBar';
-import css from './tiptapeditor.module.css';
 import Button from '../Button';
 import { Popover, PopoverContent, PopoverTrigger } from '../Popover';
 
 interface TiptapEditorProps {
   className?: string;
   classNameEditor?: string;
-  name: string;
+  onChange?: (html: string) => void;
+  defaultValue?: string;
 }
 
-const TiptapEditor = ({ className = '', classNameEditor = '', name }: TiptapEditorProps) => {
-  const editor = useEditor(
-    {
-      editable: true,
-      extensions: [
-        Document,
-        Paragraph,
-        Text,
-        Underline,
-        Bold,
-        Italic,
-        BulletList,
-        ListItem,
-        ListKeymap,
-        History.configure({
-          depth: 15,
-        }),
-        Placeholder.configure({
-          placeholder: 'Escribe una descripcion basica del proyecto',
-        }),
-        /*Link.configure({
-          HTMLAttributes: {
-            rel: 'noopener noreferrer',
-          },
-          openOnClick: false,
-          linkOnPaste: true,
-          defaultProtocol: 'https',
-          protocols: allowedProtocolsTiptap,
-          isAllowedUri: validateUrl,
-          shouldAutoLink: shouldNotDisallowDomains,
-        }),*/
-      ],
-      content: '',
-      editorProps: {
-        attributes: {
-          class: `${css.tiptapEditor} ${classNameEditor}`,
-          name: name,
-        },
-      },
-    },
-    [name, classNameEditor]
-  );
+const TiptapEditor = ({
+  className = '',
+  classNameEditor = '',
+  onChange,
+  defaultValue = '',
+}: TiptapEditorProps) => {
+  const editor = useEditorConfig(classNameEditor, defaultValue, onChange);
   const [showEmoji, toggle, addEmoji] = useEmojis(data => {
     if (!editor) return;
     editor.commands.insertContent(data);
   });
 
   if (!editor) {
-    return null;
+    return (
+      <div className="max-w-3xl rounded-lg border border-dashed border-black/50 bg-white opacity-80 shadow-app-1">
+        <div className="h-11 w-full border-b border-dashed"></div>
+        <p className="h-[100px] w-full select-none pt-6 text-center text-lg text-gray-900">
+          Opps...
+        </p>
+        <div className="h-11 w-full border-t border-dashed"></div>
+      </div>
+    );
   }
 
   return (
-    <div className={cn('rounded-lg border bg-white shadow', className)}>
+    <div className={cn('rounded-lg border bg-white shadow-app-1', className)}>
       {editor && <EditorToolBar editor={editor} />}
       <EditorContent editor={editor} />
       <div className="flex items-center justify-between px-4">

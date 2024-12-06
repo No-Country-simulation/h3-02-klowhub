@@ -1,8 +1,9 @@
+import { CreateCourseTriggers } from '@features/courses/models/enums/createCourseEnums';
 import TabsList from './TabList';
 import TabsTrigger from './TabTrigger';
 
 interface TabListTriggerProps {
-  triggers: { label: string; value: string }[];
+  triggers: { label: string; value: CreateCourseTriggers }[];
   className?: string;
 }
 

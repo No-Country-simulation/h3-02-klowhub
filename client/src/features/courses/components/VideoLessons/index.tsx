@@ -6,7 +6,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@core/components/Carrus
 import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import css from './videolesson.module.css';
-import type { VideoLessonsType } from '../../schemas/video-schemas';
+import type { VideoLessonsType } from '../../schemas/coursevideo.schemas';
 
 interface VideoLessonsProps {
   lessons: VideoLessonsType[];

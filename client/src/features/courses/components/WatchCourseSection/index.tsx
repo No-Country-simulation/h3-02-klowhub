@@ -1,6 +1,6 @@
 import { getLocale } from 'next-intl/server';
 import { getContent } from '@core/services/getContent';
-import { type VideoCourseType } from '../../schemas/video-schemas';
+import { type VideoCourseType } from '../../schemas/coursevideo.schemas';
 import VideoLessons from '../VideoLessons';
 import WatchCourseNavigator from '../WatchCourseNavigator';
 import WatchVideoWrapper from '../WatchVideoWrapper';

@@ -1,6 +1,10 @@
+'use client';
+
+import { useAtom } from 'jotai';
 import { Tabs, TabsContent } from '@core/components/Tabs';
 import TabListTrigger from '@core/components/Tabs/TabListTrigger';
-import { CreateCourseTriggers } from '@features/courses/enums/createCourseEnums';
+import { CreateCourseTriggers } from '@features/courses/models/enums/createCourseEnums';
+import { courseCreationStore } from '@features/courses/store/courseCreationStore';
 import CourseGeneralFormStep from './CourseGeneralFormStep';
 
 interface CreateCourseFormProps {
@@ -16,6 +20,7 @@ export default function CreateCourseForm({
   tabModulesText,
   tabPromotionText,
 }: CreateCourseFormProps) {
+  const [activeStep, setActiveAtom] = useAtom(courseCreationStore);
   const triggers = [
     { label: tabGeneralText, value: CreateCourseTriggers.GENERAL },
     { label: tabDetailsText, value: CreateCourseTriggers.DETAILS },
@@ -24,8 +29,12 @@ export default function CreateCourseForm({
   ];
 
   return (
-    <form>
-      <Tabs defaultValue={CreateCourseTriggers.GENERAL}>
+    <section>
+      <Tabs
+        value={activeStep.activeStep}
+        onValueChange={val =>
+          setActiveAtom(prev => ({ ...prev, activeStep: val as CreateCourseTriggers }))
+        }>
         <TabListTrigger className="max-w-3xl" triggers={triggers} />
         <TabsContent value={CreateCourseTriggers.GENERAL}>
           <CourseGeneralFormStep />
@@ -34,6 +43,6 @@ export default function CreateCourseForm({
         <TabsContent value={CreateCourseTriggers.MODULES}></TabsContent>
         <TabsContent value={CreateCourseTriggers.PROMOTION}></TabsContent>
       </Tabs>
-    </form>
+    </section>
   );
 }
