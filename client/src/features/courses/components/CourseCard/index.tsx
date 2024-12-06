@@ -36,7 +36,7 @@ const CourseCard = ({
   rating,
   reviews,
   tags,
-  imageSrc,
+  imageSrc = '/aa',
   platform,
   viewDetails,
   addToCart,
@@ -108,7 +108,7 @@ const CourseCard = ({
       </div>
 
       <div className="grow p-4">
-        {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
+        {/* <h3 className="font-bold text-lg text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
           <h3 className="line-clamp-2 max-h-14 min-h-14 text-ellipsis text-lg font-bold text-slate-200">
             {title}
@@ -134,19 +134,19 @@ const CourseCard = ({
               </svg>
             </button>
             {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
+              <div className="right-0 absolute bg-[#2D3748] shadow-lg mt-2 rounded-lg w-32">
                 <ul className="py-1">
                   <li>
                     <button
                       onClick={handleEdit}
-                      className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
+                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
                       Editar
                     </button>
                   </li>
                   <li>
                     <button
                       onClick={handleDelete}
-                      className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
+                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
                       Eliminar
                     </button>
                   </li>
@@ -181,9 +181,7 @@ const CourseCard = ({
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          {tags.map((tag, index) => (
-            <Badge key={index} text={tag}></Badge>
-          ))}
+          {tags?.map((tag, index) => <Badge key={index} text={tag}></Badge>)}
         </div>
 
         <div className="mt-4 flex items-center">

@@ -25,6 +25,7 @@ export async function signin(
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
+  console.log(res);
 
   if (!res.ok) {
     return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
@@ -42,8 +43,8 @@ export async function signin(
     return { errors: { GLOBAL: 'No se pudo extraer el token de autenticación' } };
   }
   (await cookies()).set('auth_token', token);
-  console.log('Set-Cookie:', cookieHeader);
-  console.log('Token extraído:', token);
+  //console.log('Set-Cookie:', cookieHeader);
+  //console.log('Token extraído:', token);
 
   const locale = await getLocale();
   redirect({ href: { pathname: '/platform' }, locale });

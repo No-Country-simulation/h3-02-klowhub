@@ -54,6 +54,9 @@ export const createCourseSchema = z.object({
     'Twilio',
   ]).optional(), // Herramienta (opcional)
   prerequisites: z.array(z.string()).optional(), // Requisitos previos (opcional)
+  purpose : z.string().optional(),
+  followUP :z.array(z.string()).optional(),
+  contents : z.array(z.string()).optional(),
   detailedContent: z.string().optional(), // Contenido detallado (opcional)
   imageUrl: z.string().url('Invalid URL format').optional(), // URL de la imagen del curso (opcional)
   status: z.enum(['Draft', 'Published', 'Archived']).optional(), // Estado del curso (opcional, predeterminado: Draft)

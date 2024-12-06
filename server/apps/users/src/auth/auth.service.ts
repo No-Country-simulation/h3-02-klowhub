@@ -215,12 +215,13 @@ export class AuthService {
 
   //login con credenciales email y password
   async login(loginDto: LoginDto) {
+    console.log("loginDto")
     try {
       // Buscar al usuario por correo electrónico
       const user = await this.userRepository.findOne({
         where: { email: loginDto.email },
       });
-
+      console.log("user")
       // Verificar si el usuario existe
       if (!user) {
         return { message: 'Datos incorrectos' };

@@ -12,8 +12,6 @@ export class Course extends Document {
   @Prop({ required: true })
   title: string; // Título del curso o lección
    
-  @Prop({ required: true })
-  rating: number; // Título del curso o lección
 
   @Prop({
     type: String,
@@ -42,7 +40,7 @@ export class Course extends Document {
     enum: Platform,
     default: Platform.NONE,
   })
-  platafor: string;
+  platform: string;
 
   @Prop({
     type: String,
@@ -50,6 +48,18 @@ export class Course extends Document {
     default: Idiom.NONE,
   })
   idiom: string;
+
+  @Prop({
+    type: String,
+    default: 0,
+  })
+  reviews: string;
+  
+  @Prop({
+    type: String,
+    default: 0,
+  })
+  rating: string;
 
   @Prop({
     type: String,
@@ -84,8 +94,20 @@ export class Course extends Document {
   @Prop()
   descriptionBasic? : string // descripcion basica
 
+
+  @Prop()
+  purpose? : string // descripcion mas completa
+
   @Prop({ type: [String] })
   prerequisites?: string[]; // Requisitos previos del curso
+
+  @Prop({ type: [String] })
+  followUp?: string[]; // depues del curso
+
+  @Prop({ type: [String] })
+  contents?: string[]; // para quein es
+
+
 
   @Prop()
   detailedContent?: string; // Descripción detallada *Acerca de este curso*
