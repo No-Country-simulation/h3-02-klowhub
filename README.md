@@ -1,9 +1,9 @@
 # Hackathon 3 - Equipo 2 - Proyecto "KlowHub"
 
-## Industria
+### Industria
 General, Marketplace, Comunidad
 
-## Descripción
+### Descripción
 
 KlowHub es una comunidad de desarrolladores, entusiastas y organizaciones que utilizan aplicaciones "No Code" o "Low Code" para cubrir necesidades
 
@@ -12,7 +12,8 @@ Consiste en 4 módulos
 - Proyectos
 - Consultoría
 - Foro
-  
+
+### Tecnologías
 *Frontend contiene*
 - Nodejs
 - Typescript
@@ -24,7 +25,7 @@ Consiste en 4 módulos
 - Docker
 - 
 
-## Instrucciones de Instalación Local
+### Instrucciones de Instalación Local
 
 
 ### Caso de Uso diagramado y Arquitectura
