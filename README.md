@@ -35,6 +35,10 @@ Consiste en 4 módulos
 
 
 ### Links de interés
+- Google Doc: [Requerimiento MVP](https://docs.google.com/document/d/1384qS4swbR3EJarHDEN6JStyf-U_L6RKgHSfzssLfbE/edit?tab=t.0)
+- Excalidraw (un tablero) del trabajo y progreso del equipo: [Link](https://excalidraw.com/#room=5e439aab375eec8c0d21,MJms9xmhQwIa0jXMSSZIlQ)
+- Seguimiento de tareas en [Github Projects](https://github.com/orgs/No-Country-simulation/projects/127/views/1)
+- Comunicación a través de Servidor Privado de Discord: *Pedir link al privado*
 
 ### Proceso
 
