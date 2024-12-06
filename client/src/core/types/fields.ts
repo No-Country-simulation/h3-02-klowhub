@@ -28,6 +28,7 @@ export interface FieldType {
 export interface FormFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   id: string;
   className?: string;
+  classNameContainer?: string;
   type?: InputFieldsTypes;
   error?: string;
   onTypeChange?: OnTypeChangeType;

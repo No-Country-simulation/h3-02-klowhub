@@ -32,19 +32,31 @@ const labelCVA = cva('relative w-full max-w-[350px] font-normal text-base leadin
 });
 
 const FormField = forwardRef<HTMLInputElement, FormFieldProps>(function FormField(
-  { className = 'text-black', id = '', type = 'text', error, onTypeChange, label, ...props },
+  {
+    className = 'text-black',
+    classNameContainer = '',
+    id = '',
+    type = 'text',
+    error,
+    onTypeChange,
+    label,
+    ...props
+  },
   ref
 ) {
   return (
-    <label data-testid={id} className={cn(labelCVA({ error: !!error }))} htmlFor={id}>
+    <label
+      data-testid={id}
+      className={cn(labelCVA({ error: !!error }), classNameContainer)}
+      htmlFor={id}>
       {label ? <span className="text-base font-medium text-white">{label}</span> : null}
-      <div className="relative mt-4 text-black">
+      <div className={cn('relative text-black', label && 'mt-4')}>
         <input
           {...props}
           id={id}
           ref={ref}
           type={type}
-          className={cn(formFieldCVA({ error: !!error, className, password: !!onTypeChange }))}
+          className={cn(formFieldCVA({ error: !!error, password: !!onTypeChange }), className)}
         />
         {onTypeChange ? <EyeButton onTypeChange={onTypeChange} /> : null}
       </div>
