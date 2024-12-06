@@ -31,7 +31,7 @@ export class UserEntity {
   @Column({ type: 'boolean', default: false })
   isEmailVerified: boolean;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: true, default: 'https://res.cloudinary.com/ddv3ckyxa/image/upload/v1731885444/Logo_dzf5dh.png'})
   image!: string | null;
 
   @Column({ type: 'varchar', nullable: true })
@@ -40,21 +40,20 @@ export class UserEntity {
   @Column({ type: 'varchar', nullable: true })
   biography!: string | null;
 
-  @Column({ 
-    type: 'enum',
-    enum: UserRole,
-    array:true,
-    default: [UserRole.USER, UserRole.CREATOR]
+  @Column({
+    type: 'text',
+    array: true, // Indica que será un array nativo de PostgreSQL
+    default: [UserRole.USER, UserRole.CREATOR], // Roles por defecto
   })
-  role: UserRole;
+  role: UserRole[];
 
-  @Column({ type: 'number', nullable: true , default : 0 })
+  @Column({ type: 'int', nullable: true , default : 0 })
   reviws: number | null;
 
-  @Column({ type: 'varchar', nullable: true , default : 0 })
+  @Column({ type: 'varchar', nullable: true , default : '' })
   whyLearn: string | null;
 
-  @Column({ type: 'number', nullable: true ,default : 0 })
+  @Column({ type: 'int', nullable: true ,default : 0 })
   rating: number | null;
 
   @OneToMany(() => AccountEntity, (account) => account.user, {

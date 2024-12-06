@@ -63,25 +63,25 @@ export class UsersService {
 
   }
   // 
-  async changeUserRole(userId: string, mode) {
-    // Buscar al usuario por ID
-    const user = await this.userRepository.findOne({ where: { id: userId } });
-    if (!user) {
-      throw new Error('Usuario no encontrado');
-    }
+  // async changeUserRole(userId: string, mode) {
+  //   // Buscar al usuario por ID
+  //   const user = await this.userRepository.findOne({ where: { id: userId } });
+  //   if (!user) {
+  //     throw new Error('Usuario no encontrado');
+  //   }
 
-    // Actualizar el rol
-    if (mode === 'user') {
-      user.role = UserRole.USER;
-    } else if (mode === 'creator') {
-      user.role = UserRole.CREATOR;
-    } else {
-      throw new Error('Modo no válido');
-    }
+  //   // Actualizar el rol
+  //   if (mode === 'user') {
+  //     user.role = UserRole.USER;
+  //   } else if (mode === 'creator') {
+  //     user.role = UserRole.CREATOR;
+  //   } else {
+  //     throw new Error('Modo no válido');
+  //   }
 
-    // Guardar los cambios en la base de datos
-    return this.userRepository.save(user);
-  }
+  //   // Guardar los cambios en la base de datos
+  //   return this.userRepository.save(user);
+  // }
 
   // buscar User por ID
   async findUserById(userId: string): Promise<Partial<UserEntity> | null> {
