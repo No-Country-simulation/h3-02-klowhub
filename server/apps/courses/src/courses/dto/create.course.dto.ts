@@ -54,7 +54,7 @@ export const createCourseSchema = z.object({
     'Twilio',
   ]).optional(), // Herramienta (opcional)
   prerequisites: z.array(z.string()).optional(), // Requisitos previos (opcional)
-  purpose : z.array(z.string()).optional(),
+  purpose : z.string().optional(),
   followUP :z.array(z.string()).optional(),
   contents : z.array(z.string()).optional(),
   detailedContent: z.string().optional(), // Contenido detallado (opcional)

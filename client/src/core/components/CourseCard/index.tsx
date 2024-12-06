@@ -9,17 +9,17 @@ import styles from './CourseCard.module.css';
 
 interface CardProps {
   title: string;
-  basicDescription?: string;
-  contentType?: string;
+  description?: string;
+  price?: string;
   rating: number;
   reviews?: number;
   tags: string[];
-  imageUrl: string;
+  imageSrc: string;
   imageAlt?: string;
   platform: string;
   viewDetails: string;
   addToCart: string;
-  kind: 'Curso' | 'Lección' | string;
+  categoria: 'Curso' | 'Lección' | string;
   className?: string;
 }
 
@@ -31,17 +31,17 @@ const categoryStyles: Record<string, string> = {
 
 const CourseCard = ({
   title,
-  basicDescription,
-  contentType,
+  description,
+  price,
   rating,
-  reviews = 0,
-  tags = [],
-  imageUrl,
+  reviews,
+  tags,
+  imageSrc = '/aa',
   platform,
-  viewDetails = '',
-  addToCart = '',
-  imageAlt = imageUrl,
-  kind,
+  viewDetails,
+  addToCart,
+  imageAlt = 'Imagen del curso',
+  categoria,
   className = '',
 }: CardProps) => {
   //const [isMenuOpen, setMenuOpen] = useState(false);
@@ -77,7 +77,7 @@ const CourseCard = ({
     };
   }, []);*/
 
-  const styleClass = categoryStyles[kind] || categoryStyles.default;
+  const styleClass = categoryStyles[categoria] || categoryStyles.default;
 
   return (
     <div
@@ -96,14 +96,14 @@ const CourseCard = ({
         </div>
 
         <Image
-          src={imageUrl}
+          src={imageSrc}
           alt={imageAlt}
           width={500}
           height={400}
           className="h-48 w-full rounded-t-lg object-cover"
         />
         <span className={`absolute left-2 top-2 rounded px-2 py-1 text-sm font-bold ${styleClass}`}>
-          {kind}
+          {categoria}
         </span>
       </div>
 
@@ -156,9 +156,9 @@ const CourseCard = ({
           </div>*/}
         </div>
 
-        {basicDescription ? (
+        {description ? (
           <p className="mt-1 line-clamp-2 max-h-10 text-ellipsis pb-2 text-sm text-slate-200">
-            {basicDescription}
+            {description}
           </p>
         ) : null}
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
@@ -181,9 +181,7 @@ const CourseCard = ({
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          {tags.map((tag, index) => (
-            <Badge key={index} text={tag}></Badge>
-          ))}
+          {tags?.map((tag, index) => <Badge key={index} text={tag}></Badge>)}
         </div>
 
         <div className="mt-4 flex items-center">
@@ -203,9 +201,9 @@ const CourseCard = ({
             <p className="ml-2 text-sm text-slate-200">({reviews})</p>
           ) : null}
         </div>
-        {contentType ? (
+        {price ? (
           <div className="mt-4 flex items-center gap-2">
-            <strong className="text-lg font-bold text-slate-200">${contentType}</strong>
+            <strong className="text-lg font-bold text-slate-200">${price}</strong>
           </div>
         ) : null}
       </div>

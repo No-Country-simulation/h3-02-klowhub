@@ -12,8 +12,6 @@ export class Course extends Document {
   @Prop({ required: true })
   title: string; // Título del curso o lección
    
-  @Prop({ required: true })
-  rating: number; // Título del curso o lección
 
   @Prop({
     type: String,
@@ -42,7 +40,7 @@ export class Course extends Document {
     enum: Platform,
     default: Platform.NONE,
   })
-  platafor: string;
+  platform: string;
 
   @Prop({
     type: String,
@@ -56,6 +54,12 @@ export class Course extends Document {
     default: 0,
   })
   reviews: string;
+  
+  @Prop({
+    type: String,
+    default: 0,
+  })
+  rating: string;
 
   @Prop({
     type: String,

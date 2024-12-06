@@ -121,10 +121,12 @@ export class AuthController {
   //
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
+    console.log("Enviando solicitud al microservicio de USERS:");
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       const { token } = await lastValueFrom(
         this.usersService.send({ cmd: 'login' }, loginDto),
       );
+      console.log("TOKEN:", token);
       if (!token) {
         throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }

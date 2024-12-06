@@ -69,10 +69,11 @@ export class CoursesService {
       const courseData = {
         userId,
         title: data.title,
+        platform: data.platform || '',
         contentType: data.contentType || 'premium',
         courseType: data.type || 'appsheet',
         kind: data.kind || 'course',
-        purpose :data.purpose || [],
+        purpose :data.purpose || '',
         contents : data.contents || [],
         basicDescription: data.basicDescription || '',
         prerequisites: data.prerequisites || [],
@@ -150,7 +151,7 @@ export class CoursesService {
     }
 
     // Aquí puedes agregar más filtros según las propiedades del curso
-
+    console.log("query", query)
     return query;
   }
 
