@@ -21,13 +21,13 @@ export default function CourseCarouselWraper({
         <CourseCard
           key={`gcc-${i}`}
           title={item.title}
-          description={item?.description || ''}
+          description={item?.basicDescription || ''}
           price={item.price}
           rating={item.rating}
           reviews={item.reviews}
           platform={item.platform}
           tags={item.tags}
-          imageSrc={item.img}
+          imageSrc={item.imageUrl}
           imageAlt={item.title}
           categoria={item.type}
           viewDetails={viewDetails}

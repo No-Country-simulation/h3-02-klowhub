@@ -26,7 +26,7 @@ export default function RecommendedCarouselWrapper({
           reviews={item.reviews}
           platform={item.platform}
           tags={item.tags}
-          imageSrc={item.img}
+          imageSrc={item.imageUrl}
           imageAlt={item.title}
           categoria={item.type}
           viewDetails={viewDetails}
