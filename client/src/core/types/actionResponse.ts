@@ -16,4 +16,8 @@ export type ApiErrorType = {
   status?: number | string;
 };
 
-export type ApiResultType<T = unknown> = [ApiErrorType | undefined, T | undefined];
+export type ApiResultType<T = unknown> = [
+  ApiErrorType | undefined,
+  T | undefined,
+  Headers | undefined,
+];

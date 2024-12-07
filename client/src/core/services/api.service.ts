@@ -39,13 +39,21 @@ const handleRequest = async <T = unknown>(
     });
 
     if (!response.ok) {
-      return [handleError(new Error('Request failed'), response.status), undefined];
+      return [
+        handleError(new Error('Request failed'), response.status),
+        undefined,
+        response.headers,
+      ];
     }
 
     const data = await response.json();
-    return [undefined, data as T];
+    return [undefined, data as T, response.headers];
   } catch (error) {
-    return [handleError(error instanceof Error ? error : new Error('Unknown error')), undefined];
+    return [
+      handleError(error instanceof Error ? error : new Error('Unknown error')),
+      undefined,
+      undefined,
+    ];
   }
 };
 

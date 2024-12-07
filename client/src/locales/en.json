@@ -150,7 +150,8 @@
     "signText2": "Terms of Use",
     "signText3": "and our",
     "signText4": "Advertising Policy",
-    "signTextButtons": "Or proceed below"
+    "signTextButtons": "Or proceed below",
+    "signinPrelink": "¿Don't have an account yet?"
   },
   "Fields": {
     "emailLabel": "Email",
@@ -184,5 +185,26 @@
   "AppCard": {
     "titulo": "Recommended applications",
     "desc": "Explore ready-to-use solutions. Find the perfect app for your project and get started right away."
+  },
+  "CourseDetail": {
+    "metaTitle": "Klowhub - Course Detail",
+    "metaDescription": "Klowhub Course Detail page",
+    "metaSiteName": "Klowhub - Course Detail"
+  },
+  "TermsAndConditions": {
+    "metaTitle": "Klowhub - Terms and Conditions",
+    "metaDescription": "Klowhub Terms and Conditions page",
+    "metaSiteName": "Klowhub - Terms and Conditions",
+    "mainTitle": "Terms and Conditions"
+  },
+  "AdvertisingPolicy": {
+    "metaTitle": "Klowhub - Advertising Policy",
+    "metaDescription": "Klowhub Advertising Policy page",
+    "metaSiteName": "Klowhub - Advertising Policy",
+    "mainTitle": "Advertising Policy"
+  },
+  "ComingSoon": {
+    "title": "Page Under Construction",
+    "subTitle": "We're working to bring you a better experience. Check back soon to see what's new."
   }
 }

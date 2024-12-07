@@ -150,7 +150,8 @@
     "signText2": "Codiciones de uso",
     "signText3": "y nuestra",
     "signText4": "Politica de publicidad",
-    "signTextButtons": "O a continuación"
+    "signTextButtons": "O a continuación",
+    "signinPrelink": "¿No tienes una cuenta?"
   },
   "Fields": {
     "emailLabel": "Correo electronico",
@@ -184,6 +185,26 @@
   "AppCard":{
       "titulo": "Aplicaciones recomendadas",
       "desc": "Explorá soluciones listas para usar. Encontrá la app perfecta para tu proyecto y empezá a trabajar de inmediato."
-
+  },
+  "CourseDetail": {
+    "metaTitle": "Klowhub - Detalle de curso",
+    "metaDescription": "Klowhub Pagina del detalle del curso",
+    "metaSiteName": "Klowhub - Detalle de curso"
+  },
+  "TermsAndConditions": {
+    "metaTitle": "Klowhub - Términos y condiciones",
+    "metaDescription": "Klowhub pagina de Términos y condiciones",
+    "metaSiteName": "Klowhub - Términos y condiciones",
+    "mainTitle": "Términos y condiciones"
+  },
+  "AdvertisingPolicy": {
+    "metaTitle": "Klowhub - Política de publicidad",
+    "metaDescription": "Klowhub pagina de Política de publicidad",
+    "metaSiteName": "Klowhub - Política de publicidad",
+    "mainTitle": "Política de publicidad"
+  },
+  "ComingSoon": {
+    "title": "Página en construcción",
+    "subTitle": "Estamos trabajando para ofrecerte una mejor experiencia. Vuelve pronto para ver las novedades."
   }
 }

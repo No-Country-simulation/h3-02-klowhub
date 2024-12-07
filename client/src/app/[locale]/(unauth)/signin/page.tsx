@@ -37,7 +37,7 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
           text3={t('signText3')}
           text4={t('signText4')}
           textButoons={t('signTextButtons')}
-          textpreLinkin="No tienes cuenta ? "
+          textpreLinkin={t('signinPrelink')}
         />
       </AuthLayout>
       <Footer></Footer>

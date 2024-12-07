@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@core/lib/i18nRouting';
 import type { TranslationType } from '@core/types/translationType';
 import SigninFormWrapper from './wrapper';
 import { signinField } from '../../constants/fields';
@@ -38,10 +38,10 @@ export default function SigninForm({
         btnText={btnText}
         fields={fields}
       />
-      <p className="text-sm">
-        {textpreLinkin}
+      <p className="space-x-2 text-sm">
+        <span>{textpreLinkin}</span>
         <Link
-          className="hover:text-accent-100 text-sm font-medium transition-all ease-linear hover:underline"
+          className="hover:text-accent-100 text-sm font-medium text-blue-400 transition-all ease-linear hover:underline"
           href="/signup">
           {linkText}
         </Link>

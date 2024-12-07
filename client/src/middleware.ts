@@ -2,40 +2,48 @@ import { type NextFetchEvent, type NextRequest, NextResponse } from 'next/server
 import createMiddleware from 'next-intl/middleware';
 import { getLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
-import { apiService } from '@core/services/api.service';
 
 const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest, _: NextFetchEvent) {
-  const _pathname = request.nextUrl.pathname;
   const _mode = request.nextUrl.searchParams.get('mode');
-  const __e = request.nextUrl.searchParams.get('error');
   const locale = await getLocale();
-  const token = request.cookies.get('auth_token');
+  const pathname = request.nextUrl.pathname;
 
-  try {
-    const [_error, data] = await apiService.post(
-      '/auth/status',
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, // Enviar token como Bearer
-        },
-      }
-    );
-    const isvalid = data instanceof Object && 'status' in data;
-
-    if (
-      isvalid &&
-      data?.status &&
-      (_pathname === `/${locale}/signin` || _pathname === `/${locale}/signup`)
-    ) {
-      //redirect({ href: { pathname: '/platform' }, locale });
-      return NextResponse.redirect(new URL('/platform', request.url));
-    }
-  } catch (err) {
-    console.log(err);
+  if (pathname.endsWith('/help')) {
+    return NextResponse.redirect(new URL(`/${locale}/help/terms-and-conditions`, request.url));
   }
+  /*
+  const error = request.nextUrl.searchParams.get('error');
+  const token = request.cookies.get('auth_token');
+  const isAccessingPublicRoute = [`/${locale}/signin`, `/${locale}/signup`].includes(pathname);
+  if ((error && !token) || (!token && !isAccessingPublicRoute)) {
+    return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
+  }
+  if(error && token && !isAccessingPublicRoute) {
+    try {
+      const [errorStatus, data] = await apiService.post<{ status: boolean }>(
+        '/auth/status',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const isInvalidStatus = !!errorStatus || (data !== undefined && !data.status);
+      if (isInvalidStatus) {
+        return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
+      }
+    }catch (error) {
+      console.error('Middleware error:', error);
+      return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
+    }
+  }
+  if(!error && token  && isAccessingPublicRoute) {
+    return NextResponse.redirect(new URL(`/${locale}/platform`, request.url));
+  }*/
 
   return intlMiddleware(request);
 }
