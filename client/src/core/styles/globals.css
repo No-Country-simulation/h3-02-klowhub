@@ -65,9 +65,9 @@
     --color-neutral-400: #c7c7c7;
 
     /* Filters */
-    --shadow-app-1: 0px 0px 20px 0px #00000066;
-    --shadow-app-2: 0px 1px 1px 0px #0000000f;
-    --shadow-app-3: 0px 1px 2px 0px #0000001a;
+    --shadow-app-1: 0 0 20px 0 #00000066;
+    --shadow-app-2: 0 1px 1px 0 #0000000f;
+    --shadow-app-3: 0 1px 2px 0 #0000001a;
     --background-blur: 10px;
     --background-blur-md: 18.72px;
     --background-overlay: #20222f3b;
@@ -135,7 +135,7 @@ li {
     unicode-bidi: isolate;
     font-variant-numeric: tabular-nums;
     text-transform: none;
-    text-indent: 0px !important;
+    text-indent: 0 !important;
     text-align: start !important;
     text-align-last: start !important;
   }
@@ -147,8 +147,8 @@ ol {
   list-style-type: disc;
   margin-block-start: 1em;
   margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
   padding-inline-start: 40px;
   unicode-bidi: isolate;
 }
@@ -156,8 +156,8 @@ ol {
 ul ul,
 ol ol {
   list-style-type: circle;
-  margin-block-start: 0px;
-  margin-block-end: 0px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .tiptap {
