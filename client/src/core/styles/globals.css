@@ -206,6 +206,7 @@ input:disabled + label.view-disabled-input {
     transform: translateY(0);
     opacity: 100;
   }
+  
   to {
     transform: translateY(-20px);
     opacity: 0;
