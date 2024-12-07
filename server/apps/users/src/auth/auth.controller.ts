@@ -73,8 +73,10 @@ export class AuthController {
   //@Post('login')
   @MessagePattern({ cmd: 'login' })
   async loginn(data: any) {
+    console.log("data",data)
     try {
       const validateLogin = LoginSchema.safeParse(data);
+      console.log("validateLogin", validateLogin)
       if (!validateLogin.success) {
         throw new RpcException({
           statusCode: 400,

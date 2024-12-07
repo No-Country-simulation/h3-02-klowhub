@@ -9,15 +9,20 @@ const intlMiddleware = createMiddleware(routing);
 export default async function middleware(request: NextRequest, _: NextFetchEvent) {
   const _pathname = request.nextUrl.pathname;
   const _mode = request.nextUrl.searchParams.get('mode');
-  const error = request.nextUrl.searchParams.get('error');
+  const __e = request.nextUrl.searchParams.get('error');
   const locale = await getLocale();
   const token = request.cookies.get('auth_token');
 
-  if (!!error) {
-    const [_error, data] = await apiService.post('/auth/status', {
-      headers: `cookie: ${token}`,
-    });
-
+  try {
+    const [_error, data] = await apiService.post(
+      '/auth/status',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Enviar token como Bearer
+        },
+      }
+    );
     const isvalid = data instanceof Object && 'status' in data;
 
     if (
@@ -28,6 +33,8 @@ export default async function middleware(request: NextRequest, _: NextFetchEvent
       //redirect({ href: { pathname: '/platform' }, locale });
       return NextResponse.redirect(new URL('/platform', request.url));
     }
+  } catch (err) {
+    console.log(err);
   }
 
   return intlMiddleware(request);

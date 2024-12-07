@@ -10,15 +10,12 @@ import styles from './CourseCard.module.css';
 interface CardProps {
   title: string;
   description?: string;
-  price?: string;
   rating: number;
   reviews?: number;
   tags: string[];
   imageSrc: string;
   imageAlt?: string;
   platform: string;
-  viewDetails: string;
-  addToCart: string;
   categoria: 'Curso' | 'Lección' | string;
   className?: string;
 }
@@ -29,17 +26,14 @@ const categoryStyles: Record<string, string> = {
   default: 'bg-gray-200 text-gray-800',
 };
 
-const CourseCard = ({
+const CourseCardCreate = ({
   title,
   description,
-  price,
   rating,
   reviews,
   tags,
-  imageSrc = '/aa',
+  imageSrc,
   platform,
-  viewDetails,
-  addToCart,
   imageAlt = 'Imagen del curso',
   categoria,
   className = '',
@@ -108,7 +102,7 @@ const CourseCard = ({
       </div>
 
       <div className="grow p-4">
-        {/* <h3 className="font-bold text-lg text-slate-200">{title}</h3> */}
+        {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
           <h3 className="line-clamp-2 max-h-14 min-h-14 text-ellipsis text-lg font-bold text-slate-200">
             {title}
@@ -134,19 +128,19 @@ const CourseCard = ({
               </svg>
             </button>
             {isMenuOpen && (
-              <div className="right-0 absolute bg-[#2D3748] shadow-lg mt-2 rounded-lg w-32">
+              <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
                 <ul className="py-1">
                   <li>
                     <button
                       onClick={handleEdit}
-                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
+                      className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
                       Editar
                     </button>
                   </li>
                   <li>
                     <button
                       onClick={handleDelete}
-                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
+                      className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
                       Eliminar
                     </button>
                   </li>
@@ -181,7 +175,9 @@ const CourseCard = ({
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          {tags?.map((tag, index) => <Badge key={index} text={tag}></Badge>)}
+          {tags.map((tag, index) => (
+            <Badge key={index} text={tag}></Badge>
+          ))}
         </div>
 
         <div className="mt-4 flex items-center">
@@ -201,23 +197,12 @@ const CourseCard = ({
             <p className="ml-2 text-sm text-slate-200">({reviews})</p>
           ) : null}
         </div>
-        {price ? (
-          <div className="mt-4 flex items-center gap-2">
-            <strong className="text-lg font-bold text-slate-200">${price}</strong>
-          </div>
-        ) : null}
       </div>
       <div className="mt-auto flex items-center p-4">
-        <Button className="rounded-lg px-4 py-2 text-sm text-white">
-          <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
-          {addToCart}
-        </Button>
-        <Button className="ms-auto text-sm font-bold hover:underline" variant="ghost">
-          {viewDetails}
-        </Button>
+        <Button className="ms-auto text-sm font-bold hover:underline" variant="ghost"></Button>
       </div>
     </div>
   );
 };
 
-export default CourseCard;
+export default CourseCardCreate;

@@ -47,13 +47,13 @@ export class UserEntity {
   })
   role: UserRole[];
 
-  @Column({ type: 'int', nullable: true , default : 0 })
+  @Column({ type: 'integer', nullable: true , default : 0 })
   reviws: number | null;
 
   @Column({ type: 'varchar', nullable: true , default : '' })
   whyLearn: string | null;
 
-  @Column({ type: 'int', nullable: true ,default : 0 })
+  @Column({ type: 'integer', nullable: true ,default : 0 })
   rating: number | null;
 
   @OneToMany(() => AccountEntity, (account) => account.user, {

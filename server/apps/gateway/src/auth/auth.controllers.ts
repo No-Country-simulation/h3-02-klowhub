@@ -121,10 +121,12 @@ export class AuthController {
   //
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
+    console.log("Enviando solicitud al microservicio de USERS:");
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       const { token } = await lastValueFrom(
         this.usersService.send({ cmd: 'login' }, loginDto),
       );
+      console.log("TOKEN:", token);
       if (!token) {
         throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }
@@ -154,15 +156,13 @@ export class AuthController {
   //status token
   @Post('status')
   async verifyTokenStatus(@Request() req: any) {
-    console.log("status token" );
-    // Obtenemos el token de las cookies
-    if (!req.body.headers.cookie) {
-      return {
-        status: false
-      }
+    console.log('Verificando estado del token', req.headers);
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return { status: false };
     }
-    const token = req.body.headers.cookie.split('=')[1]; // Aquí asumimos que el token está guardado con el nombre 'auth_token'
-    console.log("token",token);
+    const token = authHeader.split(' ')[1]; // Extrae el token después de "Bearer"
+    console.log('Token recibido:', token);
     if (!token) {
       return {
         status: false
