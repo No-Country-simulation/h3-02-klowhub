@@ -9,7 +9,7 @@ dotenv.config();
 @Module({
   imports: [GatewayModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET_KEY, // Usa tu clave secreta desde el archivo .env
+      secret: process.env.JWT_SECRET, // Usa tu clave secreta desde el archivo .env
       signOptions: { expiresIn: '24h' }, // Tiempo de expiración del token (ajústalo según lo necesario)
     }),
     ClientsModule.register([

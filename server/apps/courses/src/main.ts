@@ -12,7 +12,7 @@ async function bootstrap() {
       transport: Transport.TCP,
       options: {
         host: process.env.COURSES_MICROSERVICE_HOST,
-        port: parseInt(process.env.COURSES_MICROSERVICE_PORT, 10),
+        port: Number(process.env.COURSES_MICROSERVICE_PORT),
       },
     },
   );
@@ -21,4 +21,9 @@ async function bootstrap() {
   console.log('Microservice Courses is listening...', process.env.COURSES_MICROSERVICE_PORT);
 }
 
-bootstrap();
+bootstrap().catch((err)=>{
+  console.log("Global error handler");
+  console.log(err);
+  console.log("----------------------------------------------------------");
+});
+

@@ -6,11 +6,11 @@ import * as cookieParser from 'cookie-parser';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { ErrorInterceptor } from './middleware/error.interceptor';
 import { JwtService } from '@nestjs/jwt';
-console.log('Env variables:', process.env);
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: process.env.FRONTEND_URL, 
+    origin: "*", 
     credentials: true, 
     methods: 'GET,HEAD,POST,PUT,DELETE,OPTIONS',
   });
@@ -22,4 +22,8 @@ async function bootstrap() {
   await app.listen(process.env.PORT);
   console.log(`Gateway is running on: ${process.env.PORT}`);
 }
-bootstrap();
+bootstrap().catch((err)=>{
+  console.log("Global error handler");
+  console.log(err);
+  console.log("----------------------------------------------------------");
+});

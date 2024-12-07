@@ -24,4 +24,8 @@ async function bootstrap() {
   console.log(`gRPC microservice is listening on: ${process.env.UPLOAD_SERVICE_PORT}...`);
 }
 
-bootstrap();
+bootstrap().catch((err)=>{
+  console.log("Global error handler");
+  console.log(err);
+  console.log("----------------------------------------------------------");
+});

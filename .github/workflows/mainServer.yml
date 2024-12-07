@@ -188,6 +188,7 @@ jobs:
             --platform=managed \
             --region=${{ secrets.GCLOUD_REGION }} \
             --vpc-connector=klowhub-api-vpc-cn \
+            --vpc-egress=all-traffic \
             --allow-unauthenticated \
             --max-instances=2 \
             --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.USERS_SERVICE_NAME }}:${{ github.sha }}' \
@@ -200,6 +201,7 @@ jobs:
             --platform=managed \
             --region=${{ secrets.GCLOUD_REGION }} \
             --vpc-connector=klowhub-api-vpc-cn \
+            --vpc-egress=all-traffic \
             --allow-unauthenticated \
             --max-instances=2 \
             --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.COURSE_SERVICE_NAME }}:${{ github.sha }}' \
@@ -212,6 +214,7 @@ jobs:
             --platform=managed \
             --region=${{ secrets.GCLOUD_REGION }} \
             --vpc-connector=klowhub-api-vpc-cn \
+            --vpc-egress=all-traffic \
             --allow-unauthenticated \
             --max-instances=2 \
             --image='${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.UPLOAD_SERVICE_NAME }}:${{ github.sha }}' \

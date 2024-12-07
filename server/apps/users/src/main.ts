@@ -5,11 +5,6 @@ import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
 dotenv.config();
 
-console.log({ MICRO_HOST: process.env.USERS_MICROSERVICE_HOST});
-console.log({ MICRO_PORT: process.env.USERS_MICROSERVICE_PORT });
-console.log({ PG_URL: process.env.POSTGRES_URL});
-console.log({ PG_HOST: process.env.POSTGRES_DB_HOST});
-
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
@@ -25,4 +20,8 @@ async function bootstrap() {
   await app.listen();
   console.log(`Microservice Users is listening on: ${ process.env.USERS_MICROSERVICE_PORT}...`);
 }
-bootstrap();
+bootstrap().catch((err)=>{
+  console.log("Global error handler");
+  console.log(err);
+  console.log("----------------------------------------------------------");
+});
