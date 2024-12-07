@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
-dotenv.config();
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-console.log('Env variables:', process.env);
+
+dotenv.config();
+console.log({ MICRO_HOST: process.env.COURSES_MICROSERVICE_HOST});
+console.log({ PORT: process.env.COURSES_MICROSERVICE_PORT});
+
 async function bootstrap() {
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(

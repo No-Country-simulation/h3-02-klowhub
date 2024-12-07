@@ -1,11 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
-dotenv.config();
 import * as cookieParser from 'cookie-parser';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { ErrorInterceptor } from './middleware/error.interceptor';
 import { JwtService } from '@nestjs/jwt';
+
+dotenv.config();
+console.log({ MICRO_HOST: process.env.USERS_MICROSERVICE_HOST});
+console.log({ PORT: process.env.PORT});
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
