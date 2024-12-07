@@ -10,7 +10,7 @@ export default function CheckList({ items = [], className = '' }: CheckListProps
   return (
     <ul
       className={cn(
-        'space-y-11 text-sm font-normal text-white min-[450px]:space-y-7 min-[540px]:space-y-4',
+        'space-y-11 ps-0 text-sm font-normal text-white min-[450px]:space-y-7 min-[540px]:space-y-4',
         className
       )}>
       {items.map((item, i) => (

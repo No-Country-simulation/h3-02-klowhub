@@ -30,7 +30,6 @@ const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
     setIsDragging(false);
   }, []);
 
-  console.log({ isDragging });
   return (
     <Carousel className={cn('h-[110px] w-full overflow-auto', css.containerLessons)}>
       <CarouselContent

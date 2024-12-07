@@ -31,7 +31,7 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
   );
   const isActive = activeLesson.id === lesson.id;
   const isViewdAndNotActive = lesson.isViewd && !isActive;
-  const color = isViewdAndNotActive ? '#4de853' : isActive ? '#B95ED4' : '#fff';
+  const color = isViewdAndNotActive ? '#fff' : isActive ? '#B95ED4' : '#fff';
 
   return (
     <motion.div
