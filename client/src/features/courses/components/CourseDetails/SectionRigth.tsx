@@ -1,9 +1,19 @@
 import Image from 'next/image';
 import React from 'react';
+import { Link } from '@core/lib/i18nRouting';
+import { getPlatformLogo } from '@core/services/getPlatformLogo';
+import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
 import Badge from '@root/src/core/components/Badge/Index';
 import Button from '@root/src/core/components/Button';
 
-export const SectionRigth = () => {
+interface SectionRigthProps {
+  creator: CreatorCourseType;
+  platform: string;
+  isBuy?: boolean;
+  courseId: string | number;
+}
+//
+export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigthProps) => {
   return (
     <div className="w-full lg:ml-9 lg:w-3/12">
       {/* Sobre el instructor */}
@@ -13,7 +23,7 @@ export const SectionRigth = () => {
           <div className="size-16">
             <Image
               className="w-full rounded-full object-cover"
-              src="/images/mocks/avatar_mock2.png" // Cambia por la URL real de la imagen
+              src={creator.avatar}
               alt="Sebastian Rios"
               width={45}
               height={45}
@@ -23,10 +33,10 @@ export const SectionRigth = () => {
 
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-white">Sebastian Rios</span>
-              <Badge text="PRO" variant="pro" />
+              <span className="font-medium text-white">{creator.name}</span>
+              <Badge text="PRO" variant={creator.membership as 'pro'} />
             </div>
-            <span className="text-sm text-gray-400">Desarrollador e instructor</span>
+            <span className="text-sm text-gray-400">{creator.header}</span>
           </div>
         </div>
 
@@ -47,7 +57,7 @@ export const SectionRigth = () => {
               />
             </svg>
             <span className="ml-2 mr-4 text-gray-300">Calificación del instructor:</span>
-            <span className="text-gray-300">5</span>
+            <span className="text-gray-300">{5}</span>
           </div>
           {/* Reseñas */}
           <div className="mt-2 flex items-center">
@@ -64,7 +74,9 @@ export const SectionRigth = () => {
                 d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2m10-4H7a2 2 0 00-2 2v4a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2z"
               />
             </svg>
-            <span className="ml-2 text-gray-300">4.3 (52 Reseñas)</span>
+            <span className="ml-2 text-gray-300">
+              {creator.rating} ({creator.reviews} Reseñas)
+            </span>
           </div>
           {/* Estudiantes */}
           <div className="mt-2 flex items-center">
@@ -81,7 +93,7 @@ export const SectionRigth = () => {
                 d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0-6l-3.5 2m3.5-2l3.5 2"
               />
             </svg>
-            <span className="ml-2 text-gray-300">60 estudiantes</span>
+            <span className="ml-2 text-gray-300">{creator.students} estudiantes</span>
           </div>
           {/* Cursos */}
           <div className="mt-2 flex items-center">
@@ -98,15 +110,21 @@ export const SectionRigth = () => {
                 d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M4 6h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z"
               />
             </svg>
-            <span className="ml-2 text-gray-300">77 Cursos</span>
+            <span className="ml-2 text-gray-300">{creator.courses} Cursos</span>
           </div>
         </div>
       </div>
 
       <Button variant="neutral" size="full" asChild className="size-full bg-[#2D3748]">
         <div className="mb-6 flex items-center rounded-lg bg-[#323235] px-4 py-3 shadow-md">
-          <Image src="/svg/powerapp.svg" width={48} height={48} alt="AppSheet" className="size-6" />
-          <span className="ml-3 text-xl text-white">Power Apps</span>
+          <Image
+            src={getPlatformLogo(platform)}
+            width={48}
+            height={48}
+            alt="AppSheet"
+            className="size-6"
+          />
+          <span className="ml-3 text-xl text-white">{platform}</span>
         </div>
       </Button>
 
@@ -133,24 +151,26 @@ export const SectionRigth = () => {
           ))}
         </ul>
       </div>
-      <div className="mt-6 flex flex-col items-center justify-center">
-        <Button
-          style={{
-            backgroundColor: 'var(--color-primary-B-500)',
-            borderColor: 'var(--color-primary-A-500)',
-          }}
-          variant="neutral"
-          size={'lg'}
-          className="mb-4 w-full rounded-lg bg-[#9c2a7c] text-white">
-          Comprar curso
-        </Button>
 
-        <Button variant="outline" size={'lg'} className="w-full rounded-lg">
-          Añadir al carrito
-        </Button>
+      <div className="mt-6 flex flex-col items-center justify-center">
+        {isBuy ? (
+          <Button asChild size={'lg'} className="w-full rounded-lg text-white">
+            <Link href={`/courses/watch/${courseId}`}>Ver curso</Link>
+          </Button>
+        ) : (
+          <>
+            <Button size={'lg'} className="mb-4 w-full text-white">
+              Comprar curso
+            </Button>
+
+            <Button variant="outline" size={'lg'} className="w-full rounded-lg">
+              Añadir al carrito
+            </Button>
+          </>
+        )}
       </div>
 
-      {/* CARD  50 % */}
+      {/* CARD  50 %
       <div className="mt-6 w-full rounded-lg border border-primary-A-300 bg-[#1A202C] p-6 text-white shadow-lg">
         <h2 className="mb-4 text-sm font-semibold">
           Con la compra de este curso tiene un 50% OFF en la compra de: Aplicación para seguimiento
@@ -183,6 +203,7 @@ export const SectionRigth = () => {
               <span>(74)</span>
             </div>
             <p className="mb-4 text-2xl font-bold">$38.700</p>
+
             <div className="flex flex-col items-start gap-2">
               <Button
                 size="fit"
@@ -201,6 +222,7 @@ export const SectionRigth = () => {
           </div>
         </div>
       </div>
+      */}
     </div>
   );
 };

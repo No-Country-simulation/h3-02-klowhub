@@ -3,17 +3,22 @@ import React from 'react';
 import CheckList from '@core/components/CheckList';
 import H2SimpleSection from '@core/components/H2SimpleSection';
 import type { Locale } from '@core/lib/i18nRouting';
-import { getContent } from '@core/services/getContent';
 import type { CourseDetailsType } from '@features/courses/types/coursedetails.types';
 import VideoPlayer from '../VideoPlayer';
 
 interface MainContentProps {
-  courseId: string;
+  course: CourseDetailsType;
   locale: Locale;
+  creatorDesc?: string;
+  creatorWhyLearning?: string;
 }
 
-export const MainContent = async ({ courseId, locale }: MainContentProps) => {
-  const course = await getContent<CourseDetailsType>(`/json/test/${courseId}-detail.json`);
+export const MainContent = async ({
+  course,
+  locale,
+  creatorDesc,
+  creatorWhyLearning,
+}: MainContentProps) => {
   return (
     <div className="w-full text-white lg:w-5/6 lg:pr-8">
       <h1 className="mb-4 text-2xl font-bold">{course?.name}</h1>
@@ -51,11 +56,7 @@ export const MainContent = async ({ courseId, locale }: MainContentProps) => {
 
           <div>
             <h2 className="text-xl font-semibold">Sebastián Ríos</h2>
-            <p className="text-sm text-gray-400">
-              Experto en desarrollo de aplicaciones no-code con más de 5 años de experiencia en
-              AppSheet y Power Apps, ayudando a empresas y emprendedores a optimizar sus procesos de
-              manera eficiente y accesible.
-            </p>
+            {creatorDesc ? <p className="text-sm text-gray-400">{creatorDesc}</p> : null}
             {/*
             <a href="#" className="mt-1 text-sm text-purple-400 hover:underline">
               Ver perfil
@@ -100,11 +101,14 @@ export const MainContent = async ({ courseId, locale }: MainContentProps) => {
             </a>
           </div>
         </div>*/}
-        <H2SimpleSection
-          title={`¿Por qué aprender con ${course.creatorName}?`}
-          titleVariant="textxl">
-          <p className="text-sm font-normal text-white">{course.creatorDescription}</p>
-        </H2SimpleSection>
+
+        {creatorWhyLearning ? (
+          <H2SimpleSection
+            title={`¿Por qué aprender con ${course.creatorName}?`}
+            titleVariant="textxl">
+            <p className="text-sm font-normal text-white">{creatorWhyLearning}</p>
+          </H2SimpleSection>
+        ) : null}
         <H2SimpleSection title={`¿Para quién es este curso?`} titleVariant="textxl">
           <p className="text-sm font-normal text-white">{course.courseObjective}</p>
         </H2SimpleSection>

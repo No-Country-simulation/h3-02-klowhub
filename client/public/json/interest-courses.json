@@ -2,6 +2,7 @@
   {
     "id": "course1",
     "title": "Dominando el desarrollo de aplicaciones con AppSheet",
+    "description": "Este curso está diseñado para quienes desean aprender a crear aplicaciones personalizadas de manera rápida y sencilla, sin necesidad de conocimientos previos en programación.",
     "type": "Curso",
     "isFavorite": false,
     "price": "80.000",
@@ -9,11 +10,12 @@
     "reviews": 136,
     "platform": "AppSheet",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/course_mock3.png"
+    "imageUrl": "/images/mocks/course_mock3.png"
   },
   {
     "id": "course2",
-    "title": "Automatiza tus procesos con AppSheet",
+    "title": "Curso Avanzado de Automatización",
+    "description": "Este curso avanzado está diseñado para quienes ya tienen conocimientos básicos en Power Apps y desean llevar sus habilidades al siguiente nivel.",
     "type": "Curso",
     "isFavorite": false,
     "price": "25.000",
@@ -21,11 +23,12 @@
     "reviews": 184,
     "platform": "AppSheet",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/course_mock1.png"
+    "imageUrl": "/images/mocks/course_mock1.png"
   },
   {
     "id": "course3",
-    "title": "Creación de aplicaciones empresariales",
+    "title": "Curso de Integraciones Avanzadas",
+    "description": "En este curso te sumergirás en las integraciones avanzadas de Power Apps, aprendiendo a conectar tus aplicaciones con múltiples servicios y plataformas para maximizar su funcionalidad.",
     "type": "Curso",
     "isFavorite": false,
     "price": "00.00",
@@ -33,7 +36,7 @@
     "reviews": 128,
     "platform": "Power Apps",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/course_mock2.png"
+    "imageUrl": "/images/mocks/course_mock2.png"
   },
   {
     "id": "course4",

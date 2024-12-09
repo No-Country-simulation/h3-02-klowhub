@@ -2,7 +2,7 @@
   {
     "id": "course1",
     "title": "Dominando el desarrollo de aplicaciones con AppSheet",
-    "description": "Conviértete en un experto en AppSheetHub y aprende a crear aplicaciones sin escribir una sola línea de código.",
+    "description": "Este curso está diseñado para quienes desean aprender a crear aplicaciones personalizadas de manera rápida y sencilla, sin necesidad de conocimientos previos en programación.",
     "type": "Curso",
     "isFavorite": false,
     "price": "80.000",
@@ -14,8 +14,8 @@
   },
   {
     "id": "course2",
-    "title": "Automatiza tus procesos con AppSheet",
-    "description": "Aprende a simplificar y automatizar tareas rutinarias utilizando las herramientas intuitivas de AppSheetHub.",
+    "title": "Curso Avanzado de Automatización",
+    "description": "Este curso avanzado está diseñado para quienes ya tienen conocimientos básicos en Power Apps y desean llevar sus habilidades al siguiente nivel.",
     "type": "Curso",
     "isFavorite": false,
     "price": "25.000",
@@ -27,8 +27,8 @@
   },
   {
     "id": "course3",
-    "title": "Creación de aplicaciones empresariales",
-    "description": "Descubre cómo desarrollar aplicaciones personalizadas que optimicen los procesos de tu empresa.",
+    "title": "Curso de Integraciones Avanzadas",
+    "description": "En este curso te sumergirás en las integraciones avanzadas de Power Apps, aprendiendo a conectar tus aplicaciones con múltiples servicios y plataformas para maximizar su funcionalidad.",
     "type": "Curso",
     "isFavorite": false,
     "price": "00.00",
