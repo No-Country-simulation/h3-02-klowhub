@@ -28,6 +28,7 @@ Consiste en 4 módulos
 - MongoDB
 
 ## Instrucciones de Instalación Local
+### Frontend
    *Estos pasos son para instalar el FRONTEND*. Para empezar a usar esto, sigua estos pasos:
 
 1. Forkee y Clone el repositorio:
@@ -36,8 +37,10 @@ Consiste en 4 módulos
 git clone https://github.com/No-Country-simulation/h3-02-klowhub.git
 ```
 
+1.5. Ingresar a carpeta client con `cd client` en su terminal.
+
 2. Instale las dependencias:
-   En este caso puede usar el Package Manager que quiera. Recomendamos `pnpm`
+   En este caso puede usar el Gestor de Packetes que quiera. Recomendamos `pnpm`
 
 ```bash
 pnpm install
@@ -58,6 +61,39 @@ npx patch-package && node setup-husky.js
 ```
 
 Si no quiere correr husky en cada instalación, quite esto `&& node setup-husky.js` desde `postinstall` en el `package.json`
+
+### Backend
+   *Estos pasos son para instalar el BACKEND*. Para empezar a usar esto, sigua estos pasos:
+
+1. Forkee y Clone el repositorio:
+
+```bash
+git clone https://github.com/No-Country-simulation/h3-02-klowhub.git
+```
+
+1.5. Ingresar a carpeta client con `cd server` en su terminal.
+
+2. Instale las dependencias:
+   En este caso puede usar el Gestor de Paquetes que quiera. Recomendamos `pnpm`
+
+```bash
+pnpm install
+```
+
+3. Comience el servidor de desarrollo:
+
+```bash
+pnpm start:all
+```
+
+4. El comando anterior levantará todos los microservicios. El servicio principal accede al puerto `http://localhost:3000`
+
+### **Alternativa**: Luego de clonar el repositorio puede acceder a la carpeta server con:
+
+```bash
+cd server
+docker-compose up
+```
 
 ## Caso de Uso diagramado y Arquitectura
 ![Untitled-2024-12-06-1141](https://github.com/user-attachments/assets/216ee27d-d300-4c58-a0ce-c5328ceeae5c)
