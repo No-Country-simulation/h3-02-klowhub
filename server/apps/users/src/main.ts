@@ -8,6 +8,7 @@ dotenv.config();
 console.log({ MICRO_HOST: process.env.USERS_MICROSERVICE_HOST});
 console.log({ MICRO_PORT: process.env.USERS_MICROSERVICE_PORT });
 console.log({ PG_URL: process.env.POSTGRES_URL});
+console.log( "varibles", process.env)
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
