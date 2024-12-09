@@ -5,13 +5,13 @@ import CourseDetails from '@features/courses/components/CourseDetails';
 export default async function CourseDetailPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
-  const { locale } = await params;
+  const { locale, id } = await params;
   setRequestLocale(locale);
   return (
     <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
-      <CourseDetails />
+      <CourseDetails locale={locale} courseId={id} />
     </main>
   );
 }

@@ -8,7 +8,7 @@ export const courseCardSchema = baseTitleSchema.extend({
   reviews: z.number(),
   platform: z.string(),
   tags: z.array(z.string()),
-  img: z.string(),
+  imageUrl: z.string(),
 });
 
 export type AppsCardType = z.infer<typeof courseCardSchema>;

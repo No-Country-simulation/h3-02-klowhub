@@ -1,0 +1,32 @@
+{
+  "id": "course1",
+  "name": "Curso 1",
+  "creatorId": "creatorId",
+  "creatorName": "Sebastián",
+  "creatorAvatar": "/images/mocks/avatar_mock1.png",
+  "creatorHeader": "Instructor desarrollador",
+  "courseIntro": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  "coursePoster": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  "isBuyCourse": true,
+  "platform": "Power Apps",
+  "courseLearnings": [
+    "Crear aplicaciones personalizadas desde cero utilizando Power Apps.",
+    "Automatizar tareas y optimizar procesos en tu entorno laboral o personal.",
+    " Diseñar interfaces de usuario intuitivas y funcionales sin necesidad de conocimientos en programación.",
+    "Integrar tus aplicaciones con otras herramientas y plataformas para maximizar su potencial.",
+    "Resolver problemas comunes y mejorar la eficiencia de tus proyectos mediante soluciones no-code."
+  ],
+  "courseAbout": "Este curso está diseñado para quienes desean aprender a crear aplicaciones personalizadas de manera rápida y sencilla, sin necesidad de conocimientos previos en programación. A lo largo de las lecciones, explorarás las funcionalidades clave de Power Apps , desde los conceptos básicos hasta técnicas avanzadas, que te permitirán desarrollar soluciones adaptadas a tus necesidades. Con ejemplos prácticos y explicaciones claras, te guiaré en el proceso de convertir tus ideas en aplicaciones funcionales que mejoren la productividad y eficiencia de tus proyectos.",
+  "creatorDescription": "Sebastián Ríos es un apasionado del desarrollo no-code, con más de 5 años de experiencia en Power Apps y un enfoque práctico y accesible para la enseñanza. Ha ayudado a cientos de profesionales y emprendedores a transformar sus ideas en aplicaciones exitosas, simplificando procesos y mejorando la productividad. Su metodología se centra en ejemplos reales y soluciones prácticas, lo que te permitirá aplicar lo aprendido de inmediato en tus propios proyectos. Aprender con Sebastián significa adquirir habilidades valiosas de la mano de un experto comprometido con tu éxito.",
+  "courseObjective": "Este curso está diseñado para quienes desean aprender a crear aplicaciones personalizadas de manera rápida y sencilla, sin necesidad de conocimientos previos en programación. A lo largo de las lecciones, explorarás las funcionalidades clave de Power Apps , desde los conceptos básicos hasta técnicas avanzadas, que te permitirán desarrollar soluciones adaptadas a tus necesidades. Con ejemplos prácticos y explicaciones claras, te guiaré en el proceso de convertir tus ideas en aplicaciones funcionales que mejoren la productividad y eficiencia de tus proyectos.",
+  "courseRequirenments": [
+    "Fundamentos de Power Apps: Entiende cómo funciona la plataforma y cómo empezar a construir tus primeras aplicaciones."
+  ],
+  "courseAdditions": [
+    "Todas las lecciones, videos y materiales de apoyo necesarios para dominar Power Apps.",
+    "Casos de estudio y ejemplos reales para aplicar lo aprendido en situaciones concretas.",
+    "Guías, plantillas y archivos que te ayudarán a seguir las lecciones y desarrollar tus propias aplicaciones.",
+    "Asistencia y respuestas a tus preguntas durante el curso para asegurarte de que entiendas cada concepto.",
+    "Acceso a futuras actualizaciones y nuevas lecciones que se añadan al curso."
+  ]
+}

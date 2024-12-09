@@ -14,7 +14,7 @@ import { videoJSTranslations, videPlayerStyles } from '@styles/video';
 interface VideoPlayerProps {
   src: string;
   locale: Locale;
-  activeLessonId: string | number;
+  activeLessonId?: string | number;
   poster?: string;
 }
 

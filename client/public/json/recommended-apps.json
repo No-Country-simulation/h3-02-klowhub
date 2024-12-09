@@ -1,6 +1,6 @@
 [
   {
-    "id": "course1",
+    "id": "apps1",
     "title": "Control de Inventario para retail",
     "description": "App diseñada para gestionar y monitorear el stock en tiendas físicas.",
     "isFavorite": false,
@@ -12,7 +12,7 @@
     "imageUrl": "/images/mocks/app_mock3.png"
   },
   {
-    "id": "course2",
+    "id": "apps2",
     "title": "Gestión de inventario",
     "description": "Una aplicación para controlar y administrar el inventario de tu empresa en tiempo real.",
     "isFavorite": false,
@@ -24,7 +24,7 @@
     "imageUrl": "/images/mocks/app_mock1.png"
   },
   {
-    "id": "course3",
+    "id": "apps3",
     "title": "Seguimiento de proyectos",
     "description": "Una herramienta para asignar tareas, establecer plazos y monitorear el progreso.",
     "isFavorite": false,
@@ -36,7 +36,7 @@
     "imageUrl": "/images/mocks/app_mock2.png"
   },
   {
-    "id": "course4",
+    "id": "apps4",
     "title": "Registro de clientes",
     "description": "Una aplicación para almacenar información de clientes y comunicaciones.",
     "isFavorite": false,

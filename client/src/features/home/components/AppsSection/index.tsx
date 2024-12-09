@@ -27,7 +27,7 @@ export default async function AppSection() {
             reviews={item.reviews}
             platform={item.platform}
             tags={item.tags}
-            imageSrc={item.img}
+            imageSrc={item.imageUrl}
             imageAlt={item.title}
             viewDetails={ct('viewDetails')}
             addToCart={ct('addToCart')}

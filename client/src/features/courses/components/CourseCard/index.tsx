@@ -3,11 +3,13 @@ import Image from 'next/image';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import styles from './CourseCard.module.css';
 
 interface CardProps {
+  courseId?: string | number;
   title: string;
   description?: string;
   price?: string;
@@ -41,6 +43,7 @@ const CourseCard = ({
   viewDetails,
   addToCart,
   imageAlt = 'Imagen del curso',
+  courseId = '',
   categoria,
   className = '',
 }: CardProps) => {
@@ -83,29 +86,30 @@ const CourseCard = ({
     <div
       className={cn(
         className,
-        'flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
+        'relative flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
         styles.card
       )}>
-      <div className="relative">
-        <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
-          <FavButton
-            color="white"
-            variant="filled"
-            className="block drop-shadow-[6px_4px_14px_black]"
-          />
-        </div>
-
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          width={500}
-          height={400}
-          className="h-48 w-full rounded-t-lg object-cover"
+      <Link
+        href={`/courses/${courseId}`}
+        className="transparent absolute left-0 top-0 size-full text-transparent"></Link>
+      <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
+        <FavButton
+          color="white"
+          variant="filled"
+          className="block drop-shadow-[6px_4px_14px_black]"
         />
-        <span className={`absolute left-2 top-2 rounded px-2 py-1 text-sm font-bold ${styleClass}`}>
-          {categoria}
-        </span>
       </div>
+
+      <Image
+        src={imageSrc}
+        alt={imageAlt}
+        width={500}
+        height={400}
+        className="h-48 w-full rounded-t-lg object-cover"
+      />
+      <span className={`absolute left-2 top-2 rounded px-2 py-1 text-sm font-bold ${styleClass}`}>
+        {categoria}
+      </span>
 
       <div className="grow p-4">
         {/* <h3 className="font-bold text-lg text-slate-200">{title}</h3> */}
@@ -207,6 +211,7 @@ const CourseCard = ({
           </div>
         ) : null}
       </div>
+      {/*
       <div className="mt-auto flex items-center p-4">
         <Button className="rounded-lg px-4 py-2 text-sm text-white">
           <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
@@ -216,6 +221,7 @@ const CourseCard = ({
           {viewDetails}
         </Button>
       </div>
+      */}
     </div>
   );
 };

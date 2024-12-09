@@ -1,18 +1,25 @@
 import Image from 'next/image';
 import React from 'react';
+import CheckList from '@core/components/CheckList';
+import H2SimpleSection from '@core/components/H2SimpleSection';
+import type { Locale } from '@core/lib/i18nRouting';
+import { getContent } from '@core/services/getContent';
+import type { CourseDetailsType } from '@features/courses/types/coursedetails.types';
 import Button from '@root/src/core/components/Button';
+import VideoPlayer from '../VideoPlayer';
 
-export const MainContent = () => {
+interface MainContentProps {
+  courseId: string;
+  locale: Locale;
+}
+
+export const MainContent = async ({ courseId, locale }: MainContentProps) => {
+  const course = await getContent<CourseDetailsType>(`/json/test/${courseId}-detail.json`);
   return (
     <div className="w-full text-white lg:w-5/6 lg:pr-8">
-      <h2 className="mb-4 text-2xl font-bold">Gestión de inventarios con Power Apps</h2>
-      <p className="mb-4 text-base">
-        Descubre cómo transformar ideas en aplicaciones funcionales sin necesidad de programar,
-        utilizando Power Apps. Este curso te guiará paso a paso para que aprendas a crear
-        aplicaciones personalizadas que se adapten a tus necesidades, optimizando procesos y
-        mejorando la eficiencia en tu trabajo o negocio.
-      </p>
-      <div className="mb-6 flex items-center">
+      <h1 className="mb-4 text-2xl font-bold">{course?.id}</h1>
+      <p className="mb-4 text-base">{course?.courseAbout}</p>
+      {/*<div className="mb-6 flex items-center">
         <span className="mr-2 text-lg font-bold text-yellow-400">4.1</span>
         <div className="mr-4 flex items-center">
           {[...Array(5)].map((_, i) => (
@@ -27,9 +34,10 @@ export const MainContent = () => {
           ))}
         </div>
         <span className="text-sm text-gray-300">(74 reviews)</span>
-      </div>
+      </div> */}
 
       {/* Aqui el video Player */}
+      <VideoPlayer src={course.courseIntro || ''} poster={course.coursePoster} locale={locale} />
 
       {/* Header con información del perfil */}
       <div className="mx-auto rounded-lg bg-gray-800 p-6 text-white shadow-md">
@@ -49,52 +57,21 @@ export const MainContent = () => {
               AppSheet y Power Apps, ayudando a empresas y emprendedores a optimizar sus procesos de
               manera eficiente y accesible.
             </p>
+            {/*
             <a href="#" className="mt-1 text-sm text-purple-400 hover:underline">
               Ver perfil
             </a>
+            */}
           </div>
         </div>
 
         {/* Sección de objetivos */}
-        <div className="mt-6">
-          <h3 className="text-lg font-semibold">Después de completar este curso, serás capaz de</h3>
-          <ul className="ml-2 mt-4 space-y-2 text-sm text-gray-300">
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Crear aplicaciones personalizadas
-              desde cero utilizando Power Apps.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Automatizar tareas y optimizar
-              procesos en tu entorno laboral o personal.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Diseñar interfaces de usuario
-              intuitivas y funcionales sin necesidad de conocimientos en programación.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Integrar tus aplicaciones con otras
-              herramientas y plataformas para maximizar su potencial.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Resolver problemas comunes y mejorar
-              la eficiencia de tus proyectos mediante soluciones no-code.
-            </li>
-          </ul>
-        </div>
-
-        {/* Descripción del curso */}
-        <div className="mt-6">
-          <h3 className="text-lg font-semibold">Acerca de este curso</h3>
-          <p className="mt-4 text-sm text-gray-300">
-            Este curso está diseñado para quienes desean aprender a crear aplicaciones
-            personalizadas de manera rápida y sencilla, sin necesidad de conocimientos previos en
-            programación. A lo largo de las lecciones, explorarás las funcionalidades clave de Power
-            Apps, desde los conceptos básicos hasta técnicas avanzadas, que te permitirán
-            desarrollar soluciones adaptadas a tus necesidades. Con ejemplos prácticos y
-            explicaciones claras, te guiaré en el proceso de convertir tus ideas en aplicaciones
-            funcionales que mejoren la productividad y eficiencia de tus proyectos.
-          </p>
-        </div>
+        <H2SimpleSection title="Despues de completar este curso, seras capaz de:">
+          <CheckList items={course.courseLearnings} />
+        </H2SimpleSection>
+        <H2SimpleSection title="Acerca de este curso">
+          <p className="text-sm font-normal text-white">{course.courseAbout}</p>
+        </H2SimpleSection>
 
         {/* Botones */}
         <div>
@@ -124,61 +101,20 @@ export const MainContent = () => {
             </a>
           </div>
         </div>
-        <div className="mt-6">
-          <h3 className="text-xl font-semibold">¿Por qué aprender con Sebastián?</h3>
-          <p className="mt-4 text-sm text-gray-300">
-            Sebastián Ríos es un apasionado del desarrollo no-code, con más de 5 años de experiencia
-            en AppSheet y un enfoque práctico y accesible para la enseñanza. Ha ayudado a cientos de
-            profesionales y emprendedores a transformar sus ideas en aplicaciones exitosas,
-            simplificando procesos y mejorando la productividad. Su metodología se centra en
-            ejemplos reales y soluciones prácticas, lo que te permitirá aplicar lo aprendido de
-            inmediato en tus propios proyectos. Aprender con Sebastián significa adquirir
-            habilidades valiosas de la mano de un experto comprometido con tu éxito.{' '}
-          </p>
-
-          <h3 className="mt-4 text-xl font-semibold">¿Para quién es este curso?</h3>
-          <p className="mt-4 text-sm text-gray-300">
-            Este curso está dirigido a emprendedores, profesionales y cualquier persona interesada
-            en crear aplicaciones personalizadas sin necesidad de programar. Si buscas optimizar
-            procesos, mejorar la eficiencia en tu trabajo o simplemente explorar nuevas herramientas
-            tecnológicas, este curso es ideal para ti. No se requiere experiencia previa en
-            desarrollo, ya que te guiaré desde lo más básico hasta técnicas avanzadas, asegurando
-            que puedas aplicar lo aprendido en proyectos reales, independientemente de tu nivel de
-            conocimientos.
-          </p>
-        </div>
-        <div className="mt-6">
-          <h3 className="text-xl font-semibold">Requisitos</h3>
-          <ul className="ml-2 mt-4 space-y-2 text-sm text-gray-300">
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Crear aplicaciones personalizadas
-              desde cero utilizando Power Apps.
-            </li>
-          </ul>
-          <h3 className="mt-4 text-xl font-semibold">¿ Qué incluye ?</h3>
-          <ul className="ml-2 mt-4 space-y-2 text-sm text-gray-300">
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Crear aplicaciones personalizadas
-              desde cero utilizando Power Apps.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Automatizar tareas y optimizar
-              procesos en tu entorno laboral o personal.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Diseñar interfaces de usuario
-              intuitivas y funcionales sin necesidad de conocimientos en programación.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Integrar tus aplicaciones con otras
-              herramientas y plataformas para maximizar su potencial.
-            </li>
-            <li className="flex items-start">
-              <span className="mr-2 text-green-500">✔</span> Resolver problemas comunes y mejorar
-              la eficiencia de tus proyectos mediante soluciones no-code.
-            </li>
-          </ul>
-        </div>
+        <H2SimpleSection
+          title={`¿Por qué aprender con ${course.creatorName}?`}
+          titleVariant="textxl">
+          <p className="text-sm font-normal text-white">{course.creatorDescription}</p>
+        </H2SimpleSection>
+        <H2SimpleSection title={`¿Para quién es este curso?`} titleVariant="textxl">
+          <p className="text-sm font-normal text-white">{course.courseObjective}</p>
+        </H2SimpleSection>
+        <H2SimpleSection title={`Requisitos`} titleVariant="textxl">
+          <CheckList items={course.courseRequirenments} />
+        </H2SimpleSection>
+        <H2SimpleSection title={`¿Qué incluye?`} titleVariant="textxl">
+          <CheckList items={course.courseAdditions} />
+        </H2SimpleSection>
       </div>
     </div>
   );

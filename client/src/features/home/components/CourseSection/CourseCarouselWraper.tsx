@@ -20,6 +20,7 @@ export default function CourseCarouselWraper({
       {(item, i) => (
         <CourseCard
           key={`gcc-${i}`}
+          courseId={item.id}
           title={item.title}
           description={item?.basicDescription || ''}
           price={item.price}

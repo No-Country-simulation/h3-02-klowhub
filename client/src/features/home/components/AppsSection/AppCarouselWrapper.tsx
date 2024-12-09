@@ -27,7 +27,7 @@ export default function AppCarouselWrapper({
           reviews={app.reviews}
           platform={app.platform}
           tags={app.tags}
-          imageSrc={app.img}
+          imageSrc={app.imageUrl}
           imageAlt={app.title}
           viewDetails={viewDetails}
           addToCart={addToCart}

@@ -19,6 +19,7 @@ export default async function CourseSection() {
       <CardsFlexContainer items={courses}>
         {(item, i) => (
           <CourseCard
+            courseId={item.id}
             key={`gcc-${i}`}
             title={item.title}
             description={item?.basicDescription || ''}
