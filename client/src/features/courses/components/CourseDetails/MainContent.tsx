@@ -5,7 +5,6 @@ import H2SimpleSection from '@core/components/H2SimpleSection';
 import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
 import type { CourseDetailsType } from '@features/courses/types/coursedetails.types';
-import Button from '@root/src/core/components/Button';
 import VideoPlayer from '../VideoPlayer';
 
 interface MainContentProps {
@@ -16,8 +15,8 @@ interface MainContentProps {
 export const MainContent = async ({ courseId, locale }: MainContentProps) => {
   const course = await getContent<CourseDetailsType>(`/json/test/${courseId}-detail.json`);
   return (
-    <div className="w-full text-white lg:w-5/6 lg:pr-8">
-      <h1 className="mb-4 text-2xl font-bold">{course?.id}</h1>
+    <div className="w-full space-y-4 text-white lg:w-5/6 lg:pr-8">
+      <h1 className="mb-4 text-2xl font-bold">{course?.name}</h1>
       <p className="mb-4 text-base">{course?.courseAbout}</p>
       {/*<div className="mb-6 flex items-center">
         <span className="mr-2 text-lg font-bold text-yellow-400">4.1</span>
@@ -40,7 +39,7 @@ export const MainContent = async ({ courseId, locale }: MainContentProps) => {
       <VideoPlayer src={course.courseIntro || ''} poster={course.coursePoster} locale={locale} />
 
       {/* Header con información del perfil */}
-      <div className="mx-auto rounded-lg bg-gray-800 p-6 text-white shadow-md">
+      <div className="mx-auto space-y-6 rounded-lg bg-gray-800 p-6 text-white shadow-md">
         <div className="flex items-center space-x-4">
           <Image
             width={50}
@@ -74,7 +73,7 @@ export const MainContent = async ({ courseId, locale }: MainContentProps) => {
         </H2SimpleSection>
 
         {/* Botones */}
-        <div>
+        {/*<div>
           <div className="mt-6 flex items-center space-x-4">
             <Button
               style={{
@@ -100,7 +99,7 @@ export const MainContent = async ({ courseId, locale }: MainContentProps) => {
               🔗
             </a>
           </div>
-        </div>
+        </div>*/}
         <H2SimpleSection
           title={`¿Por qué aprender con ${course.creatorName}?`}
           titleVariant="textxl">
