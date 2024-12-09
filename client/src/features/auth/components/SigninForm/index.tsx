@@ -1,5 +1,6 @@
 import { Link } from '@core/lib/i18nRouting';
 import type { TranslationType } from '@core/types/translationType';
+import StaticLoginForm from './StaticLoginForm';
 import SigninFormWrapper from './wrapper';
 import { signinField } from '../../constants/fields';
 
@@ -38,6 +39,9 @@ export default function SigninForm({
         btnText={btnText}
         fields={fields}
       />
+      <div className="flex items-center justify-center">
+        <StaticLoginForm />
+      </div>
       <p className="space-x-2 text-sm">
         <span>{textpreLinkin}</span>
         <Link
