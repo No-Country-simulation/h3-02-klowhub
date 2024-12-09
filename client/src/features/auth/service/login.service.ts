@@ -1,5 +1,4 @@
 'use server';
-import { cookies } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
@@ -10,42 +9,36 @@ export async function signin(
   _state: unknown,
   formData: FormData
 ): Promise<ActionResponse | undefined> {
-  const t = await getTranslations('Validations'); // Obtener las traducciones
+  const t = await getTranslations('Validations');
   const schema = signinSchema(t);
   const [error, data] = validateSchema(schema, {
     email: formData.get('email')?.toString() || '',
     password: formData.get('password')?.toString() || '',
   });
 
+  // Si hay error de validación, retornar el error
   if (error || !data) return error;
-  console.log(data);
 
-  const res = await fetch('http://localhost:3000/auth/login', {
-    body: JSON.stringify(data),
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-  });
-  console.log(res);
+  // Datos estáticos de validación (ejemplo)
+  const validCredentials = {
+    email: 'user@hackaton.com',
+    password: '12345',
+  };
 
-  if (!res.ok) {
-    return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
+  // Validar las credenciales estáticas
+  if (data.email === validCredentials.email && data.password === validCredentials.password) {
+    // Redirigir al usuario a la página principal o plataforma después del login exitoso
+    const locale = await getLocale(); // Obtener el locale actual
+    redirect({ href: { pathname: '/platform' }, locale }); // Redirigir con el locale
+
+    return {
+      status: 'success',
+    };
+  } else {
+    // Si las credenciales son incorrectas, devolvemos un error con 'status' y 'message'
+    return {
+      status: 'failed', // Indica que el login falló
+      errors: { GLOBAL: 'Credenciales incorrectas' }, // Usamos 'errors' para devolver el mensaje de error
+    };
   }
-
-  const cookieHeader = res.headers.get('set-cookie');
-
-  if (!cookieHeader) {
-    return { errors: { GLOBAL: 'No se recibió un token de autenticación' } };
-  }
-  const tokenMatch = cookieHeader.match(/auth_token=([^;]+)/);
-  const token = tokenMatch?.[1];
-
-  if (!token) {
-    return { errors: { GLOBAL: 'No se pudo extraer el token de autenticación' } };
-  }
-  (await cookies()).set('auth_token', token);
-  //console.log('Set-Cookie:', cookieHeader);
-  //console.log('Token extraído:', token);
-
-  const locale = await getLocale();
-  redirect({ href: { pathname: '/platform' }, locale });
 }
