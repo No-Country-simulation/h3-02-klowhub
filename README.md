@@ -1,7 +1,7 @@
 # Hackathon 3 - Equipo 2 - Proyecto "KlowHub"
 
 ### Industria
-General, Marketplace, Comunidad
+General, Marketplace, Comunidad, No-Code
 
 ### Descripción
 
@@ -15,15 +15,17 @@ Consiste en 4 módulos
 
 ### Tecnologías
 *Frontend contiene*
-- Nodejs
+- Nextjs
 - Typescript
 - CSS
-- Javascript
+- Docker
+- Tailwind
 
 *Backend contiene*
-- Nextjs
+- Nestjs
 - Docker
-- 
+- PostgreSQL
+- MongoDB
 
 ### Instrucciones de Instalación Local
 - 
