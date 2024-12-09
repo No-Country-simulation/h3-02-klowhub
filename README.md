@@ -1,4 +1,4 @@
-# Hackathon 3 - Equipo 2 - Proyecto "KlowHub"
+# :computer: Hackathon 3 - Equipo 2 - Proyecto "KlowHub"
 
 ### Industria
 General, Marketplace, Comunidad, No-Code
@@ -28,7 +28,36 @@ Consiste en 4 módulos
 - MongoDB
 
 ### Instrucciones de Instalación Local
-- 
+   *Estos pasos son para instalar el FRONTEND*. Para empezar a usar esto, sigua estos pasos:
+
+1. Forkee y Clone el repositorio:
+
+```bash
+git clone https://github.com/No-Country-simulation/h3-02-klowhub.git
+```
+
+2. Instale las dependencias:
+   En este caso puede usar el Package Manager que quiera. Recomendamos `pnpm`
+
+```bash
+pnpm install
+```
+
+3. Comience el servidor de desarrollo:
+
+```bash
+pnpm dev
+```
+
+4. Abra `http://localhost:8080` en su navegador preferido.
+
+5. El proyecto usa husky y patch-package para automatizar hooks de git y validar dependencias. Esto es ejecutado, con el "postinstall" cada vez que instale:
+
+```bash
+npx patch-package && node setup-husky.js
+```
+
+Si no quiere correr husky en cada instalación, quite esto `&& node setup-husky.js` desde `postinstall` en el `package.json`
 
 ### Caso de Uso diagramado y Arquitectura
 ![Untitled-2024-12-06-1141](https://github.com/user-attachments/assets/216ee27d-d300-4c58-a0ce-c5328ceeae5c)
