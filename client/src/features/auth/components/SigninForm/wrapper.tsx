@@ -2,7 +2,8 @@
 
 import FormComponent from '@core/components/Form';
 import type { FieldType } from '@core/types/fields';
-import { signin } from '../../service/login.service';
+//import { signin } from '../../service/login.service';
+import { signin } from '@features/auth/service/login.service';
 import AuthComplement from '../AuthcomplementForm/AuthComplement';
 
 interface SigninFormWrapperProps {
