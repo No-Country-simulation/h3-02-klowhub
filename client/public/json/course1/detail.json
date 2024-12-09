@@ -5,7 +5,7 @@
   "creatorName": "Sebastián",
   "creatorAvatar": "/images/mocks/avatar_mock1.png",
   "creatorHeader": "Instructor desarrollador",
-  "courseIntro": "https://storage.cloud.google.com/klowhub-mediafiles/courses/processed/12345/2024-11-22T02%3A12%3A18.494Z-dandan/hls_stream0.m3u8",
+  "courseIntro": "https://storage.googleapis.com/klowhub-mediafiles/courses/raw/course1/%F0%9F%93%BD%EF%B8%8F%20Creando%20una%20App%20Inteligente%20con%20AppSheet%20(No-Code)%2C%20Apps%20Script%20(Low-Code)%20y%20Gemini%20API%20%F0%9F%A4%96%20%EF%BD%9C%20AS130%20%5BZB3fJ_8ujA0%5D.mp4",
   "coursePoster": "/images/mocks/course_mock3.png",
   "isBuyCourse": true,
   "platform": "Power Apps",

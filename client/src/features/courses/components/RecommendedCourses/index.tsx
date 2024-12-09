@@ -5,7 +5,11 @@ import { getContent } from '@core/services/getContent';
 import CourseCard from '@features/courses/components/CourseCard';
 import RecommendedCarouselWrapper from './RecommendedCarouselWrapper';
 
-export default async function RecommendedCourses() {
+interface RecommendedCoursesProps {
+  courseId: string | number;
+}
+
+export default async function RecommendedCourses({ courseId }: RecommendedCoursesProps) {
   const interestCourses = await getContent<CourseCardType[]>('/json/interest-courses.json');
   const ct = await getTranslations<'Common'>('Common');
   return (
@@ -16,6 +20,7 @@ export default async function RecommendedCourses() {
           <CourseCard
             className="!max-h-[530px] !min-h-[530px] !max-w-[475px]"
             key={`gcc-${i}`}
+            courseId={courseId}
             title={item.title}
             rating={item.rating}
             reviews={item.reviews}

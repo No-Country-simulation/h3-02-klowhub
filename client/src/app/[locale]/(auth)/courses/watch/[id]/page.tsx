@@ -23,7 +23,7 @@ export default async function CoursesPage({
       />
       <div className="mb-5 flex w-full flex-col justify-between space-y-8 px-[3%] min-[780px]:px-0">
         <WatchCourseDetailSection />
-        <RecommendedCourses />
+        <RecommendedCourses courseId={id} />
       </div>
     </main>
   );

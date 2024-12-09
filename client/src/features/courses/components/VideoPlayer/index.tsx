@@ -65,15 +65,20 @@ const VideoPlayer = ({ src, locale, poster }: VideoPlayerProps) => {
       });
 
       // Add HLS source
-      console.log({ src, type: getVideoSourceType(src) });
+      const type = getVideoSourceType(src);
+      console.log({ src, type });
+      console.log('Src:', src);
       player.src({
         src: src,
-        type: getVideoSourceType(src),
+        type,
       });
 
       // Manejar errores
       player.on('error', function () {
-        console.error('Video Error:', player.error());
+        const error = player.error();
+        console.error('Video Error Full Details:', error);
+        console.error('Error Code:', error?.code);
+        console.error('Error Message:', error?.message);
       });
 
       player.on('loadedmetadata', () => {
