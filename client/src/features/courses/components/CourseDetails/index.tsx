@@ -20,7 +20,7 @@ export default function CourseDetails({ courseId, locale }: CourseDetailsProps) 
     <div>
       <Breadcrumb items={breadcrumbItems} />
 
-      <div className="flex flex-col items-start justify-between rounded-lg shadow-lg lg:mt-6 lg:flex-row">
+      <div className="flex flex-col items-start justify-between rounded-lg lg:mt-6 lg:flex-row">
         {/* Columna izquierda: Información principal del curso */}
         <MainContent locale={locale} courseId={courseId} />
 

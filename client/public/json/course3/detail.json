@@ -1,0 +1,33 @@
+{
+  "id": "course3",
+  "name": "Curso de Integraciones Avanzadas",
+  "creatorId": "creatorId",
+  "creatorName": "Sebastián",
+  "creatorAvatar": "/images/mocks/avatar_mock1.png",
+  "creatorHeader": "Instructor desarrollador",
+  "courseIntro": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  "coursePoster": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  "isBuyCourse": true,
+  "platform": "Power Apps",
+  "courseLearnings": [
+    "Implementar integraciones avanzadas entre Power Apps y servicios en la nube.",
+    "Diseñar soluciones conectadas que aprovechen datos en tiempo real.",
+    "Configurar APIs personalizadas para ampliar las funcionalidades de tus aplicaciones.",
+    "Automatizar procesos complejos utilizando integraciones y flujos de datos.",
+    "Optimizar tus aplicaciones para manejar grandes volúmenes de datos de manera eficiente."
+  ],
+  "courseAbout": "En este curso te sumergirás en las integraciones avanzadas de Power Apps, aprendiendo a conectar tus aplicaciones con múltiples servicios y plataformas para maximizar su funcionalidad. Descubrirás cómo aprovechar datos en tiempo real, trabajar con APIs personalizadas y crear soluciones robustas que cumplan con los requerimientos más exigentes.",
+  "creatorDescription": "Sebastián Ríos es un instructor apasionado por la tecnología no-code, especializado en integraciones y optimización de procesos. Con más de 5 años de experiencia, Sebastián ha colaborado en proyectos internacionales donde las integraciones de Power Apps han sido clave para el éxito. Su enfoque práctico y dinámico hace que aprender con él sea una experiencia enriquecedora y efectiva.",
+  "courseObjective": "Proporcionarte los conocimientos y habilidades necesarios para implementar integraciones avanzadas en Power Apps, logrando aplicaciones conectadas y optimizadas que transformen tus procesos. A través de casos prácticos, aprenderás cómo sacar el máximo provecho de las capacidades integrativas de Power Apps.",
+  "courseRequirenments": [
+    "Experiencia previa en el desarrollo de aplicaciones con Power Apps.",
+    "Familiaridad con conceptos básicos de APIs y servicios en la nube."
+  ],
+  "courseAdditions": [
+    "Ejemplos prácticos de integraciones con servicios populares como Microsoft Teams y SharePoint.",
+    "Acceso a tutoriales para configurar APIs personalizadas paso a paso.",
+    "Plantillas exclusivas para aplicaciones con flujos de datos avanzados.",
+    "Soporte técnico especializado durante todo el curso.",
+    "Actualizaciones frecuentes con nuevos casos de uso y lecciones avanzadas."
+  ]
+}

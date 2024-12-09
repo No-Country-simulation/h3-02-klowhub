@@ -1,0 +1,12 @@
+{
+  "id": "user1",
+  "name": "Sebastián Ríos",
+  "avatar": "/images/mocks/avatar_mock1.png",
+  "header": "Instructor desarrollador",
+  "rating": 4.1,
+  "reviews": 74,
+  "courses": 3,
+  "membership": "PRO",
+  "description": "Experto en desarrollo de aplicaciones no-code con más de 5 años de experiencia en AppSheet y Power Apps, ayudando a empresas y emprendedores a optimizar sus procesos de manera eficiente y accesible.",
+  "whyLearning": "Sebastián Ríos es un apasionado del desarrollo no-code, con más de 5 años de experiencia en Power Apps y un enfoque práctico y accesible para la enseñanza. Ha ayudado a cientos de profesionales y emprendedores a transformar sus ideas en aplicaciones exitosas, simplificando procesos y mejorando la productividad. Su metodología se centra en ejemplos reales y soluciones prácticas, lo que te permitirá aplicar lo aprendido de inmediato en tus propios proyectos. Aprender con Sebastián significa adquirir habilidades valiosas de la mano de un experto comprometido con tu éxito."
+}

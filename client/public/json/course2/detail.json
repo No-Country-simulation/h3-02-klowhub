@@ -1,0 +1,33 @@
+{
+  "id": "course2",
+  "name": "Curso Avanzado de Automatización",
+  "creatorId": "creatorId",
+  "creatorName": "Sebastián",
+  "creatorAvatar": "/images/mocks/avatar_mock1.png",
+  "creatorHeader": "Instructor desarrollador",
+  "courseIntro": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  "coursePoster": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  "isBuyCourse": true,
+  "platform": "Power Apps",
+  "courseLearnings": [
+    "Configurar flujos de trabajo complejos y automatizaciones avanzadas.",
+    "Integrar Power Apps con servicios de terceros mediante conectores personalizados.",
+    "Optimizar la eficiencia de tus aplicaciones utilizando buenas prácticas de diseño.",
+    "Implementar seguridad y roles en tus aplicaciones para un control granular de acceso.",
+    "Resolver casos de uso avanzados para empresas y proyectos personales."
+  ],
+  "courseAbout": "Este curso avanzado está diseñado para quienes ya tienen conocimientos básicos en Power Apps y desean llevar sus habilidades al siguiente nivel. Aprenderás técnicas avanzadas para crear aplicaciones más sofisticadas, eficaces y seguras, mientras aprovechas todo el potencial de la plataforma. Con lecciones prácticas y ejemplos detallados, te equiparás con las herramientas necesarias para afrontar desafíos complejos en el mundo no-code.",
+  "creatorDescription": "Sebastián Ríos es un reconocido experto en soluciones no-code y Power Apps, con experiencia en proyectos corporativos e independientes. Ha capacitado a cientos de profesionales en todo el mundo, ayudándolos a desarrollar aplicaciones avanzadas para optimizar procesos y resolver problemas empresariales. Sebastián comparte su conocimiento de manera clara y práctica, ofreciendo estrategias que pueden aplicarse de inmediato.",
+  "courseObjective": "El objetivo de este curso es profundizar en las funcionalidades avanzadas de Power Apps, permitiéndote construir aplicaciones que resuelvan problemas complejos de manera eficiente. A través de ejemplos prácticos y casos reales, aprenderás a crear soluciones innovadoras adaptadas a tus necesidades específicas.",
+  "courseRequirenments": [
+    "Conocimientos básicos en Power Apps.",
+    "Entendimiento de flujos de trabajo y conectores en la plataforma."
+  ],
+  "courseAdditions": [
+    "Tutoriales detallados para configurar conectores personalizados.",
+    "Casos de estudio avanzados para practicar habilidades complejas.",
+    "Acceso a plantillas y guías exclusivas para proyectos profesionales.",
+    "Soporte técnico durante el curso para resolver dudas avanzadas.",
+    "Actualizaciones regulares con nuevos ejemplos y contenidos."
+  ]
+}

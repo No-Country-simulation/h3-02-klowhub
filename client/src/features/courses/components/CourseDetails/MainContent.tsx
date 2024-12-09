@@ -39,7 +39,7 @@ export const MainContent = async ({ courseId, locale }: MainContentProps) => {
       <VideoPlayer src={course.courseIntro || ''} poster={course.coursePoster} locale={locale} />
 
       {/* Header con información del perfil */}
-      <div className="mx-auto mb-8 mt-7 space-y-6 rounded-lg bg-gray-800 p-6 text-white shadow-md">
+      <div className="mx-auto mb-8 mt-7 space-y-6 rounded-lg bg-gray-800 p-6 text-white shadow-app-1">
         <div className="flex items-center space-x-4">
           <Image
             width={50}
