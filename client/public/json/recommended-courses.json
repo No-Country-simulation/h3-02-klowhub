@@ -10,7 +10,7 @@
     "reviews": 136,
     "platform": "AppSheet",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/course_mock3.png"
+    "imageUrl": "/images/mocks/course_mock3.png"
   },
   {
     "id": 2,
@@ -23,7 +23,7 @@
     "reviews": 184,
     "platform": "AppSheet",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/course_mock1.png"
+    "imageUrl": "/images/mocks/course_mock1.png"
   },
   {
     "id": 3,
@@ -36,6 +36,6 @@
     "reviews": 128,
     "platform": "Power Apps",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/course_mock2.png"
+    "imageUrl": "/images/mocks/course_mock2.png"
   }
 ]

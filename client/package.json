@@ -49,6 +49,7 @@
     "@tiptap/extension-link": "2.10.3",
     "@tiptap/extension-list-item": "2.10.3",
     "@tiptap/extension-list-keymap": "2.10.3",
+    "@tiptap/extension-paragraph": "2.10.3",
     "@tiptap/extension-placeholder": "2.10.3",
     "@tiptap/extension-text": "2.10.3",
     "@tiptap/extension-underline": "2.10.3",

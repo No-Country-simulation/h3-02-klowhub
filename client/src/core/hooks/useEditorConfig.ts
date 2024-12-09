@@ -7,6 +7,7 @@ import ListItem from '@tiptap/extension-list-item';
 import ListKeymap from '@tiptap/extension-list-keymap';
 import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
+import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
 import { useEditor } from '@tiptap/react';
@@ -27,6 +28,7 @@ export const useEditorConfig = (
         Underline,
         Bold,
         Italic,
+        Strike,
         BulletList,
         ListItem,
         ListKeymap,

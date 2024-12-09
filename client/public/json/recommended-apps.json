@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "course1",
     "title": "Control de Inventario para retail",
     "description": "App diseñada para gestionar y monitorear el stock en tiendas físicas.",
     "isFavorite": false,
@@ -9,10 +9,10 @@
     "reviews": 74,
     "platform": "AppSheet",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/app_mock3.png"
+    "imageUrl": "/images/mocks/app_mock3.png"
   },
   {
-    "id": 2,
+    "id": "course2",
     "title": "Gestión de inventario",
     "description": "Una aplicación para controlar y administrar el inventario de tu empresa en tiempo real.",
     "isFavorite": false,
@@ -21,10 +21,10 @@
     "reviews": 91,
     "platform": "Power Apps",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/app_mock1.png"
+    "imageUrl": "/images/mocks/app_mock1.png"
   },
   {
-    "id": 3,
+    "id": "course3",
     "title": "Seguimiento de proyectos",
     "description": "Una herramienta para asignar tareas, establecer plazos y monitorear el progreso.",
     "isFavorite": false,
@@ -33,10 +33,10 @@
     "reviews": 82,
     "platform": "AppSheet",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/app_mock2.png"
+    "imageUrl": "/images/mocks/app_mock2.png"
   },
   {
-    "id": 4,
+    "id": "course4",
     "title": "Registro de clientes",
     "description": "Una aplicación para almacenar información de clientes y comunicaciones.",
     "isFavorite": false,
@@ -45,6 +45,6 @@
     "reviews": 82,
     "platform": "AppSheet",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/app_mock2.png"
+    "imageUrl": "/images/mocks/app_mock2.png"
   }
 ]
