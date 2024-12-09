@@ -24,8 +24,4 @@ async function bootstrap() {
   await app.listen();
   console.log(`Microservice Users is listening on: ${ process.env.USERS_MICROSERVICE_PORT}...`);
 }
-bootstrap().catch((err)=>{
-  console.log("Global error handler");
-  console.log(err);
-  console.log("----------------------------------------------------------");
-});
+bootstrap();
