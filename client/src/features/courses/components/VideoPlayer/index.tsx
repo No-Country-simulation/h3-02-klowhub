@@ -65,10 +65,11 @@ const VideoPlayer = ({ src, locale, poster }: VideoPlayerProps) => {
       });
 
       // Add HLS source
-      console.log({ src, type: getVideoSourceType(src) });
+      const type = getVideoSourceType(src);
+      console.log({ src, type });
       player.src({
         src: src,
-        type: getVideoSourceType(src),
+        type,
       });
 
       // Manejar errores

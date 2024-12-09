@@ -5,7 +5,7 @@
   "creatorName": "Sebastián",
   "creatorAvatar": "/images/mocks/avatar_mock1.png",
   "creatorHeader": "Instructor desarrollador",
-  "courseIntro": "https://storage.cloud.google.com/klowhub-mediafiles/courses/processed/12345/2024-11-22T02%3A12%3A18.494Z-dandan/hls_stream0.m3u8",
+  "courseIntro": "https://storage.googleapis.com/klowhub-mediafiles/courses/processed/12345/2024-11-22T01%3A21%3A35.644Z-dandan/hls_stream0.m3u8",
   "coursePoster": "/images/mocks/course_mock1.png",
   "isBuyCourse": true,
   "platform": "Power Apps",
