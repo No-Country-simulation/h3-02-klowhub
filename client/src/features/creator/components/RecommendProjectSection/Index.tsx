@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Button from '@core/components/Button';
 import RecommendProjectCard from '../RecommendProjectCard/Index';
@@ -54,7 +55,7 @@ export default function RecommendProjectSection() {
       </div>
       <div className="mx-auto mt-3 w-full max-w-72">
         <Button variant="outline" size="full" className="py-6">
-          {t('viewProjects')}
+          <Link href="/creator/projects">{t('viewProjects')}</Link>
         </Button>
       </div>
     </section>
