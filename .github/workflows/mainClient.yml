@@ -92,28 +92,7 @@ jobs:
         run: |
           docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
 
-      # 15. Limpiar los nombres de revisiones
-      - name: Clean up old Cloud Run revisions
-        run: |
-          echo "Cleaning up revisions for service: klowhub"
-          REVISIONS=$(gcloud run revisions list \
-          --service=klowhub \
-          --region=${{ secrets.GCLOUD_REGION }} \
-          --sort-by=~creation_timestamp \
-          --format="value(name)")
-          REVISION_COUNT=$(echo "$REVISIONS" | wc -l)
-          if [ $REVISION_COUNT -gt 1 ]; then
-            REVISIONS_TO_DELETE=$(echo "$REVISIONS" | tail -n +2)
-            for REVISION in $REVISIONS_TO_DELETE
-            do
-              echo "Deleting revision: $REVISION"
-              gcloud run revisions delete $REVISION \
-                --region=${{ secrets.GCLOUD_REGION }} \
-                --quiet || echo "Could not delete revision $REVISION"
-            done
-          else
-            echo "No old revisions to delete for $SERVICE"
-          fi
+      
 
       # 7. Desplegar a Cloud Run
       - name: Deploy to Cloud Run
