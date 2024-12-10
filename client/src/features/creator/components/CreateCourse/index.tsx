@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@core/components/Button';
+import { Link } from '@core/lib/i18nRouting';
 import CardCreateCourse from './CardCreateCourse';
 import Charts from './Chart';
 import ContentTabs from './ContentTabsCreate';
@@ -10,8 +11,7 @@ const SectionCreateCourse = () => {
       <div className="m-4 flex items-center justify-between">
         <h2 className="text-xl font-semibold text-slate-200"> Ultimas ventas</h2>
         <Button size="lg" className="w-260 py-5">
-          {' '}
-          Crear curso{' '}
+          <Link href="/creator/courses/new">{'Crear curso'}</Link>
         </Button>
       </div>
 
