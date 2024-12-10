@@ -141,31 +141,6 @@ jobs:
         working-directory: ./server
         run: docker push ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }}
 
-      # 15. Limpiar los nombres de revisiones
-      - name: Clean up old Cloud Run revisions
-        run: |
-          for SERVICE in $GCR_SERVICE_NAME $COURSE_SERVICE_NAME $UPLOAD_SERVICE_NAME $USERS_SERVICE_NAME $GATEWAY_SERVICE_NAME
-          do
-            echo "Cleaning up revisions for service: $SERVICE"
-            REVISIONS=$(gcloud run revisions list \
-            --service=$SERVICE \
-            --region=${{ secrets.GCLOUD_REGION }} \
-            --sort-by=~creation_timestamp \
-            --format="value(name)")
-            REVISION_COUNT=$(echo "$REVISIONS" | wc -l)
-            if [ $REVISION_COUNT -gt 1 ]; then
-              REVISIONS_TO_DELETE=$(echo "$REVISIONS" | tail -n +2)
-              for REVISION in $REVISIONS_TO_DELETE
-              do
-                echo "Deleting revision: $REVISION"
-                gcloud run revisions delete $REVISION \
-                  --region=${{ secrets.GCLOUD_REGION }} \
-                  --quiet || echo "Could not delete revision $REVISION"
-              done
-            else
-              echo "No old revisions to delete for $SERVICE"
-            fi
-          done
 
       # 16. Despliegue en Cloud Run
       - name: Deploy Gateway Service
