@@ -115,11 +115,11 @@ Para las 5 semanas disponibles planeamos tener 2 Casos de Uso de 1 Módulo, el d
 Aplicando Metodología Agil Lean, nos reuníamos diariamente para hablar del progreso, ajustar lo necesario y coordinar el día. Se apuntó a resultados tangibles diarios.
 
 ## Colaboradores
-- Orlando Cardenas - Backend - [Github](https://www.linkedin.com/in/orlando-cardenas-villegas-7a2390248/)
-- Freddy Moya - Frontend - [Github](https://www.linkedin.com/in/freddymoya/)
-- Cesar Lopez - Conexión Back-Front - [Github](https://www.linkedin.com/in/cesar-lopez-a7226625a/)
-- Marcos Lopez - Líder técnico Front - [Github](https://www.linkedin.com/in/marcos-lopez-dev)
-- Seba - Project Manager - [Github](https://www.linkedin.com/in/sebadigiuseppe/)
+- Orlando Cardenas - Backend - [LinkedIn](https://www.linkedin.com/in/orlando-cardenas-villegas-7a2390248/)
+- Freddy Moya - Frontend - [LinkedIn](https://www.linkedin.com/in/freddymoya/)
+- Cesar Lopez - Conexión Back-Front - [LinkedIn](https://www.linkedin.com/in/cesar-lopez-a7226625a/)
+- Marcos Lopez - Líder técnico Front - [LinkedIn](https://www.linkedin.com/in/marcos-lopez-dev)
+- Seba - Project Manager - [LinkedIn](https://www.linkedin.com/in/sebadigiuseppe/)
 - Lorena - Team Lead
 
 Edición y creación de este documento: Sebastián Di Giuseppe (@scanevaro). Para detalles sobre las lecciones aprendidas y artefáctos del proyecto u otros detalles, escribir a scanevaro87@gmail.com
