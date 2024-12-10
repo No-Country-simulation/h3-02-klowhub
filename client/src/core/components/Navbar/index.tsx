@@ -59,9 +59,15 @@ export default function Navbar() {
             />
           </Button>
           <UserModeToggle explorerText={t('explorer')} creatorText={t('creator')} />
-          <Link
-            href="/profile"
-            className="flex size-12 items-center justify-center rounded-full bg-white p-2"></Link>
+          <Link href="/profile" className="flex size-12 items-center justify-center rounded-full">
+            <Image
+              src="/images/mocks/seba.png"
+              alt={t('mailAlt')}
+              width={60}
+              height={60}
+              className="size-full rounded-full object-cover"
+            />
+          </Link>
         </div>
       </NavbarClient>
     </div>
