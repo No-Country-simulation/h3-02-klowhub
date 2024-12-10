@@ -19,7 +19,7 @@ COPY . .
 
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_APP_URL=https://klowhub-824410275969.southamerica-east1.run.app
+ENV NEXT_PUBLIC_APP_URL=https://klowhub-800663783731.southamerica-east1.run.app
 ENV NODE_ENV=production
 ENV PORT=4002
 
