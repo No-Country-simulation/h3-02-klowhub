@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import { NavbarClient } from './NavbarClient';
 import UserModeToggle from './UserModeToggle';
 import { Link } from '../../lib/i18nRouting';
-import Button from '../Button';
 import NavLink from '../NavLink';
 
 export default function Navbar() {
@@ -30,8 +29,9 @@ export default function Navbar() {
             ))}
           </div>
         </nav>
+
         <div className="ml-auto hidden h-full items-center justify-center space-x-4 min-[1400px]:flex">
-          <Button aria-label={t('cartLabel')} size="fit" variant="ghost">
+          {/* <Button aria-label={t('cartLabel')} size="fit" variant="ghost">
             <Image
               src="/svg/cart.svg"
               alt={t('cartAlt')}
@@ -57,7 +57,7 @@ export default function Navbar() {
               height={24}
               className="size-6"
             />
-          </Button>
+          </Button>  */}
           <UserModeToggle explorerText={t('explorer')} creatorText={t('creator')} />
           <Link href="/profile" className="flex size-12 items-center justify-center rounded-full">
             <Image

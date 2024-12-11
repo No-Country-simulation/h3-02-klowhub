@@ -86,13 +86,15 @@ const CourseCard = ({
     <div
       className={cn(
         className,
-        'relative flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
+        'relative flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-app-1',
         styles.card
       )}>
       {/* Este link en absolute es el que navega hacia el detalle*/}
       <Link
         href={`/courses/${courseId}`}
-        className="transparent absolute left-0 top-0 size-full text-transparent"></Link>
+        className="transparent absolute left-0 top-0 size-full text-[0px] text-transparent text-opacity-0">
+        .
+      </Link>
       <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
         <FavButton
           color="white"
