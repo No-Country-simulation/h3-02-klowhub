@@ -21,7 +21,7 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
   const creator = await getContent<CreatorCourseType>(`/json/${courseId}/user.json`);
   const course = await getContent<CourseDetailsType>(`/json/${courseId}/detail.json`);
   return (
-    <div>
+    <div className="space-y-8">
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="flex flex-col items-start justify-between rounded-lg lg:mt-6 lg:flex-row">

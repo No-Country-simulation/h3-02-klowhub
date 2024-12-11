@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import CheckList from '@core/components/CheckList';
 import H2SimpleSection from '@core/components/H2SimpleSection';
+import ShowMore from '@core/components/ShowMore';
 import type { Locale } from '@core/lib/i18nRouting';
 import type { CourseDetailsType } from '@features/courses/types/coursedetails.types';
 import VideoPlayer from '../VideoPlayer';
@@ -44,37 +45,38 @@ export const MainContent = async ({
       <VideoPlayer src={course.courseIntro || ''} poster={course.coursePoster} locale={locale} />
 
       {/* Header con información del perfil */}
-      <div className="mx-auto mb-8 mt-7 space-y-6 rounded-lg bg-gray-800 p-6 text-white shadow-app-1">
-        <div className="flex items-center space-x-4">
-          <Image
-            width={50}
-            height={50}
-            className="size-16 rounded-full object-cover"
-            src="/images/mocks/avatar_mock1.png" // Reemplaza con la URL real de la imagen
-            alt="Sebastián Ríos"
-          />
+      <ShowMore maxHeight={610}>
+        <div className="mt-7 h-fit w-full space-y-9 rounded-lg bg-neutral-100 p-6 px-4 py-8 text-white shadow-app-1 min-[620px]:space-y-6 min-[620px]:px-14 min-[620px]:py-10">
+          <div className="flex items-center space-x-4">
+            <Image
+              width={50}
+              height={50}
+              className="size-16 rounded-full object-cover"
+              src="/images/mocks/avatar_mock1.png" // Reemplaza con la URL real de la imagen
+              alt="Sebastián Ríos"
+            />
 
-          <div>
-            <h2 className="text-xl font-semibold">Sebastián Ríos</h2>
-            {creatorDesc ? <p className="text-sm text-gray-400">{creatorDesc}</p> : null}
-            {/*
+            <div>
+              <h2 className="text-xl font-semibold">Sebastián Ríos</h2>
+              {creatorDesc ? <p className="text-sm text-gray-400">{creatorDesc}</p> : null}
+              {/*
             <a href="#" className="mt-1 text-sm text-purple-400 hover:underline">
               Ver perfil
             </a>
             */}
+            </div>
           </div>
-        </div>
 
-        {/* Sección de objetivos */}
-        <H2SimpleSection title="Despues de completar este curso, seras capaz de:">
-          <CheckList items={course.courseLearnings} />
-        </H2SimpleSection>
-        <H2SimpleSection title="Acerca de este curso">
-          <p className="text-sm font-normal text-white">{course.courseAbout}</p>
-        </H2SimpleSection>
+          {/* Sección de objetivos */}
+          <H2SimpleSection title="Despues de completar este curso, seras capaz de:">
+            <CheckList items={course.courseLearnings} />
+          </H2SimpleSection>
+          <H2SimpleSection title="Acerca de este curso">
+            <p className="text-sm font-normal text-white">{course.courseAbout}</p>
+          </H2SimpleSection>
 
-        {/* Botones */}
-        {/*<div>
+          {/* Botones */}
+          {/*<div>
           <div className="mt-6 flex items-center space-x-4">
             <Button
               style={{
@@ -102,23 +104,24 @@ export const MainContent = async ({
           </div>
         </div>*/}
 
-        {creatorWhyLearning ? (
-          <H2SimpleSection
-            title={`¿Por qué aprender con ${course.creatorName}?`}
-            titleVariant="textxl">
-            <p className="text-sm font-normal text-white">{creatorWhyLearning}</p>
+          {creatorWhyLearning ? (
+            <H2SimpleSection
+              title={`¿Por qué aprender con ${course.creatorName}?`}
+              titleVariant="textxl">
+              <p className="text-sm font-normal text-white">{creatorWhyLearning}</p>
+            </H2SimpleSection>
+          ) : null}
+          <H2SimpleSection title={`¿Para quién es este curso?`} titleVariant="textxl">
+            <p className="text-sm font-normal text-white">{course.courseObjective}</p>
           </H2SimpleSection>
-        ) : null}
-        <H2SimpleSection title={`¿Para quién es este curso?`} titleVariant="textxl">
-          <p className="text-sm font-normal text-white">{course.courseObjective}</p>
-        </H2SimpleSection>
-        <H2SimpleSection title={`Requisitos`} titleVariant="textxl">
-          <CheckList items={course.courseRequirenments} />
-        </H2SimpleSection>
-        <H2SimpleSection title={`¿Qué incluye?`} titleVariant="textxl">
-          <CheckList items={course.courseAdditions} />
-        </H2SimpleSection>
-      </div>
+          <H2SimpleSection title={`Requisitos`} titleVariant="textxl">
+            <CheckList items={course.courseRequirenments} />
+          </H2SimpleSection>
+          <H2SimpleSection title={`¿Qué incluye?`} titleVariant="textxl">
+            <CheckList items={course.courseAdditions} />
+          </H2SimpleSection>
+        </div>
+      </ShowMore>
     </div>
   );
 };
