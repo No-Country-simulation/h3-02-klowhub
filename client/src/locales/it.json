@@ -1,0 +1,221 @@
+{
+  "Root": {
+    "metaTitle": "Next start - IT",
+    "metaApplicationName": "Next start - IT",
+    "metaDescription": "Generato da Next start - IT",
+    "metaSiteName": "Next start - IT",
+    "title": "Modello Next.js",
+    "subTitle": "Inizia il tuo progetto con una base moderna e solida",
+    "development": "Sviluppato da {name}."
+  },
+  "Platform": {
+    "metainquiries": "Richieste",
+    "metaauthor": "Autore",
+    "metadate": "Data",
+    "metaplatform": "Piattaforma",
+    "metastade": "Stato",
+    "metaTitle": "Piattaforma Klowhub",
+    "metaDescription": "Pagina della piattaforma Klowhub",
+    "metaSiteName": "Piattaforma Klowhub",
+    "recocourseTitle": "Corsi consigliati",
+    "recocourseDesc": "Scopri i corsi più popolari e porta le tue competenze al livello successivo. Impara dagli esperti e applica le tue conoscenze a progetti reali.",
+    "latestInquiriesTitle": "Ultime richieste",
+    "connectWithExperts": "Connettiti con gli esperti",
+    "learnFromTheBest": "Impara dai migliori: migliora le tue conoscenze con i nostri mentori specializzati",
+    "mainTitle": "Benvenuto su KlowHub: la homepage della nostra piattaforma di apprendimento e collaborazione No Code e Low Code",
+    "gotoInquiries": "Vai alle richieste"
+  },
+  "AboutAppsheet": {
+    "metaTitle": "Klowhub - Informazioni su AppSheet",
+    "metaDescription": "Pagina informazioni su AppSheet di Klowhub",
+    "metaSiteName": "Klowhub - Informazioni su AppSheet"
+  },
+  "AppStore": {
+    "metaTitle": "Klowhub - App Store",
+    "metaDescription": "Pagina dell'App Store di Klowhub",
+    "metaSiteName": "Klowhub - App Store"
+  },
+  "Consultancies": {
+    "metaTitle": "Klowhub - Consulenze",
+    "metaDescription": "Pagina delle consulenze di Klowhub",
+    "metaSiteName": "Klowhub - Consulenze"
+  },
+  "Courses": {
+    "metaTitle": "Klowhub - Corsi",
+    "metaDescription": "Pagina dei corsi di Klowhub",
+    "metaSiteName": "Klowhub - Corsi",
+    "pageTitle": "Trova l'apprendimento che stai cercando"
+  },
+  "Footer": {
+    "categoryTitle": "Categoria",
+    "categoryCourses": "Corsi",
+    "categoryApps": "Applicazioni",
+    "categorySellCourse": "Consulenze",
+    "categorySellApp": "Progetti",
+    "aboutTitle": "Informazioni",
+    "aboutInstructors": "Istruttori",
+    "aboutTermsOfService": "Termini di servizio",
+    "aboutPrivacyPolicy": "Politica sulla privacy",
+    "supportTitle": "Supporto",
+    "supportFAQ": "Domande frequenti",
+    "supportContact": "Contatto",
+    "supportForum": "Forum",
+    "followTitle": "Segui Klowhub",
+    "footerCopyRight": "© KlowHub."
+  },
+  "Creator": {
+    "metaTitle": "Klowhub - Creatore",
+    "metaDescription": "Pagina del creatore di Klowhub",
+    "metaSiteName": "Klowhub - Creatore",
+    "bannerSubtitle": "Scopri, impara e crea",
+    "contentTitle": "I miei progetti",
+    "contentDescription": "Rivedi i dettagli, effettua le consegne e mantieni la comunicazione con il creatore per garantire il successo del tuo lavoro.",
+    "tabGeneral": "Generale",
+    "tabApps": "App",
+    "tabCourses": "Corsi",
+    "tabProjects": "Progetti",
+    "tabMentors": "Mentori",
+    "headerName": "Nome del cliente",
+    "headerAmount": "Importo",
+    "headerType": "Tipo",
+    "headerState": "Stato",
+    "headerPlatform": "Piattaforma",
+    "totalEarnings": "Guadagni totali del mese",
+    "publishedCourses": "Corsi pubblicati",
+    "transferredApps": "Applicazioni trasferite",
+    "mentoringHours": "Ore di mentoring",
+    "viewEarnings": "Visualizza i guadagni",
+    "navigatorCourse": "I miei corsi",
+    "navigatorProjects": "I miei progetti",
+    "navigatorApps": "Le mie applicazioni",
+    "navigatorMentors": "Consulenze",
+    "recommendedTitle": "Opportunità in linea con il tuo profilo",
+    "recommendedDescription": "Esplora le applicazioni consigliate appositamente per te. Queste opportunità sono progettate per aiutarti a trovare rapidamente e facilmente il prossimo passo nella tua carriera. Non perdere l'occasione di candidarti per la tua prossima sfida professionale!",
+    "viewProjects": "Visualizza i progetti"
+  },
+  "Mentors": {
+    "metaTitle": "Klowhub - Pagina Mentori",
+    "metaDescription": "Pagina dei Mentori di Klowhub",
+    "metaSiteName": "Klowhub - Pagina Mentori"
+  },
+  "Membership": {
+    "metaTitle": "Klowhub - Abbonamento",
+    "metaDescription": "Pagina degli abbonamenti di Klowhub",
+    "metaSiteName": "Klowhub - Abbonamento"
+  },
+  "Profile": {
+    "metaTitle": "Klowhub - Profilo",
+    "metaDescription": "Pagina del profilo di Klowhub",
+    "metaSiteName": "Klowhub - Profilo"
+  },
+  "Projects": {
+    "metaTitle": "Klowhub - Progetti",
+    "metaDescription": "Pagina dei progetti di Klowhub",
+    "metaSiteName": "Klowhub - Progetti"
+  },
+  "CoursesWatch": {
+    "metaTitle": "Klowhub - Guarda i Corsi",
+    "metaDescription": "Pagina Guarda i Corsi di Klowhub",
+    "metaSiteName": "Klowhub - Guarda i Corsi"
+  },
+  "Navbar": {
+    "dashboardLink": "Pannello di controllo",
+    "coursesLink": "Corsi e lezioni",
+    "appstoreLink": "Appstore",
+    "projectsLink": "Progetti",
+    "consultanciesLink": "Consulenze",
+    "aboutappsheetLink": "Informazioni su Appsheet",
+    "explorer": "Esplora",
+    "creator": "Creatore",
+    "learnIn": "Impara con Klowhub",
+    "findApps": "Trova Applicazioni",
+    "publishProjects": "Pubblica Progetti",
+    "technicalQueries": "Domande tecniche",
+    "cartLabel": "Carrello",
+    "cartAlt": "Icona del carrello",
+    "bellLabel": "Notifiche",
+    "bellAlt": "Icona delle notifiche",
+    "mailLabel": "Messaggio diretto",
+    "mailAlt": "Icona del messaggio diretto",
+    "homeText": "Home",
+    "platformText": "Piattaforma"
+  },
+  "Auth": {
+    "forgotPassword": "Hai dimenticato la password?",
+    "notHaveAccount": "Non hai un account?",
+    "haveAccount": "Hai già un account?",
+    "signin": "Accedi",
+    "signup": "Registrati",
+    "signText1": "Registrandoti, accetti i nostri",
+    "signText2": "Termini di utilizzo",
+    "signText3": "e la nostra",
+    "signText4": "Politica pubblicitaria",
+    "signTextButtons": "O continua qui sotto",
+    "signinPrelink": "Non hai ancora un account?"
+  },
+  "Fields": {
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "nameLabel": "Nome"
+  },
+  "Validations": {
+    "emailRequired": "L'email è obbligatoria",
+    "passwordRequired": "La password è obbligatoria",
+    "emailInvalid": "L'email non è valida",
+    "passwordInvalid": "La password non è valida"
+  },
+  "Common": {
+    "viewMore": "Vedi di più",
+    "addToCart": "Aggiungi al carrello",
+    "viewDetails": "Visualizza dettagli",
+    "hours": "Ora",
+    "reviews": "Recensioni",
+    "session": "Sessione"
+  },
+  "NewCourse": {
+    "metaTitle": "Klowhub - Crea un nuovo corso",
+    "metaDescription": "Klowhub - Pagina per creare un nuovo corso",
+    "metaSiteName": "Klowhub - Crea un nuovo corso",
+    "mainTitle": "Crea il tuo corso: condividilo con il mondo",
+    "tabGeneralText": "Informazioni Generali",
+    "tabDetailsText": "Dettagli del Corso",
+    "tabModulesText": "Moduli e Lezioni",
+    "tabPromotionText": "Promozioni"
+  },
+  "AppCard": {
+    "titulo": "Applicazioni consigliate",
+    "desc": "Esplora soluzioni pronte all'uso. Trova l'app perfetta per il tuo progetto e inizia subito."
+  },
+  "CourseDetail": {
+    "metaTitle": "Klowhub - Dettagli del Corso",
+    "metaDescription": "Klowhub - Pagina dei dettagli del corso",
+    "metaSiteName": "Klowhub - Dettagli del Corso"
+  },
+  "TermsAndConditions": {
+    "metaTitle": "Klowhub - Termini e Condizioni",
+    "metaDescription": "Klowhub - Pagina Termini e Condizioni",
+    "metaSiteName": "Klowhub - Termini e Condizioni",
+    "mainTitle": "Termini e Condizioni"
+  },
+  "AdvertisingPolicy": {
+    "metaTitle": "Klowhub - Politica pubblicitaria",
+    "metaDescription": "Klowhub - Pagina Politica pubblicitaria",
+    "metaSiteName": "Klowhub - Politica pubblicitaria",
+    "mainTitle": "Politica pubblicitaria"
+  },
+  "ComingSoon": {
+    "title": "Pagina in costruzione",
+    "subTitle": "Stiamo lavorando per offrirti un'esperienza migliore. Torna presto per scoprire le novità."
+  },
+  "PrivacyPolicy": {
+    "metaTitle": "Klowhub - Politica sulla Privacy",
+    "metaDescription": "Klowhub - Pagina Politica sulla Privacy",
+    "metaSiteName": "Klowhub - Politica sulla Privacy",
+    "mainTitle": "Politica sulla Privacy"
+  },
+  "CreatorEarnings": {
+    "metaTitle": "Klowhub - Guadagni del creatore",
+    "metaDescription": "Klowhub - Pagina Guadagni del creatore",
+    "metaSiteName": "Klowhub - Guadagni del creatore"
+  }
+}

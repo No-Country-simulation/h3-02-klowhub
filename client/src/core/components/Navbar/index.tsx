@@ -1,12 +1,17 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Link, type Locale } from '@core/lib/i18nRouting';
 
 import { NavbarClient } from './NavbarClient';
 import UserModeToggle from './UserModeToggle';
-import { Link } from '../../lib/i18nRouting';
+import LocaleSwitcherSelect from '../LocaleSwitcherSelect';
 import NavLink from '../NavLink';
 
-export default function Navbar() {
+interface NavbarProps {
+  locale: Locale;
+}
+
+export default function Navbar({ locale }: NavbarProps) {
   const t = useTranslations('Navbar');
   const navItems = [
     { href: '/platform', text: t('dashboardLink') },
@@ -31,6 +36,7 @@ export default function Navbar() {
         </nav>
 
         <div className="ml-auto hidden h-full items-center justify-center space-x-4 min-[1400px]:flex">
+          <LocaleSwitcherSelect currentLocale={locale} />
           {/* <Button aria-label={t('cartLabel')} size="fit" variant="ghost">
             <Image
               src="/svg/cart.svg"

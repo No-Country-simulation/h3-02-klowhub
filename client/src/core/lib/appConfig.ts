@@ -4,7 +4,7 @@ const localePrefix: LocalePrefix = 'always';
 
 export const AppConfig = {
   name: 'Starter',
-  locales: ['en', 'es'],
+  locales: ['en', 'es', 'fr', 'pt', 'it'],
   defaultLocale: 'es',
   localePrefix,
 };
