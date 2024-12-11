@@ -2,7 +2,9 @@
 import Image from 'next/image';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
+import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import styles from './MentorCard.module.css';
 
 interface CardProps {
@@ -11,7 +13,6 @@ interface CardProps {
   reviews: number;
   imageSrc: string;
   platform: string;
-  platformImg: string;
   sessions: string | number;
   idioma: string;
   urlPais: string;
@@ -26,7 +27,6 @@ const CardTeacher = ({
   reviews,
   imageSrc,
   platform,
-  platformImg,
   sessions,
   idioma,
   urlPais,
@@ -68,23 +68,31 @@ const CardTeacher = ({
   }, []);*/
 
   return (
-    <div className={cn('rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md', styles.card)}>
-      <div className="relative">
-        <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
-          <FavButton
-            color="white"
-            variant="filled"
-            className="block drop-shadow-[6px_4px_14px_black]"
-          />
-        </div>
-        <Image
-          src={imageSrc}
-          alt={name}
-          width={500}
-          height={400}
-          className="h-48 w-full rounded-t-lg object-cover"
+    <div
+      className={cn(
+        'relative rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
+        styles.card
+      )}>
+      {/* Este link en absolute es el que navega hacia el detalle*/}
+      <Link
+        href={`/mentors`}
+        className="transparent absolute left-0 top-0 size-full text-[0px] text-transparent text-opacity-0">
+        .
+      </Link>
+      <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
+        <FavButton
+          color="white"
+          variant="filled"
+          className="block drop-shadow-[6px_4px_14px_black]"
         />
       </div>
+      <Image
+        src={imageSrc}
+        alt={name}
+        width={500}
+        height={400}
+        className="h-48 w-full rounded-t-lg object-cover"
+      />
 
       <div className="grow p-4">
         {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
@@ -136,9 +144,17 @@ const CardTeacher = ({
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
-          <Button variant="neutral" className="rounded-lg" size="default">
-            <Image src={platformImg} alt="Carrito" width="20" height="20" className="mr-2" />
-            {platform}
+          <Button asChild variant="neutral" size="default">
+            <div>
+              <Image
+                src={getPlatformLogo(platform)}
+                alt="Carrito"
+                width="20"
+                height="20"
+                className="mr-2"
+              />
+              {platform}
+            </div>
           </Button>
         </div>
 

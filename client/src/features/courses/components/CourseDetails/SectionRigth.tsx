@@ -133,7 +133,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
         <h3 className="mb-4 text-lg font-bold text-white">Programa del curso</h3>
         <ul className="space-y-4">
           {['Módulo 1', 'Módulo 2', 'Módulo 3', 'Módulo 4'].map((module, index) => (
-            <li key={index} className="border-t border-gray-600 pt-2">
+            <li key={index} className="list-none border-t border-gray-600 pt-2">
               <details className="group">
                 <summary className="flex cursor-pointer items-center justify-between font-semibold text-white">
                   {module}
