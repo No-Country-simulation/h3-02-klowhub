@@ -48,6 +48,6 @@
     "reviews": 128,
     "platform": "Power Apps",
     "tags": ["Logistica", "Optimización", "Inventarios"],
-    "img": "/images/mocks/course_mock2.png"
+    "imageUrl": "/images/mocks/course_mock4.png"
   }
 ]

@@ -56,6 +56,7 @@ const ContentTabs = ({
             type="Curso"
             state="Pendiente"
             details={viewDetails}
+            projectType="courses"
           />
         ))}
       </TabsContent>
@@ -69,6 +70,7 @@ const ContentTabs = ({
             type="Apps"
             state="Pendiente"
             details={viewDetails}
+            projectType="apps"
           />
         ))}
       </TabsContent>
@@ -82,6 +84,7 @@ const ContentTabs = ({
             type="Curso"
             state="Pendiente"
             details={viewDetails}
+            projectType="courses"
           />
         ))}
       </TabsContent>
@@ -95,6 +98,7 @@ const ContentTabs = ({
             type="Projects"
             state="Pendiente"
             details={viewDetails}
+            projectType="projects"
           />
         ))}
       </TabsContent>
@@ -108,6 +112,7 @@ const ContentTabs = ({
             type="Mentors"
             state="Pendiente"
             details={viewDetails}
+            projectType="mentors"
           />
         ))}
       </TabsContent>

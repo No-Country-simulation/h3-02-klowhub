@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Link } from '@core/lib/i18nRouting';
 
 interface ContentItemProps {
   type: string;
@@ -7,9 +8,18 @@ interface ContentItemProps {
   state: string;
   details: string;
   profile: string;
+  projectType?: string;
 }
 
-const ContentItem = ({ profile, name, type, price, state, details }: ContentItemProps) => {
+const ContentItem = ({
+  profile,
+  name,
+  type,
+  price,
+  state,
+  details,
+  projectType = '',
+}: ContentItemProps) => {
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white/10 px-6 py-3 text-sm font-semibold text-white shadow-md min-[820px]:grid min-[820px]:grid-cols-6 min-[820px]:gap-6">
       <div className="col-span-2 hidden items-center justify-center gap-4 min-[820px]:flex">
@@ -48,9 +58,9 @@ const ContentItem = ({ profile, name, type, price, state, details }: ContentItem
         />{' '}
         {name}
       </div>
-      <div className="flex items-center justify-center gap-4">
+      <Link href={`/creator/${projectType}`} className="flex items-center justify-center gap-4">
         <div className="cursor-pointer font-bold text-primary-B-300 hover:underline">{details}</div>
-      </div>
+      </Link>
     </div>
   );
 };

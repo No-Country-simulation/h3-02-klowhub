@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
 
@@ -69,7 +70,7 @@ export default function RecommendProjectCard({
           ))}
         </div>
         <Button variant="neutral" size="fit" asChild>
-          <div className="flex items-center gap-2 rounded-lg p-2">
+          <div className="flex select-none items-center gap-2 rounded-lg p-2">
             <Image
               src={getPlatformLogo(platform)}
               width={24}
@@ -108,8 +109,8 @@ export default function RecommendProjectCard({
         </div>
       </div>
       <div className="p-3">
-        <Button variant="ghost" className="w-full text-primary-B-300 hover:bg-white/10">
-          {viewDetails}
+        <Button variant="ghost" asChild className="w-full text-primary-B-300 hover:bg-white/10">
+          <Link href="/projects">{viewDetails}</Link>
         </Button>
       </div>
     </div>

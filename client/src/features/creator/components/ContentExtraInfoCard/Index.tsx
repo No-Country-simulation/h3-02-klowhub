@@ -1,4 +1,5 @@
 import Button from '@core/components/Button';
+import { Link } from '@core/lib/i18nRouting';
 import ExtraContentInfo from '../ExtraContentInfo/Index';
 
 interface ContentExtraInfoCardProps {
@@ -30,8 +31,8 @@ const ContentExtraInfoCard = ({
       <ExtraContentInfo title={publishedCoursesText} content={publishedCourses} />
       <ExtraContentInfo title={transferredAppsText} content={transferredApps} />
       <ExtraContentInfo title={mentoringHoursText} content={mentoringHours} />
-      <Button variant="ghost" size="fit" className="h-8">
-        {viewDetails}
+      <Button variant="ghost" asChild size="fit" className="h-8">
+        <Link href="/creator/earnings">{viewDetails}</Link>
       </Button>
     </div>
   );

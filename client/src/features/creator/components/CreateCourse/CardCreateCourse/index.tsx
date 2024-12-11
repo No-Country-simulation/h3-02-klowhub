@@ -1,10 +1,11 @@
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
-import { getRecommendedCourses } from '@features/home/services/getRecommendedCourses';
-import CourseCardCreate from './CourseCardCreate';
+import type { CourseCardType } from '@core/schemas/course-card.schema';
+import { getContent } from '@core/services/getContent';
+import CourseCard from '@features/courses/components/CourseCard';
 import CourseCarouselWraperCreator from './CourseCarouselWraper';
 
 export default async function CardCreateCourse() {
-  const courses = await getRecommendedCourses();
+  const courses = await getContent<CourseCardType[]>('/json/recommended-courses.json');
   return (
     <section className="mx-auto w-full">
       <div className="mb-6">
@@ -12,8 +13,11 @@ export default async function CardCreateCourse() {
       </div>
       <CardsFlexContainer items={courses}>
         {(item, i) => (
-          <CourseCardCreate
-            key={`gcc-${i}`}
+          <CourseCard
+            courseId={item.id}
+            addToCart=""
+            viewDetails=""
+            key={`cccf-${i}`}
             title={item.title}
             description={item?.basicDescription || ''}
             rating={item.rating}

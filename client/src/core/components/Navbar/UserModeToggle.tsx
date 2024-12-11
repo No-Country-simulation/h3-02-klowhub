@@ -1,8 +1,8 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { Link, usePathname } from '../../lib/i18nRouting';
-import { cn } from '../../lib/utils';
+import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
+import { Link, usePathname } from '@core/lib/i18nRouting';
+import { cn } from '@core/lib/utils';
 
 interface UserModeToggleProps {
   explorerText: string;
@@ -12,8 +12,7 @@ interface UserModeToggleProps {
 
 const UserModeToggle = ({ creatorText, explorerText, className = '' }: UserModeToggleProps) => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const mode = searchParams.get('mode');
+  const [mode, _] = useRouterQueryState('mode');
 
   return (
     <div className={cn('flex h-full max-h-full items-center justify-center gap-2', className)}>

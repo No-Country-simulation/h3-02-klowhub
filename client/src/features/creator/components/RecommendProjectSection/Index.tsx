@@ -54,8 +54,8 @@ export default function RecommendProjectSection() {
         />
       </div>
       <div className="mx-auto mt-3 w-full max-w-72">
-        <Button variant="outline" size="full" className="py-6">
-          <Link href="/creator/projects">{t('viewProjects')}</Link>
+        <Button variant="outline" asChild size="full" className="py-6">
+          <Link href="/projects">{t('viewProjects')}</Link>
         </Button>
       </div>
     </section>

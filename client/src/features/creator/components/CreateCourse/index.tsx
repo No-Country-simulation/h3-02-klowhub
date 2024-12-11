@@ -15,7 +15,7 @@ const SectionCreateCourse = () => {
         </Button>
       </div>
 
-      <div className="min-h-screen rounded-lg bg-neutral-100 pl-2 pr-4 text-white">
+      <div className="min-h-screen rounded-lg bg-neutral-100 p-4 text-white">
         <div className="flex flex-wrap gap-6">
           <div className="flex-1 rounded-lg p-3 lg:w-2/3">
             <ContentTabs
