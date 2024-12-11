@@ -13,6 +13,9 @@ export default async function middleware(request: NextRequest, _: NextFetchEvent
   if (pathname.endsWith('/help')) {
     return NextResponse.redirect(new URL(`/${locale}/help/terms-and-conditions`, request.url));
   }
+  if (pathname.endsWith(`/${locale}`)) {
+    return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
+  }
   /*
   const error = request.nextUrl.searchParams.get('error');
   const token = request.cookies.get('auth_token');
