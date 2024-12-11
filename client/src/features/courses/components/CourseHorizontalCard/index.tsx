@@ -1,6 +1,6 @@
 'use client';
+
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
@@ -15,6 +15,7 @@ interface CourseHorizontalCardProps {
   textButton: string;
   emoji: string;
   categoria: string;
+  viewDetails: string;
 }
 
 const categoryStyles: Record<string, string> = {
@@ -33,8 +34,9 @@ const CourseHorizontalCard = ({
   emoji,
   tags,
   categoria,
+  viewDetails,
 }: CourseHorizontalCardProps) => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  /*const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleMenuToggle = () => setMenuOpen(prev => !prev);
@@ -48,7 +50,7 @@ const CourseHorizontalCard = ({
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, []);*/
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
 
   return (
@@ -110,6 +112,7 @@ const CourseHorizontalCard = ({
         </div>
 
         {/* Menú de tres puntos */}
+        {/*
         <div className="absolute right-4 top-2 mt-2">
           <button
             onClick={handleMenuToggle}
@@ -149,18 +152,13 @@ const CourseHorizontalCard = ({
             </div>
           )}
         </div>
+      */}
 
         <div className="mt-auto flex items-center">
-          <Button
-            className="rounded-lg text-sm text-white hover:bg-purple-700"
-            style={{
-              backgroundColor: 'var(--color-primary-B-500)',
-              borderColor: 'var(--color-primary-A-500)',
-            }}
-            variant="default">
-            <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
-            Añadir al carrito
+          <Button className="rounded-lg text-sm text-white" variant="default">
+            {viewDetails}
           </Button>
+          {/*
           <Button
             className="ml-4 text-sm font-bold hover:underline"
             style={{
@@ -169,6 +167,7 @@ const CourseHorizontalCard = ({
             variant="ghost">
             Ver detalles
           </Button>
+         */}
         </div>
       </div>
     </div>

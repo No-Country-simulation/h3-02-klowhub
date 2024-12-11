@@ -170,7 +170,10 @@
     "viewDetails": "Voir les détails",
     "hours": "Heure",
     "reviews": "Avis",
-    "session": "Session"
+    "session": "Session",
+    "filter": "Filtrer",
+    "sort": "Trier par",
+    "search": "Rechercher"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Créer un nouveau cours",

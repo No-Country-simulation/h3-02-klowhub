@@ -170,7 +170,9 @@
     "viewDetails": "Ver detalhes",
     "hours": "Hora",
     "reviews": "Avaliação",
-    "session": "Sessão"
+    "session": "Sessão",
+    "filter": "Filtrar",
+    "sort": "Ordenar por"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Criar um novo curso",
@@ -180,7 +182,8 @@
     "tabGeneralText": "Informações Gerais",
     "tabDetailsText": "Detalhes do Curso",
     "tabModulesText": "Módulos e Lições",
-    "tabPromotionText": "Promoções"
+    "tabPromotionText": "Promoções",
+    "search": "Buscar"
   },
   "AppCard": {
     "titulo": "Aplicativos Recomendados",

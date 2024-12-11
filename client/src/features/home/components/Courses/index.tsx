@@ -1,10 +1,13 @@
+import { getTranslations } from 'next-intl/server';
+import type { Locale } from '@core/lib/i18nRouting';
 import CourseHorizontalCard from '@features/courses/components/CourseHorizontalCard';
 import { SearchBar } from './SearchBar';
 
-export default function CoursesListSection() {
+export default async function CoursesListSection({ locale }: { locale: Locale }) {
+  const t = await getTranslations<'Common'>({ locale: locale, namespace: 'Common' });
   return (
     <div className="w-full text-white">
-      <SearchBar />
+      <SearchBar filter={t('filter')} sortBy={t('sort')} search={t('search')} />
       <CourseHorizontalCard
         imageUrl="/images/mocks/course_mock1.png"
         title="Automatización de flujos de trabajo con AppSheet"
@@ -15,6 +18,7 @@ export default function CoursesListSection() {
         emoji="/images/appsheet_logo.png"
         tags={['CRM', 'Clientes', 'Ventas']}
         categoria="Curso"
+        viewDetails={t('viewDetails')}
       />
       <CourseHorizontalCard
         imageUrl="/images/mocks/course_mock2.png"
@@ -26,10 +30,11 @@ export default function CoursesListSection() {
         emoji="/svg/powerapp.svg"
         tags={['CRM', 'Clientes', 'Ventas']}
         categoria="Curso"
+        viewDetails={t('viewDetails')}
       />
 
       <CourseHorizontalCard
-        imageUrl="/images/mocks/course_mock3png.png"
+        imageUrl="/images/mocks/course_mock3.png"
         title="Automatización de flujos de trabajo con AppSheet"
         description="Conviértete en un experto en AppSheetHub y aprende a crear aplicaciones sin escribir una sola línea de código.Desarrollar aplicaciones personalizadas"
         rating={4.1}
@@ -38,6 +43,7 @@ export default function CoursesListSection() {
         emoji="/svg/powerapp.svg"
         tags={['CRM', 'Clientes', 'Ventas']}
         categoria="Curso"
+        viewDetails={t('viewDetails')}
       />
     </div>
   );

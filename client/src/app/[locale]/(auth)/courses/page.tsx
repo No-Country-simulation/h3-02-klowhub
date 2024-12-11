@@ -17,7 +17,7 @@ export default async function CoursesPage({
     <main className="mb-20 mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
       <Breadcrumb items={breadcrumbItems} />
       <h1 className="mb-4 text-lg font-bold text-white">{t('pageTitle')}</h1>
-      <CoursesListSection />
+      <CoursesListSection locale={locale} />
     </main>
   );
 }
