@@ -25,68 +25,70 @@ const ContentTabsCreate = ({
 }: ContentTabsProps) => {
   return (
     <Tabs defaultValue="general" className="w-full">
-      <ContentTabList general={general} apps={apps} courses={courses} projects={projects} />
-      <HeaderContentCreate name={headerName} amount={headerAmount} platform={headerPlatform} />
-      <TabsContent value="general" className="space-y-3">
-        {[1, 2, 3, 4, 5].map((item, i) => (
-          <ContentItemCreate
-            key={i}
-            profile="/images/mocks/avatar_mock1.png"
-            name="Nombre del cliente"
-            price="$650"
-            state="Pendiente"
-            details={viewDetails}
-          />
-        ))}
-      </TabsContent>
-      <TabsContent value="apps" className="space-y-3">
-        {[1, 2, 3, 4, 5].map((item, i) => (
-          <ContentItemCreate
-            key={i}
-            profile="/images/mocks/avatar_mock1.png"
-            name="Nombre del cliente"
-            price="$450"
-            state="Pendiente"
-            details={viewDetails}
-          />
-        ))}
-      </TabsContent>
-      <TabsContent value="courses" className="space-y-3">
-        {[1, 2, 3, 4, 5].map((item, i) => (
-          <ContentItemCreate
-            key={i}
-            profile="/images/mocks/avatar_mock1.png"
-            name="Nombre del cliente"
-            price="$650"
-            state="Pendiente"
-            details={viewDetails}
-          />
-        ))}
-      </TabsContent>
-      <TabsContent value="projects" className="space-y-3">
-        {[1, 2, 3, 4, 5].map((item, i) => (
-          <ContentItemCreate
-            key={i}
-            profile="/images/mocks/avatar_mock1.png"
-            name="Nombre del cliente"
-            price="$650"
-            state="Pendiente"
-            details={viewDetails}
-          />
-        ))}
-      </TabsContent>
-      <TabsContent value="mentors" className="space-y-3">
-        {[1, 2, 3, 4, 5].map((item, i) => (
-          <ContentItemCreate
-            key={i}
-            profile="/images/mocks/avatar_mock1.png"
-            name="Nombre del cliente"
-            price="$650"
-            state="Pendiente"
-            details={viewDetails}
-          />
-        ))}
-      </TabsContent>
+      <>
+        <ContentTabList general={general} apps={apps} courses={courses} projects={projects} />
+        <HeaderContentCreate name={headerName} amount={headerAmount} platform={headerPlatform} />
+        <TabsContent value="general" className="space-y-3">
+          {[1, 2, 3, 4, 5].map((item, i) => (
+            <ContentItemCreate
+              key={i}
+              profile="/images/mocks/avatar_mock1.png"
+              name="Nombre del cliente"
+              price="$650"
+              state="Pendiente"
+              details={viewDetails}
+            />
+          ))}
+        </TabsContent>
+        <TabsContent value="apps" className="space-y-3">
+          {[1, 2, 3, 4, 5].map((item, i) => (
+            <ContentItemCreate
+              key={i}
+              profile="/images/mocks/avatar_mock1.png"
+              name="Nombre del cliente"
+              price="$450"
+              state="Pendiente"
+              details={viewDetails}
+            />
+          ))}
+        </TabsContent>
+        <TabsContent value="courses" className="space-y-3">
+          {[1, 2, 3, 4, 5].map((item, i) => (
+            <ContentItemCreate
+              key={i}
+              profile="/images/mocks/avatar_mock1.png"
+              name="Nombre del cliente"
+              price="$650"
+              state="Pendiente"
+              details={viewDetails}
+            />
+          ))}
+        </TabsContent>
+        <TabsContent value="projects" className="space-y-3">
+          {[1, 2, 3, 4, 5].map((item, i) => (
+            <ContentItemCreate
+              key={i}
+              profile="/images/mocks/avatar_mock1.png"
+              name="Nombre del cliente"
+              price="$650"
+              state="Pendiente"
+              details={viewDetails}
+            />
+          ))}
+        </TabsContent>
+        <TabsContent value="mentors" className="space-y-3">
+          {[1, 2, 3, 4, 5].map((item, i) => (
+            <ContentItemCreate
+              key={i}
+              profile="/images/mocks/avatar_mock1.png"
+              name="Nombre del cliente"
+              price="$650"
+              state="Pendiente"
+              details={viewDetails}
+            />
+          ))}
+        </TabsContent>
+      </>
     </Tabs>
   );
 };
