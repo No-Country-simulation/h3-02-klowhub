@@ -178,6 +178,7 @@
     "session": "Sessão",
     "filter": "Filtrar",
     "sort": "Ordenar por",
+    "search": "Buscar",
     "share": "Compartilhar"
   },
   "NewCourse": {
@@ -188,8 +189,7 @@
     "tabGeneralText": "Informações Gerais",
     "tabDetailsText": "Detalhes do Curso",
     "tabModulesText": "Módulos e Lições",
-    "tabPromotionText": "Promoções",
-    "search": "Buscar"
+    "tabPromotionText": "Promoções"
   },
   "AppCard": {
     "titulo": "Aplicativos Recomendados",
