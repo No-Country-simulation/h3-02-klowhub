@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import React from 'react';
 import CheckList from '@core/components/CheckList';
 import H2SimpleSection from '@core/components/H2SimpleSection';
@@ -20,6 +21,7 @@ export const MainContent = async ({
   creatorDesc,
   creatorWhyLearning,
 }: MainContentProps) => {
+  const t = await getTranslations<'CourseDetail'>({ locale: locale, namespace: 'CourseDetail' });
   return (
     <div className="w-full text-white lg:w-5/6 lg:pr-8">
       <h1 className="mb-4 text-2xl font-bold">{course?.name}</h1>
@@ -68,10 +70,10 @@ export const MainContent = async ({
           </div>
 
           {/* Sección de objetivos */}
-          <H2SimpleSection title="Despues de completar este curso, seras capaz de:">
+          <H2SimpleSection title={t('afterCompletingCourse')}>
             <CheckList items={course.courseLearnings} />
           </H2SimpleSection>
-          <H2SimpleSection title="Acerca de este curso">
+          <H2SimpleSection title={t('aboutCourse')}>
             <p className="text-sm font-normal text-white">{course.courseAbout}</p>
           </H2SimpleSection>
 
@@ -106,18 +108,18 @@ export const MainContent = async ({
 
           {creatorWhyLearning ? (
             <H2SimpleSection
-              title={`¿Por qué aprender con ${course.creatorName}?`}
+              title={t('whyLearnWith', { creatorName: course.creatorName })}
               titleVariant="textxl">
               <p className="text-sm font-normal text-white">{creatorWhyLearning}</p>
             </H2SimpleSection>
           ) : null}
-          <H2SimpleSection title={`¿Para quién es este curso?`} titleVariant="textxl">
+          <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textxl">
             <p className="text-sm font-normal text-white">{course.courseObjective}</p>
           </H2SimpleSection>
-          <H2SimpleSection title={`Requisitos`} titleVariant="textxl">
+          <H2SimpleSection title={t('requirements')} titleVariant="textxl">
             <CheckList items={course.courseRequirenments} />
           </H2SimpleSection>
-          <H2SimpleSection title={`¿Qué incluye?`} titleVariant="textxl">
+          <H2SimpleSection title={t('whatIncludes')} titleVariant="textxl">
             <CheckList items={course.courseAdditions} />
           </H2SimpleSection>
         </div>

@@ -20,9 +20,10 @@ export default async function CoursesPage({
         moduleActive={moduleActive as string}
         lessonActive={lessonActive as string}
         courseId={id}
+        locale={locale}
       />
       <div className="mb-5 flex w-full flex-col justify-between space-y-8 px-[3%] min-[780px]:px-0">
-        <WatchCourseDetailSection />
+        <WatchCourseDetailSection locale={locale} />
         <RecommendedCourses courseId={id} />
       </div>
     </main>

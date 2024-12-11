@@ -116,7 +116,12 @@
   "CoursesWatch": {
     "metaTitle": "Klowhub - Guarda i Corsi",
     "metaDescription": "Pagina Guarda i Corsi di Klowhub",
-    "metaSiteName": "Klowhub - Guarda i Corsi"
+    "metaSiteName": "Klowhub - Guarda i Corsi",
+    "lesson": "Lezioni",
+    "consultation": "Consulenze",
+    "resource": "Risorse",
+    "noConsultations": "Non ci sono ancora consulenze",
+    "noResources": "Non ci sono risorse disponibili"
   },
   "Navbar": {
     "dashboardLink": "Pannello di controllo",
@@ -173,7 +178,8 @@
     "session": "Sessione",
     "filter": "Filtra",
     "sort": "Ordina per",
-    "search": "Cercare"
+    "search": "Cercare",
+    "share": "Condividere"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Crea un nuovo corso",
@@ -192,7 +198,13 @@
   "CourseDetail": {
     "metaTitle": "Klowhub - Dettagli del Corso",
     "metaDescription": "Klowhub - Pagina dei dettagli del corso",
-    "metaSiteName": "Klowhub - Dettagli del Corso"
+    "metaSiteName": "Klowhub - Dettagli del Corso",
+    "afterCompletingCourse": "Dopo aver completato questo corso, sarai in grado di:",
+    "aboutCourse": "Informazioni su questo corso",
+    "whyLearnWith": "Perché imparare con {creatorName}?",
+    "whoIsThisFor": "Per chi è questo corso?",
+    "requirements": "Requisiti",
+    "whatIncludes": "Cosa include"
   },
   "TermsAndConditions": {
     "metaTitle": "Klowhub - Termini e Condizioni",

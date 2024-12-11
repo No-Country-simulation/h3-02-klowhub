@@ -1,4 +1,4 @@
-import { getLocale } from 'next-intl/server';
+import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
 import { type VideoCourseType } from '../../schemas/coursevideo.schemas';
 import VideoLessons from '../VideoLessons';
@@ -9,12 +9,13 @@ const WatchCourseSection = async ({
   lessonActive,
   courseId,
   moduleActive,
+  locale,
 }: {
   lessonActive: string;
   moduleActive: string;
   courseId: string | number;
+  locale: Locale;
 }) => {
-  const locale = await getLocale();
   const course = await getContent<VideoCourseType>('/json/course.json');
 
   if (!course) {
@@ -44,7 +45,7 @@ const WatchCourseSection = async ({
         </div>
       </div>
       <div className="mx-[3%] rounded-lg bg-neutral-100 p-4 min-[780px]:mx-0 min-[1280px]:rounded-l-none min-[1280px]:bg-white/10">
-        <WatchCourseNavigator modules={course.modules} />
+        <WatchCourseNavigator locale={locale} modules={course.modules} />
       </div>
     </section>
   );

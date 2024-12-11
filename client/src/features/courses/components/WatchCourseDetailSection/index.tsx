@@ -1,15 +1,18 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import Button from '@core/components/Button';
 import CheckList from '@core/components/CheckList';
 import H2SimpleSection from '@core/components/H2SimpleSection';
 import ShowMore from '@core/components/ShowMore';
+import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import type { CourseDetailsType } from '../../types/coursedetails.types';
 
-export default async function WatchCourseDetailSection() {
+export default async function WatchCourseDetailSection({ locale }: { locale: Locale }) {
   const courseDetail = await getContent<CourseDetailsType>('/json/course-detail.json');
-
+  const t = await getTranslations<'CourseDetail'>({ locale: locale, namespace: 'CourseDetail' });
+  const ct = await getTranslations<'Common'>({ locale: locale, namespace: 'Common' });
   if (!courseDetail) {
     return (
       <section className="mx-auto flex h-[500px] w-full items-center justify-center rounded-lg bg-white/10 p-4 shadow-app-1">
@@ -64,29 +67,29 @@ export default async function WatchCourseDetailSection() {
                 </div>
               </Button>
               <Button variant="outline" className="px-5">
-                Compartir
+                {ct('share')}
               </Button>
             </div>
           </div>
         </header>
-        <H2SimpleSection title="Despues de completar este curso, seras capaz de:">
+        <H2SimpleSection title={t('afterCompletingCourse')}>
           <CheckList items={courseDetail.courseLearnings} />
         </H2SimpleSection>
-        <H2SimpleSection title="Acerca de este curso">
+        <H2SimpleSection title={t('aboutCourse')}>
           <p className="text-sm font-normal text-white">{courseDetail.courseAbout}</p>
         </H2SimpleSection>
         <H2SimpleSection
-          title={`¿Por qué aprender con ${courseDetail.creatorName}?`}
+          title={t('whyLearnWith', { creatorName: courseDetail.creatorName })}
           titleVariant="textxl">
           <p className="text-sm font-normal text-white">{courseDetail.creatorDescription}</p>
         </H2SimpleSection>
-        <H2SimpleSection title={`¿Para quién es este curso?`} titleVariant="textxl">
+        <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textxl">
           <p className="text-sm font-normal text-white">{courseDetail.courseObjective}</p>
         </H2SimpleSection>
-        <H2SimpleSection title={`Requisitos`} titleVariant="textxl">
+        <H2SimpleSection title={t('requirements')} titleVariant="textxl">
           <CheckList items={courseDetail.courseRequirenments} />
         </H2SimpleSection>
-        <H2SimpleSection title={`¿Qué incluye?`} titleVariant="textxl">
+        <H2SimpleSection title={t('whatIncludes')} titleVariant="textxl">
           <CheckList items={courseDetail.courseAdditions} />
         </H2SimpleSection>
       </section>
