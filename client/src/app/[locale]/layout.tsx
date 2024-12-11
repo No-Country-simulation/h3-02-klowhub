@@ -4,10 +4,11 @@ import { notFound } from 'next/navigation';
 import '@styles/globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import type { ReactNode } from 'react';
+import { type ReactNode, Suspense } from 'react';
 import { inter } from '@styles/font';
 import { routing } from '@core/lib/i18nRouting';
 import { cn, getBaseUrl } from '@core/lib/utils';
+import Loading from './loading';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -60,7 +61,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={cn(inter.className, inter.variable)} suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </NextIntlClientProvider>
       </body>
     </html>

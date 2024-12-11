@@ -3,6 +3,7 @@ import Image from 'next/image'; // Importa el componente Image de Next.js
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import styles from './AppCard.module.css';
@@ -73,23 +74,25 @@ const AppCard = ({
         'flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
         styles.card
       )}>
-      <div className="relative">
-        <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
-          <FavButton
-            color="white"
-            variant="filled"
-            className="block drop-shadow-[6px_4px_14px_black]"
-          />
-        </div>
-
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          width={500}
-          height={400}
-          className="h-48 w-full rounded-t-lg object-cover"
+      {/* Este link en absolute es el que navega hacia el detalle*/}
+      <Link
+        href="/appstore"
+        className="transparent absolute left-0 top-0 size-full text-transparent"></Link>
+      <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
+        <FavButton
+          color="white"
+          variant="filled"
+          className="block drop-shadow-[6px_4px_14px_black]"
         />
       </div>
+
+      <Image
+        src={imageSrc}
+        alt={imageAlt}
+        width={500}
+        height={400}
+        className="h-48 w-full rounded-t-lg object-cover"
+      />
 
       <div className="grow p-4">
         {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
@@ -189,6 +192,7 @@ const AppCard = ({
         </div>
       </div>
 
+      {/*
       <div className="mt-auto flex items-center p-4">
         <Button className="rounded-lg px-4 py-2 text-sm text-white">
           <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
@@ -198,6 +202,7 @@ const AppCard = ({
           {viewDetails}
         </Button>
       </div>
+      */}
     </div>
   );
 };

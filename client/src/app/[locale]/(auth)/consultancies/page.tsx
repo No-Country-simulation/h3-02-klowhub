@@ -40,7 +40,7 @@ export default async function ConsultanciesPage({
   });
   setRequestLocale(locale);
   return (
-    <main className="mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
+    <main className="mb-20 mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
       <ComingSoon className="self-center" title={ct('title')} subTitle={ct('subTitle')} />
     </main>
   );

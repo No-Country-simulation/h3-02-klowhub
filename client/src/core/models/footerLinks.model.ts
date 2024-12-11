@@ -1,16 +1,16 @@
 import type { TranslationType } from '@coreTypes/translationType';
 
 export const categories = (t: TranslationType<'Footer'>) => [
-  { href: '#', label: t('categoryCourses') },
-  { href: '#', label: t('categoryApps') },
-  { href: '#', label: t('categorySellCourse') },
-  { href: '#', label: t('categorySellApp') },
+  { href: '/courses', label: t('categoryCourses') },
+  { href: '/appstore', label: t('categoryApps') },
+  { href: '/consultancies', label: t('categorySellCourse') },
+  { href: '/projects', label: t('categorySellApp') },
 ];
 
 export const about = (t: TranslationType<'Footer'>) => [
-  { href: '#', label: t('aboutInstructors') },
-  { href: '#', label: t('aboutTermsOfService') },
-  { href: '#', label: t('aboutPrivacyPolicy') },
+  { href: '/mentors', label: t('aboutInstructors') },
+  { href: '/help/terms-and-conditions', label: t('aboutTermsOfService') },
+  { href: '/help/privacy-policy', label: t('aboutPrivacyPolicy') },
 ];
 
 export const support = (t: TranslationType<'Footer'>) => [

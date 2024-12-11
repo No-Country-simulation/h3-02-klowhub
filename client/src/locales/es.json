@@ -50,8 +50,8 @@
     "categoryTitle": "Categoría",
     "categoryCourses": "Cursos",
     "categoryApps": "Aplicaciones",
-    "categorySellCourse": "Vende un Curso",
-    "categorySellApp": "Vende una App",
+    "categorySellCourse": "Consultas",
+    "categorySellApp": "Projectos",
     "aboutTitle": "Acerca de",
     "aboutInstructors": "Instructores",
     "aboutTermsOfService": "Términos del Servicio",
@@ -206,5 +206,11 @@
   "ComingSoon": {
     "title": "Página en construcción",
     "subTitle": "Estamos trabajando para ofrecerte una mejor experiencia. Vuelve pronto para ver las novedades."
+  },
+  "PrivacyPolicy": {
+    "metaTitle": "Klowhub - Política de privacidad",
+    "metaDescription": "Klowhub pagina de Política de privacidad",
+    "metaSiteName": "Klowhub - Política de privacidad",
+    "mainTitle": "Política de privacidad"
   }
 }

@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="mx-auto flex w-full max-w-[1998px] flex-col items-center justify-center gap-x-[5%] gap-y-16 px-[3.5%] min-[790px]:flex-row min-[790px]:items-start min-[1340px]:px-[6.5%]">
           <FooterLinkList links={categoriesLinks} title={t('categoryTitle')} />
           <FooterLinkList links={aboutLinks} title={t('aboutTitle')} />
-          <FooterLinkList links={supportLinks} title={t('supportTitle')} />
+          <FooterLinkList disabled links={supportLinks} title={t('supportTitle')} />
           <div className="me-4 flex min-w-[19.5%] flex-col self-center justify-self-end min-[790px]:ms-auto min-[1025px]:me-16 min-[1340px]:min-w-[18%]">
             <h3 className="text-center">{t('followTitle')}</h3>
             <ul className="my-6 flex list-none flex-row items-center justify-center gap-6">

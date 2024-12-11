@@ -1,5 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 import BannerCta from '@core/components/Banner';
+import CardSectionLoader from '@core/components/CardSectionLoader';
 import { routing } from '@core/lib/i18nRouting.ts';
 import AppSection from '@features/home/components/AppsSection';
 import CourseSection from '@features/home/components/CourseSection';
@@ -15,15 +17,21 @@ export default async function PlatformPage({
   return (
     <main className="mb-20 mt-36 size-full space-y-12 px-10 sm:px-[51px] min-[1800px]:px-16">
       <h1 className="sr-only">{t('mainTitle')}</h1>
-      <CourseSection />
+      <Suspense fallback={<CardSectionLoader />}>
+        <CourseSection />
+      </Suspense>
+      <Suspense fallback={<CardSectionLoader itemsCount={4} />}>
+        <SectionIquiris />
+      </Suspense>
       <AppSection />
-      <SectionIquiris />
       <BannerCta
         title={t('connectWithExperts')}
         description={t('learnFromTheBest')}
         imageSrc="/images/klowhub_banner.png"
       />
-      <MentorSection />
+      <Suspense fallback={<CardSectionLoader itemsCount={4} />}>
+        <MentorSection />
+      </Suspense>
     </main>
   );
 }

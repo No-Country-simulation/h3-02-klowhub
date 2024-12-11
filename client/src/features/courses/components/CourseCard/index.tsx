@@ -89,6 +89,7 @@ const CourseCard = ({
         'relative flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-md',
         styles.card
       )}>
+      {/* Este link en absolute es el que navega hacia el detalle*/}
       <Link
         href={`/courses/${courseId}`}
         className="transparent absolute left-0 top-0 size-full text-transparent"></Link>
