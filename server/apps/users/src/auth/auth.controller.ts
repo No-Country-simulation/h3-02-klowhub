@@ -22,6 +22,7 @@ export class AuthController {
 
   @Get('test')
   async test(@Body() any:any){
+    console.log('recibiendo peticion en el test')
     return ({
       message:'Microserver Useres is run'
     })
