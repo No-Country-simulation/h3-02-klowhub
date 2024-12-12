@@ -4,7 +4,7 @@ import { ConfigEnvs } from "src/config/envs";
 
 @Injectable()
 export class CoursesService {
-    private readonly coursesServiceUrl = `${ConfigEnvs.COURSES_MICROSERVICE_HOST}:${ConfigEnvs.COURSES_MICROSERVICE_PORT}`;
+    private readonly coursesServiceUrl = `${ConfigEnvs.COURSES_MICROSERVICE_HOST}`;
     constructor(private readonly httpService: HttpService) { }
     // test
     async test(any: any): Promise<any> {
