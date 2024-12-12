@@ -22,7 +22,7 @@ import { UsersService } from '../users/users.service';
     EmailModule,
     PassportModule.register({ defaultStrategy: 'google' }),
   ],
-  controllers: [AuthController, UsersService],
+  controllers: [AuthController],
   providers: [AuthService, GoogleStrategy],
 })
 export class AuthModule {}

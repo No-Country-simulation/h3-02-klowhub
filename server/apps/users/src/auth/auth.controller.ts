@@ -16,33 +16,31 @@ import { UserEntity } from 'src/entities/user.entity';
 import { LoginSchema, LoginDto } from './dto/loginSchema.dto';
 import { ResetTokenSchema, ResetTokenDto } from './dto/resetToken.dto';
 import * as dotenv from 'dotenv';
-import { MessagePattern, RpcException } from '@nestjs/microservices';
+
 dotenv.config();
 
 @Controller('auth')
 export class AuthController {
   usersService: any;
+
   constructor(private readonly authService: AuthService) {}
 
-  // ya no seria @Post seria @MessagePattern @Post('register')
-  @MessagePattern({ cmd: 'register' })
-  async register(data: any) {
-    // Validamos los datos de la solicitud utilizando Zod
+  // Cambiado de MessagePattern a Post
+  @Post('register')
+  async register(@Body() data: any) {
     const validationResult = RegisterSchema.safeParse(data);
     if (!validationResult.success) {
-      throw new BadRequestException(validationResult.error.errors); // Lanzamos un error si la validación falla
+      throw new BadRequestException(validationResult.error.errors);
     }
-    //siguiente paso
     const registerDto: RegisterDto = validationResult.data;
-    return this.authService.registerUser(registerDto); // Registramos al usuario
+    return this.authService.registerUser(registerDto);
   }
-  //
-  //@Post('verifyEmail')
-  @MessagePattern({ cmd: 'verifyEmail' })
-  async verifyEmail(data: any) {
+
+  @Post('verifyEmail')
+  async verifyEmail(@Body() data: any) {
     const validationToken = TokenSchema.safeParse(data);
     if (!validationToken.success) {
-      throw new BadRequestException(validationToken.data);
+      throw new BadRequestException(validationToken.error.errors);
     }
     const tokenDto: TokenDto = validationToken.data;
     return this.authService.verifyEmailToken(tokenDto);
@@ -60,7 +58,7 @@ export class AuthController {
     const user = req.user;
     return { message: 'Usuario autenticado con Google', user };
   }
-  // Actualizar datos del usuario No quitar
+
   @Patch('update')
   async updateUser(
     @Body('userId') userId: string,
@@ -69,36 +67,20 @@ export class AuthController {
     const updatedUser = await this.usersService.updateUser(userId, data);
     return { message: 'Usuario actualizado', updatedUser };
   }
-  //
-  //@Post('login')
-  @MessagePattern({ cmd: 'login' })
-  async loginn(data: any) {
-    console.log("data",data)
-    try {
-      const validateLogin = LoginSchema.safeParse(data);
-      console.log("validateLogin", validateLogin)
-      if (!validateLogin.success) {
-        throw new RpcException({
-          statusCode: 400,
-          message: validateLogin.error.errors,
-        });
-      }
-      const loginDto: LoginDto = validateLogin.data;
-      const result = await this.authService.login(loginDto);
-      console.log(result)
-      return result;
-    } catch (error) {
-      // Lanzar excepciones específicas para microservicios
-      throw new RpcException({
-        statusCode: 400,
-        message: error.message || 'Ocurrió un error al iniciar sesión',
-      });
+
+  @Post('login')
+  async login(@Body() data: any) {
+    console.log('Enviando solicitud al microservicio de USERS:', data);
+    const validateLogin = LoginSchema.safeParse(data);
+    if (!validateLogin.success) {
+      throw new BadRequestException(validateLogin.error.errors);
     }
+    const loginDto: LoginDto = validateLogin.data;
+    return this.authService.login(loginDto);
   }
-  // vuelve a enviar el token de autotificacion
-  //@Post('resetToken')
-  @MessagePattern({ cmd: 'resetToken' })
-  async resendVerificationToken(data: any) {
+
+  @Post('resetToken')
+  async resendVerificationToken(@Body() data: any) {
     const validationEmail = ResetTokenSchema.safeParse(data);
     if (!validationEmail.success) {
       throw new BadRequestException(validationEmail.error.errors);
@@ -107,10 +89,6 @@ export class AuthController {
     return await this.authService.resendVerificationToken(resetTokenDto.email);
   }
 
-  /**
-   * Solicitar restablecer la contraseña.
-   * @param email El correo electrónico del usuario.
-   */
   @Post('resendPasswordEmail')
   async requestPasswordReset(@Body('email') email: string) {
     if (!email) {
@@ -120,10 +98,6 @@ export class AuthController {
     return { message: 'Correo de restablecimiento de contraseña enviado.' };
   }
 
-  /**
-   * Restablecer la contraseña.
-   * @param data Datos del usuario, incluyendo el token y la nueva contraseña.
-   */
   @Post('resendPassword')
   async resetPassword(
     @Body() data: { email: string; token: string; newPassword: string },
@@ -139,6 +113,4 @@ export class AuthController {
     await this.authService.resetPassword(email, token, newPassword);
     return { message: 'Contraseña restablecida exitosamente.' };
   }
-
-  
 }

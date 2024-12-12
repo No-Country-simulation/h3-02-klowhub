@@ -12,6 +12,7 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { ClientProxy, Client } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { RegisterSchema } from './dto/registerSchema.dto';
@@ -26,10 +27,9 @@ dotenv.config();
 @Controller('auth')
 export class AuthController {
   constructor(
-    @Inject('USERS_SERVICE') private readonly usersService: ClientProxy,
-    @Inject('COURSES_SERVICE') private readonly coursesClient: ClientProxy,
+    private readonly httpService: HttpService, // Usar HttpService para hacer solicitudes HTTP
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   @Post('register')
   async register(@Body() registerDto: any): Promise<any> {
@@ -41,7 +41,7 @@ export class AuthController {
 
     // Enviar los datos al microservicio y manejar el Observable como una Promesa
     return lastValueFrom(
-      this.usersService.send({ cmd: 'register' }, registerDto),
+      this.httpService.post('http://localhost:3001/register', registerDto),
     );
   }
 
@@ -52,8 +52,8 @@ export class AuthController {
   ) {
     try {
       // Enviar la solicitud al microservicio para verificar el token de correo
-      const { token: newToken } = await lastValueFrom(
-        this.usersService.send({ cmd: 'verifyEmail' }, { token }),
+      const response = await lastValueFrom(
+        this.httpService.post('http://localhost:3001/verifyEmail', { token }),
       );
 
       // Usar el servicio CookieService para gestionar la cookie con el nuevo token
@@ -64,39 +64,24 @@ export class AuthController {
         maxAge: 60 * 60 * 24 * 1000,
       })
 
-      if (newToken) {
-        // Intentar emitir el evento al microservicio de cursos sin interrumpir el flujo
-        console.log("Enviando solicitud al microservicio de cursos:", { token: newToken });
-        await lastValueFrom(
-          this.coursesClient.send({ cmd: 'instance' }, { token: newToken }),
-        ).catch((err) => {
-          console.warn('El microservicio de cursos no está disponible error al crear instancia', err.message);
-        });
-      }
-
-      // Regresar una respuesta al cliente
       return res.status(200).json({
         message: '¡Correo electrónico verificado y sesión iniciada!',
       });
     } catch (error) {
-      // Manejar errores generales del proceso de verificación de correo
-      console.error('Error al verificar el correo:', error.message);
-      throw new BadRequestException(
-        error.message || 'Error al verificar el correo',
-      );
+      throw new BadRequestException('Error al verificar el correo: ' + error.message);
     }
   }
 
 
   // reenviar el token para activar el email
-  @Post('resetToken')
+  /*@Post('resetToken')
   async resertToken(@Body() resetTokenDto: ResetTokenDto): Promise<any> {
     const validationEmail = ResetTokenSchema.safeParse(resetTokenDto);
     if (!validationEmail.success) {
       throw new BadRequestException(validationEmail.error.errors);
     }
     return lastValueFrom(
-      this.usersService.send({ cmd: 'resetToken' }, resetTokenDto),
+      this.httpService.p({ cmd: 'resetToken' }, resetTokenDto),
     );
   }
   //
@@ -117,40 +102,29 @@ export class AuthController {
     return lastValueFrom(
       this.usersService.send({ cmd: 'google' }, { token, updateDto }),
     );
-  }
+  }*/
   //
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
-    console.log("Enviando solicitud al microservicio de USERS:");
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
-      const { token } = await lastValueFrom(
-        this.usersService.send({ cmd: 'login' }, loginDto),
+      const response = await lastValueFrom(
+        this.httpService.post('http://localhost:3001/login', loginDto),
       );
-      console.log("TOKEN:", token);
-      if (!token) {
+      if (!response.data.token) {
         throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }
 
       // Configurar la cookie con el token
-      res.cookie('auth_token', token, {
+      res.cookie('auth_token', response.data.token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: 60 * 60 * 24 * 1000,
-      })
-      // Intentar enviar la solicitud al microservicio de cursos (puede fallar)
-      console.log("Enviando solicitud al microservicio de cursos:", { token });
-      await lastValueFrom(
-        this.coursesClient.send({ cmd: 'instance' }, { token }),
-      ).catch((err) => {
-        // Manejar errores del microservicio de cursos sin detener el flujo
-        console.warn('El microservicio de cursos no está disponible, error al crear instancia', err.message);
       });
-
-      // Responder al cliente con éxito
       return res.status(200).json({
         message: '¡Inicio de sesión exitoso!',
       });
+
   }
 
   //status token

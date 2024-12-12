@@ -10,6 +10,6 @@ import { SeedService } from 'src/script/seed-users';
   imports: [TypeOrmModule.forFeature([UserEntity, AccountEntity])],
   providers: [SeedService, UsersService],
   controllers: [UsersController],
-  exports: [UsersService], // Exporta el servicio para que otros módulos puedan usarlo
+  exports: [UsersService], 
 })
 export class UsersModule {}
