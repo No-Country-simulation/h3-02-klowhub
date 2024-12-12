@@ -1,25 +1,20 @@
-import { Module } from '@nestjs/common';
+import { Controller, Module } from '@nestjs/common';
 import { CoursesController } from './courses.controller';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import * as dotenv from 'dotenv';
 import { JwtModule } from '@nestjs/jwt';
-dotenv.config();
+import { ConfigEnvs} from '../config/envs'
+import { HttpModule } from '@nestjs/axios';
+import { CoursesService } from './courses.service'
 
 @Module({
   imports: [
-    JwtModule,
-    ClientsModule.register([
-      {
-        name: 'COURSES_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: process.env.COURSES_MICROSERVICE_HOST,
-          port: Number(process.env.COURSES_MICROSERVICE_PORT),
-        },
-      },
-    ]),
+    JwtModule.register({
+      secret: ConfigEnvs.JWT_SECRET,
+      signOptions: { expiresIn: '24h' },
+    }),
+    HttpModule,
   ],
-  controllers: [CoursesController],
-  providers: [],
+  providers:[CoursesService],
+  controllers:[CoursesController],
+  exports:[CoursesService]
 })
 export class CoursesModule {}

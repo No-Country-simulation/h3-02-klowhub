@@ -1,28 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-
-dotenv.config();
-
-console.log({ MICRO_HOST: process.env.USERS_MICROSERVICE_HOST});
-console.log({ MICRO_PORT: process.env.USERS_MICROSERVICE_PORT });
-console.log({ PG_URL: process.env.POSTGRES_URL});
-console.log( "varibles", process.env)
+import  { ConfigEnvs} from './config/envs';
+import * as cookieParser from 'cookie-parser';
+import { AuthMiddleware } from './middleware/auth.middleware';
+import { JwtService } from '@nestjs/jwt';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    {
-      transport: Transport.TCP,
-      options: {
-        host: process.env.USERS_MICROSERVICE_HOST,
-        port: Number(process.env.USERS_MICROSERVICE_PORT),
-        
-      },
-    },
-  );
-  await app.listen();
-  console.log(`Microservice Users is listening on: ${ process.env.USERS_MICROSERVICE_PORT}...`);
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: "*", 
+    credentials: true, 
+    methods: 'GET,HEAD,POST,PUT,DELETE,OPTIONS',
+  });
+  app.use(cookieParser());
+  const jwtService = app.get(JwtService);
+  const authMiddleware = new AuthMiddleware(jwtService);
+  app.use(authMiddleware.use.bind(authMiddleware));
+  await app.listen(ConfigEnvs.USERS_MICROSERVICE_PORT);
+  console.log(`Users is running on: ${ConfigEnvs.USERS_MICROSERVICE_PORT}`);
 }
-bootstrap();
+bootstrap().catch((err)=>{
+  console.log("Global error handler");
+  console.log(err);
+  console.log("----------------------------------------------------------");
+});
+

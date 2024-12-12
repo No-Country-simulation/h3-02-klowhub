@@ -1,18 +1,14 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
+import { GatewayModule } from './gateway.module'
+import {ConfigEnvs} from './config/envs';
 import * as cookieParser from 'cookie-parser';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { ErrorInterceptor } from './middleware/error.interceptor';
 import { JwtService } from '@nestjs/jwt';
 
-dotenv.config();
-console.log({ MICRO_HOST: process.env.USERS_MICROSERVICE_HOST});
-console.log({ PORT: process.env.PORT});
-console.log(process.env);
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(GatewayModule);
   app.enableCors({
     origin: "*", 
     credentials: true, 
@@ -23,8 +19,8 @@ async function bootstrap() {
   const jwtService = app.get(JwtService);
   const authMiddleware = new AuthMiddleware(jwtService);
   app.use(authMiddleware.use.bind(authMiddleware));
-  await app.listen(process.env.PORT);
-  console.log(`Gateway is running on: ${process.env.PORT}`);
+  await app.listen(ConfigEnvs.PORT);
+  console.log(`Gateway is running on: ${ConfigEnvs.PORT}`);
 }
 bootstrap().catch((err)=>{
   console.log("Global error handler");

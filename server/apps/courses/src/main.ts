@@ -1,29 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-
-dotenv.config();
-console.log({ MICRO_HOST: process.env.COURSES_MICROSERVICE_HOST});
-console.log({ PORT: process.env.COURSES_MICROSERVICE_PORT});
+import {  ConfigEnvs } from './config/envs';
+import * as cookieParser from 'cookie-parser';
+import { JwtService } from '@nestjs/jwt';
+import { AuthMiddleware } from './middleware/auth.middleware';
 
 async function bootstrap() {
-
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    {
-      transport: Transport.TCP,
-      options: {
-        host: process.env.COURSES_MICROSERVICE_HOST,
-        port: Number(process.env.COURSES_MICROSERVICE_PORT),
-      },
-    },
-  );
-
-  await app.listen();
-  console.log('Microservice Courses is listening...', process.env.COURSES_MICROSERVICE_PORT);
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: "*", 
+    credentials: true, 
+    methods: 'GET,HEAD,POST,PUT,DELETE,OPTIONS',
+  });
+  app.use(cookieParser());
+  const jwtService = app.get(JwtService);
+  const authMiddleware = new AuthMiddleware(jwtService);
+  app.use(authMiddleware.use.bind(authMiddleware));
+  await app.listen(ConfigEnvs.COURSES_MICROSERVICE_PORT);
+  console.log(`Users is running on: ${ConfigEnvs.COURSES_MICROSERVICE_PORT}`);
 }
-
 bootstrap().catch((err)=>{
   console.log("Global error handler");
   console.log(err);

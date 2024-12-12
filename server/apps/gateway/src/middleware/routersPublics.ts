@@ -1,9 +1,11 @@
 export const publicRoutes: string[] = [
+  '/',
   '/auth/register',
   '/auth/login',
   '/auth/verifyEmail',
   '/auth/resetToken',
-  '/gateway/hello',
+  '/auth/test',
+  '/courses/test',
   '/pubsub/test',
   "/signatures/signed-urls",
   '/courses/filter',

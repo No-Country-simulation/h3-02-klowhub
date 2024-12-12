@@ -1,0 +1,4 @@
+export const publicRoutes: string[] = [
+  '/',
+  '/courses/test'
+];

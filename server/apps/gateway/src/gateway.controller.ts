@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 
-@Controller('gateway')
+@Controller('')
 export class GatewayController {
-  @Get("/hello")
+  @Get("")
   getHello(): string {
-    return 'Hello from Gateway!';
+    return 'Gate way Run ... API Klowhub !';
   }
 }

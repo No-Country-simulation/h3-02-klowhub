@@ -16,14 +16,10 @@ export class AuthMiddleware implements NestMiddleware {
     if (this.isPublicRoute(req.originalUrl)) {
       return next();
     }
-
-    const authHeader = req.headers['authorization'];
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new UnauthorizedException('Token no proporcionado o formato inválido');
+    const token = req.body?.headers?.cookie?.split?.('=')?.[1];
+    if (!token) {
+      throw new UnauthorizedException('Token no proporcionado');
     }
-
-    const token = authHeader.split?.('')?.[1];
-    
     try {
       const payload = this.jwtService.verify(token, { secret: ConfigEnvs.JWT_SECRET });
       req['user'] = { id: payload.userId, role: payload.role };

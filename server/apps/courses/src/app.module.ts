@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CoursesModule } from './courses/courses.module';  // Importamos el módulo de cursos
-import * as dotenv from 'dotenv';
+import { CoursesModule } from './courses/courses.module';
 import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigEnvs} from './config/envs';
 
-dotenv.config();
+
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET,  // Define tu secreto de JWT
-      signOptions: { expiresIn: '24h' },  // Opciones para la firma (como la expiración)
+      secret: ConfigEnvs.JWT_SECRET,
+      signOptions: { expiresIn: '24h' }, 
     }),
-    MongooseModule.forRoot(process.env.MONGO_URI),
+    MongooseModule.forRoot(ConfigEnvs.MONGO_URI),
     CoursesModule,
     UsersModule,
   ],
