@@ -11,6 +11,11 @@ console.log("Variables", process.env);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: "*",
+    methods: 'GET, POST', // Permite POST
+    credentials: true,
+  });
   const port = process.env.USERS_MICROSERVICE_PORT || 3000;
   await app.listen(port, () => {
     console.log(`Microservice Users is listening on: http://localhost:${port}`);
