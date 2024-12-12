@@ -6,7 +6,7 @@ import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class AuthService {
-  private readonly userServiceUrl = `${ConfigEnvs.USERS_MICROSERVICE_HOST}:${ConfigEnvs.USERS_MICROSERVICE_PORT}`;
+  private readonly userServiceUrl = `${ConfigEnvs.USERS_MICROSERVICE_HOST}`;
   
   constructor(private readonly httpService: HttpService) { }
   //test
