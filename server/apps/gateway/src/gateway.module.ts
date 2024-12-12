@@ -24,14 +24,6 @@ dotenv.config();
     HttpModule,
     ClientsModule.register([
       {
-        name: 'USERS_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: process.env.USERS_MICROSERVICE_HOST,
-          port: Number(process.env.USERS_MICROSERVICE_PORT),
-        },
-      },
-      {
         name: 'COURSES_SERVICE',
         transport: Transport.TCP,
         options: {

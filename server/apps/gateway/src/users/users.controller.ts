@@ -16,12 +16,14 @@ import { lastValueFrom } from 'rxjs';
 import { Response as ExpressResponse } from 'express';
 import { ModeDto, ModeSchema } from './dto/mode.Shcema'
 import { JwtService } from '@nestjs/jwt';
+import { HttpService } from '@nestjs/axios';
 
 
 @Controller('users')
+
 export class UsersController {
   constructor(
-    @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
+    private readonly htpService: HttpService,
     private readonly jwtService: JwtService,
   ) { }
   // profile user
@@ -35,7 +37,7 @@ export class UsersController {
     try {
       // Enviar el userId al microservicio para obtener la información completa del perfil
       const profile = await lastValueFrom(
-        this.usersClient.send({ cmd: 'getProfile' }, { userId }), // Enviar userId al microservicio
+        this.htpService.get(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/profile`,userId), // Enviar userId al microservicio
       );
 
       // Regresar la información completa del perfil al cliente
@@ -68,7 +70,7 @@ export class UsersController {
     try {
       // Enviar la solicitud al microservicio
       return await lastValueFrom(
-        this.usersClient.send({ cmd: 'changeMode' }, { userId, mode }),
+        this.htpService.put(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/update`, { userId, mode }),
       );
     } catch (error) {
       throw new BadRequestException(

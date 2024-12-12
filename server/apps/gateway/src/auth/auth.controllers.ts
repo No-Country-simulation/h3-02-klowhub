@@ -42,7 +42,7 @@ export class AuthController {
 
     // Enviar los datos al microservicio y manejar el Observable como una Promesa
     return lastValueFrom(
-      this.httpService.post('http://localhost:3001/register', registerDto),
+      this.httpService.post(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/register`, registerDto),
     );
   }
 
@@ -54,7 +54,7 @@ export class AuthController {
     try {
       // Enviar la solicitud al microservicio para verificar el token de correo
       const response = await lastValueFrom(
-        this.httpService.post('http://localhost:3001/verifyEmail', { token }),
+        this.httpService.post(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/verifyEmail`, { token }),
       );
 
       // Usar el servicio CookieService para gestionar la cookie con el nuevo token
@@ -110,7 +110,7 @@ export class AuthController {
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       console.log("Host del microservicio de USERS:", 'http://localhost:3001');
       const response = await lastValueFrom(
-        this.httpService.post('http://localhost:4441/login', loginDto),
+        this.httpService.post(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/login`, loginDto),
       );
       console.log("Respuesta del microservicio de USERS:", response);
       if (!response.data.token) {
