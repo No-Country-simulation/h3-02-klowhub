@@ -41,6 +41,7 @@ export class AuthController {
     }
 
     // Enviar los datos al microservicio y manejar el Observable como una Promesa
+    console .log("Host del microservicio de USERS:", process.env.USERS_MICROSERVICE_HOST); 
     return lastValueFrom(
       this.httpService.post(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/register`, registerDto),
     );
@@ -109,8 +110,10 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
       console.log("Host del microservicio de USERS:", 'http://localhost:3001');
+      console .log("Host del microservicio de USERS:", process.env.USERS_MICROSERVICE_HOST);
+      console.log(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/login`)
       const response = await lastValueFrom(
-        this.httpService.post(`http://${process.env.USERS_MICROSERVICE_HOST}/auth/login`, loginDto),
+        this.httpService.post(`https://${process.env.USERS_MICROSERVICE_HOST}/auth/login`, loginDto),
       );
       console.log("Respuesta del microservicio de USERS:", response);
       if (!response.data.token) {
