@@ -11,6 +11,7 @@ import { PubSubGatewayService } from './pubsub/pubsub.gateway.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { CoursesController } from './courses/courses.controller';
+import { HttpModule } from '@nestjs/axios';
 dotenv.config();
 
 @Module({
@@ -20,6 +21,7 @@ dotenv.config();
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '24h' },
     }),
+    HttpModule,
     ClientsModule.register([
       {
         name: 'USERS_SERVICE',

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
+import { HttpModule } from '@nestjs/axios';
 import { UploadModule } from './upload/upload.module';
 import { CoursesModule } from './courses/courses.module';
 import { PubSubModule } from './pubsub/pubsub.module';
@@ -11,6 +12,7 @@ import { GatewayController } from './gateway.controller';
 
 @Module({
   imports: [
+    HttpModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '24h' },
@@ -24,6 +26,7 @@ import { GatewayController } from './gateway.controller';
     SignaturesModule,
     CoursesModule,
   ],
+  exports: [HttpModule],
   controllers: [GatewayController],
 })
 export class AppModule {}

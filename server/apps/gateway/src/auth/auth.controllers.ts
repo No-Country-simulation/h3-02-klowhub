@@ -12,6 +12,7 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
+
 import { HttpService } from '@nestjs/axios';
 import { ClientProxy, Client } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -27,7 +28,7 @@ dotenv.config();
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly httpService: HttpService, // Usar HttpService para hacer solicitudes HTTP
+    private readonly httpService: HttpService, 
     private readonly jwtService: JwtService,
   ) {}
 
@@ -107,9 +108,11 @@ export class AuthController {
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Response() res: ExpressResponse) {
       console.log("Enviando solicitud al microservicio de USERS:", loginDto);
+      console.log("Host del microservicio de USERS:", 'http://localhost:3001');
       const response = await lastValueFrom(
-        this.httpService.post('http://localhost:3001/login', loginDto),
+        this.httpService.post('http://localhost:4441/login', loginDto),
       );
+      console.log("Respuesta del microservicio de USERS:", response);
       if (!response.data.token) {
         throw new BadRequestException('Token no recibido del microservicio de usuarios');
       }
