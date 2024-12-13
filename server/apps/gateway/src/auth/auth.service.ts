@@ -6,14 +6,13 @@ import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class AuthService {
-  private readonly userServiceUrl = `${ConfigEnvs.USERS_MICROSERVICE_HOST}`;
+  private readonly userServiceUrl = `${ConfigEnvs.USERS_MICROSERVICE_URL}`;
   
   constructor(private readonly httpService: HttpService) { }
   //test
   async test(any: any): Promise<any> {
     try {
-      console.log('este es la url', this.userServiceUrl)
-      console.log('variable de entorno', ConfigEnvs.COURSES_MICROSERVICE_PORT)
+      console.log('Peticion Test', ConfigEnvs.USERS_MICROSERVICE_URL)
       const response = await this.httpService
         .get(`${this.userServiceUrl}/auth/test`)
         .toPromise();
@@ -40,7 +39,7 @@ export class AuthService {
   //Login
   async login(loginDto: any): Promise<any> {
     try {
-      console.log('Petición microservicio users:', this.userServiceUrl);
+      console.log('Petición Login microservicio users:', this.userServiceUrl);
       const response = await this.httpService
         .post(`${this.userServiceUrl}/auth/login`, loginDto)
         .toPromise();

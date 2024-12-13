@@ -4,6 +4,6 @@ import { Controller, Get } from '@nestjs/common';
 export class GatewayController {
   @Get("")
   getHello(): string {
-    return 'Gate way Run ... API Klowhub !';
+    return 'GateWay Run ... API Klowhub !';
   }
 }
