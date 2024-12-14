@@ -23,6 +23,6 @@ import { CoursesModule } from './courses/courses.module'
     // SignaturesController,
     // CoursesController
   ],
-  providers:[JwtService],
+  providers:[],
 })
 export class GatewayModule {}

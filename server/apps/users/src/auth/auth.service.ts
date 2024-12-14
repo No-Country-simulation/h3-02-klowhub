@@ -80,14 +80,14 @@ export class AuthService {
     // Crear el payload del token
     const tokenPayload = {
       userId: newUser.id,
-      email: newUser.email,
-      role: newUser.role,
     };
 
     const token = this.jwtService.sign(tokenPayload, { expiresIn: '24h' });
-
-
-    return { token };
+    return { 
+      success: true,
+      token: token,
+      message: 'Register success'
+     };
   }
 
   async login(loginDto: LoginDto) {
@@ -117,13 +117,22 @@ export class AuthService {
 
       const tokenPayload = {
         userId: user.id,
-        email: user.email,
-        role: user.role,
       };
 
       const token = this.jwtService.sign(tokenPayload, { expiresIn: '24h' });
-
-      return {token}
+      // datos que envia despues de logiarse 
+      return {
+        token: token,
+        data: {
+          userId: user.id,
+          firstname: user.firstName,
+          lastname: user.lastName,
+          email: user.email,
+          image: user.image,
+          role: user.role,
+        },
+        success: true,
+      }
     } catch (error) {
       console.log(error)
       return { message: 'Ocurrio un error al iniciar session' };

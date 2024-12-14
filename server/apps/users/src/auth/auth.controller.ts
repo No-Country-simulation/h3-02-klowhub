@@ -14,6 +14,7 @@ import { RegisterSchema, RegisterDto } from './dto/registerSchema.dto';
 import { formatZodErrors } from 'src/utils/formatZod';
 import { LoginDto, LoginSchema } from './dto/loginSchema.dto';
 import { Response } from 'express';
+import { LoginSuccess } from './types/responseTypes';
 
 @Controller('/auth')
 export class AuthController {
@@ -40,23 +41,21 @@ export class AuthController {
       });
     }
     const registerDto: RegisterDto = validationResult.data;
-
-    // Manejo de errores del servicio
     try {
       const resp = await this.authService.registerUser(registerDto);
       if (resp?.token) {
-        res.cookie('authToken', resp.token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
-        })
+        // res.cookie('authToken', resp.token, {
+        //   httpOnly: true,
+        //   secure: process.env.NODE_ENV === 'production',
+        //   sameSite: 'strict',
+        //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
+        // })
         //
-        return { 
-          success: true, 
-          message: 'User logged in successfully' }
+        return resp
       };
-      return { success: true, message: 'User registered successfully' };
+      return { 
+        success: false, 
+        message: 'Error in Register' };
     } catch (error) {
       console.error('Error in register process:', error);
       throw new InternalServerErrorException('Registration failed');
@@ -81,18 +80,20 @@ export class AuthController {
       const resp = await this.authService.login(loginDto);
       if(resp?.token){
         //
-        res.cookie('authToken', resp.token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
-        })
+        // res.cookie('authToken', resp.token, {
+        //   httpOnly: true,
+        //   secure: process.env.NODE_ENV === 'production',
+        //   sameSite: 'strict',
+        //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
+        // })
         //
-        return { 
-          success: true, 
-          message: 'User logged in successfully' }
+        return resp as unknown as Promise<LoginSuccess>;
+      } else {
+        return {
+          success: false,
+          message: 'Error en la autenticación',
+        };
       }
-      return { success: true, message: 'User logged in successfully' };
     } catch (error) {
       console.error('Error in login process:', error);
       throw new InternalServerErrorException('Registration failed');

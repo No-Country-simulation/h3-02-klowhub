@@ -1,13 +1,14 @@
 import {
   Controller,
   Post,
-  Headers,
   Body,
   Get,
+  Request,
+  Req,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
-import { extractToken } from 'src/utils/auth.utils';
+
 
 @Controller('auth')
 export class AuthController {
@@ -31,11 +32,8 @@ export class AuthController {
     return this.authService.login(LoginDto)
   }
 
-  @Get('status')
-  async status(@Headers('authorization') authHeader: string) {
-    const payload = extractToken(authHeader, this.jwtService);
-    return {
-      status: true,
-    }
+  @Post('status')
+  async status(@Req() req: Request): Promise<{ status: boolean; message?: string }> {
+    return this.authService.verifyTokenStatus(req)
   }
 }

@@ -10,7 +10,7 @@ import { AccountEntity } from 'src/entities/accounts.entity';
 import { UsersService } from 'src/users/users.service';
 import { EmailService } from './email/email.service';
 import { GoogleStrategy } from './google/google.strategy';
-import {EmailModule } from './email/email.module'
+import {EmailModule } from './email/email.module';
 
 @Module({
   imports: [
