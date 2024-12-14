@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import { Link, type Locale } from '@core/lib/i18nRouting';
 
 import { NavbarClient } from './NavbarClient';
+import NavbarItems from './NavbarItems';
 import UserModeToggle from './UserModeToggle';
 import LocaleSwitcherSelect from '../LocaleSwitcherSelect';
-import NavLink from '../NavLink';
 
 interface NavbarProps {
   locale: Locale;
@@ -24,16 +24,7 @@ export default function Navbar({ locale }: NavbarProps) {
   return (
     <div className="header-bg-image fixed inset-x-0 top-0 z-50 mb-auto h-20 w-full">
       <NavbarClient navItems={navItems} explorerText={t('explorer')} creatorText={t('creator')}>
-        <nav className="hidden grow items-center justify-center space-x-10 min-[1400px]:flex">
-          {/* <PlatformToggle homeText={t('homeText')} platformText={t('platformText')} /> */}
-          <div className="flex items-center justify-center gap-4">
-            {navItems.map(item => (
-              <NavLink key={item.href} href={item.href}>
-                {item.text}
-              </NavLink>
-            ))}
-          </div>
-        </nav>
+        <NavbarItems navItems={navItems} />
 
         <div className="ml-auto hidden h-full items-center justify-center space-x-4 min-[1400px]:flex">
           <LocaleSwitcherSelect currentLocale={locale} />
