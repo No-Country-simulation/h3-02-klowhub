@@ -232,5 +232,18 @@
     "metaTitle": "Klowhub - Ganhos do Criador",
     "metaDescription": "Página de Ganhos do Criador do Klowhub",
     "metaSiteName": "Klowhub - Ganhos do Criador"
+  },"SumaryCart": {
+    "Resumen": "Resumo",
+    "Subtotal": "Subtotal",
+    "Tarifa": "Taxa de serviço",
+    "Cupon": "Cupão de desconto",
+    "Hotsale":"Cupão de venda quente",
+    "Total":"Total",
+    "MetodoPago":"Selecione um método de pagamento",
+    "Condiciones":"Ao comprar/contratar os produtos aceita os termos e condições",
+    "Placeholder":"Insira o seu cupom",
+    "BotonIngresar":"Entre",
+    "Title":"Seu carrinho de compras",
+    "Eliminar":"Eliminar"
   }
 }

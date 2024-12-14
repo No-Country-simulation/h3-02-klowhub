@@ -232,5 +232,19 @@
     "metaTitle": "Klowhub - Creator earnings",
     "metaDescription": "Klowhub Creator earnings page",
     "metaSiteName": "Klowhub - Creator earnings"
+  },
+  "SumaryCart": {
+    "Resumen": "Summary",
+    "Subtotal": "Subtotal",
+    "Tarifa": "Service fee",
+    "Cupon": "Discount coupon",
+    "Hotsale":"Hotsale Coupon",
+    "Total":"Total",
+    "MetodoPago":"Select a payment method",
+    "Condiciones":"By purchasing/hiring the products you accept the terms and conditions.",
+    "Placeholder":"Enter coupon",
+    "BotonIngresar":"Apply",
+    "Title":"Your shopping cart",
+    "Eliminar":"Delete"
   }
 }
