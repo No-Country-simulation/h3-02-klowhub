@@ -1,9 +1,4 @@
 import createNextIntlPlugin from 'next-intl/plugin';
-import {join, dirname} from 'node:path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const withNextIntl = createNextIntlPlugin('./src/core/lib/i18n.ts');
 
@@ -11,28 +6,6 @@ const withNextIntl = createNextIntlPlugin('./src/core/lib/i18n.ts');
 const config = {
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  reactStrictMode: true,
-  output:"standalone",
-  outputFileTracingRoot: join(__dirname, ".next"),
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'storage.cloud.google.com',
-        pathname: '/klowhub-mediafiles/*',
-      },
-      {
-        protocol: 'https',
-        hostname: 'storage.googleapis.com',
-        pathname: '/klowhub-mediafiles/*',
-      },
-      {
-        protocol: 'https',
-        hostname: 'klowhub-824410275969.southamerica-east1.run.app',
-        pathname: '/*',
-      }
-    ],
   },
   transpilePackages: ['@silvermine/videojs-quality-selector'],
 };

@@ -6,7 +6,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env FORCE_COLOR=1 next dev -p 8080",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start  -p 4002",
     "lint": "eslint .",
