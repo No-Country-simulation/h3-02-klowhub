@@ -49,7 +49,7 @@ const CartSection: React.FC = () => {
             serviceFee={130}
             discount={20}
             onApplyCoupon={handleApplyCoupon}
-            paymentMethods={['/svg/stripe.svg', '/svg/PayPal.png', '/svg/Etherium.png']}
+            paymentMethods={['/svg/Stripe.svg', '/svg/PayPal.png', '/svg/Etherium.png']}
           />
         </div>
       </div>
