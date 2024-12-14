@@ -232,5 +232,18 @@
     "metaTitle": "Klowhub - Guadagni del creatore",
     "metaDescription": "Klowhub - Pagina Guadagni del creatore",
     "metaSiteName": "Klowhub - Guadagni del creatore"
+  },"SumaryCart": {
+    "Resumen": "Riepilogo",
+    "Subtotal": "Sub totale",
+    "Tarifa": "Commissione di servizio",
+    "Cupon": "Buono sconto",
+    "Hotsale":"Buono di vendita calda",
+    "Total":"Totale",
+    "MetodoPago":"Seleziona un metodo di pagamento",
+    "Condiciones":"Acquistando/contrattando i prodotti accetti i termini e le condizioni",
+    "Placeholder":"Inserisci il tuo buono",
+    "BotonIngresar":"Entra",
+    "Title":"Il tuo carrello",
+    "Eliminar":"Eliminare"
   }
 }
