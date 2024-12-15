@@ -11,7 +11,7 @@ import { Logger } from '@nestjs/common';
 
 
 export interface AuthenticatedRequest extends Request {
-  user?: { id: string }; // Ajusta los campos según el payload de tu token
+  user?: { id: string };
 }
 
 @Injectable()

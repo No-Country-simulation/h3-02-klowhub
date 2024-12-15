@@ -4,7 +4,8 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { ConfigEnvs } from './config/envs';
 import { GatewayController } from './gateway.controller';
-import { CoursesModule } from './courses/courses.module'
+import { CoursesModule } from './courses/courses.module';
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
@@ -13,15 +14,11 @@ import { CoursesModule } from './courses/courses.module'
       signOptions: { expiresIn: '24h' },
     }),
     AuthModule,
-    CoursesModule
+    CoursesModule,
+    UsersModule
   ],
   controllers: [
     GatewayController,
-    // UploadController,
-    // UsersController,
-    // PubSubGatewayController,
-    // SignaturesController,
-    // CoursesController
   ],
   providers:[],
 })

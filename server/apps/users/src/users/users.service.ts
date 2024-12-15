@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { AccountEntity } from '../entities/accounts.entity';
 import { ModeDto } from './dto/mode.Shcema';
-import { UserRole } from 'src/entities/UserRole';
-import { RpcException } from '@nestjs/microservices';
+import { ConfigEnvs } from 'src/config/envs';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +18,56 @@ export class UsersService {
     private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(AccountEntity)
     private readonly accountRepository: Repository<AccountEntity>,
+    private readonly jwtService: JwtService,
   ) {}
+
+  async findUserById(req: Request): Promise<any> {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+      throw new Error('Authorization header is missing');
+    }
+
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new Error('Token is missing');
+    }
+
+    // Decodificar el token para obtener el payload
+    const payload = this.jwtService.verify(token, {
+      secret: ConfigEnvs.JWT_SECRET
+    } ); // Cambiar decode por verify para mayor seguridad
+    Logger.log(payload)
+    if (!payload || !payload.userId) {
+      throw new Error('Invalid token payload');
+    }
+
+    const userId = payload.userId;
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      select: [
+        'id',
+        'firstName',
+        'lastName',
+        'email',
+        'title',
+        'biography',
+        'image',
+        'reviws',
+        'whyLearn',
+        'rating',
+        'role',
+        'createdAt',
+      ],
+      relations: ['accounts'],
+    });
+
+    if (!user) {
+      return null;
+    }
+    Logger.log(JSON.stringify(user, null, 2));
+    Logger.log(user)
+    return JSON.stringify(user);
+  }
 
   async findByEmail(email: string): Promise<UserEntity | null> {
     return this.userRepository.findOne({ where: { email } });
@@ -84,26 +133,5 @@ export class UsersService {
   // }
 
   // buscar User por ID
-  async findUserById(userId: string): Promise<Partial<UserEntity> | null> {
-    const user = await this.userRepository.findOne({
-      where: { id: userId },
-      select: [
-        'id',
-        'firstName',
-        'lastName',
-        'email',
-        'image',
-        'role',
-        'createdAt',
-        'isEmailVerified',
-      ], // Solo seleccionamos los campos que queremos retornar
-      relations: ['accounts'], // Si necesitas incluir relaciones
-    });
-
-    if (!user) {
-      return null; // Retornar null si el usuario no existe
-    }
-
-    return user;
-  }
+  
 }

@@ -15,7 +15,11 @@ import { GatewayModule } from 'src/gateway.module';
     }),
     HttpModule,
   ],
-  providers:[AuthService, JwtService],
+  providers:[AuthService, JwtService,
+    {provide:'REVOKED_TOKEN',
+      useValue: new Set<string>(),
+    }
+   ],
   controllers:[AuthController],
   exports:[AuthService, JwtModule]
 })

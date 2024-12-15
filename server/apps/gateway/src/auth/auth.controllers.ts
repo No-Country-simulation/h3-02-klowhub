@@ -5,6 +5,9 @@ import {
   Get,
   Request,
   Req,
+  Res,
+  HttpStatus,
+  Logger
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
@@ -18,7 +21,7 @@ export class AuthController {
   ) { }
 
   @Get('test')
-  async test(@Body() any:any): Promise<any> {
+  async test(@Body() any: any): Promise<any> {
     return this.authService.test(any)
   }
 
@@ -36,4 +39,14 @@ export class AuthController {
   async status(@Req() req: Request): Promise<{ status: boolean; message?: string }> {
     return this.authService.verifyTokenStatus(req)
   }
+
+  // @Post('logout')
+  // async logoutt(@Req() req: Request, @Res() res: Response): Promise<any> {
+  //   try {
+  //     return this.authService.logoutSeccion(req);
+  //   } catch (error) {
+  //     Logger.error('Error en el controlador de logout', error.message);
+  //     return { message: 'Error al cerrar sesión' };
+  //   }
+  // }
 }
