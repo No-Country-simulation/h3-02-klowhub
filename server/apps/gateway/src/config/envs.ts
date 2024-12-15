@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { env } from 'process';
 
@@ -15,4 +16,4 @@ export class ConfigEnvs {
   static FRONTEND_URL = process.env.FRONTEND_URL;
 }
 
-console.log('Variables de entorno GateWay:', env);
+Logger.log('Variables de entorno GateWay:', env);

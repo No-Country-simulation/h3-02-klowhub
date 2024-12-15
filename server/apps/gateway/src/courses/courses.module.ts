@@ -1,6 +1,6 @@
 import { Controller, Module } from '@nestjs/common';
 import { CoursesController } from './courses.controller';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigEnvs} from '../config/envs'
 import { HttpModule } from '@nestjs/axios';
 import { CoursesService } from './courses.service'
@@ -13,8 +13,8 @@ import { CoursesService } from './courses.service'
     }),
     HttpModule,
   ],
-  providers:[CoursesService],
+  providers:[CoursesService,JwtService],
   controllers:[CoursesController],
-  exports:[CoursesService]
+  exports:[CoursesService, JwtModule]
 })
 export class CoursesModule {}

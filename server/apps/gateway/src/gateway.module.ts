@@ -15,7 +15,7 @@ import { UsersModule } from './users/users.module'
     }),
     AuthModule,
     CoursesModule,
-    UsersModule
+    UsersModule,
   ],
   controllers: [
     GatewayController,

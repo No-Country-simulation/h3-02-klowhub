@@ -1,6 +1,7 @@
 import { HttpService } from "@nestjs/axios";
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { ConfigEnvs } from "src/config/envs";
+import { CreateCourseDto } from "./dto/create.course.dto";
 
 @Injectable()
 export class CoursesService {
@@ -16,6 +17,26 @@ export class CoursesService {
         }catch(error){
             console.log(error.message);
             return 'Error al conectarse al Microservicio Courses';
+        }
+    }
+    //create course
+    async createCourse(sanitizedData:CreateCourseDto): Promise<any> {
+        try {
+            const token = sanitizedData.token
+            const response = await this.httpService
+            .post(`${this.coursesServiceUrl}/courses/create`, {
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                },
+                body:{
+                    sanitizedData
+                }
+            })
+            .toPromise();
+            return response.data;
+        }catch(error){
+            Logger.log(error.message)
+            return 'Error al crear Curso'
         }
     }
 }

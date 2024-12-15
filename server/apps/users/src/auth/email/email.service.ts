@@ -1,9 +1,8 @@
 // src/email/email.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
-import * as dotenv from 'dotenv';
 import { Temple_Reset_Password, Temple_Verific_Email } from './temple';
-dotenv.config();
+import { ConfigEnvs } from './../../config/envs';
 
 @Injectable()
 export class EmailService {
@@ -11,18 +10,18 @@ export class EmailService {
 
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT, 10),
-      secure: process.env.SMTP_SECURE === 'true', // true para SSL, false para TLS
+      host: ConfigEnvs.SMTP_HOST,
+      port: parseInt(ConfigEnvs.SMTP_PORT, 10),
+      secure: ConfigEnvs.SMTP_SECURE === 'true' as string, // true para SSL, false para TLS
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: ConfigEnvs.SMTP_USER,
+        pass: ConfigEnvs.SMTP_PASS,
       },
     });
   }
   async sendVerificationEmail(email: string, verificationToken: string) {
-    const frontend = process.env.FRONTEND_URL
-    console.log(frontend)
+    const frontend = ConfigEnvs.FRONTEND_URL
+    Logger.log(frontend)
     if (!frontend) {
       throw new Error('La variable de entorno FRONTEND no está definida');
     }
@@ -44,7 +43,7 @@ export class EmailService {
    * Envía un correo para restablecer la contraseña del usuario.
    */
   async sendPasswordResetEmail(email: string, resetToken: string) {
-    const resetLink = `${process.env.FRONTEND}/reset-password?token=${resetToken}`;
+    const resetLink = `${ConfigEnvs.FRONTEND_URL}/reset-password?token=${resetToken}`;
     const logoUrl =
       'https://res.cloudinary.com/ddv3ckyxa/image/upload/v1731885444/Logo_dzf5dh.png'; // Cambia por la URL de tu logo
 

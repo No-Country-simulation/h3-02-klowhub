@@ -1,6 +1,7 @@
-import { Controller, Body, Get } from '@nestjs/common';
-import { CoursesService , } from './courses.service';
+import { Controller, Body, Get, Post, Logger } from '@nestjs/common';
+import { CoursesService, } from './courses.service';
 import { JwtService } from '@nestjs/jwt';
+import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
 
 
 @Controller('courses')
@@ -8,48 +9,59 @@ export class CoursesController {
   constructor(
     private readonly coursesService: CoursesService,
     private readonly jwtService: JwtService
-  ) {}
+  ) { }
 
   @Get('test')
-  async test(@Body() any:any){
+  async test(@Body() any: any) {
     return ({
-      message:'Microserver Courses is run'
+      message: 'Microserver Courses is run'
     })
   }
 
-  // @MessagePattern({ cmd: 'create_course' })
-  // async createCourse(@Payload() data: { token: string; data: CreateCourseDto }) {
-  //   console.log('Datos recibidos por el gateway:', data);
-  //   const valiData = createCourseSchema.safeParse(data);
+  @Post('create')
+  async createCourse(@Body() data: { headers: any; body: { sanitizedData: CreateCourseDto } }) {
+    const { token, ...courseData } = data.body.sanitizedData;
+    const valiData = createCourseSchema.safeParse({ token, ...courseData });
 
-  //   // Si la validación falla
-  //   if (!valiData.success) {
-  //     const validationErrors = valiData.error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
-  //     throw new RpcException({
-  //       statusCode: 400,
-  //       message: 'Validation errors',
-  //       errors: validationErrors,
-  //     });
-  //   }
+    if (!valiData.success) {
+      const validationErrors = valiData.error.errors.map(
+        (err) => `${err.path.join('.')}: ${err.message}`,
+      );
+      return {
+        statusCode: 400,
+        message: 'Validation errors',
+        errors: validationErrors,
+      };
+    }
 
-  //     const decoded = this.jwtService.verify(data.token);  // Verificar el token
-  //     const userId = decoded.userId;  // Suponiendo que userId está en el payload del token
-
-  //     // Combina el `userId` con los datos del curso
-  //     const courseDataWithUserId = {
-  //       ...valiData.data,
-  //       userId, // Asigna el userId extraído del token
-  //     };
-
-  //     // Delegar la creación del curso al servicio
-  //     const newCourse = await this.coursesService.createCourse(courseDataWithUserId);
-  //     return newCourse;
-  // }
+    try {
+      const decoded = this.jwtService.verify(token);
+      const userId = decoded.userId;
+      const createInstancia = await this.coursesService.createUserIfNotExists(userId);
+      if(createInstancia){Logger.log('Instancia creada')};
+      const newCourse = await this.coursesService.createCourse(data.body.sanitizedData);
+      return {
+        statusCode: 201,
+        success: true,
+        message: 'Curso creado exitosamente',
+        data: newCourse,
+      };
+    } catch (error) {
+      Logger.error('Error al procesar el curso:', error.message);
+      return {
+        statusCode: 500,
+        success: false,
+        message: 'Error al procesar la solicitud',
+        error: error.message,
+      };
+    }
+  }
+}
 
   // // Buscar curso por filtro
   // @MessagePattern({ cmd: 'filter_courses' })
   // async filterCourses(data: { page: number; limit: number; filters: Record<string, any> }) {
-  //   console.log('Estos datos llegan del gateway:', data);
+  //   Logger.log('Estos datos llegan del gateway:', data);
   //   const { page, limit, filters } = data;
   //   return this.coursesService.filterCourses(filters, page, limit);
   // }
@@ -129,4 +141,4 @@ export class CoursesController {
   //   }
   //   return this.coursesService.addLessonToModule(valiData.data)
   //   }
-}
+

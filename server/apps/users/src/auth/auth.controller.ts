@@ -7,7 +7,8 @@ import {
   HttpCode,
   HttpStatus,
   Res,
-  Get
+  Get,
+  Logger
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterSchema, RegisterDto } from './dto/registerSchema.dto';
@@ -23,7 +24,7 @@ export class AuthController {
 
   @Get('test')
   async test(@Body() any:any){
-    console.log('recibiendo peticion en el test')
+    Logger.log('recibiendo peticion en el test')
     return ({
       message:'Microserver Useres is run'
     })
@@ -57,7 +58,7 @@ export class AuthController {
         success: false, 
         message: 'Error in Register' };
     } catch (error) {
-      console.error('Error in register process:', error);
+      Logger.error('Error in register process:', error);
       throw new InternalServerErrorException('Registration failed');
     }
   }
@@ -95,7 +96,7 @@ export class AuthController {
         };
       }
     } catch (error) {
-      console.error('Error in login process:', error);
+      Logger.error('Error in login process:', error);
       throw new InternalServerErrorException('Registration failed');
     }
   }

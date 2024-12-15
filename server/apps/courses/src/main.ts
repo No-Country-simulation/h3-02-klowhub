@@ -4,9 +4,12 @@ import {  ConfigEnvs } from './config/envs';
 import * as cookieParser from 'cookie-parser';
 import { JwtService } from '@nestjs/jwt';
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { Logger, LogLevel } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const logLevels: LogLevel[] = ['log', 'error', 'warn', 'debug', 'verbose'];
+  app.useLogger(logLevels);
   app.enableCors({
     origin: "*", 
     credentials: true, 
@@ -17,11 +20,11 @@ async function bootstrap() {
   const authMiddleware = new AuthMiddleware(jwtService);
   app.use(authMiddleware.use.bind(authMiddleware));
   await app.listen(ConfigEnvs.COURSES_MICROSERVICE_PORT);
-  console.log(`Users is running on: ${ConfigEnvs.COURSES_MICROSERVICE_PORT}`);
+  Logger.log(`Users is running on: ${ConfigEnvs.COURSES_MICROSERVICE_PORT}`);
 }
 bootstrap().catch((err)=>{
-  console.log("Global error handler");
-  console.log(err);
-  console.log("----------------------------------------------------------");
+  Logger.log("Global error handler");
+  Logger.log(err);
+  Logger.log("----------------------------------------------------------");
 });
 

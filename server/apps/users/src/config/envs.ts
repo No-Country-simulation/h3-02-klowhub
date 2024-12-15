@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { env } from 'process';
 
@@ -14,7 +15,7 @@ export class ConfigEnvs {
   static SMTP_PASS = process.env.SMTP_PASS;
   static SMTP_HOST = process.env.SMTP_HOST;
   static SMTP_PORT = process.env.SMTP_PORT;
-  static SMTP_SECURE = process.env.SMTP_SECURE === 'true';
+  static SMTP_SECURE = process.env.SMTP_SECURE;
   static GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
   static GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
   static GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
@@ -22,4 +23,4 @@ export class ConfigEnvs {
   static MONGO_URI = process.env.MONGO_URI;
 }
 
-console.log('Variables de entorno microservicio users:', env);
+Logger.log('Variables de entorno microservicio users:', env);

@@ -1,5 +1,5 @@
 // auth.service.ts
-import { BadRequestException, HttpCode, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpCode, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
@@ -72,7 +72,7 @@ export class AuthService {
     //     verificationToken,
     //   );
     // } catch (error) {
-    //   console.error('Error enviando correo de verificación:', error);
+    //   Logger.error('Error enviando correo de verificación:', error);
     //   return { message: 'No se  pudo enviar el correo de verificacion' };
     // }
 
@@ -134,7 +134,7 @@ export class AuthService {
         success: true,
       }
     } catch (error) {
-      console.log(error)
+      Logger.log(error)
       return { message: 'Ocurrio un error al iniciar session' };
     }
   }
@@ -179,7 +179,7 @@ export class AuthService {
   //       tokenPayload,
   //       { expiresIn: '24h' },
   //     );
-  //     console.log(loginToken)
+  //     Logger.log(loginToken)
 
   //     return { message: 'Email verified successfully', token: loginToken };
   //   } catch (error) {

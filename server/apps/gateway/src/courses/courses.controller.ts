@@ -2,9 +2,14 @@ import {
   Body,
   Controller,
   Get,
+  Post,
+  Request,
+  Response,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CoursesService } from './courses.service';
+import { AuthorizationToken } from 'src/utils/authorization';
+import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -18,19 +23,44 @@ export class CoursesController {
       return this.coursesService.test(any)
     }
 
-  // @Post('create')
-  // async createCourse(@Body() courseData: CreateCourseDto, @Request() req: any) {
-  //   // Accede al token desde las cookies
-  //   const token = req.cookies.auth_token;
+    @Post('create')
+    async createCourse(@Body() courseData: CreateCourseDto, @Request() req: any, @Response() res: any) {
+      try {
+        const token = AuthorizationToken(req) as string;
+        if (typeof token === 'object') {
+          return res.status(401).json({ message: 'Token inválido', error: token });
+        }
+  
+        const data = { token, ...courseData };
+        const validationResult = createCourseSchema.safeParse(data);
+        if (!validationResult.success) {
+          return res.status(400).json({
+            message: 'Errores de validación',
+            errors: validationResult.error.errors.map(
+              (err) => `${err.path.join('.')}: ${err.message}`
+            ),
+          });
+        }
+  
+        const sanitizedData = validationResult.data;
+  
+        const result = await this.coursesService.createCourse(sanitizedData);
+  
+        if (result && result.success) {
+          return res.status(201).json({
+            message: 'Curso creado exitosamente',
+            courseId: result.courseId,
+            courseTitle: result.courseTitle,
+          });
+        } else {
+          return res.status(500).json({ message: 'Error al crear el curso', error: result });
+        }
+      } catch (error) {
+        return res.status(500).json({ message: 'Error en el servidor', error: error.message });
+      }
+    }
+}
 
-  //   // Si no se encuentra el token, lanza una excepción
-  //   if (!token) {
-  //     throw new BadRequestException('Token de autenticación no proporcionado');
-  //   }
-  //   const data = { token, ...courseData };
-  //   const validationResult = createCourseSchema.safeParse(data);
-  //   if (!validationResult.success) {
-  //     return (validationResult.error)
   //   }
   //   const sanitizedData = validationResult.data
   //   // Envía los datos validados al microservicio
@@ -160,4 +190,3 @@ export class CoursesController {
   //     data: result,
   //   };
   // }
-}
