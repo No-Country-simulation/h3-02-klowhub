@@ -1,10 +1,9 @@
-import { getTranslations } from 'next-intl/server';
-import type { Locale } from '@core/lib/i18nRouting';
+import { useTranslations } from 'next-intl';
 import CourseHorizontalCard from '@features/courses/components/CourseHorizontalCard';
 import { SearchBar } from './SearchBar';
 
-export default async function CoursesListSection({ locale }: { locale: Locale }) {
-  const t = await getTranslations<'Common'>({ locale: locale, namespace: 'Common' });
+export default function CoursesListSection() {
+  const t = useTranslations<'Common'>('Common');
   return (
     <div className="w-full text-white">
       <SearchBar filter={t('filter')} sortBy={t('sort')} search={t('search')} />

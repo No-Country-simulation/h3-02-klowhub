@@ -17,7 +17,7 @@ export default async function CardCreateCourse() {
             courseId={item.id}
             addToCart=""
             viewDetails=""
-            key={`cccf-${i}`}
+            key={`fcccc-${i}`}
             title={item.title}
             description={item?.basicDescription || ''}
             rating={item.rating}

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 import CheckList from '@core/components/CheckList';
 import H2SimpleSection from '@core/components/H2SimpleSection';
@@ -15,13 +15,13 @@ interface MainContentProps {
   creatorWhyLearning?: string;
 }
 
-export const MainContent = async ({
+export const MainContent = ({
   course,
   locale,
   creatorDesc,
   creatorWhyLearning,
 }: MainContentProps) => {
-  const t = await getTranslations<'CourseDetail'>({ locale: locale, namespace: 'CourseDetail' });
+  const t = useTranslations<'CourseDetail'>('CourseDetail');
   return (
     <div className="w-full text-white lg:w-5/6 lg:pr-8">
       <h1 className="mb-4 text-2xl font-bold">{course?.name}</h1>
@@ -107,9 +107,7 @@ export const MainContent = async ({
         </div>*/}
 
           {creatorWhyLearning ? (
-            <H2SimpleSection
-              title={t('whyLearnWith', { creatorName: course.creatorName })}
-              titleVariant="textxl">
+            <H2SimpleSection title={t('whyLearnWith')} titleVariant="textxl">
               <p className="text-sm font-normal text-white">{creatorWhyLearning}</p>
             </H2SimpleSection>
           ) : null}

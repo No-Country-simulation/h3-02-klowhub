@@ -29,14 +29,26 @@ export async function generateMetadata({
   params,
 }: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
-  const t = await getTranslations<'Projects'>({ locale: locale, namespace: 'Projects' });
+  const t = await getTranslations<'CourseDetail'>?.({ locale: locale, namespace: 'CourseDetail' });
+  if (!t) {
+    return {
+      title: 'Klowhub',
+      description: 'Klowhub web app',
+      openGraph: {
+        siteName: 'Klowhub',
+        title: 'Klowhub',
+        description: 'Klowhub web app',
+        locale: locale,
+      },
+    };
+  }
   return {
-    title: t('metaTitle'),
-    description: t('metaDescription'),
+    title: t?.('metaTitle'),
+    description: t?.('metaDescription'),
     openGraph: {
-      siteName: t('metaSiteName'),
-      title: t('metaSiteName'),
-      description: t('metaDescription'),
+      siteName: t?.('metaSiteName'),
+      title: t?.('metaSiteName'),
+      description: t?.('metaDescription'),
       locale: locale,
     },
   };

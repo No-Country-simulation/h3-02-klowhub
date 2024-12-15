@@ -232,5 +232,18 @@
     "metaTitle": "Klowhub - Ganancias del creador",
     "metaDescription": "Klowhub pagina de Ganancias del creador",
     "metaSiteName": "Klowhub - Ganancias del creador"
+  }, "SumaryCart": {
+    "Resumen": "Resumen",
+    "Subtotal": "Subtotal",
+    "Tarifa": "Tarifa de servicio",
+    "Cupon": "Cupón de descuento",
+    "Hotsale":"Cupón  Hotsale",
+    "Total":"Total",
+    "MetodoPago":"Selecciona un método de pago",
+    "Condiciones":"Al comprar/contratar los productos aceptas los términos y condiciones",
+    "Placeholder":"Ingrese su cupón",
+    "BotonIngresar":"Ingresar",
+    "Title":"Tu carrito de compras",
+    "Eliminar":"Eliminar"
   }
 }

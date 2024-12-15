@@ -3,13 +3,14 @@ import { routing } from '@core/lib/i18nRouting';
 import CoursesListSection from '@features/home/components/Courses';
 import { Breadcrumb } from '@features/home/components/Courses/Breadcrumb';
 
+const breadcrumbItems = [
+  { label: 'Home', href: '/es/platform' },
+  { label: 'Cursos y lecciones', href: '/courses' },
+];
+
 export default async function CoursesPage({
   params,
 }: Readonly<{ params: Promise<{ locale: string }> }>) {
-  const breadcrumbItems = [
-    { label: 'Home', href: '/es/platform' },
-    { label: 'Cursos y lecciones', href: '/courses' },
-  ];
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations<'Courses'>({ locale: locale, namespace: 'Courses' });
@@ -17,7 +18,7 @@ export default async function CoursesPage({
     <main className="mb-20 mt-36 size-full px-10 sm:px-[51px] min-[1800px]:px-16">
       <Breadcrumb items={breadcrumbItems} />
       <h1 className="mb-4 text-lg font-bold text-white">{t('pageTitle')}</h1>
-      <CoursesListSection locale={locale} />
+      <CoursesListSection />
     </main>
   );
 }

@@ -232,5 +232,18 @@
     "metaTitle": "Klowhub - Revenus des créateurs",
     "metaDescription": "Page des revenus des créateurs de Klowhub",
     "metaSiteName": "Klowhub - Revenus des créateurs"
+  },"SumaryCart": {
+    "Resumen": "Résumé",
+    "Subtotal": "sous-total",
+    "Tarifa": "Frais de service",
+    "Cupon": "Coupon de réduction",
+    "Hotsale":"Coupon de vente chaude",
+    "Total":"Total",
+    "MetodoPago":"Sélectionnez un mode de paiement",
+    "Condiciones":"En achetant/contractant les produits, vous acceptez les termes et conditions",
+    "Placeholder":"Entrez votre coupon",
+    "BotonIngresar":"Entrer dans",
+    "Title":"Votre panier",
+    "Eliminar":"Éliminer"
   }
 }
