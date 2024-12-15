@@ -31,10 +31,10 @@ spec:
         env:
         - name: NODE_ENV
           value: "production"
-        - name: USERS_SERVICE_PORT
+        - name: USERS_MICROSERVICE_PORT
           value: "3001"
         - name: USERS_MICROSERVICE_HOST
-          value: "0.0.0.0"
+          value: "users"
         - name: JWT_SECRET
           value: "${JWT_SECRET}"
         - name: SMTP_USER
