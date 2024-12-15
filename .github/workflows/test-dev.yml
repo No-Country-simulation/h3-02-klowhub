@@ -3,7 +3,7 @@ name: Validate and Test Backend
 on:
   push:
     branches:
-      - feature/update
+      - '*'
 
 jobs:
   validate:
