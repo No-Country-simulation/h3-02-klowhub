@@ -1,18 +1,17 @@
 // apps/courses/src/users/users.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Users, UsersSchema } from '../courses/schemas/users.schema';  // Asegúrate de tener el esquema correcto
+import { Users, UsersSchema } from '../courses/schemas/users.schema';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { JwtModule } from '@nestjs/jwt';
-import * as dotenv from 'dotenv';
+import {ConfigEnvs } from '../config/envs'
 
-dotenv.config();
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET,  // Clave secreta definida en .env
-      signOptions: { expiresIn: '24h' },  // Opciones como el tiempo de expiración
+      secret: ConfigEnvs.JWT_SECRET,
+      signOptions: { expiresIn: '24h' },
     }),
     MongooseModule.forFeature([{ name: Users.name, schema: UsersSchema }]),
   ],

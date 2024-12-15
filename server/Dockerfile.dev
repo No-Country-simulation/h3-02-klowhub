@@ -20,7 +20,7 @@ COPY ./apps/users ./apps/users
 COPY ./apps/courses ./apps/courses
 
 # Exponer los puertos requeridos (usualmente solo para debug)
-EXPOSE 3000 3001 3002
+EXPOSE 3000 3001 3002 3003
 
 # Copiar el script al contenedor desde la raíz del proyecto
 COPY ./scriptDevp.sh /usr/local/bin/entrypoint.sh

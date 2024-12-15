@@ -12,18 +12,17 @@ export class Course extends Document {
   @Prop({ required: true })
   title: string; // Título del curso o lección
    
-
   @Prop({
     type: String,
     enum: ['free', 'premium'],
     default: 'premium',
-    required: true,
   })
   contentType: string; // Tipo de contenido
 
   @Prop({
     type: String,
     enum: ['course', 'lesson'],
+    default: 'course',
   })
   kind: string; // Curso o lección
 
@@ -37,7 +36,7 @@ export class Course extends Document {
 
   @Prop({
     type: String,
-    enum: Platform,
+    enum: Object.values(Platform),
     default: Platform.NONE,
   })
   platform: string;
@@ -106,8 +105,6 @@ export class Course extends Document {
 
   @Prop({ type: [String] })
   contents?: string[]; // para quein es
-
-
 
   @Prop()
   detailedContent?: string; // Descripción detallada *Acerca de este curso*

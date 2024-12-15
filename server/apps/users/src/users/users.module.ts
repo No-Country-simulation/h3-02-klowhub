@@ -3,13 +3,20 @@ import { UsersService } from './users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { AccountEntity } from '../entities/accounts.entity';
-import { UsersController } from './users.controller'
+import { UsersController } from './users.controller';
 import { SeedService } from 'src/script/seed-users';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ConfigEnvs } from 'src/config/envs';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, AccountEntity])],
-  providers: [SeedService, UsersService],
+  imports: [
+    JwtModule.register({
+      secret: ConfigEnvs.JWT_SECRET,
+      signOptions: { expiresIn: '24h' },
+    }),
+    TypeOrmModule.forFeature([UserEntity, AccountEntity ])],
+  providers: [SeedService, UsersService, JwtService],
   controllers: [UsersController],
-  exports: [UsersService], // Exporta el servicio para que otros módulos puedan usarlo
+  exports: [UsersService],
 })
 export class UsersModule {}

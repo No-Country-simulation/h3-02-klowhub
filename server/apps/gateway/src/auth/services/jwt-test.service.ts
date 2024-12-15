@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -7,6 +7,6 @@ export class JwtTestService {
 
   testToken() {
     const token = this.jwtService.sign({ userId: '123', role: 'USER' });
-    console.log(token);
+    Logger.log(token);
   }
 }
