@@ -84,7 +84,7 @@ jobs:
       # 9. Construir la imagen Docker para Gateway Service
       - name: Gateway Service - Build Docker image
         working-directory: ./server
-        run: docker build --progress plain --build-arg USERS_MICROSERVICE_HOST=${{ secrets.USER_SERVICE_HOST }} --build-arg COURSES_MICROSERVICE_HOST=${{ secrets.COURSE_SERVICE_HOST }} --build-arg UPLOAD_MICROSERVICE_HOST=${{ secrets.UPLOAD_SERVICE_HOST }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/gateway/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} ./apps/gateway
+        run: docker build --progress plain --build-arg USERS_MICROSERVICE_URL=${{ secrets.USER_SERVICE_HOST }} --build-arg COURSES_MICROSERVICE_URL=${{ secrets.COURSE_SERVICE_HOST }} --build-arg UPLOAD_MICROSERVICE_URL=${{ secrets.UPLOAD_SERVICE_HOST }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} -f ./apps/gateway/Dockerfile -t ${{ env.ARTIFACT_REGISTRY_BASE }}/${{ env.GATEWAY_SERVICE_NAME }}:${{ github.sha }} ./apps/gateway
 
       # 10.5. Limpiar imágenes antiguas
       - name: Cleanup Old Images
