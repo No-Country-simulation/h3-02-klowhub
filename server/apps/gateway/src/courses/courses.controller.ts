@@ -59,6 +59,10 @@ export class CoursesController {
         return res.status(500).json({ message: 'Error en el servidor', error: error.message });
       }
     }
+    @Get('getCourses')
+    async getCourses(@Body() any: any) {
+      return this.coursesService.getCourses(any)
+    }
 }
 
   //   }

@@ -7,6 +7,7 @@ import { CreateCourseDto } from './dto/create.course.dto';
 import { Users } from './schemas/users.schema';
 import { JwtService } from '@nestjs/jwt';
 import { Modules, ModulesSchema } from './schemas/module.schema';
+import { FilterCoursesSuccess } from 'src/types/responseTypes';
 
 
 @Injectable()
@@ -42,7 +43,7 @@ export class CoursesService {
     return existingUser;
   }
 
-  async createCourse(data:CreateCourseDto) {
+  async createCourse(data: CreateCourseDto) {
     try {
       const decodedToken = this.jwtService.verify(data.token);
       const userId = decodedToken.userId;
@@ -101,56 +102,93 @@ export class CoursesService {
     }
   }
 
+
   // filtro
-  // async filterCourses(filters: Record<string, any>, page: number, limit: number) {
-  //   const query = this.buildQuery(filters); // Supongamos que tienes una función para construir el filtro
-  //   return this.courseModel.find(query)
-  //     .skip((page - 1) * limit) // Implementación simple de paginación
+  // private cleanFilters(filters: Record<string, any>): Record<string, any> {
+  //   const cleaned = {};
+  //   for (const key in filters) {
+  //     if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
+  //       cleaned[key] = filters[key];
+  //     }
+  //   }
+  //   return cleaned;
+  // }
+  // // funcion principal del filtro depende de otras funciones
+  // async filterCourses(
+  //   filters: Record<string, any>,
+  //   page: number,
+  //   limit: number):
+  //   Promise<FilterCoursesSuccess> {
+  //   const cleanFilters = this.cleanFilters(filters);
+  //   const query = this.buildQuery(cleanFilters);
+  //   const courses = await this.courseModel
+  //     .find(query)
+  //     .skip((page - 1) * limit)
   //     .limit(limit)
   //     .exec();
+  //   const total = await this.courseModel.countDocuments(query);
+  //   Logger.log('Courses Found', courses);
+  //   if (!courses || courses.length === 0) {
+  //     throw new Error('No courses found with the provided filters');
+  //   }
+  //   const mappedCourses: Course[] = courses.map(course => ({
+  //     id: course._id.toString(), // Convierte ObjectId a string
+  //     userId: course.userId,
+  //     title: course.title,
+  //     contentType: course.contentType,
+  //     kind: course.kind,
+  //     basicDescription: course.basicDescription || '',
+  //     platform: course.platform,
+  //     idiom: course.idiom,
+  //     reviews: course.reviews,
+  //     rating: course.rating,
+  //     pilar: course.pilar || '',
+  //     funcionalidad: course.funcionalidad || '', // Ajuste del nombre correcto
+  //     sector: course.sector || '',
+  //     tool: course.tool || '',
+  //     purpose: course.purpose || '',
+  //     prerequisites: course.prerequisites || [],
+  //     followUp: course.followUp || [],
+  //     contents: course.contents || [],
+  //     detailedContent: course.detailedContent || '',
+  //     imageUrl: course.imageUrl || '',
+  //     status: course.status,
+  //     enrolledUsers: course.enrolledUsers || [],
+  //     createdAt: course.createdAt,
+  //     updatedAt: course.updatedAt,
+  //     modules: course.modules || [],
+  //     __v: course.__v || 0,
+  //   }));
+
+  //   return {
+  //     success: true,
+  //     message: 'Courses fetched successfully',
+  //     courses: mappedCourses,
+  //     pagination: {
+  //       page,
+  //       limit,
+  //       total,
+  //     },
+  //   };
   // }
 
   // private buildQuery(filters: Record<string, any>) {
-  //   let query = {};
-
-  //   // Puedes construir una lógica más compleja dependiendo de los filtros
-  //   if (filters.status) {
-  //     query['status'] = filters.status;
-  //   }
-
-  //   if (filters.contentType) {
-  //     query['contentType'] = filters.contentType;
-  //   }
-
-  //   if (filters.kind) {
-  //     query['kind'] = filters.kind;
-  //   }
-  //   if (filters.level) {
-  //     query['level'] = filters.level
-  //   }
-  //   if (filters.platafor) {
-  //     query['platafor'] = filters.platafor
-  //   }
-  //   if (filters.idiom) {
-  //     query['idiom'] = filters.idiom
-  //   }
-  //   if (filters.pilar) {
-  //     query['pilar'] = filters.pilar
-  //   }
-  //   if (filters.funtionalidad) {
-  //     query['funtionalidad'] = filters.funtionalidad
-  //   }
-  //   if (filters.sector) {
-  //     query['sector'] = filters.sector
-  //   }
-  //   if (filters.tool) {
-  //     query['tool'] = filters.tool
-  //   }
-
-  //   // Aquí puedes agregar más filtros según las propiedades del curso
-  //   Logger.log("query", query)
+  //   const query: Record<string, any> = {};
+  
+  //   if (filters.status) query['status'] = filters.status;
+  //   if (filters.contentType) query['contentType'] = filters.contentType;
+  //   if (filters.kind) query['kind'] = filters.kind;
+  //   if (filters.level) query['level'] = filters.level;
+  //   if (filters.platform) query['platform'] = filters.platform; // Ajuste en el nombre
+  //   if (filters.idiom) query['idiom'] = filters.idiom;
+  //   if (filters.pilar) query['pilar'] = filters.pilar;
+  //   if (filters.funcionalidad) query['funcionalidad'] = filters.funcionalidad; // Ajuste en el nombre
+  //   if (filters.sector) query['sector'] = filters.sector;
+  //   if (filters.tool) query['tool'] = filters.tool;
+  
+  //   Logger.log('Query:', query);
   //   return query;
-  // }
+  }
 
   // // buscar curse por id
   // async findById(id: string): Promise<Course | null> {
@@ -320,4 +358,3 @@ export class CoursesService {
   //     return { message: 'Error al agregar la lección', error: error.message };
   //   }
   // }
-}

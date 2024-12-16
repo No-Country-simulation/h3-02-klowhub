@@ -17,7 +17,7 @@ export class CoursesController {
       message: 'Microserver Courses is run'
     })
   }
-  @Get('courses')
+  @Get('getCourses')
   async getCourses(@Body() any: any) {
     return this.coursesService.getCourses(any)
   }
