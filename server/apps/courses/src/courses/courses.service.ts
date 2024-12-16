@@ -91,6 +91,15 @@ export class CoursesService {
       throw new Error(`Error creating course: ${error.message}`);
     }
   }
+  async getCourses(any: any) {
+    try {
+      const courses = await this.courseModel.find({}).exec();
+      return courses;
+    } catch (error) {
+      Logger.error('Error getting courses', error.message)
+      throw new Error(`Error getting courses: ${error.message}`);
+    }
+  }
 
   // filtro
   // async filterCourses(filters: Record<string, any>, page: number, limit: number) {

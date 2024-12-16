@@ -17,6 +17,10 @@ export class CoursesController {
       message: 'Microserver Courses is run'
     })
   }
+  @Get('courses')
+  async getCourses(@Body() any: any) {
+    return this.coursesService.getCourses(any)
+  }
 
   @Post('create')
   async createCourse(@Body() data: { headers: any; body: { sanitizedData: CreateCourseDto } }) {

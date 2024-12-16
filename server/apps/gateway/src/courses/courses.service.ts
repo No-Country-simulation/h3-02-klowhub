@@ -39,4 +39,15 @@ export class CoursesService {
             return 'Error al crear Curso'
         }
     }
+    async getCourses(any: any) {
+        try {
+            const response = await this.httpService
+            .get(`${this.coursesServiceUrl}/courses/getCourses`)
+            .toPromise();
+            return response.data;
+        }catch(error){
+            Logger.log(error.message)
+            return 'Error al obtener Cursos'
+        }
+    }
 }
