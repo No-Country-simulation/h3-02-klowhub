@@ -56,6 +56,34 @@ export class CoursesController {
       };
     }
   }
+  @Get('filter')
+  async filterCourses(
+    @Body() data: { 
+      page: number; 
+      limit: number; 
+      filters: Record<string, any> },
+  ) {
+    Logger.log('Datos recibidos para filtrar cursos:', data);
+    const { page, limit, filters } = data;
+
+    try {
+      const courses = await this.coursesService.filterCourses(filters, page, limit);
+      return {
+        statusCode: 200,
+        success: courses.success,
+        message: courses.message,
+        data: courses.courses,
+      };
+    } catch (error) {
+      Logger.error('Error al filtrar los cursos:', error.message);
+      return {
+        statusCode: 500,
+        success: false,
+        message: 'Error al filtrar los cursos',
+        error: error.message,
+      };
+    }
+  }
 }
 
   // // Buscar curso por filtro

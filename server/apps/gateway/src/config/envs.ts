@@ -17,3 +17,4 @@ export class ConfigEnvs {
 }
 
 Logger.log('Variables de entorno GateWay:', env);
+console.log('Variables de entorno GateWay:', env);
