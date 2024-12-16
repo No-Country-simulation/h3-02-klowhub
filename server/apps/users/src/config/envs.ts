@@ -22,5 +22,5 @@ export class ConfigEnvs {
   static POSTGRES_URL = process.env.POSTGRES_URL;
   static MONGO_URI = process.env.MONGO_URI;
 }
-
+console.log('Variables de entorno microservicio courses', env);
 Logger.log('Variables de entorno microservicio users:', env);

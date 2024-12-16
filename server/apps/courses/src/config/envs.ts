@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import {env} from 'process';
 dotenv.config();
@@ -11,3 +12,4 @@ export class ConfigEnvs {
 }
 
 console.log('Variables de entorno microservicio courses', env);
+Logger.log('Variables de entorno microservicio courses', env);
