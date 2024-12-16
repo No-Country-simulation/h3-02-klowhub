@@ -67,13 +67,14 @@ export class CoursesController {
     const { page, limit, filters } = data;
 
     try {
-      const courses = await this.coursesService.filterCourses(filters, page, limit);
-      return {
-        statusCode: 200,
-        success: courses.success,
-        message: courses.message,
-        data: courses.courses,
-      };
+      return 'test'
+      // const courses = await this.coursesService.filterCourses(filters, page, limit);
+      // return {
+      //   statusCode: 200,
+      //   success: courses.success,
+      //   message: courses.message,
+      //   data: courses.courses,
+      // };
     } catch (error) {
       Logger.error('Error al filtrar los cursos:', error.message);
       return {
