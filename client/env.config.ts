@@ -1,10 +1,12 @@
 export interface EnvConfig {
   API_URL: string;
   APP_URL: string;
+  NODE_ENV: string;
 }
 const env: EnvConfig = {
     API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
     APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8080',
+    NODE_ENV: process.env.NODE_ENV || 'development',
   };
 
 /*export const {
