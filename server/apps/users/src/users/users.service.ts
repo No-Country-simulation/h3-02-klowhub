@@ -131,7 +131,7 @@ export class UsersService {
       ],
       relations: ['accounts'],
     });
-    return user
+    return JSON.stringify(user)
   } catch (error) {
     return error
   }

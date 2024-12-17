@@ -42,7 +42,7 @@ export class UsersController {
   @Get(':id')
   async profileAll(@Param('id') id: string) {
     try {
-      const userProfile = await this.usersService.profile(id);
+      const userProfile = await this.usersService.profileAll(id);
       return userProfile;
     } catch (error) {
       Logger.error('Error in profile endpoint', error.message);
