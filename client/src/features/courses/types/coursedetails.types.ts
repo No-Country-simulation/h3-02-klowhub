@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { idSchema, nameSchema } from '@core/schemas/common.schema';
+//import { use } from 'react';
 
 export const courseDetailsSchema = z.object({
   id: idSchema,
@@ -21,6 +22,7 @@ export const courseDetailsSchema = z.object({
   courseObjective: z.string(),
   courseRequirenments: z.array(z.string()),
   courseAdditions: z.array(z.string()),
+  userId: z.string(),
 });
 
 export type CourseDetailsType = z.infer<typeof courseDetailsSchema>;

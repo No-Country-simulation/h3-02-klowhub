@@ -6,6 +6,8 @@ import CourseSection from '@features/home/components/CourseSection';
 import { Breadcrumb } from '@root/src/features/home/components/Courses/Breadcrumb';
 import { MainContent } from './MainContent';
 import { SectionRigth } from './SectionRigth';
+//import { use } from 'react';
+//import env from '@root/env.config';
 
 interface CourseDetailsProps {
   courseId: string;
@@ -18,8 +20,21 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
     { label: 'Cursos y lecciones', href: '/courses' },
     { label: 'Gestión de inventarios con Power Apps', href: '/#' },
   ];
-  const creator = await getContent<CreatorCourseType>(`/json/${courseId}/user.json`);
-  const course = await getContent<CourseDetailsType>(`/json/${courseId}/detail.json`);
+  //const course = await getContent<CourseDetailsType>(`courses/${courseId}`,undefined,'API_URL');
+  //const userId = course.userId;
+  const course = await getContent<CourseDetailsType>(
+    `json/${courseId}/detail.json`,
+    undefined,
+    'APP_URL'
+  );
+  const userId = course.creatorId;
+  //console.log('Resultado APP_URL:', course);
+  //const creator = await getContent<CreatorCourseType>(`${userId}`);
+  const creator = await getContent<CreatorCourseType>(
+    `json/${userId}/user.json`,
+    undefined,
+    'APP_URL'
+  );
   return (
     <div className="space-y-8">
       <Breadcrumb items={breadcrumbItems} />

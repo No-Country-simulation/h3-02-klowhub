@@ -38,7 +38,7 @@ const CourseCard = ({
   rating,
   reviews,
   tags,
-  imageSrc = '/aa',
+  imageSrc,
   platform,
   viewDetails,
   addToCart,
@@ -215,12 +215,12 @@ const CourseCard = ({
         ) : null}
       </div>
       {/*
-      <div className="mt-auto flex items-center p-4">
-        <Button className="rounded-lg px-4 py-2 text-sm text-white">
+      <div className="flex items-center mt-auto p-4">
+        <Button className="px-4 py-2 rounded-lg text-sm text-white">
           <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
           {addToCart}
         </Button>
-        <Button className="ms-auto text-sm font-bold hover:underline" variant="ghost">
+        <Button className="font-bold text-sm hover:underline ms-auto" variant="ghost">
           {viewDetails}
         </Button>
       </div>

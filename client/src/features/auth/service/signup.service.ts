@@ -4,8 +4,8 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
+import env from '@root/env.config';
 import { signupSchema } from '../validation/schemas';
-
 export async function signup(
   _state: unknown,
   formData: FormData
@@ -14,36 +14,35 @@ export async function signup(
   const schema = signupSchema(t);
   const [error, data] = validateSchema(schema, {
     email: formData.get('email')?.toString() || '',
+    firstName: formData.get('firstName')?.toString() || '',
     password: formData.get('password')?.toString() || '',
   });
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   if (error || !data) return error;
+  console.log(JSON.stringify(data));
 
-  const res = await fetch(`${API_URL}/auth/register`, {
+  const res = await fetch(`${env.API_URL}/auth/register`, {
     body: JSON.stringify(data),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
   });
-
-  if (!res.ok) {
+  console.log(res);
+  const dta = await res.json();
+  const hastoken = dta instanceof Object && 'token' in dta;
+  const hassuccess = dta instanceof Object && 'success' in dta; // Ahora TypeScript reconoce `token`
+  console.log(dta);
+  if (hassuccess && !dta?.success) {
     return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
   }
+  const dtoken = hastoken ? (dta?.token as string) : ''; // Ahora TypeScript reconoce `token`
+  console.log(dtoken);
 
-  const cookieHeader = res.headers.get('set-cookie');
-
-  if (!cookieHeader) {
+  if (!dtoken) {
     return { errors: { GLOBAL: 'No se recibió un token de autenticación' } };
   }
-  const tokenMatch = cookieHeader.match(/auth_token=([^;]+)/);
-  const token = tokenMatch?.[1];
 
-  if (!token) {
-    return { errors: { GLOBAL: 'No se pudo extraer el token de autenticación' } };
-  }
-  (await cookies()).set('auth_token', token);
-  console.log('Set-Cookie:', cookieHeader);
-  console.log('Token extraído:', token);
+  (await cookies()).set('auth_token', dtoken);
 
   const locale = await getLocale();
   redirect({ href: { pathname: '/platform' }, locale });
