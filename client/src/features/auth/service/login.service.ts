@@ -4,7 +4,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
-import {API_URL} from '@root/env.config';
+import env from '@root/env.config';
 import { signinSchema } from '../validation/schemas';
 
 export async function signin(
@@ -21,13 +21,13 @@ export async function signin(
   if (error || !data) return error;
   let res;
   try {
-    res = await fetch(`${API_URL}/auth/login`, {
+    res = await fetch(`${env.API_URL}/auth/login`, {
       body: JSON.stringify(data),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
-    if(!res.ok){
+    if (!res.ok) {
       throw new Error('Error en la solicitud de inicio de sesión');
     }
   } catch {

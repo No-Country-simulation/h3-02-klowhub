@@ -1,5 +1,5 @@
 import { type ApiErrorType, type ApiResultType } from '@coreTypes/actionResponse';
-import { API_URL, APP_URL } from "@root/env.config";
+import env from '@root/env.config';
 
 const handleError = (error: Error, status?: number): ApiErrorType => {
   const errorMap: Record<number, string> = {
@@ -23,7 +23,7 @@ const handleRequest = async <T = unknown>(
   baseUrlType: 'APP_URL' | 'API_URL' = 'APP_URL' // Parámetro explícito
 ): Promise<ApiResultType<T>> => {
   try {
-    const baseUrl = baseUrlType === 'APP_URL' ? APP_URL : API_URL;
+    const baseUrl = baseUrlType === 'APP_URL' ? env.APP_URL : env.API_URL;
     const url = typeof input === 'string' ? `${baseUrl}${input}` : input;
 
     const response = await fetch(url, {
