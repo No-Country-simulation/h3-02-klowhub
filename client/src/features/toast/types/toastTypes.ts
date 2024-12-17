@@ -10,4 +10,5 @@ export interface ToastState {
 
 export interface ToastContextType {
   showToast: (state: ToastState) => void;
+  toasts: ToastState[]
 }

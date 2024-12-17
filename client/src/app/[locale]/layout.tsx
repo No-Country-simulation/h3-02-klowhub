@@ -9,7 +9,6 @@ import { inter } from '@styles/font';
 import { routing } from '@core/lib/i18nRouting';
 import { cn, getBaseUrl } from '@core/lib/utils';
 import Loading from './loading';
-import { ToastProvider } from '@features/toast/components/Toast';
 
 export const viewport: Viewport = {
   width: 'device-width',

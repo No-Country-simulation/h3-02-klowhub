@@ -1,5 +1,6 @@
 import { Link } from '@core/lib/i18nRouting';
 import type { TranslationType } from '@core/types/translationType';
+import { ToastContainer } from '@features/toast/provider/ToastContainer';
 import StaticLoginForm from './StaticLoginForm';
 import SigninFormWrapper from './wrapper';
 import { signinField } from '../../constants/fields';
@@ -40,7 +41,9 @@ export default function SigninForm({
         fields={fields}
       />
       <div className="flex items-center justify-center">
-        <StaticLoginForm />
+        <ToastContainer>
+          <StaticLoginForm />
+        </ToastContainer>
       </div>
       <p className="space-x-2 text-sm">
         <span>{textpreLinkin}</span>
