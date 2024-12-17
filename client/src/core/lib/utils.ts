@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { APP_URL, VERCEL_ENV, VERCEL_PROJECT_PRODUCTION_URL, VERCEL_URL } from "@root/env.config";
+import { APP_URL, VERCEL_ENV, VERCEL_PROJECT_PRODUCTION_URL, VERCEL_URL } from "@/env.config";
 
 //Util para evitar conflictos entre clases, construir classNames condicionales sin conflictos
 //twMerge docs: https://github.com/dcastil/tailwind-merge

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { fallbackCopyTextToClipboard } from '@core/services/fallbackCopyTextToClipboard';
-import { NODE_ENV } from "@root/env.config";
+import { NODE_ENV } from "@/env.config";
 import useRefMounted from './useRefMounted';
 import useTimeout from './useTimeout';
 import useToggle from './useTogle';

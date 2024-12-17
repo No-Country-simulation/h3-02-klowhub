@@ -1,10 +1,10 @@
 'use server';
 import { cookies } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
+import {API_URL} from '@/env.config';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
-import {API_URL} from '@root/env.config';
 import { signinSchema } from '../validation/schemas';
 
 export async function signin(

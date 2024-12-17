@@ -1,5 +1,5 @@
+import { API_URL, APP_URL } from "@/env.config";
 import { type ApiErrorType, type ApiResultType } from '@coreTypes/actionResponse';
-import { API_URL, APP_URL } from "@root/env.config";
 
 const handleError = (error: Error, status?: number): ApiErrorType => {
   const errorMap: Record<number, string> = {
