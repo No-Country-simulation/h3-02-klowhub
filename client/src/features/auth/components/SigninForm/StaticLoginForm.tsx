@@ -1,27 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 import Button from '@core/components/Button';
 
 const StaticLoginForm = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const formRef = useRef<HTMLDivElement>(null);
   const handleClick = () => {
     setIsFormVisible(!isFormVisible);
   };
-  const handleOutsideClick = (e: MouseEvent) => {
-    if (formRef.current && !formRef.current.contains(e.target as Node)) {
-      setIsFormVisible(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', handleOutsideClick);
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center p-6">
@@ -31,9 +19,14 @@ const StaticLoginForm = () => {
         className="rounded-md p-3 text-sm text-white shadow-md transition-all">
         Mostrar datos del login
       </Button>
-      {isFormVisible && (
-        <div className="mt-6 h-[60px] w-[310px] rounded-lg border-gray-300 bg-secondary-A-850 shadow-lg">
-          <form>
+      <AnimatePresence>
+        {isFormVisible && (
+          <motion.div
+            initial={{ opacity: 0, translateY: -10 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            exit={{ opacity: 0, translateY: -12 }}
+            transition={{ duration: 0.3 }}
+            className="mt-6 h-[60px] w-[310px] rounded-lg border-gray-300 bg-secondary-A-850 shadow-lg">
             <div className="mp-2 mt-2 text-sm">
               <p className="text-blue-500">
                 Correo: <span className="text-zinc-50">user@hackaton.com</span>{' '}
@@ -43,9 +36,9 @@ const StaticLoginForm = () => {
                 password: <span className="text-zinc-50">12345</span>
               </p>
             </div>
-          </form>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
