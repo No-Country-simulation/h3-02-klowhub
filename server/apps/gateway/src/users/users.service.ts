@@ -39,4 +39,24 @@ export class UsersService {
             return { message: 'Error al conectarse al Microservicio Users' };
           }
     }
+    async profileAll(userId: string): Promise<any> {
+        try {
+            Logger.log('Peticion Profile')
+            const response = await this.httpService
+                .get(`${this.userServiceUrl}/users/profile/${userId}`)
+                .toPromise();
+            return response.data;
+            
+        } catch (error) {
+            Logger.error('Error in profileAll service', error.message);
+           
+            if (error.response) {
+              return {
+                status: error.response.status,
+                message: error.response.data,
+              };
+            }
+            return { message: 'Error al conectarse al Microservicio Users' };
+          }
+    }
 }

@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Logger,
+  Param,
   Put,
   Request,
   Response,
@@ -10,6 +11,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from './users.service';
 import { AuthorizationToken } from 'src/utils/authorization';
+import { profile } from 'console';
 
 
 @Controller('users')
@@ -37,4 +39,16 @@ export class UsersController {
       .json({ message: 'Error al obtener el perfil del usuario' });
   }
   }
+  @Get(':id')
+  async profileAll(@Param('id') id: string) {
+    try {
+      const userProfile = await this.usersService.profile(id);
+      return userProfile;
+    } catch (error) {
+      Logger.error('Error in profile endpoint', error.message);
+      return error
+        .status(500)
+        .json({ message: 'Error al obtener el perfil del usuario' });
+  }
+}
 }  

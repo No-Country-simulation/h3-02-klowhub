@@ -3,6 +3,7 @@ import { BadGatewayException, BadRequestException, Controller,
     HttpCode,
     HttpStatus,
     Logger,
+    Param,
     Req,
  } from "@nestjs/common";
 import { UsersService } from "./users.service";
@@ -33,6 +34,22 @@ export class UsersController {
             }
         }
     }
+    @Get(':id')
+    async prifile(@Param('id') id: Request) {
+        Logger.log('Recibiendo peticion profile')      
+        try{
+            const resp = await this.usersService.findUserById(id)
+            return resp as unknown as Promise<ProfileSuccess>;
+        }catch(error){
+            Logger.error(error)
+            return {
+                succes: false,
+                messager: 'Error en la autenticación'
+            }
+        }
+    }
+    
+    
 
     // profile user
     // @MessagePattern({ cmd: 'getProfile' })
