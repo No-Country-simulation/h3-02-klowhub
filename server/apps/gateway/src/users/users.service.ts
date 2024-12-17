@@ -39,11 +39,11 @@ export class UsersService {
             return { message: 'Error al conectarse al Microservicio Users' };
           }
     }
-    async profileAll(userId: string): Promise<any> {
+    async profileAll(id: string): Promise<any> {
         try {
             Logger.log('Peticion Profile')
             const response = await this.httpService
-                .get(`${this.userServiceUrl}/users/${userId}`)
+                .get(`${this.userServiceUrl}/users/${id}`)
                 .toPromise();
             return response.data;
             
