@@ -113,7 +113,7 @@ const CourseHorizontalCard = ({
 
         {/* Menú de tres puntos */}
         {/*
-        <div className="absolute right-4 top-2 mt-2">
+        <div className="top-2 right-4 absolute mt-2">
           <button
             onClick={handleMenuToggle}
             className="text-slate-200 hover:text-slate-300 focus:outline-none">
@@ -132,19 +132,19 @@ const CourseHorizontalCard = ({
             </svg>
           </button>
           {isMenuOpen && (
-            <div className="absolute right-0 mt-2 w-32 rounded-lg bg-[#2D3748] shadow-lg">
+            <div className="right-0 absolute bg-[#2D3748] shadow-lg mt-2 rounded-lg w-32">
               <ul className="py-1">
                 <li>
                   <button
                     onClick={() => alert('Editar')}
-                    className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
+                    className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
                     Editar
                   </button>
                 </li>
                 <li>
                   <button
                     onClick={() => alert('Eliminar')}
-                    className="block w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#4A5568]">
+                    className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
                     Eliminar
                   </button>
                 </li>
@@ -160,7 +160,7 @@ const CourseHorizontalCard = ({
           </Button>
           {/*
           <Button
-            className="ml-4 text-sm font-bold hover:underline"
+            className="ml-4 font-bold text-sm hover:underline"
             style={{
               color: 'var(--color-primary-B-200)',
             }}

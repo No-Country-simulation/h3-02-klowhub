@@ -20,21 +20,24 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
     { label: 'Cursos y lecciones', href: '/courses' },
     { label: 'Gestión de inventarios con Power Apps', href: '/#' },
   ];
-  //const course = await getContent<CourseDetailsType>(`courses/${courseId}`,undefined,'API_URL');
-  //const userId = course.userId;
-  const course = await getContent<CourseDetailsType>(
+  const course = await getContent<CourseDetailsType>(`courses/${courseId}`, undefined, 'API_URL');
+  const userId = course.userId;
+  console.log('Resultado API_URL:', course);
+  console.log('userId', userId);
+  /*const course = await getContent<CourseDetailsType>(
     `json/${courseId}/detail.json`,
     undefined,
     'APP_URL'
-  );
-  const userId = course.creatorId;
+  );*/
+  //const userId = course.creatorId;
   //console.log('Resultado APP_URL:', course);
-  //const creator = await getContent<CreatorCourseType>(`${userId}`);
-  const creator = await getContent<CreatorCourseType>(
+  const creator = await getContent<CreatorCourseType>(`users/${userId}`, undefined, 'API_URL');
+  console.log('Resultado API_URL:', creator);
+  /*const creator = await getContent<CreatorCourseType>(
     `json/${userId}/user.json`,
     undefined,
     'APP_URL'
-  );
+  );*/
   return (
     <div className="space-y-8">
       <Breadcrumb items={breadcrumbItems} />
@@ -42,8 +45,8 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
       <div className="flex flex-col items-start justify-between rounded-lg lg:mt-6 lg:flex-row">
         {/* Columna izquierda: Información principal del curso */}
         <MainContent
-          creatorDesc={creator.description}
-          creatorWhyLearning={creator.whyLearning}
+          creatorDesc={creator.biograophy}
+          creatorWhyLearning={creator.whyLeam}
           locale={locale}
           course={course}
         />
@@ -51,7 +54,7 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
         {/* Columna derecha: Sobre el instructor y Programa del curso */}
         <SectionRigth
           courseId={course.id}
-          isBuy={course.isBuyCourse}
+          isBuy={true}
           creator={creator}
           platform={course.platform}
         />

@@ -1,49 +1,33 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import CourseHorizontalCard from '@features/courses/components/CourseHorizontalCard';
+import { getRecommendedCourses } from '@features/home/services/getRecommendedCourses';
 import { SearchBar } from './SearchBar';
 
-export default function CoursesListSection() {
-  const t = useTranslations<'Common'>('Common');
+export default async function CoursesListSection() {
+  const t = await getTranslations<'Common'>('Common');
+  const courses = await getRecommendedCourses();
+  console.log('courses', courses);
   return (
     <div className="w-full text-white">
       <SearchBar filter={t('filter')} sortBy={t('sort')} search={t('search')} />
-      <CourseHorizontalCard
-        imageUrl="/images/mocks/course_mock1.png"
-        title="Automatización de flujos de trabajo con AppSheet"
-        description="Aprende a crear flujos de trabajo automatizados en AppSheet, optimizando la gestión de tareas y aprobaciones, lo que mejorará la productividad en tus proyectos."
-        rating={4.1}
-        reviews={74}
-        textButton="AppSheet"
-        emoji="/images/appsheet_logo.png"
-        tags={['CRM', 'Clientes', 'Ventas']}
-        categoria="Curso"
-        viewDetails={t('viewDetails')}
-      />
-      <CourseHorizontalCard
-        imageUrl="/images/mocks/course_mock2.png"
-        title="Automatización de flujos de trabajo con AppSheet"
-        description="Aprende a crear flujos de trabajo automatizados en AppSheet, optimizando la gestión de tareas y aprobaciones, lo que mejorará la productividad en tus proyectos."
-        rating={4.1}
-        reviews={74}
-        textButton="Power Apps"
-        emoji="/svg/powerapp.svg"
-        tags={['CRM', 'Clientes', 'Ventas']}
-        categoria="Curso"
-        viewDetails={t('viewDetails')}
-      />
-
-      <CourseHorizontalCard
-        imageUrl="/images/mocks/course_mock3.png"
-        title="Automatización de flujos de trabajo con AppSheet"
-        description="Conviértete en un experto en AppSheetHub y aprende a crear aplicaciones sin escribir una sola línea de código.Desarrollar aplicaciones personalizadas"
-        rating={4.1}
-        reviews={74}
-        textButton="Power Apps"
-        emoji="/svg/powerapp.svg"
-        tags={['CRM', 'Clientes', 'Ventas']}
-        categoria="Curso"
-        viewDetails={t('viewDetails')}
-      />
+      <CardsFlexContainer className="flex flex-col" items={courses}>
+        {(item, i) => (
+          <CourseHorizontalCard
+            key={`gcc-${i}`}
+            title={item.title}
+            emoji="/images/appsheet_logo.png"
+            description={item?.basicDescription || ''}
+            rating={item.rating}
+            reviews={item.reviews}
+            textButton={item.platform}
+            tags={['CRM', 'Clientes', 'Ventas']}
+            imageUrl={item.imageUrl || '/images/mocks/course_mock1.png'}
+            categoria={item.type}
+            viewDetails={t('viewDetails')}
+          />
+        )}
+      </CardsFlexContainer>
     </div>
   );
 }

@@ -43,7 +43,7 @@ export class UsersService {
         try {
             Logger.log('Peticion Profile')
             const response = await this.httpService
-                .get(`${this.userServiceUrl}/users/profile/${userId}`)
+                .get(`${this.userServiceUrl}/users/${userId}`)
                 .toPromise();
             return response.data;
             
