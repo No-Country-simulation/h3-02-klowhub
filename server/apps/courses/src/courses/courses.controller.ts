@@ -1,4 +1,11 @@
-import { Controller, Body, Get, Post, Logger } from '@nestjs/common';
+import { Controller,
+   Body,
+    Get, 
+    Post, 
+    Logger,
+    Request,
+    Response,
+    Param } from '@nestjs/common';
 import { CoursesService, } from './courses.service';
 import { JwtService } from '@nestjs/jwt';
 import { CreateCourseDto, createCourseSchema } from './dto/create.course.dto';
@@ -85,6 +92,19 @@ export class CoursesController {
       };
     }
   }
+    // // Obtener un curso específico por ID
+    @Get('course/:id')
+    async getCourseById(@Param('id') id: string, @Request() req: any, @Response() res:any) {
+      try {
+        const courseId = req.params.id;
+        if(!courseId){
+          return this.coursesService.findById(courseId)
+        }
+      }catch(error){
+        Logger.log(error)
+        return ('Error en obtener el curso por ID')
+      }
+    }
 }
 
   // // Buscar curso por filtro

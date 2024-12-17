@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Logger,
+  Param,
   Post,
   Query,
   Request,
@@ -65,39 +66,56 @@ export class CoursesController {
   //buscar curso por filtro
   @Get('filter')
   async filterCourses(@Query('page') page: string = '1',
-  @Query('limit') limit: string = '10',
-  @Query() filters: Record<string, any>,
-  @Request() req: any,
-  @Response() res: any):Promise<any> {
-    try{
-      const data = {page , limit, filters};
+    @Query('limit') limit: string = '10',
+    @Query() filters: Record<string, any>,
+    @Request() req: any,
+    @Response() res: any): Promise<any> {
+    try {
+      const data = { page, limit, filters };
       const result = this.coursesService.filter(data)
       return res.status(200).json(result);
-    }catch(error){
+    } catch (error) {
       Logger.error('Error en filterCourses', error.message);
       return res.status(500).json({
         message: 'Error en el servidor al filtrar cursos',
-        error: error.message,})
+        error: error.message,
+      })
     }
-//   // Validación de parámetros de paginación
-//   const pageNum = parseInt(page, 10);
-//   const limitNum = parseInt(limit, 10);
+  }
 
-//   if (isNaN(pageNum) || pageNum <= 0) {
-//     throw new BadRequestException('El parámetro "page" debe ser un número positivo');
-//   }
+  // Obtener un curso específico por ID
+  @Get('/:id')
+  async getCourseById(@Param('id') id: string, @Request() req: any, @Response() res:any) {
+    try {
+      const courseId = req.params.id;
+      if(!courseId){
+        return this.coursesService.CoursesById(courseId)
+      }
+    }catch(error){
+      Logger.log(error)
+      return ('Error en obtener el curso por ID')
+    }
+  }
 
-//   if (isNaN(limitNum) || limitNum <= 0) {
-//     throw new BadRequestException('El parámetro "limit" debe ser un número positivo');
-//   }
+  //   // Validación de parámetros de paginación
+  //   const pageNum = parseInt(page, 10);
+  //   const limitNum = parseInt(limit, 10);
 
-//   // Pasamos los filtros y parámetros al microservicio para obtener los cursos
-//   try {
-//     return await this.coursesClient.send({ cmd: 'filter_courses' }, { filters, page: pageNum, limit: limitNum });
-//   } catch (error) {
-//     throw new BadRequestException('Error al filtrar los cursos');
-//   }
-}
+  //   if (isNaN(pageNum) || pageNum <= 0) {
+  //     throw new BadRequestException('El parámetro "page" debe ser un número positivo');
+  //   }
+
+  //   if (isNaN(limitNum) || limitNum <= 0) {
+  //     throw new BadRequestException('El parámetro "limit" debe ser un número positivo');
+  //   }
+
+  //   // Pasamos los filtros y parámetros al microservicio para obtener los cursos
+  //   try {
+  //     return await this.coursesClient.send({ cmd: 'filter_courses' }, { filters, page: pageNum, limit: limitNum });
+  //   } catch (error) {
+  //     throw new BadRequestException('Error al filtrar los cursos');
+  //   }
+
 }
 
 

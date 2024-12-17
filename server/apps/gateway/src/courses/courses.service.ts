@@ -61,4 +61,18 @@ export class CoursesService {
             return 'Error al filtrar Cursos';
         }
     }
+
+    async CoursesById(courseId: string): Promise<any> {
+        try {
+            const response = await this.httpService
+            .get(`${this.coursesServiceUrl}/courses/${courseId}`,{
+
+            })
+            .toPromise();
+            return response.data;
+        } catch (error) {
+          Logger.error(`Error fetching course with ID ${courseId}`, error.message);
+          throw new Error('Failed to fetch course from microservice');
+        }
+      }
 }

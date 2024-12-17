@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Course } from './schemas/course.schema';
@@ -91,6 +91,31 @@ export class CoursesService {
       Logger.error('Error creating course', error.message)
       throw new Error(`Error creating course: ${error.message}`);
     }
+  }
+    // // buscar curse por id
+  async findById(id: string): Promise<Course | null> {
+    // Validar si el ID proporcionado es un ObjectId válido
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException({
+        statusCode: 400,
+        message: 'El ID proporcionado no es válido',
+        error: 'Bad Request',
+      });
+    }
+
+    // Buscar el curso por ID
+    const course = await this.courseModel.findById(id).exec();
+
+    // Si no se encuentra el curso
+    if (!course) {
+      throw new NotFoundException({
+        statusCode: 404,
+        message: `Curso con ID ${id} no encontrado`,
+        error: 'Not Found',
+      });
+    }
+
+    return course;
   }
 
 
