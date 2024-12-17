@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { fallbackCopyTextToClipboard } from '@core/services/fallbackCopyTextToClipboard';
+import { NODE_ENV } from "@root/env.config";
 import useRefMounted from './useRefMounted';
 import useTimeout from './useTimeout';
 import useToggle from './useTogle';
@@ -17,7 +18,7 @@ export const useCopyToClipboard = () => {
         console.warn('No value provided to copy');
         return false;
       }
-      if (process.env.NODE_ENV === 'development' && typeof value !== 'string') {
+      if (NODE_ENV === 'development' && typeof value !== 'string') {
         console.error(`Cannot copy typeof ${typeof value} to clipboard, must be a string`);
         return;
       }

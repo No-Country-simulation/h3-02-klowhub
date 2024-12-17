@@ -1,5 +1,5 @@
 const ModuleIcon = () => (
-  <svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="30" height="30" viewBox="0 0 20 20" fill="none">
     <path
       d="M16.6673 10H12.6673L11.334 12H8.66732L7.33398 10H3.33398"
       stroke="currentColor"

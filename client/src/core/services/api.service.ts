@@ -1,7 +1,5 @@
 import { type ApiErrorType, type ApiResultType } from '@coreTypes/actionResponse';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
+import { API_URL, APP_URL } from "@root/env.config";
 
 const handleError = (error: Error, status?: number): ApiErrorType => {
   const errorMap: Record<number, string> = {

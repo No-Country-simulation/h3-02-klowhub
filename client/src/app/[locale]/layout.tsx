@@ -9,6 +9,7 @@ import { inter } from '@styles/font';
 import { routing } from '@core/lib/i18nRouting';
 import { cn, getBaseUrl } from '@core/lib/utils';
 import Loading from './loading';
+import { ToastProvider } from '@features/toast/components/Toast';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -59,7 +60,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={cn(inter.className, inter.variable)} suppressHydrationWarning>
+      <body className={cn(inter.className, inter.variable)}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </NextIntlClientProvider>

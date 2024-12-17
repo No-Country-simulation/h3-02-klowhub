@@ -9,7 +9,7 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '../components/Toast/Index';
+} from '../components/Toast';
 import { TOAST_REMOVE_DELAY } from '../services/actions';
 import type { ToastContextType, ToastState } from '../types/toastTypes';
 
