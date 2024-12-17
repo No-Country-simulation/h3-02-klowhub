@@ -2,13 +2,14 @@ import { getTranslations } from 'next-intl/server';
 import Button from '@core/components/Button';
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import { Link } from '@core/lib/i18nRouting';
-import { getRecommendedMentors } from '@features/home/services/getRecommendedMentors';
+import type { MentorsCardType } from '@core/schemas/mentor-card.schema';
+import { getContent } from '@core/services/getContent';
 import CardTeacher from '@features/mentors/components/MentorCard';
 import MentorsCarouselWrapper from './MentorsCarouselWrapper';
 
 export default async function MentorSection() {
   const ct = await getTranslations<'Common'>('Common');
-  const mentors = await getRecommendedMentors();
+  const mentors = await getContent<MentorsCardType[]>('/json/recommended-mentors.json');
   return (
     <section className="mx-auto w-full">
       <CardsFlexContainer items={mentors}>
@@ -20,7 +21,7 @@ export default async function MentorSection() {
             reviews={item.reviews}
             platform={item.platform}
             imageSrc={item.img}
-            urlPais="/svg/argentina.svg"
+            countryCode={item.country}
             sessions={item.sessions}
             idioma={item.language}
             hourText={ct('hours')}

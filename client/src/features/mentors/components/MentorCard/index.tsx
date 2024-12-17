@@ -15,7 +15,7 @@ interface CardProps {
   platform: string;
   sessions: string | number;
   idioma: string;
-  urlPais: string;
+  countryCode: string;
   hourText: string;
   reviewText: string;
   sessionText: string;
@@ -29,7 +29,7 @@ const CardTeacher = ({
   platform,
   sessions,
   idioma,
-  urlPais,
+  countryCode,
   hourText,
   reviewText,
   sessionText,
@@ -98,7 +98,13 @@ const CardTeacher = ({
         {/* <h3 className="text-lg font-bold text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-slate-200">{name}</h3>
-          <Image width={30} alt="s" src={urlPais} height={20}></Image>
+          <Image
+            alt="Country Flag"
+            src={`https://kapowaz.github.io/square-flags/flags/${countryCode}.svg`}
+            className="rounded-full object-center"
+            width={30}
+            height={20}
+          />
           {/*
           <div className="relative" ref={menuRef}>
             <button

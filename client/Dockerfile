@@ -3,7 +3,7 @@ FROM node:20-alpine AS base
 FROM base AS deps
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
-RUN npm install -g pnpm@9.7.0 typescript
+RUN npm install -g pnpm@9.7.0
 COPY package.json pnpm-lock.yaml postcss.config.cjs tsconfig.json next.config.mjs tailwind.config.cjs ./
 RUN pnpm install --prefer-frozen-lockfile --ignore-scripts
 
@@ -26,7 +26,7 @@ ENV PORT=4002
 RUN pnpm build && pnpm prune --prod --ignore-scripts
 
 FROM base AS production
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9.7.0
 WORKDIR /app
 
 RUN addgroup -g 1001 -S nodejs && \

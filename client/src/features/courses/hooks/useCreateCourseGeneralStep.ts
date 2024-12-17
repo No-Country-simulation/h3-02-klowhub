@@ -1,3 +1,5 @@
+'use client';
+
 import { useAtom } from 'jotai';
 import {
   type FormEvent,
@@ -7,6 +9,7 @@ import {
   useState,
   useTransition,
 } from 'react';
+import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
 import type { ActionResponse } from '@coreTypes/actionResponse';
 import { CreateCourseTriggers } from '../models/enums/createCourseEnums';
 import createCourseGeneral from '../service/createCourseGeneral';
@@ -14,6 +17,7 @@ import { courseCreationStore } from '../store/courseCreationStore';
 
 export const useCreateCourseGeneralStep = () => {
   const [{ generalStep }, setActiveTab] = useAtom(courseCreationStore);
+  const [_, setActiveStep] = useRouterQueryState<[string]>(CreateCourseTriggers.KEY);
   const [result, dispatch] = useActionState<ActionResponse | undefined, FormData>(
     createCourseGeneral,
     undefined
@@ -32,11 +36,12 @@ export const useCreateCourseGeneralStep = () => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
       formData.append('courseDescription', description);
-      startTransition(() => dispatch(formData));
+
       setActiveTab(prev => ({
         ...prev,
-        activeStep: CreateCourseTriggers.DETAILS,
+        courseId: !prev.courseId ? crypto.randomUUID() : prev.courseId,
         generalStep: {
+          active: true,
           courseTitle: formData.get('courseTitle')?.toString() || '',
           courseMonetizable: formData.get('courseMonetizable')?.toString() || '',
           courseType: formData.get('courseType')?.toString() || '',
@@ -45,9 +50,15 @@ export const useCreateCourseGeneralStep = () => {
           coursePlatform: formData.get('coursePlatform')?.toString() || '',
           courseLanguage: formData.get('courseLanguage')?.toString() || '',
         },
+        courseDetailsStep: {
+          ...prev.courseDetailsStep,
+          active: true,
+        },
       }));
+      startTransition(() => dispatch(formData));
+      setActiveStep([CreateCourseTriggers.DETAILS]);
     },
-    [description]
+    [description, setActiveTab, result]
   );
 
   return {

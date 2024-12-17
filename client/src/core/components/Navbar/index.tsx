@@ -5,6 +5,7 @@ import { Link, type Locale } from '@core/lib/i18nRouting';
 import { NavbarClient } from './NavbarClient';
 import NavbarItems from './NavbarItems';
 import UserModeToggle from './UserModeToggle';
+import UserSubmenu from './UserSubMenu';
 import LocaleSwitcherSelect from '../LocaleSwitcherSelect';
 
 interface NavbarProps {
@@ -28,6 +29,15 @@ export default function Navbar({ locale }: NavbarProps) {
 
         <div className="ml-auto hidden h-full items-center justify-center space-x-4 min-[1400px]:flex">
           <LocaleSwitcherSelect currentLocale={locale} />
+          <Link aria-label={t('cartLabel')} href="/cart">
+            <Image
+              src="/svg/cart.svg"
+              alt={t('cartAlt')}
+              width={24}
+              height={24}
+              className="size-6"
+            />
+          </Link>
           {/* <Button aria-label={t('cartLabel')} size="fit" variant="ghost">
             <Image
               src="/svg/cart.svg"
@@ -56,15 +66,11 @@ export default function Navbar({ locale }: NavbarProps) {
             />
           </Button>  */}
           <UserModeToggle explorerText={t('explorer')} creatorText={t('creator')} />
-          <Link href="/profile" className="flex size-12 items-center justify-center rounded-full">
-            <Image
-              src="/images/mocks/seba.png"
-              alt={t('mailAlt')}
-              width={60}
-              height={60}
-              className="size-full rounded-full object-cover"
-            />
-          </Link>
+          <UserSubmenu
+            profileAlt={t('mailAlt')}
+            profileText={t('profile')}
+            logoutText={t('logout')}
+          />
         </div>
       </NavbarClient>
     </div>

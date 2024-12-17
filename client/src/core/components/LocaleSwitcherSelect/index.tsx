@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { type Locale, routing, usePathname } from '@core/lib/i18nRouting';
@@ -34,20 +35,30 @@ export default function LocaleSwitcherSelect({ currentLocale }: LocaleSwitcherSe
           className="object-center invert"
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white/15 font-medium text-white backdrop-blur-lg">
-        {routing.locales.map((locale, i) => (
-          <DropdownMenuItem
-            key={`${locale}-${i}`}
-            className="w-full"
-            onSelect={() => onSelectChange(locale)}>
-            {
-              localesLabel[locale as keyof typeof localesLabel][
-                currentLocale as keyof typeof localesLabel
-              ]
-            }
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
+      <AnimatePresence>
+        <DropdownMenuContent
+          asChild
+          sideOffset={12}
+          className="bg-white/15 !p-0 font-medium text-white backdrop-blur-lg">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}>
+            {routing.locales.map((locale, i) => (
+              <DropdownMenuItem
+                key={`${locale}-${i}`}
+                className="w-full cursor-pointer px-2 transition-colors duration-300 ease-in-out hover:bg-white/5 hover:text-primary-A-200 active:bg-white/10 active:text-primary-A-100"
+                onSelect={() => onSelectChange(locale)}>
+                {
+                  localesLabel[locale as keyof typeof localesLabel][
+                    currentLocale as keyof typeof localesLabel
+                  ]
+                }
+              </DropdownMenuItem>
+            ))}
+          </motion.div>
+        </DropdownMenuContent>
+      </AnimatePresence>
     </DropdownMenu>
   );
 }

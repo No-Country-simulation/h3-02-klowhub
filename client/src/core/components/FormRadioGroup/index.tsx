@@ -5,13 +5,19 @@ interface FormRadioGroupProps {
   defaultValue?: string;
   title: string;
   items: { value: string; label: string; id: string; className?: string }[];
+  name: string;
 }
 
-export default function FormRadioGroup({ defaultValue = '', title, items }: FormRadioGroupProps) {
+export default function FormRadioGroup({
+  defaultValue = '',
+  title,
+  items,
+  name,
+}: FormRadioGroupProps) {
   return (
     <div className="space-y-3">
       <h3 className="font-medium text-white">{title}</h3>
-      <RadioGroup defaultValue={defaultValue} name="courseMonetizable">
+      <RadioGroup defaultValue={defaultValue} name={name}>
         {items.map(item => (
           <div key={item.id} className="inline-block space-x-4 text-white">
             <RadioGroupItem value={item.value} id={item.id} />

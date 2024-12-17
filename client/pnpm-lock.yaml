@@ -143,6 +143,9 @@ importers:
       next-intl:
         specifier: 3.25.0
         version: 3.25.0(next@15.0.3(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      qs:
+        specifier: 6.13.1
+        version: 6.13.1
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -216,6 +219,9 @@ importers:
       '@types/node':
         specifier: 20.15.0
         version: 20.15.0
+      '@types/qs':
+        specifier: 6.9.17
+        version: 6.9.17
       '@types/react':
         specifier: 18.3.12
         version: 18.3.12
@@ -2049,6 +2055,9 @@ packages:
 
   '@types/prop-types@15.7.14':
     resolution: {integrity: sha512-gNMvNH49DJ7OJYv+KAKn0Xp45p8PLl6zo2YnvDIbTd4J6MER2BmWN49TG7n9LvkyihINxeKW8+3bfS2yDC9dzQ==}
+
+  '@types/qs@6.9.17':
+    resolution: {integrity: sha512-rX4/bPcfmvxHDv0XjfJELTTr+iB+tn032nPILqHm5wbthUUUuVtNGGqzhya9XUxjTP8Fpr0qYgSZZKxGY++svQ==}
 
   '@types/react-dom@18.3.1':
     resolution: {integrity: sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==}
@@ -7564,6 +7573,8 @@ snapshots:
       undici-types: 6.13.0
 
   '@types/prop-types@15.7.14': {}
+
+  '@types/qs@6.9.17': {}
 
   '@types/react-dom@18.3.1':
     dependencies:

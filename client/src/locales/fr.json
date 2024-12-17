@@ -143,7 +143,9 @@
     "mailLabel": "Message direct",
     "mailAlt": "Icône de message direct",
     "homeText": "Accueil",
-    "platformText": "Plateforme"
+    "platformText": "Plateforme",
+    "profile": "Profil",
+    "logout": "Se déconnecter"
   },
   "Auth": {
     "forgotPassword": "Mot de passe oublié ?",
@@ -161,7 +163,32 @@
   "Fields": {
     "emailLabel": "E-mail",
     "passwordLabel": "Mot de passe",
-    "nameLabel": "Nom"
+    "nameLabel": "Nom",
+    "courseTitleLabel": "Titre du Cours/Leçon",
+    "courseTitlePlaceholder": "Nommez votre cours/leçon",
+    "courseAlert": "Le contenu gratuit offre un accès limité à certaines fonctionnalités du contenu gratuit. Le contenu premium débloque [les principaux avantages du contenu payant]. En savoir plus dans notre.",
+    "coursePaymentLabel": "Quel type de contenu recherchez-vous : gratuit ou premium?",
+    "coursePaymentFree": "Gratuit",
+    "coursePaymentPremium": "Payant",
+    "courseTypeLabel": "Sélectionnez si vous allez créer un cours ou une leçon.",
+    "courseTypeCourse": "Cours",
+    "courseTypeLesson": "Leçon",
+    "courseDescriptionLabel": "Expliquez de quoi il s'agit, en pas plus de 3 lignes.",
+    "courseDescriptionPlaceholder": "Rédigez une description du cours.",
+    "courseLevelLabel": "Niveau de Compétence",
+    "courseLevelBasic": "Débutant",
+    "courseLevelMid": "Intermédiaire",
+    "courseLevelAdvanced": "Avancé",
+    "coursePlatformLabel": "Plateforme",
+    "courseLanguageLabel": "Choisissez la langue du cours",
+    "courseLanguagePlaceholder": "Sélectionnez une langue",
+    "courseEmptyPlaceholder": "Aucun {some} ajouté. Commencez par ajouter le premier {some} au cours.",
+    "courseLearningsLabel": "Dites-nous ce que vos étudiants apprendront après avoir terminé le cours.",
+    "courseRequirementsLabel": "Prérequis",
+    "courseBenefitsLabel": "Listez les avantages offerts par le cours",
+    "coursePosterLabel": "Téléchargez une image de couverture pour le cours",
+    "imageUploadPlaceholder": "Téléchargez une image de couverture",
+    "imageUploadDropInfo": "Faites glisser ou cliquez ici pour télécharger votre image"
   },
   "Validations": {
     "emailRequired": "L'e-mail est requis",
@@ -179,7 +206,8 @@
     "filter": "Filtrer",
     "sort": "Trier par",
     "search": "Rechercher",
-    "share": "Partager"
+    "share": "Partager",
+    "next": "Suivant"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Créer un nouveau cours",
@@ -189,7 +217,10 @@
     "tabGeneralText": "Informations générales",
     "tabDetailsText": "Détails du cours",
     "tabModulesText": "Modules et leçons",
-    "tabPromotionText": "Promotions"
+    "tabPromotionText": "Promotions",
+    "courseLearning": "apprentissages",
+    "courseRequirements": "prérequis",
+    "courseBenefits": "avantages"
   },
   "AppCard": {
     "titulo": "Applications recommandées",

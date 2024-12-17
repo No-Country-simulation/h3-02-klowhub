@@ -143,7 +143,9 @@
     "mailLabel": "Mensagem direta",
     "mailAlt": "Ícone de mensagem direta",
     "homeText": "Início",
-    "platformText": "Plataforma"
+    "platformText": "Plataforma",
+    "profile": "Perfil",
+    "logout": "Sair"
   },
   "Auth": {
     "forgotPassword": "Esqueceu sua senha?",
@@ -159,9 +161,34 @@
     "signinPrelink": "Ainda não possui uma conta?"
   },
   "Fields": {
-    "emailLabel": "E-mail",
+    "emailLabel": "Email",
     "passwordLabel": "Senha",
-    "nameLabel": "Nome"
+    "nameLabel": "Nome",
+    "courseTitleLabel": "Título do Curso/Lição",
+    "courseTitlePlaceholder": "Dê um nome ao seu curso/lição",
+    "courseAlert": "O conteúdo gratuito oferece acesso limitado a funcionalidades breves do conteúdo gratuito. O conteúdo premium desbloqueia [principais benefícios do conteúdo pago]. Saiba mais em nosso.",
+    "coursePaymentLabel": "Que tipo de conteúdo você procura: gratuito ou premium?",
+    "coursePaymentFree": "Gratuito",
+    "coursePaymentPremium": "Pago",
+    "courseTypeLabel": "Selecione se você vai criar um curso ou uma lição.",
+    "courseTypeCourse": "Curso",
+    "courseTypeLesson": "Lição",
+    "courseDescriptionLabel": "Conte-nos sobre o que se trata, em no máximo 3 linhas.",
+    "courseDescriptionPlaceholder": "Escreva uma descrição do curso.",
+    "courseLevelLabel": "Nível de Competência",
+    "courseLevelBasic": "Básico",
+    "courseLevelMid": "Intermediário",
+    "courseLevelAdvanced": "Avançado",
+    "coursePlatformLabel": "Plataforma",
+    "courseLanguageLabel": "Escolha o idioma do curso",
+    "courseLanguagePlaceholder": "Selecione um idioma",
+    "courseEmptyPlaceholder": "Não há {some} adicionados. Comece adicionando o primeiro {some} ao curso.",
+    "courseLearningsLabel": "Diga-nos o que os alunos aprenderão ao concluir o curso.",
+    "courseRequirementsLabel": "Pré-requisitos",
+    "courseBenefitsLabel": "Liste os benefícios oferecidos pelo curso",
+    "coursePosterLabel": "Envie uma imagem de capa para o curso",
+    "imageUploadPlaceholder": "Carregue uma imagem de capa",
+    "imageUploadDropInfo": "Arraste ou clique aqui para carregar sua imagem"
   },
   "Validations": {
     "emailRequired": "E-mail é obrigatório",
@@ -179,7 +206,8 @@
     "filter": "Filtrar",
     "sort": "Ordenar por",
     "search": "Buscar",
-    "share": "Compartilhar"
+    "share": "Compartilhar",
+    "next": "Próximo"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Criar um novo curso",
@@ -189,7 +217,10 @@
     "tabGeneralText": "Informações Gerais",
     "tabDetailsText": "Detalhes do Curso",
     "tabModulesText": "Módulos e Lições",
-    "tabPromotionText": "Promoções"
+    "tabPromotionText": "Promoções",
+    "courseLearning": "aprendizados",
+    "courseRequirements": "pré-requisitos",
+    "courseBenefits": "benefícios"
   },
   "AppCard": {
     "titulo": "Aplicativos Recomendados",

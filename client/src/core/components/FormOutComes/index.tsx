@@ -12,11 +12,13 @@ interface FormOutComesProps {
   className?: string;
   defaultValue?: string[];
   name: string;
+  emptyMessage?: string;
 }
 
 export default function FormOutComes({
   defaultValue = [],
   className = '',
+  emptyMessage = '',
   name,
 }: FormOutComesProps) {
   const [outcomes, setOutcomes] = useState<string[]>(defaultValue);
@@ -93,9 +95,7 @@ export default function FormOutComes({
           </div>
         ))}
         {outcomes.length === 0 && (
-          <div className="text-muted-foreground px-4 py-12 text-center">
-            No hay objetivos agregados. Comienza agregando el primer objetivo del curso.
-          </div>
+          <div className="text-muted-foreground px-4 py-12 text-center">{emptyMessage}</div>
         )}
         <div className="!mt-0 w-full border-t px-6 py-2 text-right text-sm text-white">
           {outcomes.length}/{MAX_OUTCOMES}

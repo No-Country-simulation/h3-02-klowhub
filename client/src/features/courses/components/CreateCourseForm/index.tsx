@@ -1,54 +1,47 @@
 'use client';
 
-import { useAtom } from 'jotai';
+import { Provider } from 'jotai';
 import { Tabs, TabsContent } from '@core/components/Tabs';
 import TabListTrigger from '@core/components/Tabs/TabListTrigger';
+import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
+import type { CourseFields } from '@features/courses/models/courseFields';
 import { CreateCourseTriggers } from '@features/courses/models/enums/createCourseEnums';
-import { courseCreationStore } from '@features/courses/store/courseCreationStore';
 import CourseDetailsFormStep from './CourseDetailsFormStep';
 import CourseGeneralFormStep from './CourseGeneralFormStep';
 import CourseModuleFormStep from './CourseModuleFormStep';
 
 interface CreateCourseFormProps {
-  tabGeneralText: string;
-  tabDetailsText: string;
-  tabModulesText: string;
-  tabPromotionText: string;
+  fields: CourseFields;
+  triggers: { label: string; value: CreateCourseTriggers; key: string }[];
+  next: string;
 }
 
-export default function CreateCourseForm({
-  tabDetailsText,
-  tabGeneralText,
-  tabModulesText,
-  tabPromotionText,
-}: CreateCourseFormProps) {
-  const [activeStep, setActiveAtom] = useAtom(courseCreationStore);
-  const triggers = [
-    { label: tabGeneralText, value: CreateCourseTriggers.GENERAL },
-    { label: tabDetailsText, value: CreateCourseTriggers.DETAILS },
-    { label: tabModulesText, value: CreateCourseTriggers.MODULES },
-    { label: tabPromotionText, value: CreateCourseTriggers.PROMOTION },
-  ];
+export default function CreateCourseForm({ triggers, fields, next }: CreateCourseFormProps) {
+  const [step, setActiveStep] = useRouterQueryState<[string]>(CreateCourseTriggers.KEY, [
+    CreateCourseTriggers.GENERAL,
+  ]);
 
   return (
-    <section>
-      <Tabs
-        value={activeStep.activeStep}
-        onValueChange={val =>
-          setActiveAtom(prev => ({ ...prev, activeStep: val as CreateCourseTriggers }))
-        }>
-        <TabListTrigger className="max-w-3xl" triggers={triggers} />
-        <TabsContent value={CreateCourseTriggers.GENERAL}>
-          <CourseGeneralFormStep />
-        </TabsContent>
-        <TabsContent value={CreateCourseTriggers.DETAILS}>
-          <CourseDetailsFormStep />
-        </TabsContent>
-        <TabsContent value={CreateCourseTriggers.MODULES}>
-          <CourseModuleFormStep />
-        </TabsContent>
-        <TabsContent value={CreateCourseTriggers.PROMOTION}></TabsContent>
-      </Tabs>
-    </section>
+    <Provider>
+      <section>
+        <Tabs
+          value={step?.[0]}
+          onValueChange={val => {
+            setActiveStep([val]);
+          }}>
+          <TabListTrigger className="max-w-3xl" triggers={triggers} />
+          <TabsContent value={CreateCourseTriggers.GENERAL}>
+            <CourseGeneralFormStep fields={fields.general} next={next} />
+          </TabsContent>
+          <TabsContent value={CreateCourseTriggers.DETAILS}>
+            <CourseDetailsFormStep fields={fields.details} next={next} />
+          </TabsContent>
+          <TabsContent value={CreateCourseTriggers.MODULES}>
+            <CourseModuleFormStep next={next} />
+          </TabsContent>
+          <TabsContent value={CreateCourseTriggers.PROMOTION}></TabsContent>
+        </Tabs>
+      </section>
+    </Provider>
   );
 }

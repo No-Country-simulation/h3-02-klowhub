@@ -1,45 +1,56 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { atom, type WritableAtom } from 'jotai';
 
-export function getFromLocalStorage<T = unknown>(key: string, defaultValue: T): T {
+function getFromLocalStorage<T>(key: string, defaultValue: T): T {
+  if (typeof window === 'undefined') {
+    return defaultValue;
+  }
+
   try {
     const storedValue = localStorage.getItem(key);
     return storedValue !== null ? (JSON.parse(storedValue) as T) : defaultValue;
   } catch (error) {
-    console.error('Error reading from localStorage:', error);
+    console.error(`Error reading from localStorage (key: ${key}):`, error);
     return defaultValue;
   }
 }
 
-export function setToLocalStorage<T = unknown>(key: string, value: T): void {
+function setToLocalStorage<T>(key: string, value: T): void {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
-    console.error('Error writing to localStorage:', error);
+    console.error(`Error writing to localStorage (key: ${key}):`, error);
   }
 }
-
-const baseAtom = atom<any>(null);
 
 export function atomWithPersistence<T = unknown>(
   key: string,
   defaultValue: T
-): WritableAtom<T, [Partial<T> | ((prev: T) => T)], void> {
-  return atom(
+): WritableAtom<T, [T | ((prev: T) => T)], void> {
+  const baseAtom = atom<{ value: T; initialized: boolean }>({
+    value: defaultValue,
+    initialized: false,
+  });
+
+  const persistentAtom = atom(
     get => {
-      const stored = getFromLocalStorage(key, defaultValue);
-      return stored;
+      const state = get(baseAtom);
+      if (!state.initialized && typeof window !== 'undefined') {
+        const stored = getFromLocalStorage(key, defaultValue);
+        return { ...state, value: stored, initialized: true };
+      }
+      return state;
     },
-    (get, set, update: Partial<T> | ((prev: T) => T)) => {
-      const currentValue = get(baseAtom);
+    (get, set, update: T | ((prev: T) => T)) => {
+      const current = get(baseAtom).value;
+      const newValue = typeof update === 'function' ? (update as (prev: T) => T)(current) : update;
 
-      const newValue =
-        typeof update === 'function'
-          ? (update as (prev: T) => T)(currentValue)
-          : { ...currentValue, ...update };
-
-      set(baseAtom, newValue);
+      set(baseAtom, { value: newValue, initialized: true });
       setToLocalStorage(key, newValue);
     }
+  );
+
+  return atom(
+    get => get(persistentAtom).value,
+    (get, set, update) => set(persistentAtom, update)
   );
 }

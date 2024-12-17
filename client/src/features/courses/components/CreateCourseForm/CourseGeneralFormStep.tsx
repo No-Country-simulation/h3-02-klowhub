@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@core/components/Button';
 import FormField from '@core/components/FormField';
 import FormRadioGroup from '@core/components/FormRadioGroup';
@@ -10,6 +12,7 @@ import {
 } from '@core/components/Select';
 import TiptapEditor from '@core/components/TiptapEditor';
 import { useCreateCourseGeneralStep } from '@features/courses/hooks/useCreateCourseGeneralStep';
+import type { CourseGeneralFields } from '@features/courses/models/courseFields';
 import { createCourseGeneralModel } from '@features/courses/models/createCourseGeneral';
 import {
   CourseCompetence,
@@ -19,64 +22,73 @@ import {
 } from '@features/courses/models/enums/createCourseEnums';
 import CreateCourseAlert from '../CreateCourseAlert';
 
-export default function CourseGeneralFormStep() {
+interface CourseGeneralFormStepProps {
+  fields: CourseGeneralFields;
+  next: string;
+}
+
+export default function CourseGeneralFormStep({ fields, next }: CourseGeneralFormStepProps) {
   const { handleSubmit, setDescription, generalStep } = useCreateCourseGeneralStep();
 
   return (
     <form className="mt-5 space-y-12 rounded-lg bg-neutral-100 p-8" onSubmit={handleSubmit}>
       <FormField
         id="courseTitle"
-        label="Título del curso/lección"
+        label={fields.title.label}
         name="courseTitle"
         type="text"
-        placeholder="Nombrá tu curso o lección"
+        placeholder={fields.title.placeholder}
         className="max-w-md"
         defaultValue={generalStep.courseTitle}
       />
-      <CreateCourseAlert>
-        El contenido gratuito ofrece acceso limitado a características breves del contenido
-        gratuito. El contenido premium desbloquea [principales beneficios del contenido de pago].
-        Más información en nuestra.
-      </CreateCourseAlert>
+      <CreateCourseAlert>{fields.alert}</CreateCourseAlert>
       <div className="flex max-w-[878px] flex-row gap-x-9">
         <FormRadioGroup
+          name="courseMonetizable"
           defaultValue={generalStep.courseMonetizable || CourseMonetizable.FREE}
-          title={'¿Qué tipo de contenido estás buscando: gratuito o premium?'}
-          items={createCourseGeneralModel.courseMonetizable(['Gratuito', 'Pago'])}
+          title={fields.payment.label}
+          items={createCourseGeneralModel.courseMonetizable([
+            fields.payment.free,
+            fields.payment.premium,
+          ])}
         />
         <FormRadioGroup
+          name="courseType"
           defaultValue={generalStep.courseType || CourseType.COURSE}
-          title={'Seleccioná si vas a crear un curso o una lección.'}
-          items={createCourseGeneralModel.courseType(['Curso', 'Leccion'])}
+          title={fields.type.label}
+          items={createCourseGeneralModel.courseType([fields.type.course, fields.type.lesson])}
         />
       </div>
 
       <div className="space-y-3">
-        <h3 className="font-medium text-white">Contá de qué trata, en no más de 3 líneas.</h3>
+        <h3 className="font-medium text-white">{fields.description.label}</h3>
         <TiptapEditor
           onChange={html => {
             setDescription(html);
           }}
           className="max-w-3xl"
           defaultValue={generalStep.courseDescription}
+          placeholder={fields.description.placeholder}
         />
       </div>
       <div className="flex max-w-[878px] flex-row gap-x-32">
         <FormRadioGroup
-          title={'Nivel de competencia'}
+          name="courseCompetence"
+          title={fields.level.label}
           defaultValue={generalStep.courseCompetence || CourseCompetence.BASIC}
-          items={createCourseGeneralModel.courseCompetence(['Basico', 'Intermediato'])}
+          items={createCourseGeneralModel.courseCompetence([fields.level.basic, fields.level.mid])}
         />
         <FormRadioGroup
-          title={'Plataforma'}
+          name="coursePlatform"
+          title={fields.platform.label}
           defaultValue={generalStep.coursePlatform || CoursePlatform.POWER_APPS}
           items={createCourseGeneralModel.coursePlatform}
         />
         <div className="space-y-3">
-          <h3 className="font-medium text-white">Elige el idioma del curso</h3>
+          <h3 className="font-medium text-white">{fields.language.label}</h3>
           <Select name="courseLanguage" defaultValue={generalStep.courseLanguage || ''}>
             <SelectTrigger className="font-meddium w-[200px] border-primary-B-300 text-primary-B-300">
-              <SelectValue placeholder="Selecciona el idioma" />
+              <SelectValue placeholder={fields.language.placeholder} />
             </SelectTrigger>
             <SelectContent
               sideOffset={10}
@@ -85,7 +97,16 @@ export default function CourseGeneralFormStep() {
                 Español
               </SelectItem>
               <SelectItem value="en" className="text-white data-[state=checked]:text-primary-B-300">
-                Ingles
+                English
+              </SelectItem>
+              <SelectItem value="pt" className="text-white data-[state=checked]:text-primary-B-300">
+                Português
+              </SelectItem>
+              <SelectItem value="fr" className="text-white data-[state=checked]:text-primary-B-300">
+                Français
+              </SelectItem>
+              <SelectItem value="it" className="text-white data-[state=checked]:text-primary-B-300">
+                Italiano
               </SelectItem>
             </SelectContent>
           </Select>
@@ -93,7 +114,7 @@ export default function CourseGeneralFormStep() {
       </div>
       <div className="inline-flex w-full">
         <Button variant="default" className="ms-auto px-11" type="submit" size="default">
-          Siguiente
+          {next}
         </Button>
       </div>
     </form>

@@ -15,6 +15,7 @@ interface TiptapEditorProps {
   classNameEditor?: string;
   onChange?: (html: string) => void;
   defaultValue?: string;
+  placeholder?: string;
 }
 
 const TiptapEditor = ({
@@ -22,8 +23,9 @@ const TiptapEditor = ({
   classNameEditor = '',
   onChange,
   defaultValue = '',
+  placeholder = '',
 }: TiptapEditorProps) => {
-  const editor = useEditorConfig(classNameEditor, defaultValue, onChange);
+  const editor = useEditorConfig(classNameEditor, defaultValue, placeholder, onChange);
   const [showEmoji, toggle, addEmoji] = useEmojis(data => {
     if (!editor) return;
     editor.commands.insertContent(data);

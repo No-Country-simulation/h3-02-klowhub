@@ -13,7 +13,7 @@ export default async function middleware(request: NextRequest, _: NextFetchEvent
   if (pathname.endsWith('/help')) {
     return NextResponse.redirect(new URL(`/${locale}/help/terms-and-conditions`, request.url));
   }
-  if (pathname.endsWith(`/${locale}`)) {
+  if (pathname.endsWith(`/${locale}`) || pathname.endsWith('/')) {
     return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
   }
   /*

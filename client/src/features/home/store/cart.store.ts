@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { atomWithPersistence } from '@core/services/persistStore';
 
 //Faltaria agregar el tipo de datos que se guardara aqui

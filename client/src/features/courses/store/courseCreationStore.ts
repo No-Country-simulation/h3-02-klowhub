@@ -1,8 +1,11 @@
-import { atom } from 'jotai';
-import { CreateCourseTriggers } from '../models/enums/createCourseEnums';
+import { atomWithPersistence } from '@core/services/persistStore';
+
+export interface DefaultStep {
+  active: boolean;
+}
 
 // Tipo para el paso "generalStep"
-export interface GeneralStep {
+export interface GeneralStep extends DefaultStep {
   courseTitle: string;
   courseMonetizable: string;
   courseType: string;
@@ -13,23 +16,40 @@ export interface GeneralStep {
 }
 
 // Tipo para el paso "courseDetailsStep"
-export interface CourseDetailsStep {
+export interface CourseDetailsStep extends DefaultStep {
   courseLearnings: string[];
   courseRequirements: string[];
   courseBenefits: string[];
   coursePoster: string | undefined;
 }
+export type ModuleLesson = {
+  title: string;
+  video: string | undefined;
+  thumbnail: string | undefined;
+};
+
+export type ModuleType = {
+  moduleTitle: string;
+  lessons: (ModuleType | null)[];
+};
+
+export interface CourseModuleStep extends DefaultStep {
+  modules: (ModuleType | null)[];
+}
 
 // Tipo principal para la store
 export interface CreateCourseStore {
-  activeStep: CreateCourseTriggers;
+  courseId: string;
   generalStep: GeneralStep;
   courseDetailsStep: CourseDetailsStep;
+  courseModulesStep: CourseModuleStep;
+  coursePromotionStep: DefaultStep;
 }
 
-export const courseCreationStore = atom<CreateCourseStore>({
-  activeStep: CreateCourseTriggers.GENERAL,
+export const courseCreationStore = atomWithPersistence<CreateCourseStore>('courseCreationStore', {
+  courseId: '',
   generalStep: {
+    active: true,
     courseTitle: '',
     courseMonetizable: '',
     courseType: '',
@@ -39,9 +59,17 @@ export const courseCreationStore = atom<CreateCourseStore>({
     courseLanguage: '',
   },
   courseDetailsStep: {
+    active: false,
     courseLearnings: [],
     courseRequirements: [],
     courseBenefits: [],
     coursePoster: undefined,
+  },
+  courseModulesStep: {
+    active: false,
+    modules: [],
+  },
+  coursePromotionStep: {
+    active: false,
   },
 });

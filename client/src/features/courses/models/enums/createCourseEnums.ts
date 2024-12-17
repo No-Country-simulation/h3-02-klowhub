@@ -3,6 +3,7 @@ export enum CreateCourseTriggers {
   DETAILS = 'details',
   MODULES = 'modules',
   PROMOTION = 'promotion',
+  KEY = 'activeStep',
 }
 
 export enum CourseMonetizable {

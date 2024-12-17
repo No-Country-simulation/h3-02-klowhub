@@ -16,11 +16,13 @@ import css from '@styles/tiptapeditor.module.css';
 export const useEditorConfig = (
   classNameEditor: string,
   defaultValue: string,
+  placeholderText: string,
   onChange?: (html: string) => void
 ) => {
   const editor = useEditor(
     {
       editable: true,
+      immediatelyRender: false,
       extensions: [
         Document,
         Paragraph,
@@ -36,7 +38,7 @@ export const useEditorConfig = (
           depth: 15,
         }),
         Placeholder.configure({
-          placeholder: 'Escribe una descripcion basica del proyecto',
+          placeholder: placeholderText,
         }),
         /*Link.configure({
           HTMLAttributes: {
@@ -61,7 +63,7 @@ export const useEditorConfig = (
         onChange(editor.getHTML());
       },
     },
-    [classNameEditor]
+    [classNameEditor, placeholderText]
   );
 
   return editor;

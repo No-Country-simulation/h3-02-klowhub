@@ -143,7 +143,9 @@
     "mailLabel": "Direct message",
     "mailAlt": "Direct message icon",
     "homeText": "Home",
-    "platformText": "Platform"
+    "platformText": "Platform",
+    "profile": "Profile",
+    "logout": "Log out"
   },
   "Auth": {
     "forgotPassword": "¿Forgot your password?",
@@ -158,10 +160,35 @@
     "signTextButtons": "Or proceed below",
     "signinPrelink": "¿Don't have an account yet?"
   },
-  "Fields": {
+"Fields": {
     "emailLabel": "Email",
     "passwordLabel": "Password",
-    "nameLabel": "Name"
+    "nameLabel": "Name",
+    "courseTitleLabel": "Course/Lesson Title",
+    "courseTitlePlaceholder": "Name your course/lesson",
+    "courseAlert": "Free content offers limited access to brief features of the free content. Premium content unlocks [key benefits of paid content]. Learn more in our.",
+    "coursePaymentLabel": "What type of content are you looking for: free or premium?",
+    "coursePaymentFree": "Free",
+    "coursePaymentPremium": "Paid",
+    "courseTypeLabel": "Select if you are going to create a course or a lesson.",
+    "courseTypeCourse": "Course",
+    "courseTypeLesson": "Lesson",
+    "courseDescriptionLabel": "Tell us what it's about, in no more than 3 lines.",
+    "courseDescriptionPlaceholder": "Write a description of the course.",
+    "courseLevelLabel": "Skill Level",
+    "courseLevelBasic": "Basic",
+    "courseLevelMid": "Intermediate",
+    "courseLevelAdvanced": "Advanced",
+    "coursePlatformLabel": "Platform",
+    "courseLanguageLabel": "Choose the course language",
+    "courseLanguagePlaceholder": "Select a language",
+    "courseEmptyPlaceholder": "There are no {some} added. Start by adding the first {some} to the course.",
+    "courseLearningsLabel": "Tell us what your students will learn after completing the course.",
+    "courseRequirementsLabel": "Prerequisites",
+    "courseBenefitsLabel": "List the benefits offered by the course",
+    "coursePosterLabel": "Upload a cover image for the course",
+    "imageUploadPlaceholder": "Upload a cover image",
+    "imageUploadDropInfo": "Drag or click here to upload your image"
   },
   "Validations": {
     "emailRequired": "Email is required",
@@ -179,7 +206,8 @@
     "filter": "Filter",
     "sort": "Sort by",
     "search": "Search",
-    "share": "Share"
+    "share": "Share",
+    "next": "Next"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Create a new course",
@@ -189,7 +217,10 @@
     "tabGeneralText": "General Information",
     "tabDetailsText": "Course Details",
     "tabModulesText": "Modules and Lessons",
-    "tabPromotionText": "Promotions"
+    "tabPromotionText": "Promotions",
+    "courseLearning": "learnings",
+    "courseRequirements": "prerequisites",
+    "courseBenefits": "benefits"
   },
   "AppCard": {
     "titulo": "Recommended applications",
