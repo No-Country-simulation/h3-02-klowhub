@@ -13,5 +13,6 @@ export const publicRoutes: string[] = [
   '/courses/filter',
   '/courses/',
   '/courses/create',
-  '/user/:id',
+  '/user',
+  '/users/:id',
 ];
