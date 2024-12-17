@@ -68,7 +68,7 @@ export class CoursesController {
     return this.coursesService.getCourses(any)
   }
 
-  @Get('course/:id')
+  @Get(':id')
   async getCourseById(
     @Param('id') id: string): Promise<any> {
       return this.coursesService.CoursesById(id)
