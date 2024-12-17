@@ -2,10 +2,10 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Logger,
   Param,
   Post,
-  Query,
   Request,
   Response,
 } from '@nestjs/common';
@@ -63,40 +63,18 @@ export class CoursesController {
     }
   }
 
-  //buscar curso por filtro
-  @Get('filter')
-  async filterCourses(@Query('page') page: string = '1',
-    @Query('limit') limit: string = '10',
-    @Query() filters: Record<string, any>,
-    @Request() req: any,
-    @Response() res: any): Promise<any> {
-    try {
-      const data = { page, limit, filters };
-      const result = this.coursesService.filter(data)
-      return res.status(200).json(result);
-    } catch (error) {
-      Logger.error('Error en filterCourses', error.message);
-      return res.status(500).json({
-        message: 'Error en el servidor al filtrar cursos',
-        error: error.message,
-      })
-    }
+  @Get('getCourses')
+  async getCourses(@Body() any: any) {
+    return this.coursesService.getCourses(any)
   }
 
-  // Obtener un curso específico por ID
-  @Get('/:id')
-  async getCourseById(@Param('id') id: string, @Request() req: any, @Response() res:any) {
-    try {
-      const courseId = req.params.id;
-      if(!courseId){
-        return this.coursesService.CoursesById(courseId)
-      }
-    }catch(error){
-      Logger.log(error)
-      return ('Error en obtener el curso por ID')
-    }
+  @Get('course/:id')
+  async getCourseById(
+    @Param('id') id: string): Promise<any> {
+      return this.coursesService.CoursesById(id)
   }
 
+}
   //   // Validación de parámetros de paginación
   //   const pageNum = parseInt(page, 10);
   //   const limitNum = parseInt(limit, 10);
@@ -116,7 +94,6 @@ export class CoursesController {
   //     throw new BadRequestException('Error al filtrar los cursos');
   //   }
 
-}
 
 
 // //buscar curso por filtro

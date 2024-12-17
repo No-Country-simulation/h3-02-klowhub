@@ -92,9 +92,20 @@ export class CoursesService {
       throw new Error(`Error creating course: ${error.message}`);
     }
   }
-    // // buscar curse por id
-  async findById(id: string): Promise<Course | null> {
-    // Validar si el ID proporcionado es un ObjectId válido
+
+  async getCourses(any: any) {
+    try {
+      const courses = await this.courseModel.find({}).exec();
+      return courses;
+    } catch (error) {
+      Logger.error('Error getting courses', error.message)
+      throw new Error(`Error getting courses: ${error.message}`);
+    }
+  }
+
+  // // buscar curse por id
+  async coursebyid(id: any) {
+
     if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException({
         statusCode: 400,
@@ -102,11 +113,8 @@ export class CoursesService {
         error: 'Bad Request',
       });
     }
-
-    // Buscar el curso por ID
     const course = await this.courseModel.findById(id).exec();
 
-    // Si no se encuentra el curso
     if (!course) {
       throw new NotFoundException({
         statusCode: 404,
@@ -114,10 +122,8 @@ export class CoursesService {
         error: 'Not Found',
       });
     }
-
-    return course;
+    return course
   }
-
 
   // filtro
   // private cleanFilters(filters: Record<string, any>): Record<string, any> {
@@ -190,7 +196,7 @@ export class CoursesService {
 
   // private buildQuery(filters: Record<string, any>) {
   //   const query: Record<string, any> = {};
-  
+
   //   if (filters.status) query['status'] = filters.status;
   //   if (filters.contentType) query['contentType'] = filters.contentType;
   //   if (filters.kind) query['kind'] = filters.kind;
@@ -201,176 +207,176 @@ export class CoursesService {
   //   if (filters.funcionalidad) query['funcionalidad'] = filters.funcionalidad; // Ajuste en el nombre
   //   if (filters.sector) query['sector'] = filters.sector;
   //   if (filters.tool) query['tool'] = filters.tool;
-  
+
   //   Logger.log('Query:', query);
   //   return query;
-  }
+}
 
-  // // buscar curse por id
-  // async findById(id: string): Promise<Course | null> {
-  //   // Validar si el ID proporcionado es un ObjectId válido
-  //   if (!Types.ObjectId.isValid(id)) {
-  //     throw new BadRequestException({
-  //       statusCode: 400,
-  //       message: 'El ID proporcionado no es válido',
-  //       error: 'Bad Request',
-  //     });
-  //   }
+// // buscar curse por id
+// async findById(id: string): Promise<Course | null> {
+//   // Validar si el ID proporcionado es un ObjectId válido
+//   if (!Types.ObjectId.isValid(id)) {
+//     throw new BadRequestException({
+//       statusCode: 400,
+//       message: 'El ID proporcionado no es válido',
+//       error: 'Bad Request',
+//     });
+//   }
 
-  //   // Buscar el curso por ID
-  //   const course = await this.courseModel.findById(id).exec();
+//   // Buscar el curso por ID
+//   const course = await this.courseModel.findById(id).exec();
 
-  //   // Si no se encuentra el curso
-  //   if (!course) {
-  //     throw new NotFoundException({
-  //       statusCode: 404,
-  //       message: `Curso con ID ${id} no encontrado`,
-  //       error: 'Not Found',
-  //     });
-  //   }
+//   // Si no se encuentra el curso
+//   if (!course) {
+//     throw new NotFoundException({
+//       statusCode: 404,
+//       message: `Curso con ID ${id} no encontrado`,
+//       error: 'Not Found',
+//     });
+//   }
 
-  //   return course;
-  // }
-  // // Obtener todos los cursos creados por un usuario específico
-  // async getCoursesByUser(userId: string) {
-  //   try {
-  //     const courses = await this.courseModel.find({ userId }).exec();
-  //     return courses;
-  //   } catch (error) {
-  //     throw new RpcException({
-  //       statusCode: 500,
-  //       message: error.message || 'Error al obtener los cursos del usuario',
-  //     });
-  //   }
-  // }
+//   return course;
+// }
+// // Obtener todos los cursos creados por un usuario específico
+// async getCoursesByUser(userId: string) {
+//   try {
+//     const courses = await this.courseModel.find({ userId }).exec();
+//     return courses;
+//   } catch (error) {
+//     throw new RpcException({
+//       statusCode: 500,
+//       message: error.message || 'Error al obtener los cursos del usuario',
+//     });
+//   }
+// }
 
-  // // Obtener un curso específico por ID
-  // async findCourseById(courseId: string, userId: string) {
-  //   try {
-  //     // Buscar el curso por ID, asegurándonos de que el usuario tenga acceso
-  //     const course = await this.courseModel.findOne({ _id: courseId, userId }).exec();
-  //     return course;
-  //   } catch (error) {
-  //     throw new RpcException({
-  //       statusCode: 500,
-  //       message: error.message || 'Error al obtener el curso',
-  //     });
-  //   }
-  // }
-  // // Método para agregar un módulo a un curso
-  // async addModule(valiData: CreateModuleDto) {
-  //   try {
-  //     // Decodificamos el token JWT
-  //     const decoded = this.jwtService.verify(valiData.token);
-  //     const userId = decoded.userId;
+// // Obtener un curso específico por ID
+// async findCourseById(courseId: string, userId: string) {
+//   try {
+//     // Buscar el curso por ID, asegurándonos de que el usuario tenga acceso
+//     const course = await this.courseModel.findOne({ _id: courseId, userId }).exec();
+//     return course;
+//   } catch (error) {
+//     throw new RpcException({
+//       statusCode: 500,
+//       message: error.message || 'Error al obtener el curso',
+//     });
+//   }
+// }
+// // Método para agregar un módulo a un curso
+// async addModule(valiData: CreateModuleDto) {
+//   try {
+//     // Decodificamos el token JWT
+//     const decoded = this.jwtService.verify(valiData.token);
+//     const userId = decoded.userId;
 
-  //     // Verificamos que el courseId sea un ObjectId válido
-  //     const courseId = new Types.ObjectId(valiData.courseId);
+//     // Verificamos que el courseId sea un ObjectId válido
+//     const courseId = new Types.ObjectId(valiData.courseId);
 
-  //     // Intentamos encontrar el curso
-  //     const course = await this.courseModel.findOne({
-  //       _id: courseId,  // Aseguramos que el courseId sea un ObjectId
-  //       userId: userId,  // Aseguramos que el curso pertenezca al usuario
-  //     });
+//     // Intentamos encontrar el curso
+//     const course = await this.courseModel.findOne({
+//       _id: courseId,  // Aseguramos que el courseId sea un ObjectId
+//       userId: userId,  // Aseguramos que el curso pertenezca al usuario
+//     });
 
-  //     // Si no se encuentra el curso, lanzamos un error
-  //     if (!course) {
-  //       throw new NotFoundException('Course not found or access denied');
-  //     }
+//     // Si no se encuentra el curso, lanzamos un error
+//     if (!course) {
+//       throw new NotFoundException('Course not found or access denied');
+//     }
 
-  //     // Verificamos si ya existe un módulo con el mismo nombre
-  //     const existingModule = course.modules.find(
-  //       (module) => module.moduleTitle === valiData.moduleTitle
-  //     );
+//     // Verificamos si ya existe un módulo con el mismo nombre
+//     const existingModule = course.modules.find(
+//       (module) => module.moduleTitle === valiData.moduleTitle
+//     );
 
-  //     if (existingModule) {
-  //       // Si el módulo ya existe, lanzamos un error de conflicto
-  //       throw new ConflictException('Module with this name already exists');
-  //     }
+//     if (existingModule) {
+//       // Si el módulo ya existe, lanzamos un error de conflicto
+//       throw new ConflictException('Module with this name already exists');
+//     }
 
-  //     // Crear el nuevo módulo
-  //     const newModule = {
-  //       _id: new Types.ObjectId(),
-  //       moduleTitle: valiData.moduleTitle,
-  //       moduleDescription: valiData.moduleDescription,
-  //     };
+//     // Crear el nuevo módulo
+//     const newModule = {
+//       _id: new Types.ObjectId(),
+//       moduleTitle: valiData.moduleTitle,
+//       moduleDescription: valiData.moduleDescription,
+//     };
 
-  //     // Agregamos el nuevo módulo al array de módulos del curso
-  //     course.modules.push(newModule);
-  //     await course.save();
+//     // Agregamos el nuevo módulo al array de módulos del curso
+//     course.modules.push(newModule);
+//     await course.save();
 
-  //     // Retornamos el nuevo módulo
-  //     return newModule;
-  //   } catch (error) {
-  //     Logger.error(error);  // Imprimir el error para fines de depuración
-  //     throw new NotFoundException('Error decoding JWT or adding module');
-  //   }
-  // }
+//     // Retornamos el nuevo módulo
+//     return newModule;
+//   } catch (error) {
+//     Logger.error(error);  // Imprimir el error para fines de depuración
+//     throw new NotFoundException('Error decoding JWT or adding module');
+//   }
+// }
 
-  // // add lesson 
-  // // Método para agregar una lección a un módulo
-  // async addLessonToModule(valiData: CreateLessonDto) {
-  //   try {
-  //     // Decodificar el token JWT para obtener el userId
-  //     let userId: string;
-  //     try {
-  //       const decoded = this.jwtService.verify(valiData.token);
-  //       userId = decoded.userId;
-  //     } catch (error) {
-  //       return { message: 'Token inválido o expirado', error: error.message };
-  //     }
+// // add lesson
+// // Método para agregar una lección a un módulo
+// async addLessonToModule(valiData: CreateLessonDto) {
+//   try {
+//     // Decodificar el token JWT para obtener el userId
+//     let userId: string;
+//     try {
+//       const decoded = this.jwtService.verify(valiData.token);
+//       userId = decoded.userId;
+//     } catch (error) {
+//       return { message: 'Token inválido o expirado', error: error.message };
+//     }
 
-  //     // Buscar el curso que contiene el módulo específico asociado al userId
-  //     const course = await this.courseModel.findOne({
-  //       userId: userId,
-  //       modules: {
-  //         $elemMatch: {
-  //           _id: new Types.ObjectId(valiData.moduleId),
-  //         },
-  //       }
-  //     });
+//     // Buscar el curso que contiene el módulo específico asociado al userId
+//     const course = await this.courseModel.findOne({
+//       userId: userId,
+//       modules: {
+//         $elemMatch: {
+//           _id: new Types.ObjectId(valiData.moduleId),
+//         },
+//       }
+//     });
 
-  //     // Si no encontramos el curso o módulo
-  //     if (!course) {
-  //       return { message: 'Módulo no encontrado o acceso denegado' };
-  //     }
+//     // Si no encontramos el curso o módulo
+//     if (!course) {
+//       return { message: 'Módulo no encontrado o acceso denegado' };
+//     }
 
-  //     // Extraer el módulo
-  //     const module = course.modules.find(
-  //       (mod) => mod._id?.toString() === valiData.moduleId
-  //     );
+//     // Extraer el módulo
+//     const module = course.modules.find(
+//       (mod) => mod._id?.toString() === valiData.moduleId
+//     );
 
-  //     if (!module) {
-  //       return { message: 'Módulo no encontrado en el curso o datos inconsistentes' };
-  //     }
+//     if (!module) {
+//       return { message: 'Módulo no encontrado en el curso o datos inconsistentes' };
+//     }
 
-  //     // Crear la nueva lección
-  //     const newLesson = {
-  //       _id: new Types.ObjectId(), // Genera un nuevo ID
-  //       lessonTitle: valiData.lessonTitle,
-  //       lessonDescription: valiData.lessonDescription,
-  //       materialUrl: valiData.materialUrl || null,
-  //       uploadedMaterial: valiData.uploadedMaterial || null,
-  //       videoUrl: valiData.videoUrl || null,
-  //     };
+//     // Crear la nueva lección
+//     const newLesson = {
+//       _id: new Types.ObjectId(), // Genera un nuevo ID
+//       lessonTitle: valiData.lessonTitle,
+//       lessonDescription: valiData.lessonDescription,
+//       materialUrl: valiData.materialUrl || null,
+//       uploadedMaterial: valiData.uploadedMaterial || null,
+//       videoUrl: valiData.videoUrl || null,
+//     };
 
-  //     // Agregar la lección al módulo
-  //     module.lessons.push(newLesson);
+//     // Agregar la lección al módulo
+//     module.lessons.push(newLesson);
 
-  //     // Guardar el curso actualizado
-  //     try {
-  //       await course.save();
-  //     } catch (saveError) {
-  //       return { message: 'Error al guardar el curso', error: saveError.message };
-  //     }
+//     // Guardar el curso actualizado
+//     try {
+//       await course.save();
+//     } catch (saveError) {
+//       return { message: 'Error al guardar el curso', error: saveError.message };
+//     }
 
-  //     // Retornar la lección creada
-  //     return {
-  //       message: 'Lección creada con éxito',
-  //       lesson: newLesson,
-  //     };
-  //   } catch (error) {
-  //     Logger.error(error);
-  //     return { message: 'Error al agregar la lección', error: error.message };
-  //   }
-  // }
+//     // Retornar la lección creada
+//     return {
+//       message: 'Lección creada con éxito',
+//       lesson: newLesson,
+//     };
+//   } catch (error) {
+//     Logger.error(error);
+//     return { message: 'Error al agregar la lección', error: error.message };
+//   }
+// }

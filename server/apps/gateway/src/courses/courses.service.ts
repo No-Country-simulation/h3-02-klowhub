@@ -2,6 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { Injectable, Logger } from "@nestjs/common";
 import { ConfigEnvs } from "src/config/envs";
 import { CreateCourseDto } from "./dto/create.course.dto";
+import { firstValueFrom, lastValueFrom } from "rxjs";
 
 @Injectable()
 export class CoursesService {
@@ -39,40 +40,28 @@ export class CoursesService {
             return 'Error al crear Curso'
         }
     }
-    //filter course o search
-    async filter(data: {
-        page: string;
-        limit: string;
-        filters: Record<string, any>;
-    }): Promise<any> {
+
+    async getCourses(any: any) {
         try {
             const response = await this.httpService
-                .get(`${this.coursesServiceUrl}/courses/filter`, {
-                    params: {
-                        page: data.page,
-                        limit: data.limit,
-                        ...data.filters,
-                    },
-                })
+                .get(`${this.coursesServiceUrl}/courses/getCourses`)
                 .toPromise();
             return response.data;
         } catch (error) {
-            Logger.error('Error en filter', error.message);
-            return 'Error al filtrar Cursos';
+            Logger.log(error.message)
+            return 'Error al obtener Cursos'
         }
     }
 
-    async CoursesById(courseId: string): Promise<any> {
+    async CoursesById(id:any) {
         try {
             const response = await this.httpService
-            .get(`${this.coursesServiceUrl}/courses/${courseId}`,{
-
-            })
+            .get(`${this.coursesServiceUrl}/courses/course/${id}`)
             .toPromise();
             return response.data;
         } catch (error) {
-          Logger.error(`Error fetching course with ID ${courseId}`, error.message);
-          throw new Error('Failed to fetch course from microservice');
+            Logger.error(`Error fetching course with ID ${id}`, error.response?.data || error.message);
+            throw new Error('Failed to fetch course from microservice');
         }
-      }
+    }
 }
