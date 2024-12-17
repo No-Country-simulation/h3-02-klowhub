@@ -27,7 +27,7 @@ export default function MentorsCarouselWrapper({
           reviews={item.reviews}
           platform={item.platform}
           imageSrc={item.img}
-          countryCode="/svg/argentina.svg"
+          countryCode={item.country}
           sessions={item.sessions}
           idioma={item.language}
           hourText={hourText}
