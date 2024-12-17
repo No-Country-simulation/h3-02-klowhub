@@ -1,3 +1,4 @@
+
 import { BadGatewayException, BadRequestException, Controller,
     Get,
     HttpCode,
@@ -35,10 +36,10 @@ export class UsersController {
         }
     }
     @Get(':id')
-    async prifile(@Param('id') id: Request) {
+    async prifile(@Param('id') id: string) {
         Logger.log('Recibiendo peticion profile')      
         try{
-            const resp = await this.usersService.findUserById(id)
+            const resp = await this.usersService.findUserByIdUnAuthorized(id)
             return resp as unknown as Promise<ProfileSuccess>;
         }catch(error){
             Logger.error(error)

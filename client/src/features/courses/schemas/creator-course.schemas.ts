@@ -4,16 +4,16 @@ import { idSchema } from '@core/schemas/common.schema';
 
 export const creatorCourseSchema = z.object({
   id: idSchema,
-  name: z.string(),
-  avatar: z.string(),
-  header: z.string(),
+  fristName: z.string(),
+  image: z.string(),
+  title: z.string(),
   rating: z.number(),
   reviews: z.number(),
   courses: z.number(),
   students: z.number(),
   membership: z.string(),
-  description: z.string(),
-  whyLearning: z.string(),
+  biograophy: z.string(),
+  whyLeam: z.string(),
 });
 
 export type CreatorCourseType = z.infer<typeof creatorCourseSchema>;

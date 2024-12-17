@@ -23,7 +23,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
           <div className="size-16">
             <Image
               className="w-full rounded-full object-cover"
-              src={creator.avatar}
+              src={creator.image}
               alt="Sebastian Rios"
               width={45}
               height={45}
@@ -33,10 +33,10 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
 
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-white">{creator.name}</span>
+              <span className="font-medium text-white">{creator.fristName}</span>
               <Badge text="PRO" variant={creator.membership as 'pro'} />
             </div>
-            <span className="text-sm text-gray-400">{creator.header}</span>
+            <span className="text-sm text-gray-400">{creator.title}</span>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
                 d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0-6l-3.5 2m3.5-2l3.5 2"
               />
             </svg>
-            <span className="ml-2 text-gray-300">{creator.students} estudiantes</span>
+            <span className="ml-2 text-gray-300">{5} estudiantes</span>
           </div>
           {/* Cursos */}
           <div className="mt-2 flex items-center">
@@ -110,7 +110,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
                 d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M4 6h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z"
               />
             </svg>
-            <span className="ml-2 text-gray-300">{creator.courses} Cursos</span>
+            <span className="ml-2 text-gray-300">{5} Cursos</span>
           </div>
         </div>
       </div>
@@ -171,25 +171,25 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
       </div>
 
       {/* CARD  50 %
-      <div className="mt-6 w-full rounded-lg border border-primary-A-300 bg-[#1A202C] p-6 text-white shadow-lg">
-        <h2 className="mb-4 text-sm font-semibold">
+      <div className="border-primary-A-300 bg-[#1A202C] shadow-lg mt-6 p-6 border rounded-lg w-full text-white">
+        <h2 className="mb-4 font-semibold text-sm">
           Con la compra de este curso tiene un 50% OFF en la compra de: Aplicación para seguimiento
           de proyectos
         </h2>
-        <div className="overflow-hidden rounded-lg bg-[#2D3748] shadow-md">
+        <div className="bg-[#2D3748] shadow-md rounded-lg overflow-hidden">
           <Image
             src="/images/mocks/course_mock4png.png" // Cambia esta ruta por la imagen real
             alt="Aplicación para seguimiento de proyectos"
             width={800}
             height={200}
-            className="h-48 w-full rounded-t-lg object-cover"
+            className="rounded-t-lg w-full h-48 object-cover"
           />
           <div className="p-4">
-            <h3 className="mb-2 text-lg font-semibold">Aplicación para seguimiento de proyectos</h3>
-            <p className="mb-4 text-sm text-gray-400">
+            <h3 className="mb-2 font-semibold text-lg">Aplicación para seguimiento de proyectos</h3>
+            <p className="mb-4 text-gray-400 text-sm">
               Una aplicación para almacenar información de proyectos y comunicaciones.
             </p>
-            <div className="mb-4 flex items-center gap-2 text-sm">
+            <div className="flex items-center gap-2 mb-4 text-sm">
               <span className="flex items-center text-yellow-400">
                 4.1
                 <svg
@@ -202,7 +202,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
               </span>
               <span>(74)</span>
             </div>
-            <p className="mb-4 text-2xl font-bold">$38.700</p>
+            <p className="mb-4 font-bold text-2xl">$38.700</p>
 
             <div className="flex flex-col items-start gap-2">
               <Button
@@ -211,11 +211,11 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
                   backgroundColor: 'var(--color-primary-B-500)',
                   borderColor: 'var(--color-primary-A-500)',
                 }}
-                className="flex items-center justify-center rounded-lg bg-purple-600 px-4 py-2 font-medium text-white hover:bg-purple-700">
+                className="flex justify-center items-center bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg font-medium text-white">
                 <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
                 Añadir al carrito
               </Button>
-              <a href="#" className="my-2 ml-3 text-center text-sm text-purple-400 hover:underline">
+              <a href="#" className="my-2 ml-3 text-center text-purple-400 text-sm hover:underline">
                 Ver detalles
               </a>
             </div>

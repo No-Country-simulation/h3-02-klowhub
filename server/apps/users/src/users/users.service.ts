@@ -111,6 +111,26 @@ export class UsersService {
   async updateMode(useId: string, modeDto:ModeDto) {
 
   }
+  async findUserByIdUnAuthorized(id: string): Promise<any> {
+    return await this.userRepository.findOne({
+      where: { id: id },
+      select: [
+        'id',
+        'firstName',
+        'lastName',
+        'email',
+        'title',
+        'biography',
+        'image',
+        'reviws',
+        'whyLearn',
+        'rating',
+        'role',
+        'createdAt',
+      ],
+      relations: ['accounts'],
+    });
+  } 
   // 
   // async changeUserRole(userId: string, mode) {
   //   // Buscar al usuario por ID
