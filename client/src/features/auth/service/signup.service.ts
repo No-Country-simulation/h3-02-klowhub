@@ -6,6 +6,7 @@ import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
 import env from '@root/env.config';
 import { signupSchema } from '../validation/schemas';
+
 export async function signup(
   _state: unknown,
   formData: FormData

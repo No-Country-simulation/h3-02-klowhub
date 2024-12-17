@@ -20,9 +20,11 @@ const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
   const onPointerDown = useCallback((e: PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
     const target = e.target as HTMLElement;
+
     if (target.closest('[data-carousel-item]')) {
       return;
     }
+
     setIsDragging(true);
   }, []);
 

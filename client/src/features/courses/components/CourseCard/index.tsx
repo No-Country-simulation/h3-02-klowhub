@@ -23,6 +23,7 @@ interface CardProps {
   addToCart: string;
   categoria: 'Curso' | 'Lección' | string;
   className?: string;
+  eventsNone?: boolean;
 }
 
 const categoryStyles: Record<string, string> = {
@@ -46,53 +47,25 @@ const CourseCard = ({
   courseId = '',
   categoria,
   className = '',
+  eventsNone = false,
 }: CardProps) => {
-  //const [isMenuOpen, setMenuOpen] = useState(false);
-  //const menuRef = useRef<HTMLDivElement>(null);
-
-  // Manejar la apertura/cierre del menú
-  /*const handleMenuToggle = () => {
-    setMenuOpen(prev => !prev);
-  };
-
-  const handleEdit = () => {
-    alert('Editar opción seleccionada.');
-  };
-
-  const handleDelete = () => {
-    alert('Eliminar opción seleccionada.');
-  };
-
-  // Detectar clics fuera del menú
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false); // Cerrar el menú
-      }
-    };
-
-    // Agregar el evento al documento
-    document.addEventListener('mousedown', handleClickOutside);
-
-    // Limpiar el evento al desmontar el componente
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);*/
-
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
-
+  console.log({ eventsNone });
   return (
     <div
       className={cn(
         className,
         'relative flex flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] shadow-app-1',
-        styles.card
+        styles.card,
+        eventsNone && 'hover:!translate-y-0'
       )}>
       {/* Este link en absolute es el que navega hacia el detalle*/}
       <Link
         href={`/courses/${courseId}`}
-        className="transparent absolute left-0 top-0 size-full text-[0px] text-transparent text-opacity-0">
+        className={cn(
+          'transparent absolute left-0 top-0 size-full text-[0px] text-transparent text-opacity-0',
+          eventsNone && 'pointer-events-none select-none'
+        )}>
         .
       </Link>
       <div className="bg-white/8 !absolute right-3 top-2 size-[24px] rounded-[12px]">
@@ -115,52 +88,10 @@ const CourseCard = ({
       </span>
 
       <div className="grow p-4">
-        {/* <h3 className="font-bold text-lg text-slate-200">{title}</h3> */}
         <div className="flex items-center justify-between">
           <h3 className="line-clamp-2 max-h-14 min-h-14 text-ellipsis text-lg font-bold text-slate-200">
             {title}
           </h3>
-          {/* Menú de tres puntos */}
-          {/* <div className="relative" ref={menuRef}>
-            <button
-              onClick={handleMenuToggle}
-              className="text-slate-200 hover:text-slate-200 focus:outline-none"
-              aria-label="Opciones del menú">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="size-8">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 6v.01M12 12v.01M12 18v.01"
-                />
-              </svg>
-            </button>
-            {isMenuOpen && (
-              <div className="right-0 absolute bg-[#2D3748] shadow-lg mt-2 rounded-lg w-32">
-                <ul className="py-1">
-                  <li>
-                    <button
-                      onClick={handleEdit}
-                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
-                      Editar
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={handleDelete}
-                      className="block hover:bg-[#4A5568] px-4 py-2 w-full text-left text-slate-200 text-sm">
-                      Eliminar
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>*/}
         </div>
 
         {description ? (

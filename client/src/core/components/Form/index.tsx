@@ -33,6 +33,7 @@ export default function FormComponent({
   useEffect(() => {
     // Si hay un resultado en la respuesta, inicia una transición (útil para indicar la carga)
     if (result) {
+      console.log({ result });
       startTransition(() => {}); // Reinicio el tansition
     }
   }, [result]);

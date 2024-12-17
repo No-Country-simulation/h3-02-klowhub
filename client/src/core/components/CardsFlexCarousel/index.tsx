@@ -5,7 +5,7 @@ import { cn } from '@core/lib/utils';
 import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '../Carrusel';
 
 interface CardsFlexCarouselProps<T> {
-  children: (item: T, i: number) => ReactNode;
+  children: (item: T, i: number, isDragging: boolean) => ReactNode;
   className?: string;
   classNameContainer?: string;
   classNmaeButtons?: string;
@@ -21,14 +21,12 @@ export default function CardsFlexCarousel<T>({
 }: CardsFlexCarouselProps<T>) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+  const [isDragging, _] = useState(false);
 
   useEffect(() => {
     if (!api) {
       return () => {};
     }
-
-    setCount(api.scrollSnapList().length);
 
     const onSelect = () => {
       setCurrent(api.selectedScrollSnap());
@@ -49,8 +47,9 @@ export default function CardsFlexCarousel<T>({
             {items?.map((item, i) => (
               <CarouselItem
                 className={cn('w-full min-w-[350px] max-w-[450px]', classNameContainer)}
+                data-carousel-item="true"
                 key={i}>
-                {children(item, i)}
+                {children(item, i, isDragging)}
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -61,7 +60,7 @@ export default function CardsFlexCarousel<T>({
           'mt-6 inline-flex w-full items-center justify-center gap-2 min-[1240px]:hidden',
           classNmaeButtons
         )}>
-        {Array.from({ length: count || 0 }).map((_, index) => (
+        {Array.from({ length: items?.length || 0 }).map((_, index) => (
           <button
             key={`csb-${index}`}
             className={`size-[.65rem] rounded-full transition-colors ${
