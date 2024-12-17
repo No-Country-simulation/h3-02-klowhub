@@ -112,8 +112,9 @@ export class UsersService {
 
   }
   async findUserByIdUnAuthorized(id: string): Promise<any> {
-    return await this.userRepository.findOne({
-      where: { id: id },
+    try {
+     const user = await this.userRepository.findOne({
+      where: {id},
       select: [
         'id',
         'firstName',
@@ -130,6 +131,10 @@ export class UsersService {
       ],
       relations: ['accounts'],
     });
+    return user
+  } catch (error) {
+    return error
+  }
   } 
   // 
   // async changeUserRole(userId: string, mode) {
