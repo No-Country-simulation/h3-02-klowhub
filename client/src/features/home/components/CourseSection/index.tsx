@@ -28,7 +28,7 @@ export default async function CourseSection() {
             reviews={item.reviews}
             platform={item.platform}
             tags={item.tags}
-            imageSrc={item.imageUrl}
+            imageSrc={item.imageUrl || '/images/mocks/course_mock1.png'}
             imageAlt={item.title}
             categoria={item.type}
             viewDetails={ct('viewDetails')}

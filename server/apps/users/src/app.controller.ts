@@ -1,12 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
+@Controller('')
+export class UsersController {
+  @Get("/users")
   getHello(): string {
-    return this.appService.getHello();
+    return 'Microserver Users is Run ... API Klowhub !';
   }
 }

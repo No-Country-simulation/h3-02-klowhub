@@ -1,28 +1,29 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
-import { GoogleStrategy } from './google/google.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from '../entities/user.entity';
-import { AccountEntity } from '../entities/accounts.entity';
-import { EmailModule } from './email/email.module';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ConfigEnvs } from '../config/envs';
 import { UsersModule } from 'src/users/users.module';
-import { JwtModule } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from 'src/entities/user.entity';
+import { AccountEntity } from 'src/entities/accounts.entity';
+import { UsersService } from 'src/users/users.service';
+import { EmailService } from './email/email.service';
+import { GoogleStrategy } from './google/google.strategy';
+import {EmailModule } from './email/email.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([ UserEntity, AccountEntity]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: ConfigEnvs.JWT_SECRET,
       signOptions: { expiresIn: '24h' },
     }),
-    TypeOrmModule.forFeature([UserEntity, AccountEntity]),
     UsersModule,
-    EmailModule,
-    PassportModule.register({ defaultStrategy: 'google' }),
+    EmailModule
   ],
-  controllers: [AuthController, UsersService],
-  providers: [AuthService, GoogleStrategy],
+  controllers: [AuthController],
+  providers: [AuthService, UsersService, EmailService, GoogleStrategy],
+  exports:[AuthService],
 })
 export class AuthModule {}

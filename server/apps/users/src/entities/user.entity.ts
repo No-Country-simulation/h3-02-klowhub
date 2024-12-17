@@ -8,9 +8,9 @@ import {
 import { AccountEntity } from './accounts.entity';
 import { UserRole } from './UserRole';
 
-@Entity('users') // Nombre de la tabla en la base de datos
+@Entity('users')
 export class UserEntity {
-  @PrimaryGeneratedColumn('uuid') // ID único para cada usuario
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column({ type: 'varchar', nullable: true })
@@ -42,8 +42,8 @@ export class UserEntity {
 
   @Column({
     type: 'text',
-    array: true, // Indica que será un array nativo de PostgreSQL
-    default: [UserRole.USER, UserRole.CREATOR], // Roles por defecto
+    array: true,
+    default: [UserRole.USER, UserRole.CREATOR],
   })
   role: UserRole[];
 

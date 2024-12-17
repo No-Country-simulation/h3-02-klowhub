@@ -2,10 +2,8 @@ import { type ApiErrorType, type ApiResultType } from '@coreTypes/actionResponse
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
-const isProd = process.env.NODE_ENV === 'production';
 
 const handleError = (error: Error, status?: number): ApiErrorType => {
-  // Mapeo de errores específicos
   const errorMap: Record<number, string> = {
     400: 'Bad Request',
     401: 'UNAUTHORIZED',
@@ -23,10 +21,11 @@ const handleError = (error: Error, status?: number): ApiErrorType => {
 
 const handleRequest = async <T = unknown>(
   input: RequestInfo,
-  init?: RequestInit
+  init?: RequestInit,
+  baseUrlType: 'APP_URL' | 'API_URL' = 'APP_URL' // Parámetro explícito
 ): Promise<ApiResultType<T>> => {
   try {
-    const baseUrl = isProd ? APP_URL : API_URL;
+    const baseUrl = baseUrlType === 'APP_URL' ? APP_URL : API_URL;
     const url = typeof input === 'string' ? `${baseUrl}${input}` : input;
 
     const response = await fetch(url, {
@@ -57,37 +56,47 @@ const handleRequest = async <T = unknown>(
   }
 };
 
-//API Services: Wrapper de Axios para hacer 4 peticiones basicas
+// API Services con `baseUrlType` para alternar URLs
 export const apiService = {
-  async get<T = unknown>(url: string, init: RequestInit | undefined = {}) {
-    return handleRequest<T>(url, { method: 'GET', ...init });
+  async get<T = unknown>(
+    url: string,
+    init: RequestInit | undefined = {},
+    baseUrlType: 'APP_URL' | 'API_URL' = 'API_URL'
+  ) {
+    return handleRequest<T>(url, { method: 'GET', ...init }, baseUrlType);
   },
 
   async post<T = unknown>(
     url: string,
     body: Record<string, string>,
-    init: RequestInit | undefined = {}
+    init: RequestInit | undefined = {},
+    baseUrlType: 'APP_URL' | 'API_URL' = 'API_URL'
   ): Promise<ApiResultType<T>> {
-    return handleRequest<T>(url, {
-      method: 'POST',
-      body: JSON.stringify(body),
-      ...init,
-    });
+    return handleRequest<T>(
+      url,
+      { method: 'POST', body: JSON.stringify(body), ...init },
+      baseUrlType
+    );
   },
 
   async put<T = unknown>(
     url: string,
     body: Record<string, string>,
-    init: RequestInit | undefined = {}
+    init: RequestInit | undefined = {},
+    baseUrlType: 'APP_URL' | 'API_URL' = 'API_URL'
   ) {
-    return handleRequest<T>(url, {
-      method: 'PUT',
-      body: JSON.stringify(body),
-      ...init,
-    });
+    return handleRequest<T>(
+      url,
+      { method: 'PUT', body: JSON.stringify(body), ...init },
+      baseUrlType
+    );
   },
 
-  async delete<T = unknown>(url: string, init: RequestInit | undefined = {}) {
-    return handleRequest<T>(url, { method: 'DELETE', ...init });
+  async delete<T = unknown>(
+    url: string,
+    init: RequestInit | undefined = {},
+    baseUrlType: 'APP_URL' | 'API_URL' = 'API_URL'
+  ) {
+    return handleRequest<T>(url, { method: 'DELETE', ...init }, baseUrlType);
   },
 };

@@ -2,6 +2,7 @@ import { type NextFetchEvent, type NextRequest, NextResponse } from 'next/server
 import createMiddleware from 'next-intl/middleware';
 import { getLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
+import { apiService } from '@core/services/api.service';
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -16,14 +17,14 @@ export default async function middleware(request: NextRequest, _: NextFetchEvent
   if (pathname.endsWith(`/${locale}`) || pathname.endsWith('/')) {
     return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
   }
-  /*
+
   const error = request.nextUrl.searchParams.get('error');
   const token = request.cookies.get('auth_token');
   const isAccessingPublicRoute = [`/${locale}/signin`, `/${locale}/signup`].includes(pathname);
   if ((error && !token) || (!token && !isAccessingPublicRoute)) {
     return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
   }
-  if(error && token && !isAccessingPublicRoute) {
+  if (error && token && !isAccessingPublicRoute) {
     try {
       const [errorStatus, data] = await apiService.post<{ status: boolean }>(
         '/auth/status',
@@ -32,21 +33,22 @@ export default async function middleware(request: NextRequest, _: NextFetchEvent
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
+        'API_URL'
       );
 
       const isInvalidStatus = !!errorStatus || (data !== undefined && !data.status);
       if (isInvalidStatus) {
         return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
       }
-    }catch (error) {
+    } catch (error) {
       console.error('Middleware error:', error);
       return NextResponse.redirect(new URL(`/${locale}/signin`, request.url));
     }
   }
-  if(!error && token  && isAccessingPublicRoute) {
+  if (!error && token && isAccessingPublicRoute) {
     return NextResponse.redirect(new URL(`/${locale}/platform`, request.url));
-  }*/
+  }
 
   return intlMiddleware(request);
 }

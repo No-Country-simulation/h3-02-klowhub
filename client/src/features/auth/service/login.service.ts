@@ -1,44 +1,49 @@
 'use server';
+import { cookies } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
+import env from '@root/env.config';
 import { signinSchema } from '../validation/schemas';
 
 export async function signin(
   _state: unknown,
   formData: FormData
 ): Promise<ActionResponse | undefined> {
-  const t = await getTranslations('Validations');
+  const t = await getTranslations('Validations'); // Obtener las traducciones
   const schema = signinSchema(t);
   const [error, data] = validateSchema(schema, {
     email: formData.get('email')?.toString() || '',
     password: formData.get('password')?.toString() || '',
   });
 
-  // Si hay error de validación, retornar el error
   if (error || !data) return error;
+  console.log(JSON.stringify(data));
 
-  // Datos estáticos de validación (ejemplo)
-  const validCredentials = {
-    email: 'user@hackaton.com',
-    password: '12345',
-  };
-
-  // Validar las credenciales estáticas
-  if (data.email === validCredentials.email && data.password === validCredentials.password) {
-    // Redirigir al usuario a la página principal o plataforma después del login exitoso
-    const locale = await getLocale(); // Obtener el locale actual
-    redirect({ href: { pathname: '/platform' }, locale }); // Redirigir con el locale
-
-    return {
-      status: 'success',
-    };
-  } else {
-    // Si las credenciales son incorrectas, devolvemos un error con 'status' y 'message'
-    return {
-      status: 'failed', // Indica que el login falló
-      errors: { GLOBAL: 'Credenciales incorrectas' }, // Usamos 'errors' para devolver el mensaje de error
-    };
+  const res = await fetch(`${env.API_URL}/auth/login`, {
+    body: JSON.stringify(data),
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+  });
+  console.log(res);
+  const dta = await res.json();
+  const hastoken = dta instanceof Object && 'token' in dta;
+  const hassuccess = dta instanceof Object && 'success' in dta; // Ahora TypeScript reconoce `token`
+  console.log(dta);
+  if (hassuccess && !dta?.success) {
+    return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
   }
+  const dtoken = hastoken ? (dta?.token as string) : ''; // Ahora TypeScript reconoce `token`
+  console.log(dtoken);
+
+  if (!dtoken) {
+    return { errors: { GLOBAL: 'No se recibió un token de autenticación' } };
+  }
+
+  (await cookies()).set('auth_token', dtoken);
+
+  const locale = await getLocale();
+  redirect({ href: { pathname: '/platform' }, locale });
 }

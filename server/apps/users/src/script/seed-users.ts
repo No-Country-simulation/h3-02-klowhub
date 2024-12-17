@@ -1,4 +1,4 @@
-import { Controller, Injectable, OnModuleInit, Post } from '@nestjs/common';
+import { Controller, Injectable, Logger, OnModuleInit, Post } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { UserEntity } from '../entities/user.entity';
 import { UserRole } from 'src/entities/UserRole';
@@ -50,9 +50,9 @@ export class SeedService implements OnModuleInit {
           ...userData,
           password: await hash(userData.password, 10),
         });
-        console.log(`Usuario creado: ${userData.email}`);
+        Logger.log(`Usuario creado: ${userData.email}`);
       } else {
-        console.log(`El usuario ${userData.email} ya existe.`);
+        Logger.log(`El usuario ${userData.email} ya existe.`);
       }
     }
   }

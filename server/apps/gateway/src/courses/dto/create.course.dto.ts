@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 export const createCourseSchema = z.object({
-  token: z.string(), // Token de autenticación (obligatorio)
+  token: z.string().optional(), // Token de autenticación (obligatorio)
   title: z.string().min(1, 'Title is required'), // Título del curso (obligatorio)
   contentType: z.enum(['free', 'premium']).optional(), // Tipo de contenido (opcional, predeterminado: premium)
-  kind: z.enum(['course', 'lesson']).optional(), // Curso o lección (opcional)
+  kind: z.enum(['course', 'lesson']).default('course'), // Curso o lección (opcional)
   basicDescription: z.string().optional(), // Descripción básica del curso (opcional)
   type: z.enum(['basic', 'intermediate']).optional(), // Nivel del curso (opcional)
-  platform: z.enum(['AppSheet', 'PowerApps']).optional(), // Plataforma (opcional)
+  platform: z.enum(['AppSheet', 'PowerApps', 'none']).default('none').optional(), // Plataforma (opcional)
   idiom: z.enum(['Spanish', 'English']).optional(), // Idioma (opcional)
   pillar: z.enum(['Technology', 'Business', 'Design']).optional(), // Pilar del curso (opcional)
   functionality: z.enum([
@@ -54,6 +54,9 @@ export const createCourseSchema = z.object({
     'Twilio',
   ]).optional(), // Herramienta (opcional)
   prerequisites: z.array(z.string()).optional(), // Requisitos previos (opcional)
+  purpose : z.string().optional(),
+  followUP :z.array(z.string()).optional(),
+  contents : z.array(z.string()).optional(),
   detailedContent: z.string().optional(), // Contenido detallado (opcional)
   imageUrl: z.string().url('Invalid URL format').optional(), // URL de la imagen del curso (opcional)
   status: z.enum(['Draft', 'Published', 'Archived']).optional(), // Estado del curso (opcional, predeterminado: Draft)

@@ -33,11 +33,11 @@ export const useAuthFieldsup = (t: TranslationType<'Fields'>): FieldType[] => {
     },
     {
       id: 'nameField',
-      name: 'name',
-      type: 'name',
+      name: 'firstName',
+      type: 'text',
       placeholder: t('nameLabel'),
       tabindex: 1,
-      autoComplete: 'email',
+      autoComplete: 'name',
     },
     {
       id: 'passwordField',

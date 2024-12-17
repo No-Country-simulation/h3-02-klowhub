@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { AuthService } from '../auth.service';
@@ -24,7 +24,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   ): Promise<any> {
     const { id, emails, displayName, photos } = profile;
     const email = emails[0]?.value;
-    console.log('Proveedor de Google', profile);
+    Logger.log('Proveedor de Google', profile);
 
     // Buscar al usuario o crearlo si no existe
     const user = await this.authService.validateGoogleUser({
