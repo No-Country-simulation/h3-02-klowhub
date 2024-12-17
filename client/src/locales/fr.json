@@ -245,5 +245,16 @@
     "BotonIngresar":"Entrer dans",
     "Title":"Votre panier",
     "Eliminar":"Éliminer"
+  },  "Cart": {
+    "ImagenPerfil": "Changer la photo de profil",
+    "SobreMi": "À propos de moi",
+    "OptimizaPerfiltitulo": "Optimisez votre profil",
+    "OptimizaPerfiltitulodec": "Optimisez votre profil et amenez vos applications au niveau supérieur. Accédez à des ressources exclusives qui vous aideront à améliorer vos compétences et à maximiser le potentiel de vos projets.",
+    "IrCursos": "Aller aux cours",
+    "Vendedor": "Vendeur",
+    "CursosPublicados": "Cours publiés",
+    "AplicacionesCreadas": "Applications créées",
+    "Suscripciones": "Abonnements",
+    "title":"Mon Profil"
   }
 }

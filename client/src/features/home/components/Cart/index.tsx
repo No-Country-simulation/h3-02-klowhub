@@ -30,10 +30,6 @@ const CartSection: React.FC = () => {
     },
   ];
 
-  const handleApplyCoupon = (coupon: string) => {
-    console.log(`Applying coupon: ${coupon}`);
-  };
-
   return (
     <div className="w-full">
       <h1 className="mb-4 text-2xl font-bold text-white">{t('Title')}</h1>
@@ -48,7 +44,6 @@ const CartSection: React.FC = () => {
             subtotal={6071}
             serviceFee={130}
             discount={20}
-            onApplyCoupon={handleApplyCoupon}
             paymentMethods={['/svg/Stripe.svg', '/svg/PayPal.png', '/svg/Etherium.png']}
           />
         </div>

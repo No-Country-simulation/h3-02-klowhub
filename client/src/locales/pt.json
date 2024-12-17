@@ -245,5 +245,16 @@
     "BotonIngresar":"Entre",
     "Title":"Seu carrinho de compras",
     "Eliminar":"Eliminar"
+  },"Cart": {
+    "ImagenPerfil": "Mudar foto de perfil",
+    "SobreMi": "Sobre mim",
+    "OptimizaPerfiltitulo": "Otimize seu perfil",
+    "OptimizaPerfiltitulodec": "Otimize seu perfil e leve seus aplicativos para o próximo nível. Acesse recursos exclusivos que o ajudarão a melhorar suas habilidades e maximizar o potencial de seus projetos.",
+    "IrCursos": "Ir para os cursos",
+    "Vendedor": "Vendedor",
+    "CursosPublicados": "Cursos publicados",
+    "AplicacionesCreadas": "Aplicações criadas",
+    "Suscripciones": "Assinaturas",
+    "title":"Meu Perfil"
   }
 }

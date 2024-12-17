@@ -245,5 +245,16 @@
     "BotonIngresar":"Entra",
     "Title":"Il tuo carrello",
     "Eliminar":"Eliminare"
+  }, "Cart": {
+    "ImagenPerfil": "Cambia immagine del profilo",
+    "SobreMi": "Chi sono",
+    "OptimizaPerfiltitulo": "Ottimizza il tuo profilo",
+    "OptimizaPerfiltitulodec": "Ottimizza il tuo profilo e porta le tue app al livello successivo. Accedi a risorse esclusive che ti aiuteranno a migliorare le tue competenze e a massimizzare il potenziale dei tuoi progetti.",
+    "IrCursos": "Vai ai corsi",
+    "Vendedor": "Venditore",
+    "CursosPublicados": "Corsi pubblicati",
+    "AplicacionesCreadas": "App create",
+    "Suscripciones": "Abbonamenti",
+    "title":"Il Mio Profilo"
   }
 }
