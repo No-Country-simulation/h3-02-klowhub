@@ -17,9 +17,10 @@ export default function CourseCarouselWraper({
 }: CourseCarouselWraperProps) {
   return (
     <CardsFlexCarousel items={courses}>
-      {(item, i) => (
+      {(item, i, isDragging) => (
         <CourseCard
           key={`gcc-${i}`}
+          eventsNone={isDragging}
           courseId={item.id}
           title={item.title}
           description={item?.basicDescription || ''}
