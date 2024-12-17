@@ -20,8 +20,9 @@ export async function signin(
 
   if (error || !data) return error;
   let res;
+  const URL = `${API_URL}/auth/login`;
   try {
-    res = await fetch(`${API_URL}/auth/login`, {
+    res = await fetch(URL, {
       body: JSON.stringify(data),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -31,7 +32,7 @@ export async function signin(
       throw new Error('Error en la solicitud de inicio de sesión');
     }
   } catch {
-    return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
+    return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión', URL } };
   }
 
   const dta = await res.json();
@@ -39,13 +40,13 @@ export async function signin(
   const hassuccess = dta instanceof Object && 'success' in dta; // Ahora TypeScript reconoce `token`
   console.log(dta);
   if (hassuccess && !dta?.success) {
-    return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
+    return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión', URL } };
   }
   const dtoken = hastoken ? (dta?.token as string) : ''; // Ahora TypeScript reconoce `token`
   console.log(dtoken);
 
   if (!dtoken) {
-    return { errors: { GLOBAL: 'No se recibió un token de autenticación' } };
+    return { errors: { GLOBAL: 'No se recibió un token de autenticación', URL } };
   }
 
   (await cookies()).set('auth_token', dtoken);
