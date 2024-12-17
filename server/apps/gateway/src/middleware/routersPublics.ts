@@ -12,5 +12,6 @@ export const publicRoutes: string[] = [
   "/signatures/signed-urls",
   '/courses/filter',
   '/courses/',
-  '/courses/create'
+  '/courses/create',
+  '/courses/:id',
 ];
