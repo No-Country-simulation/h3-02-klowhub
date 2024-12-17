@@ -19,15 +19,21 @@ export async function signin(
   });
 
   if (error || !data) return error;
-  console.log(JSON.stringify(data));
+  let res;
+  try {
+    res = await fetch(`${API_URL}/auth/login`, {
+      body: JSON.stringify(data),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+    });
+    if(!res.ok){
+      throw new Error('Error en la solicitud de inicio de sesión');
+    }
+  } catch {
+    return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
+  }
 
-  const res = await fetch(`${API_URL}/auth/login`, {
-    body: JSON.stringify(data),
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-  });
-  console.log(res);
   const dta = await res.json();
   const hastoken = dta instanceof Object && 'token' in dta;
   const hassuccess = dta instanceof Object && 'success' in dta; // Ahora TypeScript reconoce `token`
