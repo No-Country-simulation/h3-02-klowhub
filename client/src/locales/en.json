@@ -246,5 +246,16 @@
     "BotonIngresar":"Apply",
     "Title":"Your shopping cart",
     "Eliminar":"Delete"
+  },"Cart": {
+    "ImagenPerfil": "Change profile picture",
+    "SobreMi": "About me",
+    "OptimizaPerfiltitulo": "Optimize your profile",
+    "OptimizaPerfiltitulodec": "Optimize your profile and take your apps to the next level. Access exclusive resources that will help you improve your skills and maximize the potential of your projects.",
+    "IrCursos": "Go to the courses",
+    "Vendedor": "Seller",
+    "CursosPublicados": "Published courses",
+    "AplicacionesCreadas": "Created apps",
+    "Suscripciones": "Subscriptions",
+    "title":"My Profile"
   }
 }
