@@ -1,13 +1,14 @@
 'use client';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
-import FavButton from '@core/components/FavButton/FavButton';
+import { FavIcon } from '@core/components/Icon/FavIcon';
 import { StarRating } from '@core/components/StarRating';
-import { useLocalCart } from '@core/hooks/useLocalCart';
 import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
+import { useLocalCart } from '@features/cart/hooks/useLocalCart.ts';
 import styles from './CourseCard.module.css';
 
 interface CardProps {
@@ -33,6 +34,11 @@ const categoryStyles: Record<string, string> = {
   Lección: 'bg-green-200 text-green-800',
   default: 'bg-gray-200 text-gray-800',
 };
+
+const FavButton = dynamic(() => import('../../../../core/components/FavButton/FavButton.tsx'), {
+  ssr: false,
+  loading: () => <FavIcon />,
+});
 
 const CourseCard = ({
   title,
@@ -157,7 +163,7 @@ const CourseCard = ({
         <Button
           className="relative z-10 rounded-lg px-4 py-2 text-sm text-white"
           onClick={() => {
-            console.log('Execute saveToCart');
+            console.log('Execute saveToCart', courseId);
             saveToCart({
               courseId,
               title,

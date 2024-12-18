@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
-import CartSection from '@features/home/components/Cart';
+import CartSection from '@features/cart/components/CartPage';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({

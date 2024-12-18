@@ -160,7 +160,7 @@
     "signTextButtons": "Or proceed below",
     "signinPrelink": "¿Don't have an account yet?"
   },
-"Fields": {
+  "Fields": {
     "emailLabel": "Email",
     "passwordLabel": "Password",
     "nameLabel": "Name",
@@ -207,7 +207,8 @@
     "sort": "Sort by",
     "search": "Search",
     "share": "Share",
-    "next": "Next"
+    "next": "Next",
+    "delete": "Delete"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Create a new course",
@@ -253,7 +254,7 @@
     "title": "Page Under Construction",
     "subTitle": "We're working to bring you a better experience. Check back soon to see what's new."
   },
-  "PrivacyPolicy":{
+  "PrivacyPolicy": {
     "metaTitle": "Klowhub - Privacy Policy",
     "metaDescription": "Klowhub Privacy Policy page",
     "metaSiteName": "Klowhub - Privacy Policy",
@@ -269,15 +270,15 @@
     "Subtotal": "Subtotal",
     "Tarifa": "Service fee",
     "Cupon": "Discount coupon",
-    "Hotsale":"Hotsale Coupon",
-    "Total":"Total",
-    "MetodoPago":"Select a payment method",
-    "Condiciones":"By purchasing/hiring the products you accept the terms and conditions.",
-    "Placeholder":"Enter coupon",
-    "BotonIngresar":"Apply",
-    "Title":"Your shopping cart",
-    "Eliminar":"Delete"
-  },"Cart": {
+    "Hotsale": "Hotsale Coupon",
+    "Total": "Total",
+    "MetodoPago": "Select a payment method",
+    "Condiciones": "By purchasing/hiring the products you accept the terms and conditions.",
+    "Placeholder": "Enter coupon",
+    "BotonIngresar": "Apply",
+    "Title": "Your shopping cart"
+  },
+  "Cart": {
     "ImagenPerfil": "Change profile picture",
     "SobreMi": "About me",
     "OptimizaPerfiltitulo": "Optimize your profile",
@@ -287,6 +288,6 @@
     "CursosPublicados": "Published courses",
     "AplicacionesCreadas": "Created apps",
     "Suscripciones": "Subscriptions",
-    "title":"My Profile"
+    "title": "My Profile"
   }
 }

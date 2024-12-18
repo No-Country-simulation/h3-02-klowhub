@@ -207,7 +207,8 @@
     "sort": "Ordenar por",
     "search": "Buscar",
     "share": "Compartir",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "delete": "Eliminar"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Crear nuevo curso",
@@ -223,9 +224,9 @@
     "courseBenefits": "benificios",
     "courseProfile": "de perfil"
   },
-  "AppCard":{
-      "titulo": "Aplicaciones recomendadas",
-      "desc": "Explorá soluciones listas para usar. Encontrá la app perfecta para tu proyecto y empezá a trabajar de inmediato."
+  "AppCard": {
+    "titulo": "Aplicaciones recomendadas",
+    "desc": "Explorá soluciones listas para usar. Encontrá la app perfecta para tu proyecto y empezá a trabajar de inmediato."
   },
   "CourseDetail": {
     "metaTitle": "Klowhub - Detalle de curso",
@@ -264,29 +265,30 @@
     "metaTitle": "Klowhub - Ganancias del creador",
     "metaDescription": "Klowhub pagina de Ganancias del creador",
     "metaSiteName": "Klowhub - Ganancias del creador"
-  }, "SumaryCart": {
+  },
+  "SumaryCart": {
     "Resumen": "Resumen",
     "Subtotal": "Subtotal",
     "Tarifa": "Tarifa de servicio",
     "Cupon": "Cupón de descuento",
-    "Hotsale":"Cupón  Hotsale",
-    "Total":"Total",
-    "MetodoPago":"Selecciona un método de pago",
-    "Condiciones":"Al comprar/contratar los productos aceptas los términos y condiciones",
-    "Placeholder":"Ingrese su cupón",
-    "BotonIngresar":"Ingresar",
-    "Title":"Tu carrito de compras",
-    "Eliminar":"Eliminar"
-  },"Cart":{
-    "ImagenPerfil":"Cambiar foto de perfil",
-    "SobreMi":"Sobre mi",
-    "OptimizaPerfiltitulo":"Optimiza tu Perfil",
-    "OptimizaPerfiltitulodec":"Optimizá tu perfil y llevá tus apps al siguiente nivel. Accedé a recursos exclusivos que te ayudarán a mejorar tus habilidades y maximizar el potencial de tus proyectos.",
-    "IrCursos":"Ir a los curosos",
-     "Vendedor":"Vendedor",
-     "CursosPublicados":" Cursos publicados",
-     "AplicacionesCreadas":"Aplicaciones creadas",
-     "Suscripciones":"Suscripciones",
-     "title":"Mi Perfil"
+    "Hotsale": "Cupón  Hotsale",
+    "Total": "Total",
+    "MetodoPago": "Selecciona un método de pago",
+    "Condiciones": "Al comprar/contratar los productos aceptas los términos y condiciones",
+    "Placeholder": "Ingrese su cupón",
+    "BotonIngresar": "Ingresar",
+    "Title": "Tu carrito de compras"
+  },
+  "Cart": {
+    "ImagenPerfil": "Cambiar foto de perfil",
+    "SobreMi": "Sobre mi",
+    "OptimizaPerfiltitulo": "Optimiza tu Perfil",
+    "OptimizaPerfiltitulodec": "Optimizá tu perfil y llevá tus apps al siguiente nivel. Accedé a recursos exclusivos que te ayudarán a mejorar tus habilidades y maximizar el potencial de tus proyectos.",
+    "IrCursos": "Ir a los curosos",
+    "Vendedor": "Vendedor",
+    "CursosPublicados": " Cursos publicados",
+    "AplicacionesCreadas": "Aplicaciones creadas",
+    "Suscripciones": "Suscripciones",
+    "title": "Mi Perfil"
   }
 }

@@ -207,7 +207,8 @@
     "sort": "Ordina per",
     "search": "Cercare",
     "share": "Condividere",
-    "next": "Avanti"
+    "next": "Avanti",
+    "delete": "Eliminare"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Crea un nuovo corso",
@@ -263,20 +264,21 @@
     "metaTitle": "Klowhub - Guadagni del creatore",
     "metaDescription": "Klowhub - Pagina Guadagni del creatore",
     "metaSiteName": "Klowhub - Guadagni del creatore"
-  },"SumaryCart": {
+  },
+  "SumaryCart": {
     "Resumen": "Riepilogo",
     "Subtotal": "Sub totale",
     "Tarifa": "Commissione di servizio",
     "Cupon": "Buono sconto",
-    "Hotsale":"Buono di vendita calda",
-    "Total":"Totale",
-    "MetodoPago":"Seleziona un metodo di pagamento",
-    "Condiciones":"Acquistando/contrattando i prodotti accetti i termini e le condizioni",
-    "Placeholder":"Inserisci il tuo buono",
-    "BotonIngresar":"Entra",
-    "Title":"Il tuo carrello",
-    "Eliminar":"Eliminare"
-  }, "Cart": {
+    "Hotsale": "Buono di vendita calda",
+    "Total": "Totale",
+    "MetodoPago": "Seleziona un metodo di pagamento",
+    "Condiciones": "Acquistando/contrattando i prodotti accetti i termini e le condizioni",
+    "Placeholder": "Inserisci il tuo buono",
+    "BotonIngresar": "Entra",
+    "Title": "Il tuo carrello"
+  },
+  "Cart": {
     "ImagenPerfil": "Cambia immagine del profilo",
     "SobreMi": "Chi sono",
     "OptimizaPerfiltitulo": "Ottimizza il tuo profilo",
@@ -286,6 +288,6 @@
     "CursosPublicados": "Corsi pubblicati",
     "AplicacionesCreadas": "App create",
     "Suscripciones": "Abbonamenti",
-    "title":"Il Mio Profilo"
+    "title": "Il Mio Profilo"
   }
 }

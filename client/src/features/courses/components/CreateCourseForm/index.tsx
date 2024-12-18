@@ -1,6 +1,5 @@
 'use client';
 
-import { Provider } from 'jotai';
 import { Tabs, TabsContent } from '@core/components/Tabs';
 import TabListTrigger from '@core/components/Tabs/TabListTrigger';
 import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
@@ -22,26 +21,24 @@ export default function CreateCourseForm({ triggers, fields, next }: CreateCours
   ]);
 
   return (
-    <Provider>
-      <section>
-        <Tabs
-          value={step?.[0]}
-          onValueChange={val => {
-            setActiveStep([val]);
-          }}>
-          <TabListTrigger className="max-w-3xl" triggers={triggers} />
-          <TabsContent value={CreateCourseTriggers.GENERAL}>
-            <CourseGeneralFormStep fields={fields.general} next={next} />
-          </TabsContent>
-          <TabsContent value={CreateCourseTriggers.DETAILS}>
-            <CourseDetailsFormStep fields={fields.details} next={next} />
-          </TabsContent>
-          <TabsContent value={CreateCourseTriggers.MODULES}>
-            <CourseModuleFormStep next={next} />
-          </TabsContent>
-          <TabsContent value={CreateCourseTriggers.PROMOTION}></TabsContent>
-        </Tabs>
-      </section>
-    </Provider>
+    <section>
+      <Tabs
+        value={step?.[0]}
+        onValueChange={val => {
+          setActiveStep([val]);
+        }}>
+        <TabListTrigger className="max-w-3xl" triggers={triggers} />
+        <TabsContent value={CreateCourseTriggers.GENERAL}>
+          <CourseGeneralFormStep fields={fields.general} next={next} />
+        </TabsContent>
+        <TabsContent value={CreateCourseTriggers.DETAILS}>
+          <CourseDetailsFormStep fields={fields.details} next={next} />
+        </TabsContent>
+        <TabsContent value={CreateCourseTriggers.MODULES}>
+          <CourseModuleFormStep next={next} />
+        </TabsContent>
+        <TabsContent value={CreateCourseTriggers.PROMOTION}></TabsContent>
+      </Tabs>
+    </section>
   );
 }

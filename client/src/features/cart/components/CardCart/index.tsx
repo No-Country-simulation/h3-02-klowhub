@@ -1,6 +1,6 @@
+'use client';
+
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import React from 'react';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 
@@ -12,10 +12,11 @@ interface CardCartProps {
   reviews: number;
   tags: string[];
   imageUrl: string;
-  // onRemove: () => void;
+  onRemove: () => void;
+  deleteText: string;
 }
 
-const CardCart: React.FC<CardCartProps> = ({
+const CardCart = ({
   title,
   platform,
   sector,
@@ -23,9 +24,9 @@ const CardCart: React.FC<CardCartProps> = ({
   reviews,
   tags,
   imageUrl,
-  //onRemove,
-}) => {
-  const t = useTranslations<'SumaryCart'>('SumaryCart');
+  onRemove,
+  deleteText,
+}: CardCartProps) => {
   return (
     <div className="mb-6 flex w-full flex-col rounded-lg border-2 border-[#21262f] bg-[#222934] p-4 text-white shadow-app-1 md:flex-row">
       {/* Image Section */}
@@ -72,11 +73,11 @@ const CardCart: React.FC<CardCartProps> = ({
             </div>
 
             <Button
-              // onClick={onRemove}
+              onClick={onRemove}
               className="hover:focus mt-auto"
               variant={'ghost'}
               size={'sm'}>
-              {t('Eliminar')}
+              {deleteText}
             </Button>
           </div>
         </div>
