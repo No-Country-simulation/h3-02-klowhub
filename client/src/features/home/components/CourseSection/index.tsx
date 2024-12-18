@@ -10,13 +10,14 @@ export default async function CourseSection() {
   const pt = await getTranslations<'Platform'>('Platform');
   const ct = await getTranslations<'Common'>('Common');
   const courses = await getRecommendedCourses();
+  const topCourses = courses.slice(0, 3);
   return (
     <section className="mx-auto w-full">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-white">{pt('recocourseTitle')}</h2>
         <p className="text-gray-300">{pt('recocourseDesc')}</p>
       </div>
-      <CardsFlexContainer items={courses}>
+      <CardsFlexContainer items={topCourses}>
         {(item, i) => (
           <CourseCard
             courseId={item.id}
@@ -39,7 +40,7 @@ export default async function CourseSection() {
       <CourseCarouselWraper
         viewDetails={ct('viewDetails')}
         addToCart={ct('addToCart')}
-        courses={courses}
+        courses={topCourses}
       />
       <div className="mx-auto mt-8 w-full max-w-72">
         <Button variant="outline" asChild size="full" className="py-6">
