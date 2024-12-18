@@ -1,10 +1,10 @@
 'use server';
 import { cookies } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
-import {API_URL} from '@/env.config';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
+import env from '@root/env.config';
 import { signupSchema } from '../validation/schemas';
 
 export async function signup(
@@ -22,7 +22,7 @@ export async function signup(
   if (error || !data) return error;
   console.log(JSON.stringify(data));
 
-  const res = await fetch(`${API_URL}/auth/register`, {
+  const res = await fetch(`${env.API_URL}/auth/register`, {
     body: JSON.stringify(data),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

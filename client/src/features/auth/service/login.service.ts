@@ -1,10 +1,10 @@
 'use server';
 import { cookies } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
-import {API_URL} from '@/env.config';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
 import type { ActionResponse } from '@core/types/actionResponse';
+import env from '@root/env.config';
 import { signinSchema } from '../validation/schemas';
 
 export async function signin(
@@ -20,15 +20,15 @@ export async function signin(
 
   if (error || !data) return error;
   let res;
-  const URL = `${API_URL}/auth/login`;
+  const URL = `${env.API_URL}/auth/login`;
   try {
-    res = await fetch(URL, {
+    res = await fetch(`${env.API_URL}/auth/login`, {
       body: JSON.stringify(data),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
-    if(!res.ok){
+    if (!res.ok) {
       throw new Error('Error en la solicitud de inicio de sesión');
     }
   } catch {
