@@ -22,7 +22,7 @@ export async function signin(
   let res;
   const URL = `${env.API_URL}/auth/login`;
   try {
-    res = await fetch(`${env.API_URL}/auth/login`, {
+    res = await fetch(`${env.API_URL}auth/login`, {
       body: JSON.stringify(data),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -38,12 +38,11 @@ export async function signin(
   const dta = await res.json();
   const hastoken = dta instanceof Object && 'token' in dta;
   const hassuccess = dta instanceof Object && 'success' in dta; // Ahora TypeScript reconoce `token`
-  console.log(dta);
+
   if (hassuccess && !dta?.success) {
     return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión', URL } };
   }
   const dtoken = hastoken ? (dta?.token as string) : ''; // Ahora TypeScript reconoce `token`
-  console.log(dtoken);
 
   if (!dtoken) {
     return { errors: { GLOBAL: 'No se recibió un token de autenticación', URL } };

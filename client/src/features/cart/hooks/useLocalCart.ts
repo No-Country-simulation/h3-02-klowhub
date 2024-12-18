@@ -20,7 +20,6 @@ export const useLocalCart = () => {
 
         // Si el elemento existe, elimínalo manteniendo el orden
         if (index !== -1) {
-          console.log('Deleted..');
           return prev.filter(item => item.courseId !== object.courseId);
         }
 

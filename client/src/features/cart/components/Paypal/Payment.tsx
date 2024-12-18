@@ -21,7 +21,7 @@ function PaypalMetod() {
               },
             });
             const order = (await res.json()) as { id: string };
-            console.log(order);
+
             return order.id;
           }}
           onCancel={data => {

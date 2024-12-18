@@ -54,7 +54,7 @@ const CourseHorizontalCard = ({
 }: CourseHorizontalCardProps) => {
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
   const { isStored, saveToCart } = useLocalCart();
-  console.log({ platform });
+
   return (
     <div className="mt-6 flex h-auto w-full flex-col items-center overflow-hidden rounded-lg bg-[#222934] shadow-lg md:h-[315px] md:flex-row md:items-stretch">
       {/* Imagen */}

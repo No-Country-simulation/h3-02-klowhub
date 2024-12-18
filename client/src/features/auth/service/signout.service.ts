@@ -12,6 +12,6 @@ export async function signOut() {
   } catch (error) {
     console.error(error);
   }
-  console.log('Redirigiendo...');
+
   redirect({ href: { pathname: '/signin' }, locale });
 }
