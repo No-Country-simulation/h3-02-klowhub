@@ -229,3 +229,9 @@ input:disabled + label.view-disabled-input {
   background-color: var(--color-primary-B-200);
   transition: all 300ms linear;
 }
+
+#star-icon {
+  &.half-icon {
+    clip-path: inset(0 var(--half-percentage) 0 0);
+  }
+}

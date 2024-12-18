@@ -11,6 +11,7 @@ export default async function CourseSection() {
   const ct = await getTranslations<'Common'>('Common');
   const courses = await getRecommendedCourses();
   const topCourses = courses.slice(0, 3);
+
   return (
     <section className="mx-auto w-full">
       <div className="mb-6">
@@ -20,7 +21,7 @@ export default async function CourseSection() {
       <CardsFlexContainer items={topCourses}>
         {(item, i) => (
           <CourseCard
-            courseId={item.id}
+            courseId={item?.['_id'] || item?.id}
             key={`gcc-${i}`}
             title={item.title}
             description={item?.basicDescription || ''}

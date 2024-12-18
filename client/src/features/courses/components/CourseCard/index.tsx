@@ -7,6 +7,7 @@ import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import styles from './CourseCard.module.css';
+import { StarRating } from '@core/components/StarRating';
 
 interface CardProps {
   courseId?: string | number;
@@ -125,17 +126,9 @@ const CourseCard = ({
         <div className="mt-4 flex items-center">
           <div className="flex items-center">
             <p className="mr-2 text-slate-200">{rating}</p>
-            {Array.from({ length: 5 }, (_, i) => (
-              <span
-                key={i}
-                className={`${
-                  i < Math.round(rating) ? 'text-yellow-500' : 'text-gray-300'
-                } text-lg`}>
-                ★
-              </span>
-            ))}
+            <StarRating rating={rating} />
           </div>
-          {reviews && reviews !== 0 ? (
+          {reviews && reviews > 0 ? (
             <p className="ml-2 text-sm text-slate-200">({reviews})</p>
           ) : null}
         </div>
