@@ -3,11 +3,12 @@ import Image from 'next/image';
 import Badge from '@core/components/Badge/Index';
 import Button from '@core/components/Button';
 import FavButton from '@core/components/FavButton/FavButton';
+import { StarRating } from '@core/components/StarRating';
+import { useLocalCart } from '@core/hooks/useLocalCart';
 import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import styles from './CourseCard.module.css';
-import { StarRating } from '@core/components/StarRating';
 
 interface CardProps {
   courseId?: string | number;
@@ -51,7 +52,8 @@ const CourseCard = ({
   eventsNone = false,
 }: CardProps) => {
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
-  console.log({ eventsNone });
+  const { isStored, saveToCart } = useLocalCart('coursesCart');
+
   return (
     <div
       className={cn(
@@ -74,6 +76,20 @@ const CourseCard = ({
           color="white"
           variant="filled"
           className="block drop-shadow-[6px_4px_14px_black]"
+          isFavoriteStored={isStored(courseId)}
+          saveToCart={() =>
+            saveToCart({
+              courseId,
+              title,
+              description: description || '',
+              price: price || 0,
+              platform,
+              rating,
+              reviews: reviews || 0,
+              imageSrc,
+              imageAlt,
+            })
+          }
         />
       </div>
 
@@ -95,11 +111,9 @@ const CourseCard = ({
           </h3>
         </div>
 
-        {description ? (
-          <p className="mt-1 line-clamp-2 max-h-10 text-ellipsis pb-2 text-sm text-slate-200">
-            {description}
-          </p>
-        ) : null}
+        <p className="mt-1 line-clamp-2 h-10 max-h-10 text-ellipsis pb-2 text-sm text-slate-200">
+          {description ? description : 'No description'}
+        </p>
         <div className="mt-3 flex flex-wrap gap-2 pb-2">
           <Button
             variant="neutral"
@@ -129,7 +143,7 @@ const CourseCard = ({
             <StarRating rating={rating} />
           </div>
           {reviews && reviews > 0 ? (
-            <p className="ml-2 text-sm text-slate-200">({reviews})</p>
+            <p className="ml-2 text-sm text-slate-200">({reviews} reviews)</p>
           ) : null}
         </div>
         {price ? (
@@ -138,17 +152,31 @@ const CourseCard = ({
           </div>
         ) : null}
       </div>
-      {/*
-      <div className="flex items-center mt-auto p-4">
-        <Button className="px-4 py-2 rounded-lg text-sm text-white">
+
+      <div className="mt-auto flex items-center p-4">
+        <Button
+          className="relative z-10 rounded-lg px-4 py-2 text-sm text-white"
+          onClick={() => {
+            console.log('Execute saveToCart');
+            saveToCart({
+              courseId,
+              title,
+              description: description || '',
+              price: price || 0,
+              platform,
+              rating,
+              reviews: reviews || 0,
+              imageSrc,
+              imageAlt,
+            });
+          }}>
           <Image src="/svg/cart.svg" alt="Carrito" width="20" height="20" className="mr-2" />
           {addToCart}
         </Button>
-        <Button className="font-bold text-sm hover:underline ms-auto" variant="ghost">
+        {/*<Button className="font-bold text-sm hover:underline ms-auto" variant="ghost">
           {viewDetails}
-        </Button>
+        </Button>*/}
       </div>
-      */}
     </div>
   );
 };

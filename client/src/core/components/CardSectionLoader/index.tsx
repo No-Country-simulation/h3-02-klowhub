@@ -10,8 +10,8 @@ interface CardSectionLoaderProps {
 export default function CardSectionLoader({ itemsCount = 3 }: CardSectionLoaderProps) {
   return (
     <div className="flex flex-col space-y-4 text-white">
-      <div className="h-[200px] w-[40px] animate-pulse rounded-lg bg-white/15 transition-all ease-in-out"></div>
-      <div className="mb-6 h-[200px] w-full animate-pulse rounded-lg bg-white/15 transition-all ease-in-out"></div>
+      <div className="h-[30px] w-[250px] animate-pulse rounded-lg bg-white/15 transition-all ease-in-out"></div>
+      <div className="mb-6 h-[50px] w-full animate-pulse rounded-lg bg-white/15 transition-all ease-in-out"></div>
 
       <CardsFlexContainer items={Array.from({ length: itemsCount }, (_, i) => `${i + 1}`)}>
         {(item, i) => (

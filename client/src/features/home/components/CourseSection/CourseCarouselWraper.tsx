@@ -21,7 +21,7 @@ export default function CourseCarouselWraper({
         <CourseCard
           key={`gcc-${i}`}
           eventsNone={isDragging}
-          courseId={item.id}
+          courseId={item?.['_id'] || item?.id}
           title={item.title}
           description={item?.basicDescription || ''}
           price={item.price}
@@ -29,7 +29,7 @@ export default function CourseCarouselWraper({
           reviews={item.reviews}
           platform={item.platform}
           tags={item.tags}
-          imageSrc={item.imageUrl == '' ? '/images/mocks/course_mock1.png' : item.imageUrl}
+          imageSrc={item.imageUrl || '/images/mocks/course_mock1.png'}
           imageAlt={item.title}
           categoria={item.type}
           viewDetails={viewDetails}
