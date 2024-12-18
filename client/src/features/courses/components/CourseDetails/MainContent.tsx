@@ -11,8 +11,10 @@ import VideoPlayer from '../VideoPlayer';
 interface MainContentProps {
   course: CourseDetailsType;
   locale: Locale;
+  creatorFirstName?: string;
   creatorDesc?: string;
   creatorWhyLearning?: string;
+  creatorImage?: string;
 }
 
 export const MainContent = ({
@@ -20,15 +22,18 @@ export const MainContent = ({
   locale,
   creatorDesc,
   creatorWhyLearning,
+  creatorImage,
+  creatorFirstName,
 }: MainContentProps) => {
   const t = useTranslations<'CourseDetail'>('CourseDetail');
+  console.log(course, 'course');
   return (
     <div className="w-full text-white lg:w-5/6 lg:pr-8">
-      <h1 className="mb-4 text-2xl font-bold">{course?.name}</h1>
-      <p className="mb-4 text-base">{course?.courseAbout}</p>
-      {/*<div className="mb-6 flex items-center">
-        <span className="mr-2 text-lg font-bold text-yellow-400">4.1</span>
-        <div className="mr-4 flex items-center">
+      <h1 className="mb-4 text-2xl font-bold">{course?.title}</h1>
+      <p className="mb-4 text-base">{course?.detailedContent}</p>
+      {/*<div className="flex items-center mb-6">
+        <span className="mr-2 font-bold text-lg text-yellow-400">4.1</span>
+        <div className="flex items-center mr-4">
           {[...Array(5)].map((_, i) => (
             <svg
               key={i}
@@ -40,11 +45,15 @@ export const MainContent = ({
             </svg>
           ))}
         </div>
-        <span className="text-sm text-gray-300">(74 reviews)</span>
+        <span className="text-gray-300 text-sm">(74 reviews)</span>
       </div> */}
 
       {/* Aqui el video Player */}
-      <VideoPlayer src={course.courseIntro || ''} poster={course.coursePoster} locale={locale} />
+      <VideoPlayer
+        src={course.imageUrl /*agregat intro curso*/ || ''}
+        poster={course.imageUrl}
+        locale={locale}
+      />
 
       {/* Header con información del perfil */}
       <ShowMore maxHeight={610}>
@@ -54,15 +63,15 @@ export const MainContent = ({
               width={50}
               height={50}
               className="size-16 rounded-full object-cover"
-              src="/images/mocks/avatar_mock1.png" // Reemplaza con la URL real de la imagen
-              alt="Sebastián Ríos"
+              src={creatorImage || '/images/mocks/avatar_mock1.png'} // Reemplaza con la URL real de la imagen
+              alt={creatorFirstName || 'Sebastián Ríos'}
             />
 
             <div>
-              <h2 className="text-xl font-semibold">Sebastián Ríos</h2>
+              <h2 className="text-xl font-semibold">{creatorFirstName}</h2>
               {creatorDesc ? <p className="text-sm text-gray-400">{creatorDesc}</p> : null}
               {/*
-            <a href="#" className="mt-1 text-sm text-purple-400 hover:underline">
+            <a href="#" className="mt-1 text-purple-400 text-sm hover:underline">
               Ver perfil
             </a>
             */}
@@ -71,36 +80,36 @@ export const MainContent = ({
 
           {/* Sección de objetivos */}
           <H2SimpleSection title={t('afterCompletingCourse')}>
-            <CheckList items={course.courseLearnings} />
+            <CheckList items={course.followUp} />
           </H2SimpleSection>
           <H2SimpleSection title={t('aboutCourse')}>
-            <p className="text-sm font-normal text-white">{course.courseAbout}</p>
+            <p className="text-sm font-normal text-white">{course.detailedContent}</p>
           </H2SimpleSection>
 
           {/* Botones */}
           {/*<div>
-          <div className="mt-6 flex items-center space-x-4">
+          <div className="flex items-center space-x-4 mt-6">
             <Button
               style={{
                 backgroundColor: 'var(--color-primary-B-500)',
                 borderColor: 'var(--color-primary-A-500)',
               }}
-              className="rounded-md px-6 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-700">
+              className="hover:bg-purple-700 px-6 py-2 rounded-md font-semibold text-sm text-white transition-colors">
               Añadir al carrito
             </Button>
           </div>
-          <div className="m-1 mt-4 flex space-x-2">
+          <div className="flex space-x-2 m-1 mt-4">
             <h3 className="mr-1"> Compartir : </h3>
-            <a href="#" className="text-sm text-gray-400 hover:text-white">
+            <a href="#" className="text-gray-400 text-sm hover:text-white">
               ✉
             </a>
-            <a href="#" className="text-sm text-gray-400 hover:text-white">
+            <a href="#" className="text-gray-400 text-sm hover:text-white">
               🌐
             </a>
-            <a href="#" className="text-sm text-gray-400 hover:text-white">
+            <a href="#" className="text-gray-400 text-sm hover:text-white">
               💬
             </a>
-            <a href="#" className="text-sm text-gray-400 hover:text-white">
+            <a href="#" className="text-gray-400 text-sm hover:text-white">
               🔗
             </a>
           </div>
@@ -112,13 +121,13 @@ export const MainContent = ({
             </H2SimpleSection>
           ) : null}
           <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textxl">
-            <p className="text-sm font-normal text-white">{course.courseObjective}</p>
+            <p className="text-sm font-normal text-white">{course.followUp}</p>
           </H2SimpleSection>
           <H2SimpleSection title={t('requirements')} titleVariant="textxl">
-            <CheckList items={course.courseRequirenments} />
+            <CheckList items={course.prerequisites} />
           </H2SimpleSection>
           <H2SimpleSection title={t('whatIncludes')} titleVariant="textxl">
-            <CheckList items={course.courseAdditions} />
+            <CheckList items={course.contents} />
           </H2SimpleSection>
         </div>
       </ShowMore>

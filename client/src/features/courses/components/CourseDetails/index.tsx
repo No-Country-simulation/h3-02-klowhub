@@ -45,8 +45,10 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
       <div className="flex flex-col items-start justify-between rounded-lg lg:mt-6 lg:flex-row">
         {/* Columna izquierda: Información principal del curso */}
         <MainContent
+          creatorImage={creator.image}
           creatorDesc={creator.biograophy}
           creatorWhyLearning={creator.whyLeam}
+          creatorFirstName={creator.firstName}
           locale={locale}
           course={course}
         />

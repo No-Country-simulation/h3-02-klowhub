@@ -8,6 +8,9 @@ const config = {
     ignoreDuringBuilds: true,
   },
   transpilePackages: ['@silvermine/videojs-quality-selector'],
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
 };
 
 export default withNextIntl(config);

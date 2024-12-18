@@ -4,7 +4,7 @@ import { idSchema } from '@core/schemas/common.schema';
 
 export const creatorCourseSchema = z.object({
   id: idSchema,
-  fristName: z.string(),
+  firstName: z.string(),
   image: z.string(),
   title: z.string(),
   rating: z.number(),
