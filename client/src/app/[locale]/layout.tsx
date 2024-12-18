@@ -59,7 +59,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={cn(inter.className, inter.variable)}>
+      <body data-important className={cn(inter.className, inter.variable)}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </NextIntlClientProvider>

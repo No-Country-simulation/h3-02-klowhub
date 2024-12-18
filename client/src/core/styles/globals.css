@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  @media only screen and (min-width: 1940px) {
+    body {
+      margin-inline: auto !important;
+      &[data-scroll-locked][data-important] {
+        padding-left: 0 !important;
+        padding-top: 0 !important;
+        padding-right: 0 !important;
+        margin-inline: auto !important;
+      }
+    }
+  }
   :root {
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
@@ -116,7 +127,8 @@
 
 body {
   max-width: 100dvw;
-  min-height: 100dvh;
+  max-width: 1940px;
+
   overflow-x: hidden;
   touch-action: manipulation;
   background: var(--gradient-bg-1);

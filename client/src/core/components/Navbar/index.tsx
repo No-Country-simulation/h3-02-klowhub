@@ -23,7 +23,7 @@ export default function Navbar({ locale }: NavbarProps) {
     { href: '/about-appsheet', text: t('aboutappsheetLink') },
   ];
   return (
-    <div className="header-bg-image fixed inset-x-0 top-0 z-50 mb-auto h-20 w-full">
+    <div className="header-bg-image fixed inset-x-0 top-0 z-50 mb-auto h-20 w-full max-w-[1940px] min-[1940px]:mx-auto min-[1940px]:rounded-b-2xl">
       <NavbarClient navItems={navItems} explorerText={t('explorer')} creatorText={t('creator')}>
         <NavbarItems navItems={navItems} />
 

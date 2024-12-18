@@ -10,7 +10,7 @@ export default function Footer() {
   const aboutLinks = about(t);
   const supportLinks = support(t);
   return (
-    <div className="mt-auto flex w-full flex-col justify-center gap-6 bg-gradient-bg-2 pb-4 pt-14 text-sm font-normal text-white">
+    <div className="mt-auto flex w-full max-w-[1940px] flex-col justify-center gap-6 bg-gradient-bg-2 pb-4 pt-14 text-sm font-normal text-white min-[1940px]:mx-auto min-[1940px]:rounded-t-2xl">
       <div className="flex flex-col items-center justify-center gap-8 min-[1025px]:items-start min-[1025px]:justify-start">
         <div className="mx-auto flex w-full max-w-[1998px] flex-col items-center justify-center gap-x-[5%] gap-y-16 px-[3.5%] min-[790px]:flex-row min-[790px]:items-start min-[1340px]:px-[6.5%]">
           <FooterLinkList links={categoriesLinks} title={t('categoryTitle')} />

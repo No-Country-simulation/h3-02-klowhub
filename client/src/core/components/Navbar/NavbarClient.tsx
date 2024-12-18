@@ -61,7 +61,7 @@ export const NavbarClient = ({
         backdropFilter: blurFilter,
         top: top,
       }}
-      className="absolute mx-auto size-full px-6 transition-all duration-300 ease-in-out">
+      className="absolute mx-auto size-full px-6 transition-all duration-300 ease-in-out min-[1940px]:rounded-b-2xl">
       <div className="container mx-auto size-full w-full max-w-[1800px] px-6">
         <div className="flex size-full items-center justify-between">
           <Link href="/platform" className="no-outline size-fit">
