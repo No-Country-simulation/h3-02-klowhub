@@ -8,7 +8,7 @@ interface CourseSectionProps {
 }
 
 export default function CourseCartList({ deleteText }: CourseSectionProps) {
-  const { removeFromCart, stored } = useLocalCart('coursesCart');
+  const { removeFromCart, stored } = useLocalCart();
 
   return (
     <div className="flex-1 lg:pr-7">

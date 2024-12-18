@@ -44,22 +44,22 @@ const StaticLoginForm = () => {
             <div className="mp-2 mt-2 space-y-4 px-7 text-sm">
               <div className="flex items-center justify-between">
                 <p className="sapce-x-2 w-fit text-left text-blue-500">
-                  Email: <span className="text-zinc-50">user@hackaton.com</span>
+                  Email: <span className="text-zinc-50">cesar@example.com</span>
                 </p>
                 <Button
                   size="fit"
-                  onClick={() => handleCopy('user@hackaton.com')}
+                  onClick={() => handleCopy('cesar@example.com')}
                   className="ml-5 !border-none !bg-transparent text-white opacity-80 hover:!bg-transparent hover:opacity-85 active:!bg-transparent active:opacity-100">
                   <CopyIcon />
                 </Button>
               </div>
               <div className="flex items-center justify-between">
                 <p className="sapce-x-2 w-fit text-left text-blue-500">
-                  Password: <span className="text-zinc-50">12345</span>
+                  Password: <span className="text-zinc-50">@123456Cc</span>
                 </p>
                 <Button
                   size="fit"
-                  onClick={() => handleCopy('12345')}
+                  onClick={() => handleCopy('@123456Cc')}
                   className="ml-5 !border-none !bg-transparent text-white opacity-80 hover:!bg-transparent hover:opacity-85 active:!bg-transparent active:opacity-100">
                   <CopyIcon />
                 </Button>

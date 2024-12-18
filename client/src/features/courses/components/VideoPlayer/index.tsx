@@ -66,8 +66,7 @@ const VideoPlayer = ({ src, locale, poster }: VideoPlayerProps) => {
 
       // Add HLS source
       const type = getVideoSourceType(src);
-      console.log({ src, type });
-      console.log('Src:', src);
+
       player.src({
         src: src,
         type,
@@ -81,6 +80,7 @@ const VideoPlayer = ({ src, locale, poster }: VideoPlayerProps) => {
         console.error('Error Message:', error?.message);
       });
 
+      /*
       player.on('loadedmetadata', () => {
         console.log('Video metadata loaded');
       });
@@ -88,6 +88,7 @@ const VideoPlayer = ({ src, locale, poster }: VideoPlayerProps) => {
       player.ready(() => {
         console.log('Player is ready');
       });
+*/
       playerRef.current = player;
     };
     const style = document.createElement('style');

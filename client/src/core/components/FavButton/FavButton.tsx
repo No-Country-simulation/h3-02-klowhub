@@ -40,7 +40,6 @@ const FavButton = ({
   const [isFavorite, setIsFavorite] = useState(isFavoriteStored);
 
   useEffect(() => {
-    console.log({ isFavoriteStored });
     setIsFavorite(isFavoriteStored);
   }, [isFavoriteStored]);
 

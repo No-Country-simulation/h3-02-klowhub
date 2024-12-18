@@ -20,9 +20,8 @@ export async function signup(
   });
 
   if (error || !data) return error;
-  console.log(JSON.stringify(data));
 
-  const res = await fetch(`${env.API_URL}/auth/register`, {
+  const res = await fetch(`${env.API_URL}auth/register`, {
     body: JSON.stringify(data),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

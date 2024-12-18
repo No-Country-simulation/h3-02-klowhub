@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const TOAST_LIMIT = 1;
-//export const TOAST_REMOVE_DELAY = 10000;
-export const TOAST_REMOVE_DELAY = 100000000;
+export const TOAST_REMOVE_DELAY = 10000;
+//export const TOAST_REMOVE_DELAY = 100000000;
 
 export const actionTypes = {
   ADD_TOAST: 'ADD_TOAST',

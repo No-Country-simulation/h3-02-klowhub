@@ -4,7 +4,7 @@
 
 ## Descripción
 
-Este es un proyecto backend desarrollado con NestJS, que utiliza una arquitectura de microservicios para garantizar escalabilidad y modularidad. Está diseñado para manejar usuarios, autenticación, gestión de cursos y otras funcionalidades relacionadas. La comunicación entre microservicios se realiza mediante TCP. Este proyecto está enfocado en proporcionar una base sólida para aplicaciones web modernas con múltiples servicios distribuidos.
+Este es un proyecto backend desarrollado con NestJS, que utiliza una arquitectura de microservicios para garantizar escalabilidad y modularidad. Está diseñado para manejar usuarios, autenticación, gestión de cursos y otras funcionalidades relacionadas. La comunicación entre microservicios se realiza mediante HTTP/TCP. Este proyecto está enfocado en proporcionar una base sólida para aplicaciones web modernas con múltiples servicios distribuidos.
 
 ## Estructura del Proyecto
 
@@ -28,115 +28,137 @@ El proyecto está organizado en las siguientes ramas y servicios:
 
 ### Dependencias
 
-- @grpc/grpc-js
-Implementa gRPC para aplicaciones Node.js.
-Uso: Comunicación eficiente entre microservicios usando el protocolo gRPC.
+* @nestjs/axios
 
-- @nestjs/axios
 Proporciona un módulo Axios integrado con NestJS para realizar solicitudes HTTP.
 Uso: Consultar APIs externas dentro de tus microservicios o gateway.
 
-- @nestjs/common
+* @nestjs/common
+
 Contiene herramientas y clases comunes necesarias para el desarrollo de aplicaciones NestJS (decoradores, interfaces, excepciones, pipes, etc.).
 
-- @nestjs/core
+* @nestjs/core
+
 El núcleo del framework NestJS, necesario para la ejecución de la aplicación.
 
-- @nestjs/jwt
+* @nestjs/jwt
+
 Proporciona utilidades para manejar JWT (JSON Web Tokens) dentro de NestJS.
 Uso: Autenticación y autorización mediante tokens.
 
- - @nestjs/microservices
+* @nestjs/microservices
+
 Ofrece soporte para crear microservicios en diferentes patrones de comunicación (TCP, gRPC, RabbitMQ, etc.).
 Uso: Desarrollo de microservicios en tu proyecto.
 
-- @nestjs/passport
+* @nestjs/passport
+
 Integración de Passport.js con NestJS.
 Uso: Autenticación basada en estrategias (JWT, Google, GitHub, etc.).
 
- - @nestjs/platform-express
+ * @nestjs/platform-express
+
 Soporte para Express.js como plataforma subyacente en NestJS.
 Uso: Manejo de HTTP y middleware dentro del proyecto.
 cookie-parser
 
-- Middleware para analizar cookies en solicitudes HTTP.
+* Middleware para analizar cookies en solicitudes HTTP.
 Uso: Lectura y manejo de cookies, como el token de autenticación.
 
-- dotenv
+* dotenv
+
 Carga variables de entorno desde un archivo .env.
 Uso: Configuración de entornos de desarrollo, prueba y producción.
 
-- express
+* express
+
 Framework minimalista para crear servidores HTTP.
 Uso: NestJS lo usa como base para manejar solicitudes HTTP.
 
-- passport
+* passport
+
 Biblioteca de autenticación con soporte para múltiples estrategias.
 Uso: Manejo de autenticación (local, OAuth, etc.).
 
- - passport-jwt
+* passport-jwt
+
 Extensión de Passport.js para autenticación basada en JWT.
 Uso: Validar y procesar JWT en tu backend.
 
-- reflect-metadata
+* reflect-metadata
+
 Necesaria para utilizar decoradores en TypeScript.
 Uso: Gestión de metadatos en la aplicación.
 
-- rxjs
+* rxjs
+
 Biblioteca para programación reactiva con Observables.
 Uso: Gestión de flujos de datos asíncronos en NestJS.
 
-- zod
+* zod
+
 Biblioteca para validación y esquemas de datos.
 Uso: Validar datos recibidos y enviados por tu backend.
 
 
 ### Dependencias de desarrollo
 
-- @nestjs/cli
+* @nestjs/cli
+
 CLI oficial de NestJS para generar y administrar proyectos.
 Uso: Crear módulos, controladores, servicios y compilar el proyecto.
 
-- @nestjs/schematics
+* @nestjs/schematics
+
 Herramientas para integrar con la CLI de NestJS.
 Uso: Creación de estructuras de código con patrones definidos.
 
-- @nestjs/testing
+* @nestjs/testing
+
 Proporciona utilidades para realizar pruebas unitarias y de integración en NestJS.
 
-- @types/...
+* @types/...
+
 Paquetes de definiciones de tipos TypeScript para diversas bibliotecas.
 Uso: Garantizar tipado estricto al usar módulos externos.
 
-- eslint
+* eslint
+
 Herramienta para identificar y corregir problemas en el código.
 Uso: Mantenimiento de un código limpio y uniforme.
 
-- eslint-config-prettier
+* eslint-config-prettier
+
 Desactiva reglas conflictivas entre ESLint y Prettier.
 Uso: Evitar conflictos al usar ambas herramientas.
 
-- eslint-plugin-jest
+* eslint-plugin-jest
+
 Agrega reglas específicas para usar Jest con ESLint.
 Uso: Asegurar mejores prácticas en pruebas.
 
-- jest
+* jest
+
 Framework de pruebas para aplicaciones JavaScript.
 Uso: Ejecutar pruebas unitarias y de integración.
 
-- prettier
+* prettier
+
 Herramienta para formatear código de forma consistente.
 Uso: Mantener el estilo de código uniforme en el proyecto.
 
-- ts-jest
+* ts-jest
+
 Extensión de Jest para usar TypeScript.
 Uso: Permite realizar pruebas directamente en archivos TypeScript.
 
-- ts-node
+* ts-node
+
 Permite ejecutar código TypeScript directamente en Node.js.
 Uso: Ejecutar el proyecto en entornos de desarrollo sin compilar.
 
-- typescript
+* typescript
+
 Lenguaje utilizado para el desarrollo del proyecto.
 Uso: Código más seguro y mantenible.
 
@@ -289,11 +311,6 @@ npm run start
 ó 
 npm run start:dev
 ```
-
-```javascript
-NOTA: IMPORTANTE SI NO POSEE UNA CONEXION A LAS BASE DE DATOS LOS SERVICIOS NO INICIARAN 
-```
-
 #
 opcion 2 Usnaod Docker
 
@@ -336,4 +353,8 @@ BUCKET_NAME=
 # Asegurate que este en la misma ruta donde esta del archivo docker-componse.dev.yml
 
 docker-compose up
+```
+
+```javascript
+NOTA: IMPORTANTE SI NO POSEE UNA CONEXION A LAS BASE DE DATOS LOS SERVICIOS NO INICIARAN 
 ```
