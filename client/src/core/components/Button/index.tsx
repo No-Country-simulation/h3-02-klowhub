@@ -6,7 +6,7 @@ import { cn } from '@core/lib/utils';
 //Class Variant Authority es una forma declarativa de manejar variantes de componentes
 //Te asegura un estilo inicial, y al momento de usar las variantes evitas choques de clases
 //Ver docs: https://cva.style/docs
-const btnStyle = cva(
+export const btnStyle = cva(
   'inline-flex items-center justify-center no-underline truncate disabled:opacity-60 disabled:cursor-default text-white transition-colors duration-200 ease-in-out rounded-lg',
   {
     variants: {
@@ -32,7 +32,7 @@ const btnStyle = cva(
   }
 );
 
-interface ButtonProps
+export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof btnStyle> {
   'data-testid'?: string;

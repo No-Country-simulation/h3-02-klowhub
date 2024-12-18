@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { cartStoreAtom } from '@features/cart/store/cart.store';
 import type { CourseCart } from '@features/courses/types/courseCart';
 
-export const useLocalCart = (storedKey: string) => {
+export const useLocalCart = () => {
   const [stored, setStored] = useAtom(cartStoreAtom);
   const isStored = useCallback(
     (id: string | number) => stored.some(item => item.courseId === id),

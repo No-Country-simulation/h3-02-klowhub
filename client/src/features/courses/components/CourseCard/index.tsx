@@ -58,7 +58,7 @@ const CourseCard = ({
   eventsNone = false,
 }: CardProps) => {
   const styleClass = categoryStyles[categoria] || categoryStyles.default;
-  const { isStored, saveToCart } = useLocalCart('coursesCart');
+  const { isStored, saveToCart } = useLocalCart();
 
   return (
     <div
