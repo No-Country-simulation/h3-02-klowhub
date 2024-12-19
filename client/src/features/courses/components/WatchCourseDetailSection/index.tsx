@@ -10,14 +10,19 @@ import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
 import type { CourseDetailsType } from '../../types/coursedetails.types';
 
+interface WatchCourseDetailSectionProps {
+  courseId: string | number;
+  locale: Locale;
+}
 export default async function WatchCourseDetailSection({
   locale,
-  id,
-}: {
-  id: string | number;
-  locale: Locale;
-}) {
-  const courseDetail = await getContent<CourseDetailsType>(`courses/${id}`, undefined, 'API_URL');
+  courseId,
+}: WatchCourseDetailSectionProps) {
+  const courseDetail = await getContent<CourseDetailsType>(
+    `courses/${courseId}`,
+    undefined,
+    'API_URL'
+  );
   const userId = courseDetail.userId;
   const creator = await getContent<CreatorCourseType>(`users/${userId}`, undefined, 'API_URL');
   const t = await getTranslations<'CourseDetail'>({ locale: locale, namespace: 'CourseDetail' });
