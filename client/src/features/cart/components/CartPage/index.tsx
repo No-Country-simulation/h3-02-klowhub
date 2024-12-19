@@ -17,9 +17,9 @@ const CartSection = async () => {
 
         <div className="mb-10 w-full lg:w-1/4">
           <PaymentSummary
-            subtotal={6071}
+            subtotal={0}
             serviceFee={130}
-            discount={20}
+            discount={0}
             paymentMethods={['/svg/Stripe.svg', '/svg/PayPal.png', '/svg/Etherium.png']}
           />
         </div>
