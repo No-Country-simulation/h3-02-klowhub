@@ -103,7 +103,7 @@ docker-compose up
 ![Untitled-2024-12-06-1141](https://github.com/user-attachments/assets/216ee27d-d300-4c58-a0ce-c5328ceeae5c)
 
 ## Links de interés
-- Deploy: [link](https://klowhub-800663783731.southamerica-east1.run.app/es/signin) (Deployado en Google Cloud, puede necesitar mantenimiento)
+- Deploy: [link](https://klowhub-800663783731.southamerica-east1.run.app/) (Deployado en Google Cloud, puede necesitar mantenimiento)
 - Google Doc: [Requerimiento MVP](https://docs.google.com/document/d/1384qS4swbR3EJarHDEN6JStyf-U_L6RKgHSfzssLfbE/edit?tab=t.0)
 - Excalidraw (un tablero) del trabajo y progreso del equipo: [Link](https://excalidraw.com/#room=5e439aab375eec8c0d21,MJms9xmhQwIa0jXMSSZIlQ)
 - Seguimiento de tareas en [Github Projects](https://github.com/orgs/No-Country-simulation/projects/127/views/1)

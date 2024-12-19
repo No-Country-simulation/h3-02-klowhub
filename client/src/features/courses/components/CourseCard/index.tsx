@@ -110,7 +110,7 @@ const CourseCard = ({
         {categoria}
       </span>
 
-      <div className="grow p-4">
+      <div className="grow px-4 pt-4">
         <div className="flex items-center justify-between">
           <h3 className="line-clamp-2 max-h-14 min-h-14 text-ellipsis text-lg font-bold text-slate-200">
             {title}
@@ -153,15 +153,15 @@ const CourseCard = ({
           ) : null}
         </div>
         {price ? (
-          <div className="mt-4 flex items-center gap-2">
+          <div className="mt-4 flex items-center">
             <strong className="text-lg font-bold text-slate-200">${price}</strong>
           </div>
         ) : null}
       </div>
 
-      <div className="mt-auto flex items-center p-4">
+      <div className="mt-2 flex items-center p-3">
         <Button
-          className="relative z-10 rounded-lg px-4 py-2 text-sm text-white"
+          className="relative z-10 rounded-lg px-4 text-sm text-white"
           onClick={() => {
             saveToCart({
               courseId,

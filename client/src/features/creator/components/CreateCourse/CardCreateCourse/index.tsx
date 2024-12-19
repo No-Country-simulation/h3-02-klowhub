@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
 import { getContent } from '@core/services/getContent';
@@ -6,6 +7,7 @@ import CourseCarouselWraperCreator from './CourseCarouselWraper';
 
 export default async function CardCreateCourse() {
   const courses = await getContent<CourseCardType[]>('/json/recommended-courses.json');
+  const t = await getTranslations<'Common'>('Common');
   return (
     <section className="mx-auto w-full">
       <div className="mb-6">
@@ -15,8 +17,8 @@ export default async function CardCreateCourse() {
         {(item, i) => (
           <CourseCard
             courseId={item.id}
-            addToCart=""
-            viewDetails=""
+            addToCart={t('addToCart')}
+            viewDetails={t('viewDetails')}
             key={`fcccc-${i}`}
             title={item.title}
             description={item?.basicDescription || ''}
@@ -30,7 +32,11 @@ export default async function CardCreateCourse() {
           />
         )}
       </CardsFlexContainer>
-      <CourseCarouselWraperCreator courses={courses} />
+      <CourseCarouselWraperCreator
+        courses={courses}
+        addToCart={t('addToCart')}
+        viewDetails={t('viewDetails')}
+      />
     </section>
   );
 }

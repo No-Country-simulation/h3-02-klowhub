@@ -61,7 +61,7 @@
     "supportContact": "Contacto",
     "supportForum": "Foro",
     "followTitle": "Sigue a Klowhub",
-    "footerCopyRight": "© KlowHub."
+    "footerCopyRight": "© 2024 KlowHub | Equipo 02 | Hackathón 03 | No Country"
   },
   "Creator": {
     "metaTitle": "Klowhub - Creador",
@@ -208,7 +208,13 @@
     "search": "Buscar",
     "share": "Compartir",
     "next": "Siguiente",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "viewCourse": "Ver curso",
+    "buyCourse": "Comprar curso",
+    "courseProgram": "Programa del curso",
+    "courses": "Cursos",
+    "students": "Estudiantes",
+    "mentorQualification": "Calificación del instructor"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Crear nuevo curso",
@@ -284,7 +290,7 @@
     "SobreMi": "Sobre mi",
     "OptimizaPerfiltitulo": "Optimiza tu Perfil",
     "OptimizaPerfiltitulodec": "Optimizá tu perfil y llevá tus apps al siguiente nivel. Accedé a recursos exclusivos que te ayudarán a mejorar tus habilidades y maximizar el potencial de tus proyectos.",
-    "IrCursos": "Ir a los curosos",
+    "IrCursos": "Ir a los cursos",
     "Vendedor": "Vendedor",
     "CursosPublicados": " Cursos publicados",
     "AplicacionesCreadas": "Aplicaciones creadas",

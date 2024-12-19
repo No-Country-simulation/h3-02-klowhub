@@ -6,17 +6,23 @@ import CourseCard from '@features/courses/components/CourseCard';
 
 interface CourseCarouselWraperProps {
   courses: CourseCardType[];
+  addToCart: string;
+  viewDetails: string;
 }
 
-export default function CourseCarouselWraperCreator({ courses }: CourseCarouselWraperProps) {
+export default function CourseCarouselWraperCreator({
+  courses,
+  addToCart,
+  viewDetails,
+}: CourseCarouselWraperProps) {
   return (
     <CardsFlexCarousel items={courses}>
       {(item, i) => (
         <CourseCard
           key={`cccc-${i}`}
           courseId={item.id}
-          addToCart=""
-          viewDetails=""
+          addToCart={addToCart}
+          viewDetails={viewDetails}
           title={item.title}
           description={item?.basicDescription || ''}
           rating={item.rating}

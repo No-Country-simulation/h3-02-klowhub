@@ -61,7 +61,7 @@
     "supportContact": "Contato",
     "supportForum": "Fórum",
     "followTitle": "Siga o Klowhub",
-    "footerCopyRight": "© KlowHub."
+    "footerCopyRight": "© 2024 KlowHub | Equipe 02 | Hackathon 03 | No Country"
   },
   "Creator": {
     "metaTitle": "Klowhub - Criador",
@@ -208,7 +208,13 @@
     "search": "Buscar",
     "share": "Compartilhar",
     "next": "Próximo",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "viewCourse": "Ver curso",
+    "buyCourse": "Comprar curso",
+    "courseProgram": "Programa do curso",
+    "courses": "Cursos",
+    "students": "Estudantes",
+    "mentorQualification": "Qualificação do instrutor"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Criar um novo curso",

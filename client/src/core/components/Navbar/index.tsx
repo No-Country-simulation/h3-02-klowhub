@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Link, type Locale } from '@core/lib/i18nRouting';
+import { type Locale } from '@core/lib/i18nRouting';
 import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
+import CartButton from './CartButton';
 import { NavbarClient } from './NavbarClient';
 import NavbarItems from './NavbarItems';
 import UserModeToggle from './UserModeToggle';
@@ -31,24 +31,9 @@ export default function Navbar({ locale, creator }: NavbarProps) {
 
         <div className="ml-auto hidden h-full items-center justify-center space-x-4 min-[1400px]:flex">
           <LocaleSwitcherSelect currentLocale={locale} />
-          <Link aria-label={t('cartLabel')} href="/cart">
-            <Image
-              src="/svg/cart.svg"
-              alt={t('cartAlt')}
-              width={24}
-              height={24}
-              className="size-6"
-            />
-          </Link>
-          {/* <Button aria-label={t('cartLabel')} size="fit" variant="ghost">
-            <Image
-              src="/svg/cart.svg"
-              alt={t('cartAlt')}
-              width={24}
-              height={24}
-              className="size-6"
-            />
-          </Button>
+
+          <CartButton altText={t('cartAlt')} labelText={t('cartLabel')} />
+          {/*
           <Button aria-label={t('bellLabel')} size="fit" variant="ghost">
             <Image
               src="/svg/bell.svg"

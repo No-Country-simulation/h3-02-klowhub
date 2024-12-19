@@ -1,1 +1,5 @@
-
+@container watchCourse (width > 300px) {
+  .containerLessons {
+    max-width: 100cqw;
+  }
+}

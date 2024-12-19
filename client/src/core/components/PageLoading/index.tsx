@@ -9,7 +9,7 @@ export default function PageLoading() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed inset-0 flex items-center justify-center">
+        className="fixed inset-0 flex size-full items-center justify-center bg-gradient-bg-1">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
