@@ -60,8 +60,8 @@ jobs:
         run: |
           docker build \
             --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
-            --build-arg NEXT_PUBLIC_CLIENT_ID=${NEXT_PUBLIC_CLIENT_ID} \
-            --build-arg CLIENT_SECRET=${CLIENT_SECRET} \
+            --build-arg NEXT_PUBLIC_CLIENT_ID=${{NEXT_PUBLIC_CLIENT_ID}} \
+            --build-arg CLIENT_SECRET=${{CLIENT_SECRET}} \
             -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} .
 
       # 6.5. Limpiar imágenes antiguas
