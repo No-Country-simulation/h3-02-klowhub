@@ -47,7 +47,7 @@ const VideoLessons = ({ moduleActiveId, lessons, courseId }: VideoLessonsProps) 
             <Link
               href={{
                 pathname: `${courseId}`,
-                query: { lessonActive: `${lesson?.['_id']}-${moduleActiveId}` || lesson.id },
+                query: { lessonActive: `${moduleActiveId}-${lesson?.['_id']}` || lesson.id },
               }}
               scroll={false}
               className={cn(

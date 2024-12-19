@@ -38,7 +38,7 @@ const OptimizeCard: React.FC<OptimizeCardProps> = ({
         variant={'default'}
         size={'fit'}
         className="mb-6 mt-2 rounded-md px-4 py-3 text-white hover:bg-fuchsia-800">
-        <Link href="/appstore">{buttonText}</Link>
+        <Link href="/courses">{buttonText}</Link>
       </Button>
     </div>
   );
