@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import Badge from '@core/components/Badge/Index';
@@ -25,7 +26,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ creator }) => {
             height={175}
           />
           <Button variant={'ghost'} className="m-0 mt-2 text-sm">
-            {t('ImagenPerfil')}
+            <Link href="/projects">{t('ImagenPerfil')}</Link>
           </Button>
           <h1 className="mt-10 text-center text-xl font-semibold">{creator?.firstName}</h1>
         </div>
