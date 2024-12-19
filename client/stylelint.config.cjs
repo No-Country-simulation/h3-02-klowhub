@@ -39,6 +39,7 @@ module.exports = {
     'number-max-precision': null,
     "declaration-empty-line-before": null,
     "declaration-block-no-redundant-longhand-properties": null,
-    "color-hex-length": null
+    "color-hex-length": null,
+    "value-keyword-case": null
   },
 };
