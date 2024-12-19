@@ -43,7 +43,11 @@ const CollapsableModule = ({ module, isOpen, onToggle }: CollapsableModuleProps)
             className="relative overflow-hidden">
             <div className="ms-9 space-y-1 rounded-lg bg-white/10 before:absolute before:left-[20px] before:top-0 before:h-full before:w-[2px] before:bg-white before:content-['']">
               {module.lessons.map(lesson => (
-                <LessonItem key={lesson.id} lesson={lesson} moduleId={module.id} />
+                <LessonItem
+                  key={lesson?.['_id'] || lesson.id}
+                  lesson={lesson}
+                  moduleId={module?.['_id'] || module.id}
+                />
               ))}
             </div>
           </motion.div>

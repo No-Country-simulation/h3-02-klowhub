@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { videoModuleSchema } from '../schemas/coursevideo.schemas';
 
 export const courseDetailsSchema = z.object({
   id: z.string(),
@@ -24,6 +25,7 @@ export const courseDetailsSchema = z.object({
   status: z.string(),
   enrolledUsers: z.array(z.string()),
   videoPresentationUrl: z.string().optional(),
+  modules: z.array(videoModuleSchema),
 });
 
 export type CourseDetailsType = z.infer<typeof courseDetailsSchema>;

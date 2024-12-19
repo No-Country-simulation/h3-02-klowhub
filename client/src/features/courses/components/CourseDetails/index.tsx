@@ -52,7 +52,7 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
 
         {/* Columna derecha: Sobre el instructor y Programa del curso */}
         <SectionRigth
-          courseId={course.id}
+          courseId={courseId}
           isBuy={true}
           creator={creator}
           platform={course.platform}

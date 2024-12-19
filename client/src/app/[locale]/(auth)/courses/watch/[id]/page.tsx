@@ -9,16 +9,17 @@ export default async function CoursesPage({
   searchParams,
 }: Readonly<{
   params: Promise<{ locale: string; id: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }>) {
   const { locale, id } = await params;
-  const { lessonActive = '', moduleActive = '' } = await searchParams;
+  //console.log(id);
+  const { lessonActive = '' } = await searchParams;
   setRequestLocale(locale);
   return (
     <main className="mb-20 mt-36 size-full space-y-8 px-0 min-[780px]:px-10 min-[1800px]:px-16">
       <WatchCourseSection
-        moduleActive={moduleActive as string}
-        lessonActive={lessonActive as string}
+        moduleActive={lessonActive.split('-')[0] as string}
+        lessonActive={lessonActive.split('-')[1] as string}
         courseId={id}
         locale={locale}
       />

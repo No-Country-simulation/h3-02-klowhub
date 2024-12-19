@@ -11,7 +11,8 @@ interface VideoModulesProps {
 
 type ModuleId = string | number;
 
-const VideoModules = ({ modules }: VideoModulesProps) => {
+const VideoModules = ({ modules = [] }: VideoModulesProps) => {
+  console.log(modules, 'moduleskey');
   const [openModules, setOpenModules] = useState<ModuleId[]>([]);
   const toggleModule = (id: ModuleId) => {
     setOpenModules(prev => (prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]));
@@ -22,10 +23,10 @@ const VideoModules = ({ modules }: VideoModulesProps) => {
       <div className="space-y-4 py-4 pe-2">
         {modules.map(module => (
           <CollapsableModule
-            key={module.id}
+            key={module?.['_id'] || module.id}
             module={module}
-            isOpen={openModules.includes(module.id)}
-            onToggle={() => toggleModule(module.id)}
+            isOpen={openModules.includes(module?.['_id'] || module.id)}
+            onToggle={() => toggleModule(module?.['_id'] || module.id)}
           />
         ))}
       </div>

@@ -12,9 +12,10 @@ interface VideoLessonsProps {
   lessons: VideoLessonsType[];
   courseId: string | number;
   lessonActiveId: string | number;
+  moduleActiveId: string | number;
 }
 
-const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
+const VideoLessons = ({ moduleActiveId, lessons, courseId }: VideoLessonsProps) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const onPointerDown = useCallback((e: PointerEvent<HTMLDivElement>) => {
@@ -45,7 +46,7 @@ const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
             <Link
               href={{
                 pathname: `${courseId}`,
-                query: { lessonActive: lesson.id },
+                query: { lessonActive: `${lesson?.['_id']}-${moduleActiveId}` || lesson.id },
               }}
               scroll={false}
               className={cn(
@@ -53,7 +54,7 @@ const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
                 isDragging && 'pointer-events-none cursor-default select-none'
               )}>
               <Image
-                src={lesson.thumbnail}
+                src={'/images/mocks/course_mock1.png'}
                 alt={lesson.name}
                 width={180}
                 height={108}

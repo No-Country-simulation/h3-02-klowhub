@@ -14,8 +14,10 @@ interface LessonItemProps {
 }
 
 export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
+  const lessonId = lesson?.['_id'] || lesson.id;
+  console.log(lessonId, 'lessonkey');
+  console.log(moduleId, 'moduleIdkey2');
   const [lessonActive, setActiveLesson] = useRouterQueryState('lessonActive', '');
-  const [_, setModuleActive] = useRouterQueryState('moduleActive', '');
   const activeLesson = useMemo(
     () => ({
       id: lessonActive,
@@ -24,12 +26,11 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
   );
   const changeLesson = useCallback(
     (newLesson: string | number) => {
-      setActiveLesson(String(newLesson));
-      setModuleActive(String(moduleId));
+      setActiveLesson(`${String(moduleId)}-${String(newLesson)}`);
     },
     [activeLesson.id, moduleId]
   );
-  const isActive = activeLesson.id === lesson.id;
+  const isActive = activeLesson.id === lessonId;
   const isViewdAndNotActive = lesson.isViewd && !isActive;
   const color = isViewdAndNotActive ? '#fff' : isActive ? '#B95ED4' : '#fff';
 
@@ -41,11 +42,11 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
       }}
       transition={{ duration: 0.3 }}>
       <Button
-        onClick={() => changeLesson(lesson.id)}
+        onClick={() => changeLesson(lessonId)}
         variant="ghost"
         className={cn(
           'w-full justify-start py-5 pe-4 ps-2 font-medium text-inherit',
-          activeLesson.id === lesson.id
+          activeLesson.id === lessonId
             ? 'bg-white hover:bg-white'
             : 'bg-transparent hover:bg-white/10'
         )}>
@@ -61,7 +62,7 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
                   exit={{ scale: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                   className="ml-auto">
-                  <div className="size-4 text-success-200">
+                  <div className="text-success-200 size-4">
                     <CheckCircle />
                   </div>
                 </motion.div>

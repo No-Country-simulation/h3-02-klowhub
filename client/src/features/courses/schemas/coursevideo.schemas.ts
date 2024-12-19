@@ -3,14 +3,16 @@ import { idSchema, nameSchema } from '@core/schemas/common.schema';
 
 export const videoLessonsSchema = z.object({
   id: idSchema,
+  _id: idSchema,
   name: nameSchema,
   duration: z.string(),
-  thumbnail: z.string(),
   isViewd: z.boolean().optional(),
+  videoUrl: z.string(),
 });
 
 export const videoModuleSchema = z.object({
   id: idSchema,
+  _id: idSchema,
   title: z.string(),
   lessons: z.array(videoLessonsSchema),
 });
