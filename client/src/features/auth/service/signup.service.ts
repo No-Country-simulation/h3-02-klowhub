@@ -27,16 +27,15 @@ export async function signup(
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   });
-  console.log(res);
+
   const dta = await res.json();
   const hastoken = dta instanceof Object && 'token' in dta;
   const hassuccess = dta instanceof Object && 'success' in dta; // Ahora TypeScript reconoce `token`
-  console.log(dta);
+
   if (hassuccess && !dta?.success) {
     return { errors: { GLOBAL: 'Error en la solicitud de inicio de sesión' } };
   }
   const dtoken = hastoken ? (dta?.token as string) : ''; // Ahora TypeScript reconoce `token`
-  console.log(dtoken);
 
   if (!dtoken) {
     return { errors: { GLOBAL: 'No se recibió un token de autenticación' } };

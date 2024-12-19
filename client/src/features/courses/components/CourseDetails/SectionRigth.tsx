@@ -33,7 +33,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
 
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-white">{creator.fristName}</span>
+              <span className="font-medium text-white">{creator.firstName}</span>
               <Badge text="PRO" variant={creator.membership as 'pro'} />
             </div>
             <span className="text-sm text-gray-400">{creator.title}</span>

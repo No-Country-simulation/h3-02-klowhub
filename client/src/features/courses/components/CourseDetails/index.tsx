@@ -22,8 +22,6 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
   ];
   const course = await getContent<CourseDetailsType>(`courses/${courseId}`, undefined, 'API_URL');
   const userId = course.userId;
-  console.log('Resultado API_URL:', course);
-  console.log('userId', userId);
   /*const course = await getContent<CourseDetailsType>(
     `json/${courseId}/detail.json`,
     undefined,
@@ -32,7 +30,6 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
   //const userId = course.creatorId;
   //console.log('Resultado APP_URL:', course);
   const creator = await getContent<CreatorCourseType>(`users/${userId}`, undefined, 'API_URL');
-  console.log('Resultado API_URL:', creator);
   /*const creator = await getContent<CreatorCourseType>(
     `json/${userId}/user.json`,
     undefined,
@@ -45,8 +42,10 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
       <div className="flex flex-col items-start justify-between rounded-lg lg:mt-6 lg:flex-row">
         {/* Columna izquierda: Información principal del curso */}
         <MainContent
+          creatorImage={creator.image}
           creatorDesc={creator.biograophy}
           creatorWhyLearning={creator.whyLeam}
+          creatorFirstName={creator.firstName}
           locale={locale}
           course={course}
         />
