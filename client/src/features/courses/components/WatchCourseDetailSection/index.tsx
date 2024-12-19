@@ -7,10 +7,19 @@ import ShowMore from '@core/components/ShowMore';
 import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
+import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
 import type { CourseDetailsType } from '../../types/coursedetails.types';
 
-export default async function WatchCourseDetailSection({ locale }: { locale: Locale }) {
-  const courseDetail = await getContent<CourseDetailsType>('/json/course-detail.json');
+export default async function WatchCourseDetailSection({
+  locale,
+  id,
+}: {
+  id: string;
+  locale: Locale;
+}) {
+  const courseDetail = await getContent<CourseDetailsType>(`courses/${id}`, undefined, 'API_URL');
+  const userId = courseDetail.userId;
+  const creator = await getContent<CreatorCourseType>(`users/${userId}`, undefined, 'API_URL');
   const t = await getTranslations<'CourseDetail'>({ locale: locale, namespace: 'CourseDetail' });
   const ct = await getTranslations<'Common'>({ locale: locale, namespace: 'Common' });
   if (!courseDetail) {
@@ -28,21 +37,21 @@ export default async function WatchCourseDetailSection({ locale }: { locale: Loc
       <section className="h-fit w-full space-y-9 rounded-lg bg-white/10 px-4 py-8 shadow-app-1 backdrop-blur-sm min-[620px]:space-y-6 min-[620px]:px-14 min-[620px]:py-10">
         <header className="flex flex-col items-center justify-start space-y-6 text-white">
           <div className="flex w-full items-center justify-between">
-            <h1 className="text-xl font-bold">{courseDetail.name}</h1>
+            <h1 className="text-xl font-bold">{courseDetail.title}</h1>
           </div>
           <div className="flex w-full flex-col items-start justify-center gap-y-6 min-[620px]:flex-row min-[620px]:items-center min-[620px]:justify-between">
             <div className="space-y-4">
               <div className="flex items-center justify-start gap-3">
                 <Image
-                  src={courseDetail?.creatorAvatar || '/images/mocks/avatar_mock2.png'}
-                  alt={courseDetail.creatorName}
+                  src={creator?.image || '/images/mocks/avatar_mock2.png'}
+                  alt={creator.firstName}
                   width={54}
                   height={54}
                   className="aspect-square rounded-full object-cover object-center"
                 />
                 <div>
-                  <p className="text-[15px] font-medium">{courseDetail.creatorName}</p>
-                  <span className="text-sm text-[#D8C5C5]">{courseDetail.creatorHeader}</span>
+                  <p className="text-[15px] font-medium">{creator.firstName}</p>
+                  <span className="text-sm text-[#D8C5C5]">{creator.title}</span>
                 </div>
               </div>
               {/* <Button variant="default" className="font-semibold text-white">
@@ -73,24 +82,24 @@ export default async function WatchCourseDetailSection({ locale }: { locale: Loc
           </div>
         </header>
         <H2SimpleSection title={t('afterCompletingCourse')}>
-          <CheckList items={courseDetail.courseLearnings} />
+          <CheckList items={courseDetail.contents} />
         </H2SimpleSection>
         <H2SimpleSection title={t('aboutCourse')}>
-          <p className="text-sm font-normal text-white">{courseDetail.courseAbout}</p>
+          <p className="text-sm font-normal text-white">{courseDetail.detailedContent}</p>
         </H2SimpleSection>
         <H2SimpleSection
-          title={t('whyLearnWith', { creatorName: courseDetail.creatorName })}
+          title={t('whyLearnWith', { creatorName: creator.firstName })}
           titleVariant="textxl">
-          <p className="text-sm font-normal text-white">{courseDetail.creatorDescription}</p>
+          <p className="text-sm font-normal text-white">{creator.biograophy}</p>
         </H2SimpleSection>
         <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textxl">
-          <p className="text-sm font-normal text-white">{courseDetail.courseObjective}</p>
+          <p className="text-sm font-normal text-white">{courseDetail.purpose}</p>
         </H2SimpleSection>
         <H2SimpleSection title={t('requirements')} titleVariant="textxl">
-          <CheckList items={courseDetail.courseRequirenments} />
+          <CheckList items={courseDetail.prerequisites} />
         </H2SimpleSection>
         <H2SimpleSection title={t('whatIncludes')} titleVariant="textxl">
-          <CheckList items={courseDetail.courseAdditions} />
+          <CheckList items={courseDetail.followUp} />
         </H2SimpleSection>
       </section>
     </ShowMore>
