@@ -14,7 +14,7 @@ export default async function WatchCourseDetailSection({
   locale,
   id,
 }: {
-  id: string;
+  id: string | number;
   locale: Locale;
 }) {
   const courseDetail = await getContent<CourseDetailsType>(`courses/${id}`, undefined, 'API_URL');

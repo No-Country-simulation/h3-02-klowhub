@@ -23,7 +23,7 @@ export default async function CoursesPage({
         locale={locale}
       />
       <div className="mb-5 flex w-full flex-col justify-between space-y-8 px-[3%] min-[780px]:px-0">
-        <WatchCourseDetailSection locale={locale} />
+        <WatchCourseDetailSection locale={locale} courseId={id} />
         <RecommendedCourses courseId={id} />
       </div>
     </main>
