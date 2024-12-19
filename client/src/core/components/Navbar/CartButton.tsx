@@ -1,10 +1,11 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { cartStoreAtom } from '@features/cart/store/cart.store';
+import CartCounter from './CartCounter';
 
 interface CartButtonProps {
   altText: string;
@@ -13,19 +14,13 @@ interface CartButtonProps {
 
 export default function CartButton({ altText, labelText }: CartButtonProps) {
   const course = useAtomValue(cartStoreAtom);
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    setCounter(course.length);
+  }, [course.length]);
   return (
     <Link aria-label={labelText} href="/cart" className="relative">
-      <AnimatePresence>
-        {course.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute -right-3 -top-3 rounded-full bg-white px-2 text-xs text-black">
-            {course.length}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <CartCounter counter={counter} />
 
       <Image src="/svg/cart.svg" alt={altText} width={24} height={24} className="size-7" />
     </Link>

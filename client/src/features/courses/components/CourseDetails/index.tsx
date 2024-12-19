@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
 import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
@@ -15,11 +16,7 @@ interface CourseDetailsProps {
 }
 
 export default async function CourseDetails({ courseId, locale }: CourseDetailsProps) {
-  const breadcrumbItems = [
-    { label: 'Home', href: '/es/platform' },
-    { label: 'Cursos y lecciones', href: '/courses' },
-    { label: 'Gestión de inventarios con Power Apps', href: '/#' },
-  ];
+  const t = await getTranslations<'Common'>({ locale: locale, namespace: 'Common' });
   const course = await getContent<CourseDetailsType>(`courses/${courseId}`, undefined, 'API_URL');
   const userId = course.userId;
   /*const course = await getContent<CourseDetailsType>(
@@ -35,6 +32,11 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
     undefined,
     'APP_URL'
   );*/
+  const breadcrumbItems = [
+    { label: 'Home', href: '/es/platform' },
+    { label: 'Cursos y lecciones', href: '/courses' },
+    { label: 'Gestión de inventarios con Power Apps', href: '/#' },
+  ];
   return (
     <div className="space-y-8">
       <Breadcrumb items={breadcrumbItems} />
@@ -56,6 +58,16 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
           isBuy={true}
           creator={creator}
           platform={course.platform}
+          translations={{
+            buyCourse: t('buyCourse'),
+            courseProgram: t('courseProgram'),
+            mentorQualification: t('mentorQualification'),
+            students: t('students'),
+            viewCourse: t('viewCourse'),
+            reviews: t('reviews'),
+            courses: t('courses'),
+            addToCart: t('addToCart'),
+          }}
         />
       </div>
       {/* <AppSection /> */}

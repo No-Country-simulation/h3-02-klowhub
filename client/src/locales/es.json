@@ -208,7 +208,13 @@
     "search": "Buscar",
     "share": "Compartir",
     "next": "Siguiente",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "viewCourse": "Ver curso",
+    "buyCourse": "Comprar curso",
+    "courseProgram": "Programa del curso",
+    "courses": "Cursos",
+    "students": "Estudiantes",
+    "mentorQualification": "Calificación del instructor"
   },
   "NewCourse": {
     "metaTitle": "Klowhub - Crear nuevo curso",

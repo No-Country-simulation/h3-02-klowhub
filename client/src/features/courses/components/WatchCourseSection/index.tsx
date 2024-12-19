@@ -33,7 +33,7 @@ const WatchCourseSection = async ({
 
   return (
     <section className="mx-auto flex flex-col gap-y-8 rounded-lg min-[1280px]:grid min-[1280px]:grid-cols-[1fr,26%] min-[1280px]:gap-y-0 min-[1280px]:bg-white/5 min-[2000px]:grid-cols-[1fr,25%]">
-      <div className="space-y-4 rounded-lg bg-white/15 contain-inline-size min-[780px]:p-4 min-[1280px]:rounded-r-none min-[1280px]:bg-white/10">
+      <div className="video-container-name space-y-4 rounded-lg bg-white/15 min-[780px]:p-4 min-[1280px]:rounded-r-none min-[1280px]:bg-white/10">
         <WatchVideoWrapper locale={locale} lessonActiveId={lessonActiveId} />
         <div className="px-4 pb-4 min-[780px]:px-0">
           <h3 className="mb-3 ps-4 font-normal text-white">Vista previa</h3>

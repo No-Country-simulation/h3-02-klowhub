@@ -99,15 +99,21 @@ const CourseHorizontalCard = ({
           <h1 className="mb-2 text-lg font-bold text-slate-200 md:text-xl">{title}</h1>
           <p className="mb-4 text-sm text-slate-200 md:text-base">{description}</p>
           <div className="mt-3 flex flex-wrap gap-2 pb-2">
-            <Button variant="neutral" className="rounded-lg" size="default">
-              <Image
-                src={getPlatformLogo(platform)}
-                alt="Carrito"
-                width="20"
-                height="20"
-                className="mr-2"
-              />
-              {textButton}
+            <Button
+              asChild
+              variant="neutral"
+              className="pointer-events-none cursor-default select-none rounded-lg"
+              size="default">
+              <div>
+                <Image
+                  src={getPlatformLogo(platform)}
+                  alt="Carrito"
+                  width="20"
+                  height="20"
+                  className="mr-2"
+                />
+                {textButton}
+              </div>
             </Button>
           </div>
           <div className="mt-3 flex flex-wrap gap-2 pb-4">

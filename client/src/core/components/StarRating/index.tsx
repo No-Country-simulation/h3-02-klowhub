@@ -24,8 +24,8 @@ export const StarRating = ({ rating = 0 }: StartRatingProps) => {
   // Add partial star if exists
   if (hasPartialStar) {
     stars.push(
-      <div className="relative">
-        <StarIcon key={`partial-star`} filled={false} />
+      <div className="relative" key={`partial-star`}>
+        <StarIcon filled={false} />
         <div className="absolute inset-0 overflow-hidden">
           <StarIcon filled={true} half percentage={`${100 - partialStarPercentage}%`} />
         </div>

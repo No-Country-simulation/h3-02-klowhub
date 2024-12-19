@@ -33,15 +33,7 @@ export default function Navbar({ locale, creator }: NavbarProps) {
           <LocaleSwitcherSelect currentLocale={locale} />
 
           <CartButton altText={t('cartAlt')} labelText={t('cartLabel')} />
-          {/* <Button aria-label={t('cartLabel')} size="fit" variant="ghost">
-            <Image
-              src="/svg/cart.svg"
-              alt={t('cartAlt')}
-              width={24}
-              height={24}
-              className="size-6"
-            />
-          </Button>
+          {/*
           <Button aria-label={t('bellLabel')} size="fit" variant="ghost">
             <Image
               src="/svg/bell.svg"

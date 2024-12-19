@@ -248,3 +248,8 @@ input:disabled + label.view-disabled-input {
     clip-path: inset(0 var(--half-percentage) 0 0);
   }
 }
+
+.video-container-name {
+  container-name: watchCourse;
+  container-type: inline-size;
+}

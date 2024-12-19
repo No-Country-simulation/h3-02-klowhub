@@ -33,7 +33,8 @@ const VideoLessons = ({ lessons, courseId }: VideoLessonsProps) => {
   }, []);
 
   return (
-    <Carousel className={cn('h-[110px] w-full overflow-auto', css.containerLessons)}>
+    <Carousel
+      className={cn('container-lessons h-[110px] w-full overflow-auto', css.containerLessons)}>
       <CarouselContent
         onPointerDown={onPointerDown}
         onPointerCancel={onPointerUp}

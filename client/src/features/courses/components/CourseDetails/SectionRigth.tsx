@@ -11,9 +11,25 @@ interface SectionRigthProps {
   platform: string;
   isBuy?: boolean;
   courseId: string | number;
+  translations: {
+    buyCourse: string;
+    courseProgram: string;
+    mentorQualification: string;
+    students: string;
+    viewCourse: string;
+    reviews: string;
+    courses: string;
+    addToCart: string;
+  };
 }
 //
-export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigthProps) => {
+export const SectionRigth = ({
+  creator,
+  platform,
+  isBuy,
+  courseId,
+  translations,
+}: SectionRigthProps) => {
   return (
     <div className="w-full lg:ml-9 lg:w-3/12">
       {/* Sobre el instructor */}
@@ -56,7 +72,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
                 d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.367 4.223a1 1 0 00.95.69h4.456c.969 0 1.371 1.24.588 1.81l-3.607 2.622a1 1 0 00-.364 1.118l1.367 4.223c.3.921-.755 1.688-1.54 1.118l-3.607-2.622a1 1 0 00-1.176 0l-3.607 2.622c-.784.57-1.84-.197-1.54-1.118l1.367-4.223a1 1 0 00-.364-1.118L2.98 9.65c-.783-.57-.38-1.81.588-1.81h4.456a1 1 0 00.95-.69l1.367-4.223z"
               />
             </svg>
-            <span className="ml-2 mr-4 text-gray-300">Calificación del instructor:</span>
+            <span className="ml-2 mr-4 text-gray-300">{translations.mentorQualification}:</span>
             <span className="text-gray-300">{5}</span>
           </div>
           {/* Reseñas */}
@@ -75,7 +91,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
               />
             </svg>
             <span className="ml-2 text-gray-300">
-              {creator.rating} ({creator.reviews} Reseñas)
+              {creator.rating} ({creator.reviews} {translations.reviews})
             </span>
           </div>
           {/* Estudiantes */}
@@ -93,7 +109,9 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
                 d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0-6l-3.5 2m3.5-2l3.5 2"
               />
             </svg>
-            <span className="ml-2 text-gray-300">{5} estudiantes</span>
+            <span className="ml-2 text-gray-300">
+              {5} {translations.students}
+            </span>
           </div>
           {/* Cursos */}
           <div className="mt-2 flex items-center">
@@ -110,7 +128,9 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
                 d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M4 6h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z"
               />
             </svg>
-            <span className="ml-2 text-gray-300">{5} Cursos</span>
+            <span className="ml-2 text-gray-300">
+              {5} {translations.courses}
+            </span>
           </div>
         </div>
       </div>
@@ -130,7 +150,7 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
 
       {/* Programa del curso */}
       <div className="rounded-lg bg-[#323235] p-6 shadow-md">
-        <h3 className="mb-4 text-lg font-bold text-white">Programa del curso</h3>
+        <h3 className="mb-4 text-lg font-bold text-white">{translations.courseProgram}</h3>
         <ul className="space-y-4">
           {['Módulo 1', 'Módulo 2', 'Módulo 3', 'Módulo 4'].map((module, index) => (
             <li key={index} className="list-none border-t border-gray-600 pt-2">
@@ -155,16 +175,16 @@ export const SectionRigth = ({ creator, platform, isBuy, courseId }: SectionRigt
       <div className="mt-6 flex flex-col items-center justify-center">
         {isBuy ? (
           <Button asChild size={'lg'} className="w-full rounded-lg text-white">
-            <Link href={`/courses/watch/${courseId}`}>Ver curso</Link>
+            <Link href={`/courses/watch/${courseId}`}>{translations.viewCourse}</Link>
           </Button>
         ) : (
           <>
             <Button size={'lg'} className="mb-4 w-full text-white">
-              Comprar curso
+              {translations.buyCourse}
             </Button>
 
             <Button variant="outline" size={'lg'} className="w-full rounded-lg">
-              Añadir al carrito
+              {translations.addToCart}
             </Button>
           </>
         )}
