@@ -23,6 +23,7 @@ export const courseDetailsSchema = z.object({
   imageUrl: z.string().optional(),
   status: z.string(),
   enrolledUsers: z.array(z.string()),
+  videoPresentationUrl: z.string().optional(),
 });
 
 export type CourseDetailsType = z.infer<typeof courseDetailsSchema>;

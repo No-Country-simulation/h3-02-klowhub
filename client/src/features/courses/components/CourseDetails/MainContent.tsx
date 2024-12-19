@@ -49,8 +49,8 @@ export const MainContent = ({
 
       {/* Aqui el video Player */}
       <VideoPlayer
-        src={course.imageUrl /*agregat intro curso*/ || ''}
-        poster={course.imageUrl}
+        src={course.videoPresentationUrl /*agregat intro curso*/ || ''}
+        poster={'/images/mocks/course_mock1.png'}
         locale={locale}
       />
 
