@@ -14,7 +14,7 @@ export class UsersService {
     ) { }
 
     async profile(token: string): Promise<any> {
-        try {
+        try {console.log(token)
             Logger.log('Peticion Profile')
             const response = await this.httpService
                 .get(`${this.userServiceUrl}/users/profile`,

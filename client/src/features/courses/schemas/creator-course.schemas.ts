@@ -5,6 +5,7 @@ import { idSchema } from '@core/schemas/common.schema';
 export const creatorCourseSchema = z.object({
   id: idSchema,
   firstName: z.string(),
+  email: z.string(),
   image: z.string(),
   title: z.string(),
   rating: z.number(),

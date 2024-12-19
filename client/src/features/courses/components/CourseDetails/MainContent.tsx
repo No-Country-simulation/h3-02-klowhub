@@ -26,7 +26,6 @@ export const MainContent = ({
   creatorFirstName,
 }: MainContentProps) => {
   const t = useTranslations<'CourseDetail'>('CourseDetail');
-  console.log(course, 'course');
   return (
     <div className="w-full text-white lg:w-5/6 lg:pr-8">
       <h1 className="mb-4 text-2xl font-bold">{course?.title}</h1>

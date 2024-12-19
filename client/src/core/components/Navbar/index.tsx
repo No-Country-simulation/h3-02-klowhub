@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link, type Locale } from '@core/lib/i18nRouting';
-
+import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
 import { NavbarClient } from './NavbarClient';
 import NavbarItems from './NavbarItems';
 import UserModeToggle from './UserModeToggle';
@@ -10,9 +10,10 @@ import LocaleSwitcherSelect from '../LocaleSwitcherSelect';
 
 interface NavbarProps {
   locale: Locale;
+  creator: CreatorCourseType | null;
 }
 
-export default function Navbar({ locale }: NavbarProps) {
+export default function Navbar({ locale, creator }: NavbarProps) {
   const t = useTranslations('Navbar');
   const navItems = [
     { href: '/platform', text: t('dashboardLink') },
@@ -22,6 +23,7 @@ export default function Navbar({ locale }: NavbarProps) {
     { href: '/consultancies', text: t('consultanciesLink') },
     { href: '/about-appsheet', text: t('aboutappsheetLink') },
   ];
+
   return (
     <div className="header-bg-image fixed inset-x-0 top-0 z-50 mb-auto h-20 w-full max-w-[1940px] min-[1940px]:mx-auto min-[1940px]:rounded-b-2xl">
       <NavbarClient navItems={navItems} explorerText={t('explorer')} creatorText={t('creator')}>
@@ -70,6 +72,7 @@ export default function Navbar({ locale }: NavbarProps) {
             profileAlt={t('mailAlt')}
             profileText={t('profile')}
             logoutText={t('logout')}
+            creator={creator}
           />
         </div>
       </NavbarClient>

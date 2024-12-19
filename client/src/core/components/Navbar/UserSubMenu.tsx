@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@core/lib/i18nRouting';
 import { signOut } from '@features/auth/service/signout.service';
+import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
 import Button from '../Button';
 import {
   DropdownMenu,
@@ -16,9 +17,15 @@ interface UserSubmenuProps {
   profileAlt: string;
   profileText: string;
   logoutText: string;
+  creator: CreatorCourseType | null;
 }
 
-export default function UserSubmenu({ profileAlt, profileText, logoutText }: UserSubmenuProps) {
+export default function UserSubmenu({
+  creator,
+  profileAlt,
+  profileText,
+  logoutText,
+}: UserSubmenuProps) {
   const handleLogout = () => {
     signOut().then(() => {});
   };
@@ -27,8 +34,8 @@ export default function UserSubmenu({ profileAlt, profileText, logoutText }: Use
       <DropdownMenuTrigger asChild className="no-outline">
         <Button className="flex size-12 items-center justify-center rounded-full p-0">
           <Image
-            src="/images/mocks/seba.png"
-            alt={profileAlt}
+            src={creator?.image || '/images/mocks/avatar_mock1.png'}
+            alt={creator?.firstName || 'default'}
             width={60}
             height={60}
             className="size-full rounded-full object-cover"
@@ -48,8 +55,8 @@ export default function UserSubmenu({ profileAlt, profileText, logoutText }: Use
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}>
             <div className="border-b px-4 py-2">
-              <p className="text-sm font-medium text-white">{'Guest'}</p>
-              <p className="text-xs text-white/50">{'guest@gmail.com'}</p>
+              <p className="text-sm font-medium text-white">{creator?.firstName}</p>
+              <p className="text-xs text-white/50">{creator?.email}</p>
             </div>
             <DropdownMenuItem
               asChild
