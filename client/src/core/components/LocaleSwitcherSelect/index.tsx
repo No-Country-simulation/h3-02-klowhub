@@ -32,7 +32,7 @@ export default function LocaleSwitcherSelect({ currentLocale }: LocaleSwitcherSe
           alt="World icon"
           width={24}
           height={24}
-          className="object-center invert"
+          className="size-7 object-center invert"
         />
       </DropdownMenuTrigger>
       <AnimatePresence>
