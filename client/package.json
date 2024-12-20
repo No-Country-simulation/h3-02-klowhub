@@ -13,7 +13,6 @@
     "lint:fix": "eslint . --fix",
     "lint:css": "stylelint '**/*.{css,scss,sass,module.css,module.scss}'",
     "types:check": "tsc --noEmit --pretty",
-    "clean": "rimraf .next out coverage .swc",
     "commitlint:last": "npx commitlint --from HEAD~1 --to HEAD --verbose || $1",
     "format": "prettier --check \"**/*.{js,jsx,ts,tsx}\" --ignore-path .prettierignore .",
     "format:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\" --ignore-path .prettierignore .",

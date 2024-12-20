@@ -1,10 +1,10 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Footer from '@core/components/Footer/index';
+import LocaleSwitcherSelect from '@core/components/LocaleSwitcherSelect';
 import { getFieldsMessages } from '@core/lib/i18nFields';
 import { routing } from '@core/lib/i18nRouting';
 import SigninForm from '@features/auth/components/SigninForm';
 import AuthLayout from '@features/auth/layouts/AuthLayout';
-import LocaleSwitcherSelect from '@core/components/LocaleSwitcherSelect';
 
 export async function generateStaticParams() {
   const paths = routing.locales.map(locale => ({
@@ -25,7 +25,7 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
   const fields = await getFieldsMessages();
   return (
     <div className="flex flex-col">
-      <div className="absolute right-16 top-5">
+      <div className="absolute right-16 top-5 z-10">
         <LocaleSwitcherSelect currentLocale={locale} />
       </div>
       <AuthLayout
