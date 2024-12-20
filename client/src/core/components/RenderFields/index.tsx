@@ -1,4 +1,4 @@
-import type { FieldType } from '@core/types/fields';
+import type { FieldType } from '@core/models/fields.type';
 import FormField from '../FormField';
 import PasswordFormField from '../PasswordField';
 

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
-import { checkAuth } from '../service/checkauth.service';
+import { checkAuth } from '../services/checkauth.service';
 
 const AuthContext = createContext<null | any>(null);
 

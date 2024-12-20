@@ -1,6 +1,6 @@
 'use server';
 
-import type { ActionResponse } from '@coreTypes/actionResponse';
+import type { ActionResponse } from '@core/models/actionResponse.type';
 
 export default async function createCourseDetails(
   _state: unknown,

@@ -2,20 +2,20 @@
 
 import { type ReactNode, useEffect, useState } from 'react';
 import { cn } from '@core/lib/utils';
-import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '../Carrusel';
+import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '../Carousel';
 
 interface CardsFlexCarouselProps<T> {
   children: (item: T, i: number, isDragging: boolean) => ReactNode;
   className?: string;
   classNameContainer?: string;
-  classNmaeButtons?: string;
+  classNameButtons?: string;
   items: T[];
 }
 
 export default function CardsFlexCarousel<T>({
   className = '',
   classNameContainer = '',
-  classNmaeButtons = '',
+  classNameButtons = '',
   items = [],
   children,
 }: CardsFlexCarouselProps<T>) {
@@ -58,7 +58,7 @@ export default function CardsFlexCarousel<T>({
       <div
         className={cn(
           'mt-6 inline-flex w-full items-center justify-center gap-2 min-[1240px]:hidden',
-          classNmaeButtons
+          classNameButtons
         )}>
         {Array.from({ length: items?.length || 0 }).map((_, index) => (
           <button

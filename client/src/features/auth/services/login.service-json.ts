@@ -2,8 +2,8 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
-import type { ActionResponse } from '@core/types/actionResponse';
-import { signinSchema } from '../validation/schemas';
+import type { ActionResponse } from '@core/models/actionResponse.type';
+import { signinSchema } from '../schemas/schemas';
 
 export async function signin(
   _state: unknown,

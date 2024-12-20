@@ -17,8 +17,8 @@
     "metaTitle": "Klowhub Platform",
     "metaDescription": "Klowhub page platform",
     "metaSiteName": "Klowhub Platform",
-    "recocourseTitle": "Recommended courses",
-    "recocourseDesc": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects.",
+    "courseSectionTitlePlat": "Recommended courses",
+    "courseSectionDescPlat": "Discover the most popular courses and take your skills to the next level. Learn from experts and apply your knowledge to real-life projects.",
     "latestInquiriesTitle": "Latest inquiries",
     "connectWithExperts": "Connect with Experts",
     "learnFromTheBest": "Learn from the best: boost your knowledge with our specialized mentors",
@@ -271,7 +271,7 @@
     "metaDescription": "Klowhub Creator earnings page",
     "metaSiteName": "Klowhub - Creator earnings"
   },
-  "SumaryCart": {
+  "SummaryCart": {
     "Resumen": "Summary",
     "Subtotal": "Subtotal",
     "Tarifa": "Service fee",

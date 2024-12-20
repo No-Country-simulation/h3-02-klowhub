@@ -17,8 +17,8 @@
     "metaTitle": "Plateforme Klowhub",
     "metaDescription": "Page de la plateforme Klowhub",
     "metaSiteName": "Plateforme Klowhub",
-    "recocourseTitle": "Cours recommandés",
-    "recocourseDesc": "Découvrez les cours les plus populaires et améliorez vos compétences. Apprenez des experts et appliquez vos connaissances à des projets concrets.",
+    "courseSectionTitlePlat": "Cours recommandés",
+    "courseSectionDescPlat": "Découvrez les cours les plus populaires et améliorez vos compétences. Apprenez des experts et appliquez vos connaissances à des projets concrets.",
     "latestInquiriesTitle": "Dernières demandes",
     "connectWithExperts": "Connectez-vous avec des experts",
     "learnFromTheBest": "Apprenez des meilleurs : enrichissez vos connaissances avec nos mentors spécialisés",
@@ -271,7 +271,7 @@
     "metaDescription": "Page des revenus des créateurs de Klowhub",
     "metaSiteName": "Klowhub - Revenus des créateurs"
   },
-  "SumaryCart": {
+  "SummaryCart": {
     "Resumen": "Résumé",
     "Subtotal": "sous-total",
     "Tarifa": "Frais de service",

@@ -12,14 +12,14 @@ import {
 } from '@core/components/Select';
 import TiptapEditor from '@core/components/TiptapEditor';
 import { useCreateCourseGeneralStep } from '@features/courses/hooks/useCreateCourseGeneralStep';
-import type { CourseGeneralFields } from '@features/courses/models/courseFields';
-import { createCourseGeneralModel } from '@features/courses/models/createCourseGeneral';
+import type { CourseGeneralFields } from '@features/courses/models/courseFields.type';
+import { createCourseGeneralModel } from '@features/courses/models/createCourseGeneral.model';
 import {
   CourseCompetence,
   CourseMonetizable,
   CoursePlatform,
   CourseType,
-} from '@features/courses/models/enums/createCourseEnums';
+} from '@features/courses/models/enums/createCourse.enum';
 import CreateCourseAlert from '../CreateCourseAlert';
 
 interface CourseGeneralFormStepProps {

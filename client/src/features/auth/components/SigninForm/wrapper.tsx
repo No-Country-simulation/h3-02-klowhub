@@ -1,9 +1,9 @@
 'use client';
 
 import FormComponent from '@core/components/Form';
-import type { FieldType } from '@core/types/fields';
+import type { FieldType } from '@core/models/fields.type';
 //import { signin } from '../../service/login.service';
-import { signin } from '@features/auth/service/login.service';
+import { signin } from '@features/auth/services/login.service';
 import AuthComplement from '../AuthcomplementForm/AuthComplement';
 
 interface SigninFormWrapperProps {
@@ -13,7 +13,7 @@ interface SigninFormWrapperProps {
   text2: string;
   text3: string;
   text4: string;
-  textButoons: string;
+  textButons: string;
 }
 
 export default function SigninFormWrapper({
@@ -23,7 +23,7 @@ export default function SigninFormWrapper({
   text2,
   text3,
   text4,
-  textButoons,
+  textButons,
 }: SigninFormWrapperProps) {
   return (
     <div className="flex flex-col items-center justify-center text-white">
@@ -39,7 +39,7 @@ export default function SigninFormWrapper({
               text2={text2}
               text3={text3}
               text4={text4}
-              textButoons={textButoons}
+              textButons={textButons}
               btnText={btnText}
               fields={fields}
               isLoading={isLoading}></AuthComplement>

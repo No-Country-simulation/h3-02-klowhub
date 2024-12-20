@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { type PointerEvent, useCallback, useState } from 'react';
-import { Carousel, CarouselContent, CarouselItem } from '@core/components/Carrusel';
+import { Carousel, CarouselContent, CarouselItem } from '@core/components/Carousel';
 import { Link } from '@core/lib/i18nRouting';
 import { cn } from '@core/lib/utils';
 import css from './videolesson.module.css';

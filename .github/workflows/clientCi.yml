@@ -3,8 +3,6 @@ name: ClientCI
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["*"]
   workflow_dispatch:
 
 concurrency:
@@ -16,66 +14,79 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-    name: Run all tests
+    name: 📐 Run all tests
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 🔄 Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🖥️ Setup/ Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup/ Install pnpm 9.7.0 manually
+      - name: 🛠️ Setup/ Install pnpm 9.7.0 manually
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
-      - name: Install dependencies
+      - name: 🛠️ Setup/ Install dependencies
         working-directory: ./client
         run: pnpm i --ignore-scripts
 
-      - name: Run Linter
+      - name: 📐 Run Linter
         working-directory: ./client
         run: pnpm lint
 
-      - name: Run CSS Linter
+      - name: 📐 Run CSS Linter
         working-directory: ./client
         run: pnpm lint:css
 
-      - name: Run Types check
+      - name: 📐 Run Types check
         working-directory: ./client
         run: pnpm types:check
 
   build:
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
-    name: Build with ${{ matrix.node-version }}
+        node-version: [20.x]
+    name: 🔨 Build with ${{ matrix.node-version }}
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 🔄 Checkout code
+        uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🖥️ Setup/ Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup/ Install pnpm 9.7.0 manually
+      - name: 🛠️ Setup/ Install pnpm 9.7.0 manually
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
-      - name: Install dependencies
+      - name: 🛠️ Install dependencies
         working-directory: ./client
         run: pnpm i --prefer-frozen-lockfile --ignore-scripts
 
-      - name: Run build client
+      - name: 🛠️ Setup/ Install cspell global dependencies
+        working-directory: ./client
+        run: npm i -g cspell @cspell/dict-es-es @cspell/dict-npm @cspell/dict-typescript @cspell/dict-software-terms @cspell/dict-node @cspell/dict-en_us
+
+      - name: 🛠️ Setup/ Install cspell-cli
+        working-directory: ./client
+        run: npm i -g git+https://github.com/streetsidesoftware/cspell-cli
+
+      - name: 📝 Spellcheck
+        run: cspell "**/*.{tsx,ts,js,yml}" --gitignore
+
+      - name: 🔨 Run build client
         working-directory: ./client
         run: pnpm build
 
-      - name: Run prune
+      - name: 🛡️ Run prune
         working-directory: ./client
         run: pnpm prune --prod --ignore-scripts

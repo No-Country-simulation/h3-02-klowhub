@@ -7,7 +7,7 @@ import InquiriesCarouselWrapper from './InquiriesCarouselWrapper';
 import CardInquiries from '../CardInquiries/CardInquiries';
 import HeadInquiries from '../HeaderInquiries/HeadInquiries';
 
-export default async function SectionIquiris() {
+export default async function SectionInquiries() {
   const t = await getTranslations<'Platform'>('Platform');
   const inquiries = await getContent<InquiriesCardType[]>(
     '/json/recommended-inquiries.json',

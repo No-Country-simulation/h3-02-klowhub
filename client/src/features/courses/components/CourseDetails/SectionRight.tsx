@@ -6,7 +6,7 @@ import type { CreatorCourseType } from '@features/courses/schemas/creator-course
 import Badge from '@root/src/core/components/Badge/Index';
 import Button from '@root/src/core/components/Button';
 
-interface SectionRigthProps {
+interface SectionRightProps {
   creator: CreatorCourseType;
   platform: string;
   isBuy?: boolean;
@@ -23,13 +23,13 @@ interface SectionRigthProps {
   };
 }
 //
-export const SectionRigth = ({
+export const SectionRight = ({
   creator,
   platform,
   isBuy,
   courseId,
   translations,
-}: SectionRigthProps) => {
+}: SectionRightProps) => {
   return (
     <div className="w-full lg:ml-9 lg:w-3/12">
       {/* Sobre el instructor */}

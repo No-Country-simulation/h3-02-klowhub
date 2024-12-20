@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from '@core/components/Button';
-import type { FieldType } from '@core/types/fields';
+import type { FieldType } from '@core/models/fields.type';
 
 interface AuthComplementProps {
   btnText: string;
@@ -11,11 +11,11 @@ interface AuthComplementProps {
   text2: string;
   text3: string;
   text4: string;
-  textButoons: string;
+  textButons: string;
 }
 
 function AuthComplement(AuthComplementProps: AuthComplementProps) {
-  const { btnText, fields, isLoading, text1, text2, text3, text4, textButoons } =
+  const { btnText, fields, isLoading, text1, text2, text3, text4, textButons } =
     AuthComplementProps;
   return (
     <div className="flex flex-col items-center gap-6">
@@ -45,7 +45,7 @@ function AuthComplement(AuthComplementProps: AuthComplementProps) {
         {btnText}
       </Button>
       <div className="flex flex-col items-center gap-6">
-        <p className="text-sm font-bold text-white">{textButoons}</p>
+        <p className="text-sm font-bold text-white">{textButons}</p>
         <div className="flex flex-row gap-6 opacity-70">
           <Button variant="ghost" size="fit" disabled className="pointer-events-none select-none">
             <Image

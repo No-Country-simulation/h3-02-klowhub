@@ -6,18 +6,18 @@ interface H2SimpleSectionProps {
   title: string;
   children: ReactNode;
   className?: string;
-  titleVariant?: 'textbase' | 'textxl';
+  titleVariant?: 'textBase' | 'textXl';
 }
 
 const h2SimpleSectionStyle = cva('text-white', {
   variants: {
     title: {
-      textbase: 'font-semibold text-base',
-      textxl: 'font-bold text-xl',
+      textBase: 'font-semibold text-base',
+      textXl: 'font-bold text-xl',
     },
   },
   defaultVariants: {
-    title: 'textbase',
+    title: 'textBase',
   },
 });
 
@@ -25,7 +25,7 @@ export default function H2SimpleSection({
   title,
   children,
   className = '',
-  titleVariant = 'textbase',
+  titleVariant = 'textBase',
 }: H2SimpleSectionProps) {
   return (
     <div className={cn('space-y-5', className)}>

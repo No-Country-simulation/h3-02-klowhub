@@ -15,8 +15,6 @@ interface LessonItemProps {
 
 export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
   const lessonId = lesson?.['_id'] || lesson.id;
-  console.log(lessonId, 'lessonkey');
-  console.log(moduleId, 'moduleIdkey2');
   const [lessonActive, setActiveLesson] = useRouterQueryState('lessonActive', '');
   const activeLesson = useMemo(
     () => ({
@@ -31,8 +29,8 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
     [activeLesson.id, moduleId]
   );
   const isActive = activeLesson.id === lessonId;
-  const isViewdAndNotActive = lesson.isViewd && !isActive;
-  const color = isViewdAndNotActive ? '#fff' : isActive ? '#B95ED4' : '#fff';
+  const isViewedAndNotActive = lesson.isViewd && !isActive;
+  const color = isViewedAndNotActive ? '#fff' : isActive ? '#B95ED4' : '#fff';
 
   return (
     <motion.div
@@ -55,7 +53,7 @@ export default function LessonItem({ lesson, moduleId }: LessonItemProps) {
             <span className="truncate">{lesson.name}</span>
             <AnimatePresence>
               {/*
-              isViewdAndNotActive && (
+              isViewedAndNotActive && (
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}

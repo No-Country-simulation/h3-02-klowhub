@@ -1,7 +1,7 @@
  
 import { z } from 'zod';
 import { randomUUID } from 'crypto';
-import type { ActionResponse } from '../types/actionResponse';
+import type { ActionResponse } from '../models/actionResponse.type';
 
 /**
  * Validacion generica de esquema de zod

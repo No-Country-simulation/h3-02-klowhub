@@ -5,7 +5,7 @@ import CheckList from '@core/components/CheckList';
 import H2SimpleSection from '@core/components/H2SimpleSection';
 import ShowMore from '@core/components/ShowMore';
 import type { Locale } from '@core/lib/i18nRouting';
-import type { CourseDetailsType } from '@features/courses/types/coursedetails.types';
+import type { CourseDetailsType } from '@features/courses/models/coursedetails.types';
 import VideoPlayer from '../VideoPlayer';
 
 interface MainContentProps {
@@ -115,17 +115,17 @@ export const MainContent = ({
         </div>*/}
 
           {creatorWhyLearning ? (
-            <H2SimpleSection title={t('whyLearnWith')} titleVariant="textxl">
+            <H2SimpleSection title={t('whyLearnWith')} titleVariant="textXl">
               <p className="text-sm font-normal text-white">{creatorWhyLearning}</p>
             </H2SimpleSection>
           ) : null}
-          <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textxl">
+          <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textXl">
             <p className="text-sm font-normal text-white">{course.followUp}</p>
           </H2SimpleSection>
-          <H2SimpleSection title={t('requirements')} titleVariant="textxl">
+          <H2SimpleSection title={t('requirements')} titleVariant="textXl">
             <CheckList items={course.prerequisites} />
           </H2SimpleSection>
-          <H2SimpleSection title={t('whatIncludes')} titleVariant="textxl">
+          <H2SimpleSection title={t('whatIncludes')} titleVariant="textXl">
             <CheckList items={course.contents} />
           </H2SimpleSection>
         </div>

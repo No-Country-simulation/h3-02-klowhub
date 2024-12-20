@@ -20,7 +20,7 @@ const PaymentSummary: React.FC<PaymentSummaryProps> = ({
   discount = 0,
   paymentMethods,
 }) => {
-  const t = useTranslations<'SumaryCart'>('SumaryCart');
+  const t = useTranslations<'SummaryCart'>('SummaryCart');
   const cart = useAtomValue(cartStoreAtom);
   const price = cart.reduce((acc, item) => acc + parseFloat(item.price as string), 0);
   const fee = price > 0 ? serviceFee : 0;

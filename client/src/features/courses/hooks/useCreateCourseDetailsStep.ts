@@ -1,8 +1,8 @@
 import { useAtom } from 'jotai';
 import { type FormEvent, useActionState, useCallback, useEffect, useTransition } from 'react';
 import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
-import type { ActionResponse } from '@coreTypes/actionResponse';
-import { CreateCourseTriggers } from '../models/enums/createCourseEnums';
+import type { ActionResponse } from '@core/models/actionResponse.type';
+import { CreateCourseTriggers } from '../models/enums/createCourseEnums.enum';
 import createCourseDetails from '../service/createCourseDetails';
 import { courseCreationStore } from '../store/courseCreationStore';
 

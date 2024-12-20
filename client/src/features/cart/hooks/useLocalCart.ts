@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai';
 import { useCallback } from 'react';
 import { cartStoreAtom } from '@features/cart/store/cart.store';
-import type { CourseCart } from '@features/courses/types/courseCart';
+import type { CourseCart } from '@features/courses/models/courseCart.type';
 
 export const useLocalCart = () => {
   const [stored, setStored] = useAtom(cartStoreAtom);

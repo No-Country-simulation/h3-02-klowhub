@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@core/lib/i18nRouting';
 import CreateCourseForm from '@features/courses/components/CreateCourseForm';
-import type { CourseFields } from '@features/courses/models/courseFields';
+import type { CourseFields } from '@features/courses/models/courseFields.type';
 import { CreateCourseTriggers } from '@features/courses/models/enums/createCourseEnums';
 
 export default async function CreatorCoursesPage({

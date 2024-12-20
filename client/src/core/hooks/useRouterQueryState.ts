@@ -2,7 +2,7 @@ import { useSearchParams } from 'next/navigation';
 import { type IStringifyOptions, parse, stringify } from 'qs';
 import { useCallback, useEffect, useState } from 'react';
 import { equalsObj } from '@core/services/equality.service';
-import type { DeserializerFunction, SerializerFunction } from '@coreTypes/routerQueryState.types';
+import type { DeserializerFunction, SerializerFunction } from '@core/models/routerQueryState.types';
 import { usePathname, useRouter } from '../lib/i18nRouting';
 
 interface Options {

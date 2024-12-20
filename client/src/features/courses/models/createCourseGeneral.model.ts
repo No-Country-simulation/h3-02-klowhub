@@ -3,7 +3,7 @@ import {
   CourseMonetizable,
   CoursePlatform,
   CourseType,
-} from './enums/createCourseEnums';
+} from './enums/createCourseEnums.enum';
 
 export const createCourseGeneralModel = {
   courseMonetizable: (labels: string[]) => [

@@ -3,7 +3,7 @@ import CardsFlexContainer from '@core/components/CardsFlexContainer';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
 import { getContent } from '@core/services/getContent';
 import CourseCard from '@features/courses/components/CourseCard';
-import CourseCarouselWraperCreator from './CourseCarouselWraper';
+import CourseCarouselWrapperCreator from './CourseCarouselWrapper';
 
 export default async function CardCreateCourse() {
   const courses = await getContent<CourseCardType[]>('/json/recommended-courses.json');
@@ -32,7 +32,7 @@ export default async function CardCreateCourse() {
           />
         )}
       </CardsFlexContainer>
-      <CourseCarouselWraperCreator
+      <CourseCarouselWrapperCreator
         courses={courses}
         addToCart={t('addToCart')}
         viewDetails={t('viewDetails')}

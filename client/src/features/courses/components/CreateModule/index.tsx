@@ -2,7 +2,7 @@
 import Button from '@core/components/Button';
 import FileUpload from '@core/components/FileUpload/Index';
 import FormField from '@core/components/FormField';
-import { ACCEPTED_VIDEO_SOURCE } from '@features/courses/models/allowedResources';
+import { ACCEPTED_VIDEO_SOURCE } from '@features/courses/models/allowedResources.model';
 import type { ModuleType } from '@features/courses/store/courseCreationStore';
 import CreateFormPart from '../CreateFormPart';
 

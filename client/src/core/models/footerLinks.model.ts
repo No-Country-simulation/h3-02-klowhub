@@ -1,4 +1,4 @@
-import type { TranslationType } from '@coreTypes/translationType';
+import type { TranslationType } from '@core/models/translationType.type';
 
 export const categories = (t: TranslationType<'Footer'>) => [
   { href: '/courses', label: t('categoryCourses') },

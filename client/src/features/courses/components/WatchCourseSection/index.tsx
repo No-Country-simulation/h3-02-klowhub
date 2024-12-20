@@ -1,6 +1,6 @@
 import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
-import type { CourseDetailsType } from '@features/courses/types/coursedetails.types';
+import type { CourseDetailsType } from '@features/courses/models/coursedetails.types';
 import VideoLessons from '../VideoLessons';
 import WatchCourseNavigator from '../WatchCourseNavigator';
 import WatchVideoWrapper from '../WatchVideoWrapper';

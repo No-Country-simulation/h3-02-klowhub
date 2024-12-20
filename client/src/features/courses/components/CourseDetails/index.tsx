@@ -1,12 +1,12 @@
 import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
+import type { CourseDetailsType } from '@features/courses/models/coursedetails.types';
 import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
-import type { CourseDetailsType } from '@features/courses/types/coursedetails.types';
 import CourseSection from '@features/home/components/CourseSection';
 import { Breadcrumb } from '@root/src/features/home/components/Courses/Breadcrumb';
 import { MainContent } from './MainContent';
-import { SectionRigth } from './SectionRigth';
+import { SectionRight } from './SectionRight';
 //import { use } from 'react';
 //import env from '@root/env.config';
 
@@ -53,7 +53,7 @@ export default async function CourseDetails({ courseId, locale }: CourseDetailsP
         />
 
         {/* Columna derecha: Sobre el instructor y Programa del curso */}
-        <SectionRigth
+        <SectionRight
           courseId={courseId}
           isBuy={true}
           creator={creator}

@@ -2,8 +2,8 @@
 
 import { type FormEvent, type ReactNode, useActionState, useEffect, useTransition } from 'react';
 import { cn } from '@core/lib/utils';
-import type { ActionResponse, OnSubmitType } from '@core/types/actionResponse';
-import type { FieldType } from '@core/types/fields';
+import type { ActionResponse, OnSubmitType } from '@core/models/actionResponse.type';
+import type { FieldType } from '@core/models/fields.type';
 import RenderFields from '../RenderFields';
 
 interface FormComponentProps {

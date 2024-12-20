@@ -2,7 +2,7 @@ import Button from '@core/components/Button';
 import FileUpload from '@core/components/FileUpload/Index';
 import FormOutComes from '@core/components/FormOutComes';
 import { useCreateCourseDetailsStep } from '@features/courses/hooks/useCreateCourseDetailsStep';
-import type { CourseDetailsFields } from '@features/courses/models/courseFields';
+import type { CourseDetailsFields } from '@features/courses/models/courseFields.type';
 import CreateFormPart from '../CreateFormPart';
 
 interface CourseDetailsFormStepProps {

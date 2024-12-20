@@ -1,9 +1,9 @@
 import { Link } from '@core/lib/i18nRouting';
-import type { TranslationType } from '@core/types/translationType';
+import type { TranslationType } from '@core/models/translationType.type';
 import { ToastContainer } from '@features/toast/provider/ToastContainer';
 import StaticLoginForm from './StaticLoginForm';
 import SigninFormWrapper from './wrapper';
-import { signinField } from '../../constants/fields';
+import { signinField } from '../../models/fields.model';
 
 interface SigninFormProps {
   btnText: string;
@@ -13,7 +13,7 @@ interface SigninFormProps {
   text2: string;
   text3: string;
   text4: string;
-  textButoons: string;
+  textButons: string;
   textpreLinkin: string;
 }
 
@@ -25,7 +25,7 @@ export default function SigninForm({
   text2,
   text3,
   text4,
-  textButoons,
+  textButons,
   textpreLinkin,
 }: SigninFormProps) {
   const fields = signinField(fieldsTranslate);
@@ -36,7 +36,7 @@ export default function SigninForm({
         text2={text2}
         text3={text3}
         text4={text4}
-        textButoons={textButoons}
+        textButons={textButons}
         btnText={btnText}
         fields={fields}
       />

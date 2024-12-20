@@ -10,8 +10,8 @@ import {
   useTransition,
 } from 'react';
 import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
-import type { ActionResponse } from '@coreTypes/actionResponse';
-import { CreateCourseTriggers } from '../models/enums/createCourseEnums';
+import type { ActionResponse } from '@core/models/actionResponse.type';
+import { CreateCourseTriggers } from '../models/enums/createCourseEnums.enum';
 import createCourseGeneral from '../service/createCourseGeneral';
 import { courseCreationStore } from '../store/courseCreationStore';
 

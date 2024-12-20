@@ -1,0 +1,289 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "dictionaries": [
+        "typescript",
+        "node",
+        "npm",
+        "es-es",
+        "softwareTerms",
+        "en_us",
+        "es_es",
+        "fr-fr",
+        "it-it"
+    ],
+    "allowCompoundWords": true,
+    "caseSensitive": false,
+    "minWordLength": 3,
+    "ignoreRegExpList": [
+        "key=\\{`[a-z]+-\\$\\{.*?\\}`\\}",
+        "className=\\{`[a-z]+-\\$\\{.*?\\}`\\}",
+        "^([./])",
+        "^(https?:\\/\\/|www\\.)",
+        "@.*",
+        "#.*",
+        "pk_live_[a-zA-Z0-9]+",
+        "src=\"[^\"]+\"",
+        "className=\"[^\"]+\"",
+        "id=\"[^\"]+\"",
+        "path:\\s*'[^']+'"
+    ],
+    "ignorePaths": [
+        "node_modules/**",
+        "dist/**",
+        ".vscode",
+        "public",
+        ".husky",
+        "**/coverage/**",
+        "**/*.d.ts",
+        "**/*.min.js",
+        "**/*.log",
+        ".env*",
+        "*.lock",
+        "*-lock.*",
+        "setup-husky.js"
+    ],
+    "words": [
+        "cspell",
+        "eslint",
+        "config",
+        "jsx",
+        "webpack",
+        "tsx",
+        "btn",
+        "middleware",
+        "frontend",
+        "backend",
+        "nodejs",
+        "childs",
+        "chartjs",
+        "next",
+        "react",
+        "Klowhub",
+        "fav",
+        "hsl",
+        "crm",
+        "vjs",
+        "videojs",
+        "noopener",
+        "noreferrer",
+        "opps",
+        "dvh",
+        "favbutton",
+        "emblema",
+        "cqw",
+        "biograophy",
+        "desc",
+        "Português",
+        "Etherium",
+        "Leam",
+        "Perfiltitulodec",
+        "embla",
+        "Viewd"
+    ],
+    "patterns": [
+        {
+            "name": "camelCase",
+            "pattern": "[a-z][a-zA-Z0-9]*"
+        },
+        {
+            "name": "kebabCase",
+            "pattern": "[a-z]+(?:-[a-z]+)*"
+        },
+        {
+            "name": "snakeCase",
+            "pattern": "[a-z]+(?:_[a-z]+)*"
+        },
+        {
+            "name": "ignoreKeyNames",
+            "ignoreRegExpList": [
+                "key=\\{`[a-z]+-\\$\\{.*?\\}`\\}"
+            ]
+        }
+    ],
+    "overrides": [
+        {
+            "filename": "**/*.json",
+            "dictionaries": [
+                "json"
+            ]
+        }
+    ],
+    "languageSettings": [
+        {
+            "languageId": "typescript",
+            "dictionaries": [
+                "typescript",
+                "es-es",
+                "english-comments",
+                "softwareTerms"
+            ],
+            "includeRegExpList": [
+                "/\\/\\/.*$/",
+                "/\\/\\*[\\s\\S]*?\\*\\//"
+            ]
+        },
+        {
+            "languageId": "plaintext",
+            "dictionaries": [
+                "es-es",
+                "english-comments"
+            ]
+        },
+        {
+            "languageId": "markdown",
+            "dictionaries": [
+                "es-es",
+                "english"
+            ]
+        }
+    ],
+    "dictionaryDefinitions": [
+        {
+            "name": "en_us",
+            "path": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/en_US/en_US.trie",
+            "description": "Allow English"
+        },
+        {
+            "name": "es-es",
+            "path": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/es_ES/Spanish.trie",
+            "description": "Spanish Dictionary (Spain)",
+            "dictionaryInformation": {
+                "locale": "es-ES",
+                "alphabet": "a-zA-ZóíjáéñúüÓÍÁÉÑÚÜ",
+                "suggestionEditCosts": [
+                    {
+                        "map": "eéèëêEÉ|aáàAÁ|iíìïîIÍ|oóòöôOÓ|uüúùûUÚÜ",
+                        "replace": 1
+                    },
+                    {
+                        "map": "(ás)(az)|(cc)(x)|(és)(ez)|(güe)(hue)|(güi)(hui)",
+                        "replace": 75
+                    },
+                    {
+                        "map": "(ís)(iz)|(ío)(ido)|(ke)(que)|(ki)(qui)",
+                        "replace": 75
+                    },
+                    {
+                        "map": "(ll)(y)|(mb)(nv)|(seci)(cesi)|(vámonos)(vayámonos)",
+                        "replace": 75
+                    }
+                ]
+            }
+        },
+        {
+            "name": "node",
+            "path": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/node/dict/node.txt",
+            "description": "Common Node.js terms"
+        },
+        {
+            "name": "npm",
+            "path": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/npm/dict/npm.txt",
+            "description": "Common NPM terms"
+        },
+        {
+            "name": "softwareTerms",
+            "path": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/software-terms/dict/softwareTerms.txt",
+            "description": "Common software and programming terms"
+        },
+        {
+            "name": "typescript",
+            "path": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/typescript/dict/typescript.txt",
+            "description": "Common Typescript terms"
+        },
+        {
+            "name": "it-it",
+            "parh": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/it_IT/dict/it-it.trie"
+        },
+        {
+            "name": "fr-fr",
+            "path": "https://raw.githubusercontent.com/streetsidesoftware/cspell-dicts/main/dictionaries/fr_FR/fr-fr.trie",
+            "repMap": [
+                [
+                    "'",
+                    "’"
+                ],
+                [
+                    "ﬃ",
+                    "ffi"
+                ],
+                [
+                    "ﬄ",
+                    "ffl"
+                ],
+                [
+                    "ﬀ",
+                    "ff"
+                ],
+                [
+                    "ﬅ",
+                    "ft"
+                ],
+                [
+                    "ﬁ",
+                    "fi"
+                ],
+                [
+                    "ﬂ",
+                    "fl"
+                ],
+                [
+                    "ﬆ",
+                    "st"
+                ],
+                [
+                    "ſ",
+                    "s"
+                ]
+            ],
+            "dictionaryInformation": {
+                "locale": "fr-FR",
+                "alphabet": "a-zA-ZÀÂÄÅÇÈÉÊËÎÏÔÖÙÛÜàáâãäæçèéêëíîïñóôöùûüÿńŒœś",
+                "suggestionEditCosts": [
+                    {
+                        "map": "AÀÂÄÅ|CÇ|EÈÉÊË|IÎÏ|OÔÖ|UÙÛÜ|aàáâãä|(ae)æ|cç|eèéêë|iíîï|nñń|oóôö|uùûü|yÿ|Œ(OE)|sś|(oe)œ",
+                        "replace": 1
+                    },
+                    {
+                        "map": "cçs(sc)(ss)|CÇS|kcq(cc)(ch)|(ch)(sch)(sh)|KCQ|t(tt)(th)(pt)|x(xc)|zs",
+                        "replace": 75
+                    },
+                    {
+                        "description": "Silent Endings: https://en.wikipedia.org/wiki/French_orthography#Spelling_to_sound_correspondences",
+                        "map": "$(b$)|$(d$)|$(g$)|$(l$)|$(p$)|$(pt$)|$(s$)|$(st$)|$(t$)|$(x$)|$(z$)",
+                        "replace": 75
+                    },
+                    {
+                        "description": "https://en.wikipedia.org/wiki/French_orthography#Spelling_to_sound_correspondences",
+                        "map": "bp(pp)(bb)|(gn)n|gj|(ti)(si)",
+                        "replace": 75
+                    },
+                    {
+                        "map": "(^l)(^l')|(^d)(^d')|(^n)(^n')|(^s)(^s')|(^j)(^j')|(^m)(^m')|(^t)(^t')|(^c)(^c')",
+                        "replace": 50
+                    },
+                    {
+                        "map": "f(ph)|c(qu)(que)|k(qu)(que)|x(ct)|(bb)b|(cc)c|(ff)f|(ll)l|(mm)m|(nn)n|(pp)p|(rr)r|(ss)s|(ss)c|(ss)ç|(tt)t",
+                        "replace": 50
+                    },
+                    {
+                        "map": "(ai)éèê|(ei)éèê|o(au)(eau)|(ett)(èt)(et)|(ell)(èl)(el)|t(th)",
+                        "replace": 50
+                    },
+                    {
+                        "map": "(^Ca$)(^Ça$)",
+                        "replace": 1
+                    },
+                    {
+                        "map": "(ième$)(e$)|(ème$)(e$)|(è$)(e$)|(mn$)(min$)|(ct$)(t$)",
+                        "replace": 50
+                    },
+                    {
+                        "map": "(ogue$)(ogiste$)|(ogiste$)(ogue$)|(disez$)(dites$)|(fesez$)(faites$)|(faisez$)(faites$)|(puit)(puits)",
+                        "replace": 75
+                    }
+                ]
+            }
+        }
+    ]
+}

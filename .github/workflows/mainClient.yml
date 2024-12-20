@@ -21,41 +21,42 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 🔄 Checkout code
+        uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🖥️ Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup/ Install pnpm 9.7.0 manually
+      - name: 🛠️ Setup/ Install pnpm 9.7.0 manually
         working-directory: ./client
         run: npm install -g pnpm@9.7.0
 
       # 1. Autenticarse con google cloud
-      - name: Authenticate to Google Cloud
+      - name: 🔑 Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
           project_id: "${{ secrets.GCLOUD_PROJECT_ID }}"
           credentials_json: "${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}"
 
       # 2. Set up Google Cloud SDK
-      - name: Set up Google Cloud SDK
+      - name: ☁️ Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
       # 3. Exportar la región como variable de entorno
-      - name: Export region
+      - name: 🌍 Export region
         working-directory: ./client
         run: echo "GCLOUD_REGION=${{ secrets.GCLOUD_REGION }}" >> $GITHUB_ENV
 
       # 4. Autenticarse con Artifact Registry
-      - name: Authenticate with Artifact Registry
+      - name: 🔒 Authenticate with Artifact Registry
         working-directory: ./client
         run: |
           gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
 
       # 5. Construir la imagen Docker
-      - name: Build Docker image
+      - name: 🛠️ Build Docker image
         working-directory: ./client
         run: |
           docker build \
@@ -65,7 +66,7 @@ jobs:
             -t $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }} .
 
       # 6.5. Limpiar imágenes antiguas
-      - name: Cleanup Old Images
+      - name: 🧹 Cleanup Old Images
         working-directory: ./client
         run: |
           TAGS=$(gcloud container images list-tags \
@@ -89,15 +90,13 @@ jobs:
           fi
 
       # 6. Subir la imagen a Artifact Registry
-      - name: Push Docker image
+      - name: ⬆️ Push Docker image
         working-directory: ./client
         run: |
           docker push $GCLOUD_REGION-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/klowhubnext-client/klowhub-client:${{ github.sha }}
 
-      
-
       # 7. Desplegar a Cloud Run
-      - name: Deploy to Cloud Run
+      - name: 🚀 Deploy to Cloud Run
         working-directory: ./client
         run: |
           gcloud run deploy klowhub \

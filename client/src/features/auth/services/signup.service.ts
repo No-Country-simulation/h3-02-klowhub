@@ -3,9 +3,9 @@ import { cookies } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@core/lib/i18nRouting';
 import { validateSchema } from '@core/services/validateSchema';
-import type { ActionResponse } from '@core/types/actionResponse';
+import type { ActionResponse } from '@core/models/actionResponse.type';
 import env from '@root/env.config';
-import { signupSchema } from '../validation/schemas';
+import { signupSchema } from '../schemas/schemas';
 
 export async function signup(
   _state: unknown,

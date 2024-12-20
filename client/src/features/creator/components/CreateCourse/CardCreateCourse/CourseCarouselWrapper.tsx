@@ -4,17 +4,17 @@ import CardsFlexCarousel from '@core/components/CardsFlexCarousel';
 import type { CourseCardType } from '@core/schemas/course-card.schema';
 import CourseCard from '@features/courses/components/CourseCard';
 
-interface CourseCarouselWraperProps {
+interface CourseCarouselWrapperCreatorProps {
   courses: CourseCardType[];
   addToCart: string;
   viewDetails: string;
 }
 
-export default function CourseCarouselWraperCreator({
+export default function CourseCarouselWrapperCreator({
   courses,
   addToCart,
   viewDetails,
-}: CourseCarouselWraperProps) {
+}: CourseCarouselWrapperCreatorProps) {
   return (
     <CardsFlexCarousel items={courses}>
       {(item, i) => (

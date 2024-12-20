@@ -8,7 +8,7 @@ import type { Locale } from '@core/lib/i18nRouting';
 import { getContent } from '@core/services/getContent';
 import { getPlatformLogo } from '@core/services/getPlatformLogo';
 import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
-import type { CourseDetailsType } from '../../types/coursedetails.types';
+import type { CourseDetailsType } from '../../models/coursedetails.types';
 
 interface WatchCourseDetailSectionProps {
   courseId: string | number;
@@ -94,16 +94,16 @@ export default async function WatchCourseDetailSection({
         </H2SimpleSection>
         <H2SimpleSection
           title={t('whyLearnWith', { creatorName: creator.firstName })}
-          titleVariant="textxl">
+          titleVariant="textXl">
           <p className="text-sm font-normal text-white">{creator.biograophy}</p>
         </H2SimpleSection>
-        <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textxl">
+        <H2SimpleSection title={t('whoIsThisFor')} titleVariant="textXl">
           <p className="text-sm font-normal text-white">{courseDetail.purpose}</p>
         </H2SimpleSection>
-        <H2SimpleSection title={t('requirements')} titleVariant="textxl">
+        <H2SimpleSection title={t('requirements')} titleVariant="textXl">
           <CheckList items={courseDetail.prerequisites} />
         </H2SimpleSection>
-        <H2SimpleSection title={t('whatIncludes')} titleVariant="textxl">
+        <H2SimpleSection title={t('whatIncludes')} titleVariant="textXl">
           <CheckList items={courseDetail.followUp} />
         </H2SimpleSection>
       </section>

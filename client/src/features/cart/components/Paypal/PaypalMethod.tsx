@@ -1,7 +1,7 @@
 'use client';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 
-function PaypalMetod() {
+function PaypalMethod() {
   const clientId: string = process.env.NEXT_PUBLIC_CLIENT_ID!;
   return (
     <div className="flex items-center justify-center">
@@ -46,4 +46,4 @@ function PaypalMetod() {
   );
 }
 
-export default PaypalMetod;
+export default PaypalMethod;

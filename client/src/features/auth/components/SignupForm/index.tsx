@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import type { TranslationType } from '@core/types/translationType';
+import type { TranslationType } from '@core/models/translationType.type';
 import SignupFormWrapper from './wrapper';
-import { signupFields } from '../../constants/fields';
+import { signupFields } from '../../models/fields.model';
 
 interface SignupFormProps {
   btnText: string;
@@ -11,7 +11,7 @@ interface SignupFormProps {
   text2: string;
   text3: string;
   text4: string;
-  textButoons: string;
+  textButons: string;
   textpreLink: string;
 }
 
@@ -23,7 +23,7 @@ export default function SignupForm({
   text2,
   text3,
   text4,
-  textButoons,
+  textButons,
   textpreLink,
 }: SignupFormProps) {
   const fields = signupFields(fieldsTranslate);
@@ -34,7 +34,7 @@ export default function SignupForm({
         text2={text2}
         text3={text3}
         text4={text4}
-        textButoons={textButoons}
+        textButons={textButons}
         btnText={btnText}
         fields={fields}
       />

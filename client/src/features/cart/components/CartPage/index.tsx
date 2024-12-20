@@ -6,7 +6,7 @@ import CourseCartList from '../CartList';
 import PaymentSummary from '../PaymentSummary';
 
 const CartSection = async () => {
-  const t = await getTranslations<'SumaryCart'>('SumaryCart');
+  const t = await getTranslations<'SummaryCart'>('SummaryCart');
   const ct = await getTranslations<'Common'>('Common');
 
   return (

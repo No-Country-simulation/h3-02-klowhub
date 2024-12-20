@@ -1,4 +1,4 @@
-import { type ApiErrorType, type ApiResultType } from '@coreTypes/actionResponse';
+import { type ApiErrorType, type ApiResultType } from '@core/models/actionResponse.type';
 import env from '@root/env.config';
 
 const handleError = (error: Error, status?: number): ApiErrorType => {

@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@core/lib/i18nRouting';
-import { signOut } from '@features/auth/service/signout.service';
+import { signOut } from '@features/auth/services/signout.service';
 import type { CreatorCourseType } from '@features/courses/schemas/creator-course.schemas';
 import Button from '../Button';
 import {

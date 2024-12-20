@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { type Locale, routing, usePathname } from '@core/lib/i18nRouting';
-import { localesLabel } from '@core/models/localeLabels';
+import { localesLabel } from '@core/models/localeLabels.model';
 import {
   DropdownMenu,
   DropdownMenuContent,
