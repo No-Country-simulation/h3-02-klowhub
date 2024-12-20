@@ -81,6 +81,7 @@ jobs:
         run: npm i -g git+https://github.com/streetsidesoftware/cspell-cli
 
       - name: 📝 Spellcheck
+        working-directory: ./client
         run: cspell "**/*.{tsx,ts,js,yml}" --gitignore
 
       - name: 🔨 Run build client
