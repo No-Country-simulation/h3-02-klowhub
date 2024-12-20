@@ -5,7 +5,7 @@ import {
   CourseMonetizable,
   CoursePlatform,
   CourseType,
-} from '../models/enums/createCourseEnums.enum';
+} from '../models/enums/createCourse.enum';
 
 export const createCourseSchema = z.object({
   courseTitle: idSchema.optional(),

@@ -4,7 +4,7 @@ import { Tabs, TabsContent } from '@core/components/Tabs';
 import TabListTrigger from '@core/components/Tabs/TabListTrigger';
 import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
 import type { CourseFields } from '@features/courses/models/courseFields.type';
-import { CreateCourseTriggers } from '@features/courses/models/enums/createCourseEnums';
+import { CreateCourseTriggers } from '@features/courses/models/enums/createCourse.enum';
 import CourseDetailsFormStep from './CourseDetailsFormStep';
 import CourseGeneralFormStep from './CourseGeneralFormStep';
 import CourseModuleFormStep from './CourseModuleFormStep';

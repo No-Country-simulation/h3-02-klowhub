@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { useRouterQueryState } from '@core/hooks/useRouterQueryState';
 import type { ActionResponse } from '@core/models/actionResponse.type';
-import { CreateCourseTriggers } from '../models/enums/createCourseEnums.enum';
+import { CreateCourseTriggers } from '../models/enums/createCourse.enum';
 import createCourseGeneral from '../service/createCourseGeneral';
 import { courseCreationStore } from '../store/courseCreationStore';
 

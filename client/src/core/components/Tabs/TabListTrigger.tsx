@@ -1,7 +1,7 @@
 'use client';
 
 import { useAtom } from 'jotai';
-import { CreateCourseTriggers } from '@features/courses/models/enums/createCourseEnums';
+import { CreateCourseTriggers } from '@features/courses/models/enums/createCourse.enum';
 import { courseCreationStore } from '@features/courses/store/courseCreationStore';
 import TabsList from './TabList';
 import TabsTrigger from './TabTrigger';
