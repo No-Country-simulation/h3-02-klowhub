@@ -378,8 +378,10 @@ Para el frontend, se implementaron dos workflows en GitHub Actions:
 A continuación se muestran los resultados de las auditorías de Lighthouse para evaluar el rendimiento, la accesibilidad y las mejores prácticas de la aplicación tanto en escritorio como en móvil. Estos tests son cruciales para asegurar que la aplicación cumple con los estándares de calidad y proporciona una experiencia óptima al usuario.
 
 - **Resultado en Ordenadores**
+![image](https://github.com/user-attachments/assets/acb57f21-0de4-4385-87b5-3a978d20d268)
 
 - **Resultado en dispositivos mobiles**
+![image](https://github.com/user-attachments/assets/47d7166e-6c03-4e8f-8617-cb1d3b7097cf)
 
 ## Links de interés
 - Deploy: [link](https://klowhub-800663783731.southamerica-east1.run.app/) (Deployado en Google Cloud, puede necesitar mantenimiento)
